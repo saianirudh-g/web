@@ -30,6 +30,7 @@
       margin-bottom: 25px;
     }
 
+    /* HEADER */
     .header {
       text-align: center;
     }
@@ -55,14 +56,8 @@
       animation: typing 4s steps(30, end) forwards, blink 0.75s step-end infinite;
     }
 
-    @keyframes typing {
-      from { width: 0; }
-      to { width: 100%; }
-    }
-
-    @keyframes blink {
-      50% { border-color: transparent; }
-    }
+    @keyframes typing { from { width: 0; } to { width: 100%; } }
+    @keyframes blink { 50% { border-color: transparent; } }
 
     .links a {
       color: #0078ff;
@@ -71,81 +66,64 @@
       margin: 0 10px;
     }
 
-    .links a:hover {
-      text-decoration: underline;
+    /* NEW MENU BUTTON */
+    .menu-container {
+      text-align: center;
+      margin-bottom: 20px;
     }
 
-    /* 3-column dashboard */
-    .dashboard {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      background: #fff;
-      padding: 15px;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      margin-bottom: 25px;
+    .menu-btn {
+      background: #0078ff;
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
     }
 
-    .dashboard button {
+    .menu-btn:hover {
+      background: #005fcc;
+    }
+
+    /* DROPDOWN MENU */
+    .dropdown {
+      display: none;
+      background: white;
+      margin-top: 10px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      padding: 10px 0;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .dropdown button {
+      width: 100%;
       background: none;
       border: none;
-      font-size: 15px;
-      font-weight: bold;
-      color: #0078ff;
+      padding: 12px;
+      font-size: 16px;
       cursor: pointer;
-      padding: 10px 12px;
-      border-radius: 8px;
-      transition: 0.3s;
-      text-align: center;
+      text-align: left;
+      padding-left: 20px;
+      transition: 0.2s;
     }
 
-    .dashboard button:hover,
-    .dashboard button.active {
+    .dropdown button:hover {
       background: #0078ff;
       color: white;
     }
 
-    .tab-content {
-      display: none;
-    }
-
-    .tab-content.active {
-      display: block;
-    }
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
-    }
-
-    .project-card {
-      background: #f9f9f9;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      padding: 15px;
-      text-align: center;
-    }
-
-    .contact-form input,
-    .contact-form textarea {
-      width: 100%;
-      padding: 10px;
-      margin: 8px 0;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-    }
-
-    .contact-form button {
-      background: #0078ff;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-    }
+    /* TAB CONTENT */
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
 
     footer {
       text-align: center;
@@ -159,9 +137,8 @@
 
 <div class="container">
 
-  <!-- HEADER WITH PROFILE PHOTO -->
+  <!-- HEADER -->
   <div class="card header">
-    <!-- IMPORTANT: put profile.jpg in the SAME folder as index.html -->
     <img src="profile.jpg" alt="Sai Anirudh Photo">
     <h1 class="typing">I’m Sai Anirudh Godavarthi</h1>
     <p>Software Tester • Masters in Electrical and Computer Engineering</p>
@@ -172,30 +149,29 @@
     </div>
   </div>
 
-  <!-- 3-LINE DASHBOARD TABS -->
-  <div class="dashboard">
-    <button class="tab-btn active" onclick="openTab('about', this)">About</button>
-    <button class="tab-btn" onclick="openTab('skills', this)">Skills</button>
-    <button class="tab-btn" onclick="openTab('projects', this)">Projects</button>
-    <button class="tab-btn" onclick="openTab('presentations', this)">Presentations</button>
-    <button class="tab-btn" onclick="openTab('documents', this)">Documents</button>
-    <button class="tab-btn" onclick="openTab('education', this)">Education</button>
-    <button class="tab-btn" onclick="openTab('achievements', this)">Achievements</button>
-    <button class="tab-btn" onclick="openTab('certifications', this)">Certifications</button>
-    <button class="tab-btn" onclick="openTab('contact', this)">Contact</button>
+  <!-- SINGLE MENU BUTTON -->
+  <div class="menu-container">
+    <button class="menu-btn" onclick="toggleMenu()">☰ Menu</button>
+
+    <div class="dropdown" id="dropdownMenu">
+      <button onclick="openTab('about')">About</button>
+      <button onclick="openTab('skills')">Skills</button>
+      <button onclick="openTab('projects')">Projects</button>
+      <button onclick="openTab('presentations')">Presentations</button>
+      <button onclick="openTab('documents')">Documents</button>
+      <button onclick="openTab('education')">Education</button>
+      <button onclick="openTab('achievements')">Achievements</button>
+      <button onclick="openTab('certifications')">Certifications</button>
+      <button onclick="openTab('contact')">Contact</button>
+    </div>
   </div>
 
-  <!-- ABOUT -->
+  <!-- TAB CONTENT SECTIONS -->
   <div class="card tab-content active" id="about">
     <h3>About Me</h3>
-    <p>
-      I am an enthusiastic engineer with experience in Embedded C, STM32, IoT firmware,
-      and automation testing using Selenium, Java, and Python. I enjoy building
-      real-world solutions and exploring hardware–software integration.
-    </p>
+    <p>I am an enthusiastic engineer with experience in Embedded C, STM32, IoT firmware, and automation testing.</p>
   </div>
 
-  <!-- SKILLS -->
   <div class="card tab-content" id="skills">
     <h3>Skills</h3>
     <ul>
@@ -208,84 +184,56 @@
     </ul>
   </div>
 
-  <!-- PROJECTS -->
   <div class="card tab-content" id="projects">
     <h3>Projects</h3>
-    <div class="projects-grid">
-      <div class="project-card">
-        <h4>IoT Smart Home System</h4>
-        <p>Built using STM32 + sensors for automation and monitoring.</p>
-      </div>
-      <div class="project-card">
-        <h4>Automation Test Suite</h4>
-        <p>Selenium-based testing framework for web applications.</p>
-      </div>
-      <div class="project-card">
-        <h4>Personal Portfolio Website</h4>
-        <p>Hosted on GitHub Pages with responsive design.</p>
-      </div>
-    </div>
+    <p>Project details here...</p>
   </div>
 
-  <!-- PRESENTATIONS -->
   <div class="card tab-content" id="presentations">
     <h3>Presentations</h3>
     <ul>
-      <li><a href="#">IoT in Smart Cities (PDF)</a></li>
-      <li><a href="#">VLSI Design Flow Overview</a></li>
-      <li><a href="#">THz Communication in 6G Networks</a></li>
+      <li>IoT in Smart Cities</li>
+      <li>VLSI Design Flow</li>
+      <li>THz in 6G Networks</li>
     </ul>
   </div>
 
-  <!-- DOCUMENTS -->
   <div class="card tab-content" id="documents">
     <h3>Documents</h3>
     <ul>
-      <li><a href="#">Resume</a></li>
-      <li><a href="#">Research Paper</a></li>
-      <li><a href="#">Project Documentation</a></li>
+      <li>Resume</li>
+      <li>Research Paper</li>
+      <li>Project Documentation</li>
     </ul>
   </div>
 
-  <!-- EDUCATION -->
   <div class="card tab-content" id="education">
     <h3>Education</h3>
     <ul>
       <li>Masters in Electrical and Computer Engineering</li>
-      <li>Bachelor’s in Electronics / Related Field</li>
+      <li>Bachelor’s in Electronics</li>
     </ul>
   </div>
 
-  <!-- ACHIEVEMENTS -->
   <div class="card tab-content" id="achievements">
     <h3>Achievements</h3>
     <ul>
       <li>Best Embedded Systems Project Award – 2025</li>
       <li>Published paper on IoT Security</li>
-      <li>Recognized for Automation Testing Excellence</li>
     </ul>
   </div>
 
-  <!-- CERTIFICATIONS -->
   <div class="card tab-content" id="certifications">
     <h3>Certifications</h3>
     <ul>
-      <li>Advanced VLSI Design Certification</li>
-      <li>Selenium Automation Testing Certification</li>
-      <li>Embedded Systems Specialization</li>
+      <li>Advanced VLSI Design</li>
+      <li>Selenium Automation Testing</li>
     </ul>
   </div>
 
-  <!-- CONTACT -->
   <div class="card tab-content" id="contact">
     <h3>Contact Me</h3>
-    <p>You can reach out to me via email or using this form:</p>
-    <form class="contact-form" action="mailto:sainairudh2000g@gmail.com" method="post" enctype="text/plain">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email" required>
-      <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
+    <p>Email: sainairudh2000g@gmail.com</p>
   </div>
 
   <footer>
@@ -295,15 +243,15 @@
 </div>
 
 <script>
-  function openTab(tabId, btn) {
-    // hide all tab contents
+  function toggleMenu() {
+    const menu = document.getElementById("dropdownMenu");
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
+  }
+
+  function openTab(tabId) {
     document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-    // remove active from all buttons
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    // show selected tab
     document.getElementById(tabId).classList.add('active');
-    // mark clicked button active
-    btn.classList.add('active');
+    document.getElementById("dropdownMenu").style.display = "none";
   }
 </script>
 
