@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sai Anirudh | Portfolio</title>
+  <title>Sai Anirudh Godavarthi | Portfolio</title>
 
   <style>
 
@@ -219,8 +219,11 @@
 <body>
 
   <!-- SIDEBAR -->
+
   <div class="sidebar">
+
     <h2>Menu Section</h2>
+
     <button onclick="openTab('about')">About</button>
     <button onclick="openTab('skills')">Skills</button>
     <button onclick="openTab('projects')">Projects</button>
@@ -230,12 +233,15 @@
     <button onclick="openTab('achievements')">Achievements</button>
     <button onclick="openTab('certifications')">Certifications</button>
     <button onclick="openTab('contact')">Contact</button>
+
   </div>
 
   <!-- MAIN CONTENT -->
+
   <div class="main">
 
     <!-- HERO SECTION -->
+
     <div class="hero">
       <h1>Sai Anirudh Godavarthi</h1>
       <p>
@@ -248,33 +254,38 @@
       </p>
 
       <div class="hero-buttons">
-        <a class="linkedin-btn"
-           href="https://www.linkedin.com/in/sai-anirudh-godavarthi-710b16273/"
-           target="_blank">
-           LinkedIn
-        </a>
-      </div>
         <a class="github-btn"
            href="https://github.com/saianirudh-g"
            target="_blank">
            GitHub
         </a>
+        <a class="linkedin-btn"
+           href="https://www.linkedin.com/in/sai-anirudh-godavarthi-710b16273/">
+           LinkedIn
+        </a>      
       </div>
     </div>
 
     <!-- ABOUT -->
+
     <div class="card active" id="about">
-      <h2>About</h2>
+
+      <h2>About Me</h2>
+
       <p>
         I am an enthusiastic engineer with experience in
         Embedded C, STM32, IoT firmware development,
         automation testing, and web technologies.
       </p>
+
     </div>
 
     <!-- SKILLS -->
+
     <div class="card" id="skills">
+
       <h2>Skills</h2>
+
       <ul>
         <li>Embedded C, STM32, ARM Cortex-M</li>
         <li>IoT Firmware Development</li>
@@ -282,33 +293,37 @@
         <li>Java, Python, JavaScript</li>
         <li>HTML, CSS, Responsive Web Design</li>
         <li>ASIC Physical Design & VLSI</li>
-        <li>Antenna & Radio Frequency, Mixed Signal Integrated Circuit Design</li>
-        <li>THz Communication for 6G and Beyond</li>
+        <li>RF & Mixed Signal Systems</li>
+        <li>THz Communication for 6G</li>
       </ul>
+
     </div>
 
     <!-- PROJECTS -->
+
     <div class="card" id="projects">
+
       <h2>Projects</h2>
+
       <ul>
         <li>Smart IoT Monitoring System using STM32</li>
         <li>Automation Testing Framework using Selenium</li>
         <li>Embedded Firmware for Sensor Networks</li>
         <li>THz Communication Research for 6G</li>
       </ul>
+
     </div>
 
     <!-- PRESENTATIONS -->
+
     <div class="card" id="presentations">
+
       <h2>Presentations</h2>
-      <a class="ppt-btn"
-           href="https://github.com/saianirudh-g/Sai/blob/main/Sai%20Anirudh_PPT.pptx"
-           target="_blank">
-           Multi KM Multi Gigabit-per-second Sub THz communications PPT
-        </a>
+
     </div>
 
     <!-- DOCUMENTS -->
+
     <div class="card" id="documents">
       <h2>Documents</h2>
     </div>
@@ -326,25 +341,23 @@
     <div class="card" id="achievements">
       <h2>Achievements</h2>
       <ul>
-        <li>Rising Star Award By CEO of QualiZeal</li>
-        <li>Dean's International Scholarship Award</li>
-        <li>Scoutt & Guides Award</li>
+        <li>Rising Star Award by CEO of QualiZeal – 2024</li>
+        <li>Dean's International Scholarship Award - 2025</li>
+        <li>Scout and Guides Award - 2010</li>
       </ul>
-
     </div>
 
     <!-- CERTIFICATIONS -->
-
     <div class="card" id="certifications">
       <h2>Certifications</h2>
       <ul>
         <li>Microcontroller Embedded C Programming for Absolute Beginners - Udemy</li>
         <li>Selenium Automation Testing - BrowserStack</li>
       </ul>
-
     </div>
 
     <!-- CONTACT -->
+
     <div class="card" id="contact">
       <h2>Contact</h2>
       <p>Email: saianirudh2000g@gmail.com</p>
@@ -354,19 +367,25 @@
     <footer>
       © 2026 Sai Anirudh Godavarthi | Portfolio
     </footer>
-  
+
   </div>
-  
+
   <!-- JAVASCRIPT -->
+
   <script>
+
     function openTab(tabId){
+
       const cards = document.querySelectorAll('.card');
+
       cards.forEach(card => {
         card.classList.remove('active');
       });
+
       document.getElementById(tabId).classList.add('active');
     }
+
   </script>
-  
+
 </body>
 </html>
