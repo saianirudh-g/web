@@ -206,19 +206,22 @@
     </style>
   </head> 
   <body>
-    <!-- SIDEBAR --> 
-    <div class="sidebar">
-      <h2>Menu</h2> 
-      <button onclick="openTab('about')">About</button>
-      <button onclick="openTab('skills')">Skills</button>
-      <button onclick="openTab('projects')">Projects</button>
-      <button onclick="openTab('presentations')">Presentations</button> 
-      <button onclick="openTab('documents')">Documents</button>
-      <button onclick="openTab('education')">Education</button> 
-      <button onclick="openTab('achievements')">Achievements</button>
-      <button onclick="openTab('certifications')">Certifications</button>
-      <button onclick="openTab('contact')">Contact</button> 
-    </div> 
+   <!-- SIDEBAR -->
+<div class="sidebar">
+  <button class="menu-toggle" onclick="toggleMenu()">☰ Menu</button>
+
+  <div class="menu-items" id="menuItems">
+    <button onclick="openTab('about')">About</button>
+    <button onclick="openTab('skills')">Skills</button>
+    <button onclick="openTab('projects')">Projects</button>
+    <button onclick="openTab('presentations')">Presentations</button>
+    <button onclick="openTab('documents')">Documents</button>
+    <button onclick="openTab('education')">Education</button>
+    <button onclick="openTab('achievements')">Achievements</button>
+    <button onclick="openTab('certifications')">Certifications</button>
+    <button onclick="openTab('contact')">Contact</button>
+  </div>
+</div>
     <!-- MAIN CONTENT --> 
     <div class="main">
       <!-- PROFILE PHOTO --> 
