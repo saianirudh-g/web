@@ -10,28 +10,61 @@
         padding:0; 
         box-sizing:border-box; 
       } 
-      body
-      { 
-        font-family: "Segoe UI", sans-serif; 
-        background: #f4f7fb; 
-        color: #1e293b; 
-        min-height: 100vh; 
-        display: flex; 
-      } 
+     body
+{
+  font-family: "Poppins", sans-serif;
+  background:
+  linear-gradient(135deg,#0f172a,#1e293b,#2563eb);
+  background-size: 400% 400%;
+  animation: gradientBG 12s ease infinite;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+}
+
+@keyframes gradientBG
+{
+  0%
+  {
+    background-position: 0% 50%;
+  }
+
+  50%
+  {
+    background-position: 100% 50%;
+  }
+
+  100%
+  {
+    background-position: 0% 50%;
+  }
+}
+      
       /* SIDEBAR */
 .sidebar
 {
-  width: 250px;
-  background: white;
+  width: 90px;
+  background: rgba(255,255,255,0.08);
+
+  backdrop-filter: blur(20px);
+
+  border-right: 1px solid rgba(255,255,255,0.1);
+
   position: fixed;
   height: 100%;
   left: 0;
   top: 0;
-  border-right: 1px solid #dbe4ee;
-  box-shadow: 2px 0 10px rgba(0,0,0,0.05);
-  padding: 20px;
+
+  transition: 0.4s;
+  overflow: hidden;
+  z-index: 1000;
 }
 
+.sidebar:hover
+{
+  width: 260px;
+}
+      
 /* MENU BUTTON */
 .menu-toggle
 {
@@ -151,19 +184,45 @@
         transform: translateY(-3px); 
       }
       /* CONTENT CARDS */
-      .card
-      {
-        display: none; 
-        background: white; 
-        padding: 35px;
-        border-radius: 20px; 
-        margin-bottom: 25px; 
-        box-shadow: 0 6px 20px rgba(0,0,0,0.06);
-      }
-      .card.active
-      {
-        display: block; 
-      }
+     .card
+{
+  display: none;
+  padding: 35px;
+  border-radius: 24px;
+
+  background: rgba(255,255,255,0.08);
+
+  backdrop-filter: blur(18px);
+
+  border: 1px solid rgba(255,255,255,0.15);
+
+  box-shadow:
+  0 8px 32px rgba(0,0,0,0.25);
+
+  margin-bottom: 25px;
+
+  animation: fadeIn 0.5s ease;
+}
+
+.card.active
+{
+  display: block;
+}
+
+@keyframes fadeIn
+{
+  from
+  {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to
+  {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
       .card h2
       {
         color: #2563eb;
