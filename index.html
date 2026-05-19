@@ -1,6 +1,8 @@
 <!DOCTYPE html> 
 <html lang="en"> 
   <head> 
+    <link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <meta charset="UTF-8" /> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
     <title>Sai Anirudh Godavarthi | Portfolio</title> 
@@ -96,24 +98,28 @@
 .menu-items button
 {
   width: 100%;
-  padding: 14px 20px;
-  margin-bottom: 10px;
-  background: #f4f7fb;
+  padding: 16px 22px;
+  margin: 8px 0;
+
   border: none;
-  border-radius: 10px;
-  color: #334155;
-  text-align: left;
+  border-radius: 14px;
+
+  background: transparent;
+
+  color: white;
   font-size: 16px;
+
   cursor: pointer;
+
   transition: 0.3s;
-  font-weight: 500;
 }
 
 .menu-items button:hover
 {
   background: #2563eb;
-  color: white;
+  transform: translateX(6px);
 }
+      
       /* MAIN CONTENT */ 
       .main
       { 
@@ -287,6 +293,68 @@
           padding: 25px;
         }
       }
+      .cert-card
+{
+  transition: 0.4s;
+}
+
+.cert-card:hover
+{
+  transform:
+  translateY(-10px)
+  scale(1.03);
+
+  box-shadow:
+  0 15px 35px rgba(37,99,235,0.35);
+}
+      .typing
+{
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 3px solid #2563eb;
+
+  width: 0;
+
+  animation:
+  typing 4s steps(40,end) forwards,
+  blink 0.7s infinite;
+}
+
+@keyframes typing
+{
+  from
+  {
+    width: 0;
+  }
+
+  to
+  {
+    width: 100%;
+  }
+}
+
+@keyframes blink
+{
+  50%
+  {
+    border-color: transparent;
+  }
+}
+      ::-webkit-scrollbar
+{
+  width: 10px;
+}
+
+::-webkit-scrollbar-track
+{
+  background: #0f172a;
+}
+
+::-webkit-scrollbar-thumb
+{
+  background: #2563eb;
+  border-radius: 20px;
+}
     </style>
   </head> 
   <body>
@@ -295,15 +363,15 @@
   <button class="menu-toggle" onclick="toggleMenu()">☰ Menu</button>
 
   <div class="menu-items" id="menuItems">
-    <button onclick="openTab('about')">About</button>
-    <button onclick="openTab('skills')">Skills</button>
-    <button onclick="openTab('projects')">Projects</button>
-    <button onclick="openTab('presentations')">Presentations</button>
-    <button onclick="openTab('documents')">Documents</button>
-    <button onclick="openTab('education')">Education</button>
-    <button onclick="openTab('achievements')">Achievements</button>
-    <button onclick="openTab('certifications')">Certifications</button>
-    <button onclick="openTab('contact')">Contact</button>
+    <button onclick="openTab('about')"><i class="fa-solid fa-user"></i>About</button>
+    <button onclick="openTab('skills')"><i class="fa-solid fa-code"></i>Skills</button>
+    <button onclick="openTab('projects')"><i class="fa-solid fa-diagram-project"></i>Projects</button>
+    <button onclick="openTab('presentations')"><i class="fa-solid fa-presentation"></i>Presentations</button>
+    <button onclick="openTab('documents')"><i class="fa-solid fa-document"></i>Documents</button>
+    <button onclick="openTab('education')"><i class="fa-solid fa-education"></i>Education</button>
+    <button onclick="openTab('achievements')"><i class="fa-solid fa-achievement"></i>Achievements</button>
+    <button onclick="openTab('certifications')"><i class="fa-solid fa-certificate"></i>Certifications</button>
+    <button onclick="openTab('contact')"><i class="fa-solid fa-contact"></i>Contact</button>
   </div>
 </div>
     <!-- MAIN CONTENT --> 
@@ -332,7 +400,7 @@
       }
     </style>
 
-    <h1 style="
+    <h1 class="typing" style="
       color:#2563eb;
       font-size:40px;
       margin-bottom:10px;">
@@ -415,7 +483,7 @@
       </div>
       <!-- PROJECTS --> 
       <div class="card" id="projects"> 
-        <h2>Projects</h2> 
+        <h2> <i class="fa-solid fa-diagram-project"></i>Projects</h2> 
         <ul>
           <li>Smart IoT Monitoring System using STM32</li>
           <li>Automation Testing Framework using Selenium</li> 
@@ -470,7 +538,7 @@
         </ul>
       </div> 
       <!-- CERTIFICATIONS --> 
-      <div class="card" id="certifications">
+      <div class="cert-card" id="certifications">
         <h2>Certifications</h2>
         <div style="display:flex; flex-wrap:wrap; gap:20px;">
           <!-- Certification 1 -->
@@ -551,17 +619,29 @@
     
 <script>
   function openTab(tabId)
+{
+  const cards =
+  document.querySelectorAll('.card');
+
+  const buttons =
+  document.querySelectorAll('.menu-items button');
+
+  cards.forEach(card =>
   {
-    const cards = document.querySelectorAll('.card');
+    card.classList.remove('active');
+  });
 
-    cards.forEach(card =>
-    {
-      card.classList.remove('active');
-    });
+  buttons.forEach(btn =>
+  {
+    btn.classList.remove('active-btn');
+  });
 
-    document.getElementById(tabId).classList.add('active');
-  }
+  document
+  .getElementById(tabId)
+  .classList.add('active');
 
+  event.target.classList.add('active-btn');
+}
   function toggleMenu()
   {
     const menu = document.getElementById("menuItems");
