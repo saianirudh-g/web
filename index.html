@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Sai Anirudh Godavarthi | Portfolio</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: #f4f7fb;
+      color: #1e293b;
+      min-height: 100vh;
+      display: flex;
+    }
+
+    /* SIDEBAR */
+
+    .sidebar {
+      width: 250px;
+      background: white;
+      position: fixed;
+      height: 100%;
+      left: 0;
+      top: 0;
+      border-right: 1px solid #dbe4ee;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+      padding: 20px;
+      z-index: 1000;
+    }
+
+    /* MENU BUTTON */
+
+    .menu-toggle {
+      width: 100%;
+      padding: 15px;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .menu-toggle:hover {
+      background: #1d4ed8;
+    }
+
+    /* MENU ITEMS */
+
+    .menu-items {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .menu-items button {
+      width: 100%;
+      padding: 14px 20px;
+      margin-bottom: 10px;
+      background: #f4f7fb;
+      border: none;
+      border-radius: 10px;
+      color: #334155;
+      text-align: left;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-weight: 500;
+    }
+
+    .menu-items button:hover {
+      background: #2563eb;
+      color: white;
+    }
+
+    /* MAIN CONTENT */
+
+    .main {
+      margin-left: 250px;
+      width: calc(100% - 250px);
+      padding: 40px;
+    }
+
+    /* HERO */
+
+    .hero {
+      background: white;
+      border-radius: 25px;
+      padding: 50px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      margin-bottom: 30px;
+    }
+
+    .profile-photo {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid #2563eb;
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: 40px;
+      color: #2563eb;
+      margin-bottom: 10px;
+    }
+
+    .hero h2 {
+      color: #f97316;
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: #475569;
+      line-height: 1.8;
+      margin-top: 10px;
+    }
+
+    /* BUTTONS */
+
+    .hero-buttons {
+      margin-top: 30px;
+    }
+
+    .hero-buttons a {
+      display: inline-block;
+      padding: 12px 24px;
+      margin: 10px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .github-btn {
+      border: 2px solid #2563eb;
+      color: #2563eb;
+    }
+
+    .linkedin-btn {
+      background: #2563eb;
+      color: white;
+    }
+
+    .hero-buttons a:hover {
+      transform: translateY(-3px);
+    }
+
+    /* CARDS */
+
+    .card {
+      display: none;
+      background: white;
+      padding: 35px;
+      border-radius: 20px;
+      margin-bottom: 25px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    }
+
+    .card.active {
+      display: block;
+    }
+
+    .card h2 {
+      color: #2563eb;
+      margin-bottom: 20px;
+      font-size: 28px;
+    }
+
+    .card p,
+    .card li {
+      color: #475569;
+      font-size: 17px;
+      line-height: 1.8;
+    }
+
+    .card ul {
+      padding-left: 20px;
+    }
+
+    /* CERTIFICATIONS */
+
+    .certifications-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .cert-card {
+      width: 220px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      padding: 15px;
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    .cert-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .cert-card img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .cert-card p {
+      margin-top: 10px;
+      font-weight: bold;
+      color: #2563eb;
+    }
+
+    .cert-card a {
+      color: #475569;
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    /* FOOTER */
+
+    footer {
+      text-align: center;
+      margin-top: 35px;
+      color: #64748b;
+      font-size: 15px;
+    }
+
+    /* MOBILE */
+
+    @media(max-width:768px) {
+
+      body {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+      }
+
+      .main {
+        margin-left: 0;
+        width: 100%;
+        padding: 20px;
+      }
+
+      .hero {
+        padding: 30px 20px;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .profile-photo {
+        width: 150px;
+        height: 150px;
+      }
+
+      .card {
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- SIDEBAR -->
+
+  <div class="sidebar">
+
+    <button class="menu-toggle" onclick="toggleMenu()">
+      ☰ Menu
+    </button>
+
+    <div class="menu-items" id="menuItems">
+
+      <button onclick="openTab('about')">About</button>
+      <button onclick="openTab('skills')">Skills</button>
+      <button onclick="openTab('projects')">Projects</button>
+      <button onclick="openTab('presentations')">Presentations</button>
+      <button onclick="openTab('documents')">Documents</button>
+      <button onclick="openTab('education')">Education</button>
+      <button onclick="openTab('achievements')">Achievements</button>
+      <button onclick="openTab('certifications')">Certifications</button>
+      <button onclick="openTab('contact')">Contact</button>
+
+    </div>
+
+  </div>
+
+  <!-- MAIN CONTENT -->
+
+  <div class="main">
+
+    <!-- ABOUT -->
+
+    <div class="card active" id="about">
+
+      <div class="hero">
+
+        <img src="Images/profile.jpeg"
+             alt="Sai Anirudh"
+             class="profile-photo">
+
+        <h1>Sai Anirudh Godavarthi</h1>
+
+        <h2>Welcome to my website !!</h2>
+
+        <p>
+          Software Tester • Masters in Electrical and Computer Engineering
+        </p>
+
+        <p>
+          Embedded Systems • IoT • Automation Testing •
+          VLSI • ASIC Physical Design • RF & Mixed Signal • THz in 6G
+        </p>
+
+        <div class="hero-buttons">
+
+          <a class="github-btn"
+             href="https://github.com/saianirudh-g"
+             target="_blank">
+            GitHub
+          </a>
+
+          <a class="linkedin-btn"
+             href="https://www.linkedin.com/in/sai-anirudh-godavarthi-710b16273/"
+             target="_blank">
+            LinkedIn
+          </a>
+
+        </div>
+
+      </div>
+
+      <h2>About Me</h2>
+
+      <p>
+        I am an enthusiastic engineer with experience in Embedded C,
+        STM32, IoT firmware development, automation testing,
+        and web technologies.
+      </p>
+
+      <p>
+        With a bachelor's degree in electrical and electronics engineering
+        and a passion for software testing, I joined QualiZeal as an
+        Associate Software Engineer in Test.
+      </p>
+
+      <p>
+        Designed and executed test cases for web-based applications in the cruise domain.
+        Performed manual testing, automation testing, and integration testing.
+        Developed automation scripts using Selenium Java with IntelliJ and Eclipse.
+      </p>
+
+      <p>
+        Used Postman for API testing and TestRail/Jira for test management
+        and defect logging.
+      </p>
+
+      <p>
+        Contributed to the development and testing of IoT firmware using Embedded C.
+        Wrote and tested code in C, C++, and Embedded C using Visual Studio Code.
+      </p>
+
+    </div>
+
+    <!-- SKILLS -->
+
+    <div class="card" id="skills">
+
+      <h2>Skills</h2>
+
+      <ul>
+        <li>Embedded C, STM32, ARM Cortex-M</li>
+        <li>IoT Firmware Development</li>
+        <li>Selenium Automation Testing</li>
+        <li>Java, Python, JavaScript</li>
+        <li>HTML, CSS, Responsive Web Design</li>
+        <li>ASIC Physical Design & VLSI</li>
+        <li>RF & Mixed Signal Systems</li>
+        <li>THz Communication for 6G</li>
+      </ul>
+
+    </div>
+
+    <!-- PROJECTS -->
+
+    <div class="card" id="projects">
+
+      <h2>Projects</h2>
+
+      <ul>
+        <li>Smart IoT Monitoring System using STM32</li>
+        <li>Automation Testing Framework using Selenium</li>
+        <li>Embedded Firmware for Sensor Networks</li>
+        <li>THz Communication Research for 6G</li>
+      </ul>
+
+    </div>
+
+    <!-- PRESENTATIONS -->
+
+    <div class="card" id="presentations">
+
+      <h2>Presentations</h2>
+
+      <ul>
+        <li>
+          <a href="Sai Anirudh_PPT.pptx" target="_blank">
+            Multi-kilometre & Multi-gigabit-per-second Sub-THz Communications
+          </a>
+        </li>
+      </ul>
+
+    </div>
+
+    <!-- DOCUMENTS -->
+
+    <div class="card" id="documents">
+
+      <h2>Documents</h2>
+
+      <ul>
+        <li>
+          <a href="Sai_Anirudh_Document.pdf" target="_blank">
+            Research Document (PDF)
+          </a>
+        </li>
+      </ul>
+
+    </div>
+
+    <!-- EDUCATION -->
+
+    <div class="card" id="education">
+
+      <h2>Education</h2>
+
+      <ul>
+        <li>Masters in Electrical & Computer Engineering</li>
+        <li>Bachelor’s in Electrical & Electronics Engineering</li>
+      </ul>
+
+    </div>
+
+    <!-- ACHIEVEMENTS -->
+
+    <div class="card" id="achievements">
+
+      <h2>Achievements</h2>
+
+      <ul>
+        <li>Rising Star Award by CEO of QualiZeal – 2024</li>
+        <li>Dean's International Scholarship Award – 2025</li>
+        <li>Scout and Guides Award – 2010</li>
+      </ul>
+
+    </div>
+
+    <!-- CERTIFICATIONS -->
+
+    <div class="card" id="certifications">
+
+      <h2>Certifications</h2>
+
+      <div class="certifications-container">
+
+        <div class="cert-card">
+          <img src="Certifications/Microcontroller Embedded C.jpg">
+          <p>Microcontroller Embedded C – Udemy</p>
+          <a href="Certifications/Microcontroller Embedded C.jpg" target="_blank">
+            View Certificate
+          </a>
+        </div>
+
+        <div class="cert-card">
+          <img src="Certifications/AWS.png">
+          <p>AWS Academy</p>
+          <a href="Certifications/AWS.png" target="_blank">
+            View Certificate
+          </a>
+        </div>
+
+        <div class="cert-card">
+          <img src="Certifications/Guvi - Gen-AI.jpg">
+          <p>Generative AI in GUVI</p>
+          <a href="Certifications/Guvi - Gen-AI.jpg" target="_blank">
+            View Certificate
+          </a>
+        </div>
+
+        <div class="cert-card">
+          <img src="Certifications/Guvi - Python Zero to Hero.png">
+          <p>Python Zero to Hero</p>
+          <a href="Certifications/Guvi - Python Zero to Hero.png" target="_blank">
+            View Certificate
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- CONTACT -->
+
+    <div class="card" id="contact">
+
+      <h2>Contact</h2>
+
+      <p>Email: saianirudh2000g@gmail.com</p>
+      <p>Mobile: +1 (816) 715-3854</p>
+
+    </div>
+
+    <footer>
+      © 2026 Sai Anirudh Godavarthi | Portfolio
+    </footer>
+
+  </div>
+
+  <!-- JAVASCRIPT -->
+
+  <script>
+
+    function openTab(tabId)
+    {
+      const cards = document.querySelectorAll('.card');
+
+      cards.forEach(card =>
+      {
+        card.classList.remove('active');
+      });
+
+      document
+        .getElementById(tabId)
+        .classList.add('active');
+    }
+
+    function toggleMenu()
+    {
+      const menu = document.getElementById("menuItems");
+
+      menu.style.display =
+        menu.style.display === "block"
+        ? "none"
+        : "block";
+    }
+
+    window.onload = function ()
+    {
+      document
+        .getElementById("menuItems")
+        .style.display = "none";
+    };
+
+  </script>
+
+</body>
+
+</html>
