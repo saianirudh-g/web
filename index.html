@@ -437,31 +437,38 @@ transform:translateY(-2px);
 padding-top:70px;
 
 }
-/* SIDEBAR */
-
+/* SLIDEBAR */
 .sidebar{
 
 position:fixed;
 
 top:0;
-left:0;
+left:-280px;
 
 width:280px;
-
 height:100%;
 
-background:white;
+transition:.4s;
+}
 
-padding-top:80px;
+.sidebar.active{
 
-border-right:1px solid #ddd;
-
-box-shadow:2px 0 15px rgba(0,0,0,.1);
-
-z-index:9998;
+left:0;
 
 }
 
+.main{
+
+transition:.4s;
+
+margin-left:0;
+}
+
+.main.slide{
+
+margin-left:280px;
+
+}
 
 /* PAGE SLIDES */
 
@@ -721,8 +728,7 @@ padding:80px 40px 40px 40px;
 <body>
 
   <!-- SIDEBAR -->
-
-  <div class="sidebar">
+  <div class="sidebar" id="sidebar">
     <div class="top-buttons">
     <button class="menu-btn" onclick="toggleMenu()"> ☰ </button>
       <!-- ABOUT BUTTON -->
@@ -1187,45 +1193,32 @@ padding:80px 40px 40px 40px;
   <!-- JAVASCRIPT -->
 
   <script>
-
-let menuOpen = false;
-
 function toggleMenu(){
-
+let sidebar=document.getElementById("sidebar");
 let main=document.getElementById("main-content");
 
-if(menuOpen){
 
-main.classList.remove("slide");
-
-menuOpen=false;
-
-}
-else{
-
+/* open */
+if(!sidebar.classList.contains("active")){
+sidebar.classList.add("active");
 main.classList.add("slide");
-
-menuOpen=true;
-
 }
 
+/* close */
+else{
+sidebar.classList.remove("active");
+main.classList.remove("slide");
 }
-
+}
 
 function openTab(tabId){
-
 const cards=document.querySelectorAll(".card");
-
 cards.forEach(card=>{
-
 card.classList.remove("active");
-
 });
 
-document
-.getElementById(tabId)
+document.getElementById(tabId)
 .classList.add("active");
-
 }
   /* TYPING ANIMATION */
 
