@@ -8,6 +8,111 @@
   <title>Sai Anirudh Godavarthi | Powered by GitHub</title>
 
   <style>
+    /* RESUME CARDS CONTAINER */
+
+.resume-cards-container
+{
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 25px;
+
+  margin-top: 40px;
+}
+
+/* INDIVIDUAL CARD */
+
+.resume-card
+{
+  flex: 1;
+
+  min-width: 320px;
+
+  background: white;
+
+  border-radius: 20px;
+
+  padding: 25px;
+
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+
+  transition: 0.3s;
+}
+
+/* HOVER EFFECT */
+
+.resume-card:hover
+{
+  transform: translateY(-6px);
+
+  box-shadow: 0 12px 30px rgba(37,99,235,0.15);
+}
+
+/* CARD TITLES */
+
+.resume-card h2
+{
+  color: #2563eb;
+
+  margin-bottom: 20px;
+
+  font-size: 24px;
+}
+
+/* TABLE */
+
+.resume-card table
+{
+  width: 100%;
+
+  border-collapse: collapse;
+}
+
+/* TABLE HEADERS */
+
+.resume-card th
+{
+  background: #2563eb;
+
+  color: white;
+
+  padding: 12px;
+
+  text-align: left;
+
+  font-size: 15px;
+}
+
+/* TABLE DATA */
+
+.resume-card td
+{
+  padding: 12px;
+
+  border-bottom: 1px solid #e2e8f0;
+
+  color: #475569;
+
+  font-size: 15px;
+}
+
+/* ROW HOVER */
+
+.resume-card tr:hover
+{
+  background: #f8fafc;
+}
+
+/* MOBILE */
+
+@media(max-width:768px)
+{
+  .resume-cards-container
+  {
+    flex-direction: column;
+  }
+}
     /* HERO CONTAINER */
 
 .hero-container
@@ -621,14 +726,108 @@
     <div class="card" id="resume">
 
       <h2>My Resume</h2>
-       <div class="resume-card">
-          <img src="Resume.pdf">
-          <p>My Resume</p>
-          <a href="Resume.pdf" target="_blank">
-            View Resume
-          </a>
-        </div>
+      <!-- RESUME DETAILS SECTION -->
 
+<div class="resume-cards-container">
+
+  <!-- EDUCATION -->
+
+  <div class="resume-card">
+
+    <h2>🎓 Education</h2>
+
+    <table>
+
+      <tr>
+        <th>Degree</th>
+        <th>Institution</th>
+        <th>Year</th>
+      </tr>
+
+      <tr>
+        <td>Masters in Electrical & Computer Engineering</td>
+        <td>University of Central Missouri</td>
+        <td>2025 - Present</td>
+      </tr>
+
+      <tr>
+        <td>Bachelor’s in Electrical & Electronics Engineering</td>
+        <td>JNTUH</td>
+        <td>2018 - 2022</td>
+      </tr>
+
+    </table>
+
+  </div>
+
+  <!-- EXPERIENCE -->
+
+  <div class="resume-card">
+
+    <h2>💼 Experience</h2>
+
+    <table>
+
+      <tr>
+        <th>Role</th>
+        <th>Company</th>
+        <th>Duration</th>
+      </tr>
+
+      <tr>
+        <td>Associate Software Engineer in Test</td>
+        <td>QualiZeal</td>
+        <td>2022 - 2024</td>
+      </tr>
+
+      <tr>
+        <td>Automation & Manual Testing</td>
+        <td>Cruise Domain Projects</td>
+        <td>2 Projects</td>
+      </tr>
+
+    </table>
+
+  </div>
+
+  <!-- PROFESSIONAL DEVELOPMENT -->
+
+  <div class="resume-card">
+
+    <h2>🚀 Professional Development</h2>
+
+    <table>
+
+      <tr>
+        <th>Training / Certification</th>
+        <th>Platform</th>
+      </tr>
+
+      <tr>
+        <td>Embedded C Programming</td>
+        <td>Udemy</td>
+      </tr>
+
+      <tr>
+        <td>AWS Academy</td>
+        <td>AWS</td>
+      </tr>
+
+      <tr>
+        <td>Generative AI</td>
+        <td>GUVI</td>
+      </tr>
+
+      <tr>
+        <td>Python Zero to Hero</td>
+        <td>GUVI</td>
+      </tr>
+
+    </table>
+
+  </div>
+
+</div>
     </div>
 
     <!-- PROJECTS -->
