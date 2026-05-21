@@ -5,9 +5,44 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Sai Anirudh Godavarthi | Portfolio</title>
+  <title>Sai Anirudh Godavarthi | Powered by GitHub</title>
 
   <style>
+    /* TYPING EFFECT */
+
+.typing-text
+{
+  color: #f97316;
+
+  font-size: 30px;
+
+  font-weight: bold;
+
+  margin-top: 15px;
+
+  min-height: 40px;
+
+  border-right: 3px solid #f97316;
+
+  width: fit-content;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  animation: blink 0.7s infinite;
+}
+
+@keyframes blink
+{
+  50%
+  {
+    border-color: transparent;
+  }
+}
     * {
       margin: 0;
       padding: 0;
@@ -90,6 +125,71 @@
       width: calc(100% - 250px);
       padding: 40px;
     }
+    /* TOP HEADER */
+
+.top-header
+{
+  width: 100%;
+
+  background: white;
+
+  padding: 20px 30px;
+
+  border-radius: 18px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 30px;
+
+  box-shadow:
+  0 6px 20px rgba(0,0,0,0.06);
+}
+
+.logo-section h1
+{
+  color: #2563eb;
+
+  font-size: 28px;
+
+  margin-bottom: 6px;
+}
+
+.logo-section p
+{
+  color: #64748b;
+
+  font-size: 16px;
+}
+
+/* RESUME BUTTON */
+
+.resume-btn
+{
+  background: #2563eb;
+
+  color: white;
+
+  padding: 14px 24px;
+
+  border-radius: 10px;
+
+  text-decoration: none;
+
+  font-weight: bold;
+
+  transition: 0.3s;
+}
+
+.resume-btn:hover
+{
+  background: #1d4ed8;
+
+  transform: translateY(-3px);
+}
 
     /* HERO */
 
@@ -311,6 +411,22 @@
   <!-- MAIN CONTENT -->
 
   <div class="main">
+    <!-- TOP HEADER -->
+
+<div class="top-header">
+
+  <div class="logo-section">
+    <h1> Sai Anirudh Godavarthi </h1>
+  </div>
+
+  <div class="cert-card">
+          <img src="Resume.pdf">
+          <p>My Resume</p>
+          <a href="Resume.pdf" target="_blank">
+            View Resume
+          </a>
+        </div>
+</div>
 
     <!-- ABOUT -->
 
@@ -324,7 +440,7 @@
 
         <h1>Sai Anirudh Godavarthi</h1>
 
-        <h2>Welcome to my website !!</h2>
+        <h2 class="typing-text">Welcome to my website !!</h2>
 
         <p>
           Software Tester • Masters in Electrical and Computer Engineering
@@ -449,19 +565,6 @@
         </div>
     </div>
 
-    <!-- EDUCATION -->
-
-    <div class="card" id="education">
-
-      <h2>Education</h2>
-
-      <ul>
-        <li>Masters in Electrical & Computer Engineering</li>
-        <li>Bachelor’s in Electrical & Electronics Engineering</li>
-      </ul>
-
-    </div>
-
     <!-- ACHIEVEMENTS -->
 
     <div class="card" id="achievements">
@@ -580,7 +683,7 @@
     </div>
 
     <footer>
-      © 2026 Sai Anirudh Godavarthi | Portfolio
+      © 2026 Sai Anirudh Godavarthi | Powered by GitHub
     </footer>
 
   </div>
@@ -619,9 +722,59 @@
         .getElementById("menuItems")
         .style.display = "none";
     };
+/* TYPING ANIMATION */
 
+const texts =
+[
+  "Welcome to my website !!",
+  "Thanks for Visiting !!"
+];
+
+let count = 0;
+let index = 0;
+let currentText = "";
+let letter = "";
+
+function type()
+{
+  if(count === texts.length)
+  {
+    count = 0;
+  }
+
+  currentText = texts[count];
+
+  letter = currentText.slice(0, ++index);
+
+  document.querySelector(".typing-text").textContent = letter;
+
+  if(letter.length === currentText.length)
+  {
+    setTimeout(erase, 1500);
+    return;
+  }
+
+  setTimeout(type, 100);
+}
+
+function erase()
+{
+  letter = currentText.slice(0, --index);
+
+  document.querySelector(".typing-text").textContent = letter;
+
+  if(letter.length === 0)
+  {
+    count++;
+    setTimeout(type, 500);
+    return;
+  }
+
+  setTimeout(erase, 50);
+}
+
+type();
   </script>
-
+  
 </body>
-
 </html>
