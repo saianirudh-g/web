@@ -702,71 +702,7 @@ padding:80px 40px 40px 40px;
       font-size: 14px;
       text-decoration: none;
     }
-    .contact-form
-{
-  margin-top:30px;
-
-  display:flex;
-
-  flex-direction:column;
-
-  gap:20px;
-}
-
-.contact-form input,
-.contact-form textarea
-{
-  width:100%;
-
-  padding:15px;
-
-  border:none;
-
-  border-radius:12px;
-
-  background:#f1f5f9;
-
-  font-size:16px;
-
-  outline:none;
-
-  color:#1e293b;
-}
-
-.contact-form textarea
-{
-  height:150px;
-
-  resize:none;
-}
-
-.contact-form button
-{
-  padding:15px;
-
-  border:none;
-
-  border-radius:12px;
-
-  background:#2563eb;
-
-  color:white;
-
-  font-size:18px;
-
-  font-weight:bold;
-
-  cursor:pointer;
-
-  transition:0.3s;
-}
-
-.contact-form button:hover
-{
-  transform:translateY(-3px);
-
-  background:#1d4ed8;
-}
+   
     /* FOOTER */
 
     footer {
@@ -1266,29 +1202,17 @@ padding:80px 40px 40px 40px;
   ">
 
    <!-- CONTACT -->
-
 <div class="card" id="contact">
-
   <h2>Contact Me</h2>
 
-  <!-- CONTACT FORM -->
-  <div class="contact-form">
-
     <!-- SUBJECT -->
-    <input type="text"
-           id="subject"
-           placeholder="Enter Subject">
+    <input type="text" id="subject" placeholder="Enter Subject">
 
     <!-- MESSAGE -->
-    <textarea id="message"
-              placeholder="Write your message here..."></textarea>
+    <textarea id="message" placeholder="Write your message here..."></textarea>
 
     <!-- SEND BUTTON -->
-    <button onclick="sendEmail()">
-
-      📧 Send Email
-
-    </button>
+    <button onclick="sendEmail()"> Send Email </button>
   </div>
 </div>
     <!-- CALL BUTTON -->
@@ -1404,7 +1328,8 @@ function erase()
 }
 
 type();
-    function sendEmail()
+    
+function sendEmail()
 {
   const subject =
   document.getElementById("subject").value;
