@@ -1199,11 +1199,27 @@ padding:80px 40px 40px 40px;
     flex-wrap:wrap;
     gap:20px;
   ">
-<button onclick="sendEmail()">
+    <-- EMAIL BUTTON -->
+    <a href="mailto:saianirudh2000g@gmail.com"
+   target="_blank"
+   style="
+   display:inline-block;
+   padding:14px 28px;
+   background:#2563eb;
+   color:white;
+   text-decoration:none;
+   border-radius:12px;
+   font-weight:bold;
+   box-shadow:0 4px 12px rgba(37,99,235,0.25);
+   transition:transform 0.3s ease;
+   cursor:pointer;
+   "
+   onmouseover="this.style.transform='translateY(-3px)'"
+   onmouseout="this.style.transform='translateY(0px)'">
 
-  📧 Send Email
+   📧 Send Email
 
-</button>
+</a>
        <!-- CALL BUTTON -->
     <a href="tel:+18167153854"
        style="
@@ -1317,19 +1333,7 @@ function erase()
 }
 
 type();
-   function sendEmail()
-{
-  const subject =
-  document.getElementById("subject").value;
 
-  const message =
-  document.getElementById("message").value;
-
-  window.location.href =
-  "mailto:saianirudh2000g@gmail.com"
-  + "?subject=" + encodeURIComponent(subject)
-  + "&body=" + encodeURIComponent(message);
-}
   </script>  
 </body>
 </html>
