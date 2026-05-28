@@ -27,8 +27,52 @@ content="Sai Anirudh Godavarthi">
   </script>
   
   <style>
+    html, body
+{
+  overflow-x: hidden;
+}
     /* RESUME CARDS CONTAINER */
+@media (max-width: 768px)
+{
+  .hero-container
+  {
+    flex-direction: column;
+    padding: 25px;
+    gap: 20px;
+    text-align: center;
+  }
 
+  .hero-right h1
+  {
+    font-size: 28px;
+  }
+
+  .hero-desc
+  {
+    font-size: 15px;
+  }
+
+  .hero-buttons
+  {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .hero-buttons a
+  {
+    margin-right: 0;
+    width: 80%;
+    text-align: center;
+  }
+
+  .profile-photo
+  {
+    width: 160px;
+    height: 160px;
+  }
+}
 .resume-cards-container
 {
   display: flex;
@@ -124,7 +168,26 @@ content="Sai Anirudh Godavarthi">
 }
 
 /* MOBILE */
+@media (max-width: 768px)
+{
+  .top-buttons
+  {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
 
+  .about-tab
+  {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+
+  .menu-btn
+  {
+    width: 34px;
+    height: 34px;
+  }
+}
 @media(max-width:768px)
 {
   .resume-cards-container
@@ -457,6 +520,18 @@ padding-top:70px;
 }
     
 /* SIDEBAR */
+    @media (max-width: 768px)
+{
+  .sidebar
+  {
+    width: 220px;
+  }
+
+  .main.slide
+  {
+    margin-left: 220px;
+  }
+}
 .sidebar{
   position: fixed;
   top: 0;
