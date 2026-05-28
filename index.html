@@ -312,33 +312,28 @@ content="Sai Anirudh Godavarthi">
   }
 }
     /* TYPING EFFECT */
-
-.typing-text
-{
-  color: #f97316;
-
+.typing-text {
   font-size: 30px;
-
   font-weight: bold;
-
   margin-top: 15px;
-
   min-height: 40px;
 
-  border-right: 3px solid #f97316;
+  /* Gradient Attractive Text */
+  background: linear-gradient(90deg, #ff6b6b, #ffb347, #6a11cb, #2575fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  border-right: 3px solid #ffb347;
 
   width: fit-content;
-
   margin-left: auto;
   margin-right: auto;
 
   white-space: nowrap;
-
   overflow: hidden;
 
   animation: blink 0.7s infinite;
 }
-
 @keyframes blink
 {
   50%
@@ -616,11 +611,11 @@ padding:80px 40px 40px 40px;
       margin-bottom: 20px;
     }
 
-    .hero h1 {
-      font-size: 40px;
-      color: #2563eb;
-      margin-bottom: 10px;
-    }
+  .hero h1 {
+    font-size: 40px;
+    color: #8b5cf6; /* Attractive Violet */
+    margin-bottom: 10px;
+}
 
     .hero h2 {
       color: #f97316;
@@ -929,8 +924,9 @@ padding:80px 40px 40px 40px;
     <button class="menu-btn" onclick="toggleMenu()"> ☰ </button>
     <button class="about-tab" onclick="openTab('about')"> Home </button>
     <button class="about-tab" onclick="openTab('resume')">Resume</button>
-    <button class="about-tab" onclick="openTab('media')">Media</button>
+    <button class="about-tab" onclick="openTab('moments')">Moments</button>
     </div>
+  
   <!-- SIDEBAR -->
   <div class="sidebar" id="sidebar">
       <button onclick="openTab('projects')">Projects</button>
