@@ -1,398 +1,901 @@
-// ===============================
-// FILE: src/App.tsx
-// ===============================
+<!DOCTYPE html>
+<html lang="en">
 
-import {
-  Github,
-  Linkedin,
-  Mail,
-  Coffee,
-  Menu,
-  X,
-  GraduationCap,
-  Briefcase,
-  Award,
-  BookOpen,
-} from "lucide-react";
+<head>
 
-import { useState } from "react";
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-export default function App() {
-  const [menuOpen, setMenuOpen] = useState(false);
+<title>Sai Anirudh Godavarthi | Portfolio</title>
 
-  const navItems = [
-    "About",
-    "Projects",
-    "Research",
-    "Achievements",
-    "Contact",
-  ];
+<!-- GOOGLE FONT -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white overflow-x-hidden">
+<!-- FONT AWESOME -->
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 
-      {/* =========================
-          NAVBAR
-      ========================== */}
+<style>
 
-      <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-xl bg-white/5 border-b border-white/10">
+/* =========================================================
+   GLOBAL
+========================================================= */
 
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-
-          <h1 className="text-2xl font-bold tracking-wide text-cyan-400">
-            Sai Anirudh
-          </h1>
-
-          {/* DESKTOP MENU */}
-
-          <div className="hidden md:flex gap-8 text-sm font-medium">
-
-            {navItems.map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                className="hover:text-cyan-400 transition"
-              >
-                {item}
-              </a>
-            ))}
-          </div>
-
-          {/* MOBILE MENU BUTTON */}
-
-          <button
-            className="md:hidden"
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
-            {menuOpen ? <X /> : <Menu />}
-          </button>
-        </div>
-
-        {/* MOBILE MENU */}
-
-        {menuOpen && (
-          <div className="md:hidden px-6 pb-6 flex flex-col gap-4 bg-slate-900/95">
-
-            {navItems.map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                onClick={() => setMenuOpen(false)}
-                className="hover:text-cyan-400"
-              >
-                {item}
-              </a>
-            ))}
-          </div>
-        )}
-      </nav>
-
-      {/* =========================
-          HERO SECTION
-      ========================== */}
-
-      <section
-        id="about"
-        className="min-h-screen flex items-center justify-center px-6 pt-28"
-      >
-        <div className="max-w-7xl w-full grid lg:grid-cols-2 gap-12 items-center">
-
-          {/* LEFT */}
-
-          <div className="space-y-8 animate-fadeIn">
-
-            <div className="inline-block px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-400/20 text-cyan-300 text-sm">
-              Masters in Electrical & Computer Engineering
-            </div>
-
-            <h1 className="text-5xl md:text-7xl font-black leading-tight">
-              Sai Anirudh
-              <span className="text-cyan-400"> Godavarthi</span>
-            </h1>
-
-            <p className="text-slate-300 text-lg leading-relaxed max-w-2xl">
-              Embedded Systems • RF Engineering • VLSI • ASIC Physical Design •
-              Software Automation Testing • THz Communication Research
-            </p>
-
-            {/* BUTTONS */}
-
-            <div className="flex flex-wrap gap-4">
-
-              <a
-                href="https://github.com/saianirudh-g"
-                target="_blank"
-                className="px-6 py-3 rounded-xl bg-white/10 hover:bg-cyan-500 transition flex items-center gap-2"
-              >
-                <Github size={18} />
-                GitHub
-              </a>
-
-              <a
-                href="https://www.linkedin.com/in/sai-anirudh-godavarthi-710b16273/"
-                target="_blank"
-                className="px-6 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 transition flex items-center gap-2"
-              >
-                <Linkedin size={18} />
-                LinkedIn
-              </a>
-
-              <a
-                href="https://buymeacoffee.com/saianirudh"
-                target="_blank"
-                className="px-6 py-3 rounded-xl bg-yellow-400 text-black hover:scale-105 transition flex items-center gap-2"
-              >
-                <Coffee size={18} />
-                Buy Me a Coffee
-              </a>
-            </div>
-
-            {/* INSPIRATION */}
-
-            <div className="p-6 rounded-3xl backdrop-blur-xl bg-white/5 border border-white/10">
-
-              <h3 className="text-xl font-semibold text-cyan-400 mb-3">
-                🌟 Inspiration
-              </h3>
-
-              <p className="text-slate-300 leading-relaxed">
-                I am deeply inspired by my professor Dr. Srinivas Rahul
-                Sapireddy, whose dedication to research and teaching motivates
-                me to innovate in embedded systems, RF engineering, and advanced
-                semiconductor technologies.
-              </p>
-
-              <a
-                href="https://srsapireddy.github.io/about/"
-                target="_blank"
-                className="inline-block mt-4 text-cyan-400 hover:underline"
-              >
-                Visit Professor Profile →
-              </a>
-            </div>
-          </div>
-
-          {/* RIGHT */}
-
-          <div className="flex justify-center">
-
-            <div className="relative">
-
-              <div className="absolute inset-0 bg-cyan-500 blur-3xl opacity-20 rounded-full"></div>
-
-              <img
-                src="/Images/profile.jpeg"
-                alt="Sai Anirudh"
-                className="relative w-[340px] h-[340px] object-cover rounded-full border-4 border-cyan-400 shadow-2xl"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================
-          EXPERIENCE SECTION
-      ========================== */}
-
-      <section className="py-24 px-6">
-
-        <div className="max-w-7xl mx-auto">
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-
-            <GlassCard
-              icon={<GraduationCap />}
-              title="Education"
-              content="Masters in Electrical & Computer Engineering at UMKC."
-            />
-
-            <GlassCard
-              icon={<Briefcase />}
-              title="Experience"
-              content="Associate SDET at QualiZeal Technologies."
-            />
-
-            <GlassCard
-              icon={<BookOpen />}
-              title="Research"
-              content="THz Communication Systems, RF & Mixed Signal ICs."
-            />
-
-            <GlassCard
-              icon={<Award />}
-              title="Achievements"
-              content="Rising Star Award • Research Presentations • Certifications"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* =========================
-          PROJECTS
-      ========================== */}
-
-      <section
-        id="projects"
-        className="py-24 px-6"
-      >
-
-        <div className="max-w-7xl mx-auto">
-
-          <h2 className="text-4xl font-bold mb-14 text-center">
-            Featured Projects
-          </h2>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-            <ProjectCard
-              title="BLE Receiver Front-End Design"
-              year="2026"
-              tech="RF • PCB • KiCad"
-              link="https://github.com/saianirudh-g/Bluetooth-Low-Energy-Receiver-Front-End-Design-Schematic-PCB-Design-"
-            />
-
-            <ProjectCard
-              title="RTL to GDSII Flow"
-              year="2025"
-              tech="ASIC • Physical Design"
-              link="https://github.com/saianirudh-g/RTL-to-GDSII-Flow"
-            />
-
-            <ProjectCard
-              title="STM32 Embedded Systems"
-              year="2026"
-              tech="Embedded C • STM32"
-              link="https://github.com/saianirudh-g/STM32-MCU-Using-Embedded-Tools"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* =========================
-          CONTACT
-      ========================== */}
-
-      <section
-        id="contact"
-        className="py-24 px-6"
-      >
-
-        <div className="max-w-4xl mx-auto text-center">
-
-          <h2 className="text-5xl font-bold mb-8">
-            Let’s Connect
-          </h2>
-
-          <p className="text-slate-300 text-lg mb-10">
-            Open to research collaboration, embedded systems projects,
-            semiconductor opportunities, and innovative engineering work.
-          </p>
-
-          <div className="flex flex-wrap justify-center gap-6">
-
-            <a
-              href="mailto:saianirudh.kefp2@gmail.com"
-              className="px-6 py-4 rounded-2xl bg-cyan-500 hover:bg-cyan-400 transition flex items-center gap-3"
-            >
-              <Mail />
-              Send Email
-            </a>
-
-            <a
-              href="tel:+18167153854"
-              className="px-6 py-4 rounded-2xl bg-white/10 hover:bg-white/20 transition"
-            >
-              📞 Call Me
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================
-          FOOTER
-      ========================== */}
-
-      <footer className="border-t border-white/10 py-10 text-center text-slate-400">
-
-        <p>
-          © 2026 Sai Anirudh Godavarthi • Built with React + Tailwind CSS
-        </p>
-      </footer>
-    </div>
-  );
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  scroll-behavior:smooth;
 }
 
-/* =========================
-   GLASS CARD COMPONENT
-========================= */
-
-function GlassCard({
-  icon,
-  title,
-  content,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  content: string;
-}) {
-  return (
-    <div className="p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-xl hover:scale-105 transition">
-
-      <div className="text-cyan-400 mb-4">
-        {icon}
-      </div>
-
-      <h3 className="text-2xl font-semibold mb-4">
-        {title}
-      </h3>
-
-      <p className="text-slate-300">
-        {content}
-      </p>
-    </div>
-  );
+body{
+  font-family:'Poppins',sans-serif;
+  background:#0f172a;
+  color:white;
+  overflow-x:hidden;
 }
 
-/* =========================
-   PROJECT CARD COMPONENT
-========================= */
+/* =========================================================
+   SCROLLBAR
+========================================================= */
 
-function ProjectCard({
-  title,
-  year,
-  tech,
-  link,
-}: {
-  title: string;
-  year: string;
-  tech: string;
-  link: string;
-}) {
-  return (
-    <div className="group p-6 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-xl hover:border-cyan-400 transition">
-
-      <div className="mb-4 flex justify-between items-center">
-
-        <span className="text-cyan-400 text-sm">
-          {year}
-        </span>
-
-        <span className="text-xs px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-300">
-          {tech}
-        </span>
-      </div>
-
-      <h3 className="text-2xl font-bold mb-4 group-hover:text-cyan-400 transition">
-        {title}
-      </h3>
-
-      <a
-        href={link}
-        target="_blank"
-        className="inline-block mt-4 text-cyan-400 hover:underline"
-      >
-        View Project →
-      </a>
-    </div>
-  );
+::-webkit-scrollbar{
+  width:8px;
 }
+
+::-webkit-scrollbar-thumb{
+  background:#06b6d4;
+  border-radius:20px;
+}
+
+/* =========================================================
+   BACKGROUND
+========================================================= */
+
+.bg-animation{
+  position:fixed;
+  width:100%;
+  height:100%;
+  z-index:-1;
+  overflow:hidden;
+}
+
+.bg-animation span{
+  position:absolute;
+  display:block;
+  width:20px;
+  height:20px;
+  background:rgba(255,255,255,0.05);
+  animation:animate 25s linear infinite;
+  bottom:-150px;
+  border-radius:50%;
+}
+
+.bg-animation span:nth-child(1){
+  left:10%;
+  width:80px;
+  height:80px;
+  animation-delay:0s;
+}
+
+.bg-animation span:nth-child(2){
+  left:20%;
+  width:20px;
+  height:20px;
+  animation-delay:2s;
+  animation-duration:12s;
+}
+
+.bg-animation span:nth-child(3){
+  left:70%;
+  width:20px;
+  height:20px;
+  animation-delay:4s;
+}
+
+.bg-animation span:nth-child(4){
+  left:40%;
+  width:60px;
+  height:60px;
+  animation-delay:0s;
+  animation-duration:18s;
+}
+
+.bg-animation span:nth-child(5){
+  left:65%;
+  width:20px;
+  height:20px;
+  animation-delay:0s;
+}
+
+@keyframes animate{
+  0%{
+    transform:translateY(0) rotate(0deg);
+    opacity:1;
+  }
+  100%{
+    transform:translateY(-1000px) rotate(720deg);
+    opacity:0;
+  }
+}
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+header{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  z-index:999;
+  backdrop-filter:blur(15px);
+  background:rgba(15,23,42,0.7);
+  border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+nav{
+  max-width:1200px;
+  margin:auto;
+  padding:18px 25px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-size:26px;
+  font-weight:700;
+  color:#06b6d4;
+}
+
+.nav-links{
+  display:flex;
+  gap:35px;
+}
+
+.nav-links a{
+  text-decoration:none;
+  color:white;
+  font-weight:500;
+  transition:0.3s;
+}
+
+.nav-links a:hover{
+  color:#06b6d4;
+}
+
+.menu-btn{
+  display:none;
+  font-size:28px;
+  cursor:pointer;
+}
+
+/* =========================================================
+   MOBILE NAVBAR
+========================================================= */
+
+@media(max-width:768px){
+
+  .menu-btn{
+    display:block;
+  }
+
+  .nav-links{
+    position:absolute;
+    top:80px;
+    right:-100%;
+    width:250px;
+    height:100vh;
+    flex-direction:column;
+    background:#111827;
+    padding:40px 25px;
+    transition:0.4s;
+  }
+
+  .nav-links.active{
+    right:0;
+  }
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:120px 30px 80px;
+}
+
+.hero-container{
+  max-width:1200px;
+  width:100%;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:60px;
+  align-items:center;
+}
+
+.hero-left h1{
+  font-size:65px;
+  line-height:1.1;
+}
+
+.hero-left span{
+  color:#06b6d4;
+}
+
+.typing{
+  color:#38bdf8;
+  margin-top:20px;
+  font-size:24px;
+  min-height:40px;
+}
+
+.hero-left p{
+  margin-top:25px;
+  line-height:1.9;
+  color:#cbd5e1;
+  font-size:18px;
+}
+
+.hero-buttons{
+  margin-top:35px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:18px;
+}
+
+.btn{
+  padding:14px 26px;
+  border-radius:14px;
+  text-decoration:none;
+  font-weight:600;
+  transition:0.3s;
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+}
+
+.btn-primary{
+  background:#06b6d4;
+  color:white;
+}
+
+.btn-primary:hover{
+  transform:translateY(-4px);
+  box-shadow:0 12px 25px rgba(6,182,212,0.35);
+}
+
+.btn-outline{
+  border:1px solid rgba(255,255,255,0.2);
+  color:white;
+}
+
+.btn-outline:hover{
+  background:rgba(255,255,255,0.08);
+}
+
+/* =========================================================
+   HERO IMAGE
+========================================================= */
+
+.hero-right{
+  display:flex;
+  justify-content:center;
+}
+
+.profile-box{
+  position:relative;
+}
+
+.profile-box::before{
+  content:'';
+  position:absolute;
+  inset:-15px;
+  background:linear-gradient(
+  45deg,
+  #06b6d4,
+  #3b82f6,
+  #8b5cf6
+  );
+  border-radius:50%;
+  filter:blur(30px);
+  opacity:0.6;
+}
+
+.profile-box img{
+  position:relative;
+  width:350px;
+  height:350px;
+  object-fit:cover;
+  border-radius:50%;
+  border:5px solid rgba(255,255,255,0.2);
+}
+
+/* =========================================================
+   GLASS CARD
+========================================================= */
+
+.glass{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.08);
+  backdrop-filter:blur(15px);
+  border-radius:25px;
+}
+
+/* =========================================================
+   SECTION
+========================================================= */
+
+section{
+  padding:100px 30px;
+}
+
+.section-title{
+  text-align:center;
+  font-size:42px;
+  margin-bottom:60px;
+}
+
+.section-title span{
+  color:#06b6d4;
+}
+
+/* =========================================================
+   ABOUT
+========================================================= */
+
+.about-grid{
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:30px;
+}
+
+.about-card{
+  padding:35px;
+  transition:0.3s;
+}
+
+.about-card:hover{
+  transform:translateY(-8px);
+}
+
+.about-card i{
+  font-size:40px;
+  color:#06b6d4;
+  margin-bottom:20px;
+}
+
+.about-card h3{
+  margin-bottom:15px;
+}
+
+/* =========================================================
+   PROJECTS
+========================================================= */
+
+.projects-grid{
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:30px;
+}
+
+.project-card{
+  overflow:hidden;
+  transition:0.4s;
+}
+
+.project-card:hover{
+  transform:translateY(-10px);
+}
+
+.project-content{
+  padding:30px;
+}
+
+.project-content h3{
+  margin-bottom:12px;
+}
+
+.tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:20px;
+}
+
+.tags span{
+  padding:8px 14px;
+  background:rgba(6,182,212,0.15);
+  border-radius:30px;
+  font-size:13px;
+  color:#67e8f9;
+}
+
+/* =========================================================
+   CONTACT
+========================================================= */
+
+.contact-container{
+  max-width:900px;
+  margin:auto;
+  padding:50px;
+  text-align:center;
+}
+
+.contact-buttons{
+  margin-top:40px;
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  flex-wrap:wrap;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+  text-align:center;
+  padding:40px 20px;
+  color:#94a3b8;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:900px){
+
+  .hero-container{
+    grid-template-columns:1fr;
+    text-align:center;
+  }
+
+  .hero-left h1{
+    font-size:50px;
+  }
+
+  .hero-buttons{
+    justify-content:center;
+  }
+
+  .profile-box img{
+    width:260px;
+    height:260px;
+  }
+}
+
+@media(max-width:500px){
+
+  .hero-left h1{
+    font-size:40px;
+  }
+
+  .section-title{
+    font-size:32px;
+  }
+
+  .contact-container{
+    padding:30px 20px;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- BACKGROUND -->
+<div class="bg-animation">
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
+<!-- NAVBAR -->
+
+<header>
+
+<nav>
+
+<div class="logo">
+Sai Anirudh
+</div>
+
+<div class="nav-links" id="navLinks">
+
+<a href="#home">Home</a>
+<a href="#about">About</a>
+<a href="#projects">Projects</a>
+<a href="#contact">Contact</a>
+
+</div>
+
+<div class="menu-btn" id="menuBtn">
+<i class="fa-solid fa-bars"></i>
+</div>
+
+</nav>
+
+</header>
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+<div class="hero-container">
+
+<!-- LEFT -->
+
+<div class="hero-left">
+
+<h1>
+Sai Anirudh
+<span>Godavarthi</span>
+</h1>
+
+<div class="typing" id="typing"></div>
+
+<p>
+Masters in Electrical & Computer Engineering passionate about Embedded Systems,
+RF Engineering, ASIC Physical Design, THz Communication and Software Testing.
+</p>
+
+<div class="hero-buttons">
+
+<a href="https://github.com/saianirudh-g"
+target="_blank"
+class="btn btn-primary">
+<i class="fab fa-github"></i>
+GitHub
+</a>
+
+<a href="https://www.linkedin.com/in/sai-anirudh-godavarthi-710b16273/"
+target="_blank"
+class="btn btn-outline">
+<i class="fab fa-linkedin"></i>
+LinkedIn
+</a>
+
+<a href="https://buymeacoffee.com/saianirudh"
+target="_blank"
+class="btn btn-primary">
+☕ Buy Me a Coffee
+</a>
+
+</div>
+
+</div>
+
+<!-- RIGHT -->
+
+<div class="hero-right">
+
+<div class="profile-box">
+<img src="Images/profile.jpeg">
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ABOUT -->
+
+<section id="about">
+
+<h2 class="section-title">
+About <span>Me</span>
+</h2>
+
+<div class="about-grid">
+
+<div class="about-card glass">
+
+<i class="fa-solid fa-microchip"></i>
+
+<h3>Embedded Systems</h3>
+
+<p>
+Passionate about firmware development,
+MCU programming and hardware integration.
+</p>
+
+</div>
+
+<div class="about-card glass">
+
+<i class="fa-solid fa-wave-square"></i>
+
+<h3>RF & THz Research</h3>
+
+<p>
+Researching advanced THz communication systems for future 6G technologies.
+</p>
+
+</div>
+
+<div class="about-card glass">
+
+<i class="fa-solid fa-code"></i>
+
+<h3>Software Testing</h3>
+
+<p>
+Experienced in automation testing,
+validation and software quality engineering.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- PROJECTS -->
+
+<section id="projects">
+
+<h2 class="section-title">
+Featured <span>Projects</span>
+</h2>
+
+<div class="projects-grid">
+
+<div class="project-card glass">
+
+<div class="project-content">
+
+<h3>BLE Receiver Front End Design</h3>
+
+<p>
+Schematic and PCB design for Bluetooth Low Energy receiver systems.
+</p>
+
+<div class="tags">
+<span>RF</span>
+<span>PCB</span>
+<span>KiCad</span>
+</div>
+
+<div style="margin-top:25px;">
+
+<a href="https://github.com/saianirudh-g/Bluetooth-Low-Energy-Receiver-Front-End-Design-Schematic-PCB-Design-"
+target="_blank"
+class="btn btn-primary">
+View Project
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="project-card glass">
+
+<div class="project-content">
+
+<h3>RTL to GDSII Flow</h3>
+
+<p>
+ASIC Physical Design project including synthesis,
+floorplanning and routing.
+</p>
+
+<div class="tags">
+<span>ASIC</span>
+<span>VLSI</span>
+<span>Physical Design</span>
+</div>
+
+<div style="margin-top:25px;">
+
+<a href="https://github.com/saianirudh-g/RTL-to-GDSII-Flow"
+target="_blank"
+class="btn btn-primary">
+View Project
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="project-card glass">
+
+<div class="project-content">
+
+<h3>STM32 Embedded Systems</h3>
+
+<p>
+Embedded systems programming using STM32 microcontrollers and C language.
+</p>
+
+<div class="tags">
+<span>STM32</span>
+<span>Embedded C</span>
+<span>MCU</span>
+</div>
+
+<div style="margin-top:25px;">
+
+<a href="https://github.com/saianirudh-g/STM32-MCU-Using-Embedded-Tools"
+target="_blank"
+class="btn btn-primary">
+View Project
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- CONTACT -->
+
+<section id="contact">
+
+<h2 class="section-title">
+Contact <span>Me</span>
+</h2>
+
+<div class="contact-container glass">
+
+<h3 style="font-size:32px;">
+Let's Build Something Amazing 🚀
+</h3>
+
+<p style="margin-top:20px;color:#cbd5e1;line-height:1.8;">
+Open for research collaboration,
+embedded systems development,
+RF engineering projects and semiconductor opportunities.
+</p>
+
+<div class="contact-buttons">
+
+<a href="mailto:saianirudh.kefp2@gmail.com"
+class="btn btn-primary">
+<i class="fa-solid fa-envelope"></i>
+Email
+</a>
+
+<a href="tel:+18167153854"
+class="btn btn-outline">
+<i class="fa-solid fa-phone"></i>
+Call Me
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+
+© 2026 Sai Anirudh Godavarthi • Built with HTML CSS & JavaScript
+
+</footer>
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+/* =========================================================
+   MOBILE NAVBAR
+========================================================= */
+
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
+
+menuBtn.onclick = () => {
+  navLinks.classList.toggle("active");
+};
+
+/* =========================================================
+   TYPING EFFECT
+========================================================= */
+
+const words = [
+  "Embedded Systems Engineer",
+  "RF & THz Researcher",
+  "Software Automation Tester",
+  "VLSI & ASIC Enthusiast"
+];
+
+let i = 0;
+let j = 0;
+let currentWord = "";
+let isDeleting = false;
+
+function type(){
+
+  currentWord = words[i];
+
+  if(isDeleting){
+    document.getElementById("typing").textContent =
+    currentWord.substring(0,j--);
+  }
+  else{
+    document.getElementById("typing").textContent =
+    currentWord.substring(0,j++);
+  }
+
+  if(!isDeleting && j === currentWord.length){
+    isDeleting = true;
+    setTimeout(type,1200);
+    return;
+  }
+
+  if(isDeleting && j === 0){
+    isDeleting = false;
+    i++;
+
+    if(i === words.length){
+      i = 0;
+    }
+  }
+
+  setTimeout(type,isDeleting ? 50 : 100);
+}
+
+type();
+
+/* =========================================================
+   ACTIVE NAV LINK
+========================================================= */
+
+const sections = document.querySelectorAll("section");
+const navItems = document.querySelectorAll(".nav-links a");
+
+window.addEventListener("scroll",()=>{
+
+  let current = "";
+
+  sections.forEach(section=>{
+
+    const sectionTop = section.offsetTop;
+
+    if(pageYOffset >= sectionTop - 200){
+      current = section.getAttribute("id");
+    }
+  });
+
+  navItems.forEach(a=>{
+
+    a.classList.remove("active");
+
+    if(a.getAttribute("href") === "#" + current){
+      a.style.color = "#06b6d4";
+    }
+    else{
+      a.style.color = "white";
+    }
+  });
+
+});
+
+</script>
+
+</body>
+</html>
