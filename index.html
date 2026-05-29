@@ -920,7 +920,7 @@ padding:80px 40px 40px 40px;
 
     <div class="top-buttons">
     <button class="menu-btn" onclick="toggleMenu()"> ☰ </button>
-    <button class="about-tab" onclick="openTab('home')"> Home </button>
+    <button class="about-tab" onclick="openTab('about')"> Home </button>
     <button class="about-tab" onclick="openTab('resume')">Resume</button>
     <button class="about-tab" onclick="openTab('moments')">Moments</button>
     </div>
@@ -1484,15 +1484,16 @@ sidebar.classList.remove("active");
 main.classList.remove("slide");
 }
 }
+
 function openTab(tabId){
+const cards=document.querySelectorAll(".card");
+cards.forEach(card=>{
+card.classList.remove("active");
+});
 
-  const cards = document.querySelectorAll(".card");
-
-  cards.forEach(card => {
-    card.classList.remove("active");
-  });
+document.getElementById(tabId)
+.classList.add("active");
 }
-    
   /* TYPING ANIMATION */
 
 const texts =
