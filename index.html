@@ -452,21 +452,25 @@ section{
   gap:20px;
   flex-wrap:wrap;
 }
-
 /* =========================================================
    FOOTER
 ========================================================= */
 
-footer{
-  text-align:center;
-  padding:40px 20px;
-  color:#94a3b8;
+footer {
+  text-align: center;
+  padding: 40px 20px;
+  color: #94a3b8;
+  margin-top: 40px;
 }
 
+.footer-follow {
+  margin-bottom: 15px;
+  font-size: 18px;
+  letter-spacing: 1px;
+}
 /* =========================================================
    MOBILE
 ========================================================= */
-
 @media(max-width:900px){
 
   .hero-container{
@@ -492,7 +496,6 @@ footer{
     max-width:100%;
   }
 }
-
 @media(max-width:500px){
 
   .hero-left h1{
@@ -952,17 +955,42 @@ Open for research collaboration, embedded systems development, RF engineering pr
 </section>
 
 <!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-follow">
+    FOLLOW:
+    <a href="https://github.com/saianirudh-g" class="btn-link" target="_blank">GITHUB</a>
+    <a href="https://www.linkedin.com/in/sai-anirudh-godavarthi-710b16273/" class="btn-link" target="_blank">LINKEDIN</a>
+    <a href="https://www.linkedin.com/feed/" class="btn-link" target="_blank">FEED</a>
+  </div>
 
-<footer>
-  FOLLOW:
-   <a href="https://github.com/saianirudh-g" class="btn-link" target="_blank">GITHUB</a>
-   <a href="https://www.linkedin.com/in/sai-anirudh-godavarthi-710b16273/" class="btn-link" target="_blank">LINKEDIN</a>
-   <a href="https://www.linkedin.com/feed/" class="btn-link" target="_blank">FEED</a>
   <p>© 2026 Sai Anirudh Godavarthi | Built with HTML CSS & JavaScript</p>
 </footer>
 
 <!-- JAVASCRIPT -->
 <script>
+/* =========================================================
+   INJECT .btn-link CSS FROM SCRIPT
+========================================================= */
+const btnLinkStyle = document.createElement("style");
+btnLinkStyle.textContent = `
+  .btn-link {
+    display: inline-block;
+    padding: 8px 18px;
+    background: rgba(255,255,255,0.12);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    margin: 5px;
+    transition: 0.3s;
+    border: 1px solid rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+  }
+  .btn-link:hover {
+    background: rgba(255,255,255,0.25);
+  }
+`;
+document.head.appendChild(btnLinkStyle);
 
 /* =========================================================
    MOBILE NAVBAR
@@ -976,7 +1004,7 @@ menuBtn.onclick = () => {
 };
 
 /* =========================================================
-   PROJECT SLIDER (MATCHES YOUR CSS + HTML)
+   PROJECT SLIDER (MATCHES BODY + CSS)
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -989,7 +1017,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const cardsPerView = 3;
 
   function updateSlider() {
-    const cardWidth = cards[0].offsetWidth + 20; // includes margin
+    const cardWidth = cards[0].offsetWidth + 20; // margin included
     container.style.transform = `translateX(-${index * cardWidth}px)`;
   }
 
@@ -1077,7 +1105,6 @@ window.addEventListener("scroll", () => {
     }
   });
 });
-
 </script>
 
 </body>
