@@ -329,35 +329,34 @@ nav{
 .projects-wrapper {
   display: flex;
   align-items: center;
-  position: relative;
   width: 100%;
   overflow: hidden;
+  gap: 10px;
 }
 
 .projects-container {
   display: flex;
-  gap: 20px;
   transition: transform 0.4s ease;
 }
 
 .project-card {
-  min-width: 30%; /* Shows 3 cards per slide */
-  max-width: 30%;
+  flex: 0 0 calc(100% / 3); /* 3 cards visible; change 3 → 2 for 2 cards */
+  box-sizing: border-box;
+  padding: 10px;
 }
 
 .nav-btn {
   background: #ffffff33;
   border: none;
-  padding: 10px 15px;
+  padding: 8px 12px;
   font-size: 24px;
   cursor: pointer;
   border-radius: 8px;
-  backdrop-filter: blur(10px);
+}
+.nav-btn:hover {
+  background: #ffffff66;
 }
 
-.nav-btn:hover {
-  background: #ffffff55;
-}
 /* =========================================================
    SECTION
 ========================================================= */
@@ -773,6 +772,7 @@ My <span>Resume</span>
     <button class="nav-btn prev-btn">❮</button>
 
     <div class="projects-container">
+       
       <div class="project-card glass">
         <div class="project-content">
           <h3>STM32 Microcontroller using Embedded Tools</h3>
@@ -781,7 +781,8 @@ My <span>Resume</span>
             <span>STM32 MCU</span>
             <span>Embedded C</span>
           </div>
-          <a href="https://github.com/saianirudh-g/STM32-MCU-Using-Embedded-Tools" target="_blank" class="btn btn-primary">View Project</a>
+          <a href="https://github.com/saianirudh-g/STM32-MCU-Using-Embedded-Tools"
+             target="_blank" class="btn btn-primary">View Project</a>
         </div>
       </div>
 
@@ -793,7 +794,7 @@ My <span>Resume</span>
             <span>Cadence</span>
             <span>Virtuoso</span>
           </div>
-          <a href="https://github.com/saianirudh-g/SRAM-Project">View Project</a>
+          <a href="https://github.com/saianirudh-g/SRAM-Project" target="_blank class="btn btn-primary">View Project</a>
         </div>
       </div>
 
@@ -805,7 +806,8 @@ My <span>Resume</span>
             <span>Schematic - QUCS</span>
             <span>PCB - KiCad</span>
           </div>
-          <a href="https://github.com/saianirudh-g/Bluetooth-Low-Energy-Receiver-Front-End-Design-Schematic-PCB-Design-" target="_blank" class="btn btn-primary">View Project</a>
+          <a href="https://github.com/saianirudh-g/Bluetooth-Low-Energy-Receiver-Front-End-Design-Schematic-PCB-Design-"
+             target="_blank" class="btn btn-primary">View Project</a>
         </div>
       </div>
 
@@ -817,7 +819,8 @@ My <span>Resume</span>
             <span>ASIC</span>
             <span>VLSI</span>
           </div>
-          <a href="https://github.com/saianirudh-g/RTL-to-GDSII-Flow" target="_blank" class="btn btn-primary">View Project</a>
+          <a href="https://github.com/saianirudh-g/RTL-to-GDSII-Flow"
+             target="_blank" class="btn btn-primary">View Project</a>
         </div>
       </div>
 
@@ -829,7 +832,8 @@ My <span>Resume</span>
             <span>Vector Network Analyser</span>
             <span>Microstrip Antenna</span>
           </div>
-          <a href="https://github.com/saianirudh-g/Microwave-Transmission-Line-Characterization-Using-a-Handheld-VNA" target="_blank" class="btn btn-primary">View Project</a>
+          <a href="https://github.com/saianirudh-g/Microwave-Transmission-Line-Characterization-Using-a-Handheld-VNA"
+             target="_blank" class="btn btn-primary">View Project</a>
         </div>
       </div>
 
@@ -841,11 +845,12 @@ My <span>Resume</span>
             <span>ESP32 MCU</span>
             <span>Bluetooth</span>
           </div>
-          <a href="https://github.com/saianirudh-g/ESP32-Microcontroller-using-bluetooth-with-Embedded-C-tools">View Project</a>
+          <a href="https://github.com/saianirudh-g/ESP32-Microcontroller-using-bluetooth-with-Embedded-C-tools"
+             target="_blank" class="btn btn-primary>View Project</a>
         </div>
       </div>
+   
     </div>
-
     <button class="nav-btn next-btn">❯</button>
   </div>
 </section>
@@ -1268,30 +1273,41 @@ let i = 0;
 let j = 0;
 let currentWord = "";
 let isDeleting = false;
-let currentIndex = 0;
-const cardsPerPage = 3; // change to 2 if needed
 
-const container = document.querySelector(".projects-container");
-const cards = document.querySelectorAll(".project-card");
+document.addEventListener("DOMContentLoaded", () => {
+  const container = document.querySelector(".projects-container");
+  const cards = Array.from(document.querySelectorAll(".project-card"));
+  const prevBtn = document.querySelector(".prev-btn");
+  const nextBtn = document.querySelector(".next-btn");
 
-function updateSlider() {
-  const cardWidth = cards[0].offsetWidth + 20; // includes gap
-  container.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
-}
+  const cardsPerPage = 3; // change to 2 if you want 2 visible
+  let currentPage = 0;
 
-document.querySelector(".next-btn").addEventListener("click", () => {
-  if (currentIndex < cards.length - cardsPerPage) {
-    currentIndex++;
-    updateSlider();
+  const totalPages = Math.ceil(cards.length / cardsPerPage);
+
+  function updateSlider() {
+    const translatePercent = -(100 / cardsPerPage) * currentPage;
+    container.style.transform = `translateX(${translatePercent}%)`;
   }
+
+  nextBtn.addEventListener("click", () => {
+    if (currentPage < totalPages - 1) {
+      currentPage++;
+      updateSlider();
+    }
+  });
+
+  prevBtn.addEventListener("click", () => {
+    if (currentPage > 0) {
+      currentPage--;
+      updateSlider();
+    }
+  });
+
+  // initial position
+  updateSlider();
 });
 
-document.querySelector(".prev-btn").addEventListener("click", () => {
-  if (currentIndex > 0) {
-    currentIndex--;
-    updateSlider();
-  }
-});
 function type(){
 
   currentWord = words[i];
