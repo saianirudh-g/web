@@ -1,337 +1,1552 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head>  
+<meta name="description"
+content="Sai Anirudh Godavarthi Portfolio | Embedded Systems | VLSI | RF | | IoT | Software Automation Tester">
+<meta name="keywords"
+content="Sai Anirudh,  VLSI , Embedded & IoT Engineer, Software Tester, Selenium Automation">
+<meta name="author"
+content="Sai Anirudh Godavarthi">
+<meta name="google-site-verification" content="mlu6Z8D3tsDo9E6YT5PubXAjrpi9PG2UgDvktoqXpH4" />
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>Sai Anirudh Portfolio</title>
+  <title>
+    Sai Anirudh Godavarthi | Embedded Systems Engineer | Masters in Electrical Engineering | Software Tester
+  </title>
+  <!-- Google tag -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
 
-<style>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-/* =======================
-   GLOBAL GLASSMORPHISM UI
-======================= */
+    gtag('config', 'G-XWHJX0CPSX');
+  </script>
+  
+  <style>
+    /* RESUME CARDS CONTAINER */
 
-body{
-  margin:0;
-  font-family:"Segoe UI", sans-serif;
-  background: linear-gradient(135deg,#e0eafc,#cfdef3);
-  overflow-x:hidden;
+.resume-cards-container
+{
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 25px;
+
+  margin-top: 40px;
 }
 
-/* smooth animations */
-*{
-  transition: all 0.3s ease;
+/* INDIVIDUAL CARD */
+
+.resume-card
+{
+  flex: 1;
+
+  min-width: 320px;
+
+  background: white;
+
+  border-radius: 20px;
+
+  padding: 25px;
+
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+
+  transition: 0.3s;
 }
 
-/* =======================
-   GLASS CARD STYLE
-======================= */
+/* HOVER EFFECT */
 
-.card,
-.resume-card,
-.hero-container,
-.info-card,
-.cert-card,
-.sidebar,
-.topbar{
-  background: rgba(255,255,255,0.25);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.3);
-  border-radius: 18px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+.resume-card:hover
+{
+  transform: translateY(-6px);
+
+  box-shadow: 0 12px 30px rgba(37,99,235,0.15);
 }
 
-/* =======================
-   TOP NAVBAR
-======================= */
+/* CARD TITLES */
 
+.resume-card h2
+{
+  color: #2563eb;
+
+  margin-bottom: 20px;
+
+  font-size: 24px;
+}
+
+/* TABLE */
+
+.resume-card table
+{
+  width: 100%;
+
+  border-collapse: collapse;
+}
+
+/* TABLE HEADERS */
+
+.resume-card th
+{
+  background: #2563eb;
+
+  color: white;
+
+  padding: 12px;
+
+  text-align: left;
+
+  font-size: 15px;
+}
+
+/* TABLE DATA */
+
+.resume-card td
+{
+  padding: 12px;
+
+  border-bottom: 1px solid #e2e8f0;
+
+  color: #475569;
+
+  font-size: 15px;
+}
+
+/* ROW HOVER */
+
+.resume-card tr:hover
+{
+  background: #f8fafc;
+}
+
+/* MOBILE */
+
+@media(max-width:768px)
+{
+  .resume-cards-container
+  {
+    flex-direction: column;
+  }
+}
+    /* HERO CONTAINER */
+
+.hero-container
+{
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 50px;
+
+  background: white;
+
+  padding: 40px;
+
+  border-radius: 25px;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+
+  margin-bottom: 30px;
+
+  flex-wrap: wrap;
+}
+
+/* LEFT SIDE */
+
+.hero-left
+{
+  flex: 1;
+
+  min-width: 250px;
+
+  text-align: center;
+}
+
+/* PROFILE PHOTO */
+
+.profile-photo
+{
+  width: 250px;
+
+  height: 250px;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+
+  border: 6px solid #2563eb;
+
+  box-shadow: 0 10px 30px rgba(37,99,235,0.25);
+}
+
+/* RIGHT SIDE */
+
+.hero-right
+{
+  flex: 2;
+
+  min-width: 300px;
+}
+
+.hero-right h1
+{
+  font-size: 42px;
+
+  color: #2563eb;
+
+  margin-bottom: 15px;
+}
+
+/* ROLE */
+
+.hero-role
+{
+  font-size: 20px;
+
+  color: #475569;
+
+  margin-top: 20px;
+
+  font-weight: 600;
+}
+
+/* DESCRIPTION */
+
+.hero-desc
+{
+  margin-top: 20px;
+
+  font-size: 18px;
+
+  line-height: 1.8;
+
+  color: #64748b;
+}
+
+/* BUTTONS */
+
+.hero-buttons
+{
+  margin-top: 30px;
+}
+
+.hero-buttons a
+{
+  display: inline-block;
+
+  padding: 14px 26px;
+
+  margin-right: 15px;
+
+  border-radius: 10px;
+
+  text-decoration: none;
+
+  font-weight: bold;
+
+  transition: 0.3s;
+}
+/* EMAIL */
+
+.email-btn
+{
+  border: 2px solid #2563eb;
+
+  color: #2563eb;
+}
+
+/* GITHUB */
+
+.github-btn
+{
+  border: 2px solid #2563eb;
+
+  color: #2563eb;
+}
+
+/* LINKEDIN */
+
+.linkedin-btn
+{
+  background: #2563eb;
+
+  color: white;
+}
+
+/* HOVER EFFECT */
+
+.hero-buttons a:hover
+{
+  transform: translateY(-4px);
+
+  box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+}
+
+/* MOBILE RESPONSIVE */
+
+@media(max-width:768px)
+{
+  .hero-container
+  {
+    flex-direction: column;
+
+    text-align: center;
+  }
+
+  .hero-right h1
+  {
+    font-size: 34px;
+  }
+
+  .profile-photo
+  {
+    width: 200px;
+
+    height: 200px;
+  }
+}
+    /* TYPING EFFECT */
+.typing-text {
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 15px;
+  min-height: 40px;
+
+  /* Gradient Attractive Text */
+  background: linear-gradient(90deg, #ff6b6b, #ffb347, #6a11cb, #2575fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  border-right: 3px solid #ffb347;
+
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+
+  white-space: nowrap;
+  overflow: hidden;
+
+  animation: blink 0.7s infinite;
+}
+@keyframes blink
+{
+  50%
+  {
+    border-color: transparent;
+  }
+}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: #f4f7fb;
+      color: #1e293b;
+      min-height: 100vh;
+      display: flex;
+    }
+    .coffee-btn{
+    display:inline-block;
+    padding:12px 24px;
+    background:#ffdd00;
+    color:#000;
+    text-decoration:none;
+    font-weight:bold;
+    border-radius:30px;
+    transition:0.3s;
+    box-shadow:0 4px 10px rgba(0,0,0,0.2);
+}
+
+.coffee-btn:hover{
+    background:#000;
+    color:#ffdd00;
+    transform:scale(1.05);
+}
+    .inspiration-btn{
+    display:inline-block;
+    padding:12px 24px;
+    background:#4f46e5;
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+    border-radius:30px;
+    transition:0.3s;
+    box-shadow:0 4px 10px rgba(0,0,0,0.2);
+    margin-left:10px;
+}
+
+.inspiration-btn:hover{
+    background:white;
+    color:#4f46e5;
+    transform:scale(1.05);
+}
+/* TOP BUTTON AREA */
 .top-buttons{
   position: fixed;
   top: 10px;
   left: 10px;
-  display:flex;
-  gap:10px;
-  z-index:9999;
+  display: flex;
+  gap: 12px;
+  z-index: 99999;
 }
+/* SMALL MENU BUTTON */
+.menu-btn{
+width:38px;
+height:38px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:22px;
+background:white;
+border-radius:8px;
+cursor:pointer;
+box-shadow:0 4px 10px rgba(0,0,0,.15);
+}
+/* ABOUT TAB */
 
-.menu-btn,
 .about-tab{
-  padding:10px 15px;
-  border:none;
-  cursor:pointer;
-  border-radius:12px;
-  font-weight:600;
-  background: rgba(255,255,255,0.4);
-}
 
+height:38px;
+
+padding:0 20px;
+
+display:flex;
+
+align-items:center;
+justify-content:center;
+
+background:white;
+
+border-radius:8px;
+
+cursor:pointer;
+
+font-size:15px;
+
+font-weight:600;
+
+box-shadow:0 4px 10px rgba(0,0,0,.15);
+
+transition:0.3s;
+
+}
 .about-tab:hover{
-  transform: translateY(-3px);
-  background:#2563eb;
-  color:white;
+
+background:#2563eb;
+
+color:white;
+
+transform:translateY(-2px);
+
 }
-
-/* =======================
-   SIDEBAR (MOBILE MENU)
-======================= */
-
-.sidebar{
-  position:fixed;
-  top:0;
-  left:-260px;
-  width:260px;
-  height:100%;
-  padding-top:80px;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  z-index:9999;
-  transition:0.4s;
-}
-
-.sidebar.active{
-  left:0;
-}
-
-.sidebar button{
-  margin:8px;
-  padding:12px;
-  border:none;
-  border-radius:12px;
-  cursor:pointer;
-  font-weight:600;
-  background:rgba(255,255,255,0.5);
-}
-
-.sidebar button:hover{
-  background:#2563eb;
-  color:white;
-  transform:translateX(5px);
-}
-
-/* =======================
-   MAIN CONTENT
-======================= */
+/* PREVENT OVERLAP */
 
 .main{
-  padding:100px 40px;
-  transition:0.4s;
+
+padding-top:70px;
+
+}
+    
+/* SIDEBAR */
+.sidebar{
+  position: fixed;
+  top: 0;
+  left: -280px;
+  width: 280px;
+  height: 100%;
+  background: white;
+  z-index: 9999;
+  padding-top: 70px;
+  transition: 0.4s;
+}
+
+/* when active */
+.sidebar.active{
+  left: 0;
+}
+
+/* ensure sidebar buttons don't collide visually */
+.sidebar button{
+  margin-top: 10px;
+}
+.main{
+
+transition:.4s;
+
+margin-left:0;
 }
 
 .main.slide{
-  margin-left:260px;
+
+margin-left:280px;
+
 }
 
-/* =======================
-   HERO SECTION
-======================= */
+/* PAGE SLIDES */
 
-.hero-container{
+.main{
+
+width:100%;
+
+padding:90px 40px;
+
+transition:0.4s;
+
+margin-left:0;
+
+}
+
+
+/* MOVE ENTIRE PAGE */
+
+.main.slide{
+
+margin-left:280px;
+
+}
+
+
+/* MENU TABS */
+
+.sidebar button{
+
+width:90%;
+
+margin:10px auto;
+
+padding:18px 25px;
+
+display:block;
+
+border:none;
+
+border-radius:15px;
+
+background:linear-gradient(
+135deg,
+#ffffff,
+#f1f5f9
+);
+
+font-size:18px;
+
+font-weight:600;
+
+color:#334155;
+
+cursor:pointer;
+
+text-align:left;
+
+transition:all .3s ease;
+
+box-shadow:
+0 4px 12px rgba(0,0,0,.08);
+
+}
+
+
+/* HOVER EFFECT */
+
+.sidebar button:hover{
+
+transform:translateX(10px);
+
+background:linear-gradient(
+135deg,
+#2563eb,
+#3b82f6
+);
+
+color:white;
+
+box-shadow:
+0 8px 20px rgba(37,99,235,.3);
+
+}
+/* CLICK EFFECT */
+
+.sidebar button:active{
+
+transform:scale(.96);
+
+}
+/* MAIN CONTENT */
+.main{
+
+width:100%;
+
+padding:80px 40px 40px 40px;
+
+} 
+    /* HERO */
+
+    .hero {
+      background: white;
+      border-radius: 25px;
+      padding: 50px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      margin-bottom: 30px;
+    }
+
+    .profile-photo {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid #2563eb;
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+      margin-bottom: 20px;
+    }
+
+  .hero h1 {
+    font-size: 40px;
+    color: #7c3aed;
+    margin-bottom: 10px;
+}
+
+    .hero h2 {
+      color: #f97316;
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: #475569;
+      line-height: 1.8;
+      margin-top: 10px;
+    }
+
+    /* BUTTONS */
+
+    .hero-buttons {
+      margin-top: 30px;
+    }
+
+    .hero-buttons a {
+      display: inline-block;
+      padding: 12px 24px;
+      margin: 10px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .github-btn {
+      border: 2px solid #2563eb;
+      color: #2563eb;
+    }
+
+    .linkedin-btn {
+      background: #2563eb;
+      color: white;
+    }
+
+    .hero-buttons a:hover {
+      transform: translateY(-3px);
+    }
+
+    /* CARDS */
+
+    .card {
+      display: none;
+      background: white;
+      padding: 35px;
+      border-radius: 20px;
+      margin-bottom: 25px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    }
+
+    .card.active {
+      display: block;
+    }
+
+    .card h2 {
+      color: #2563eb;
+      margin-bottom: 20px;
+      font-size: 28px;
+    }
+
+    .card p,
+    .card li {
+      color: #475569;
+      font-size: 17px;
+      line-height: 1.8;
+    }
+
+    .card ul {
+      padding-left: 20px;
+    }
+    /* =======================================================
+   COMMON CARD GRID
+======================================================= */
+
+.card-grid
+{
   display:flex;
+
   flex-wrap:wrap;
-  align-items:center;
-  justify-content:center;
-  gap:30px;
-  padding:30px;
+
+  gap:25px;
+
+  margin-top:25px;
 }
 
-.profile-photo{
-  width:200px;
-  height:200px;
-  border-radius:50%;
-  border:4px solid #2563eb;
-}
+/* =======================================================
+   COMMON ITEM CARD
+======================================================= */
 
-.hero-right h1{
-  font-size:38px;
-  color:#1e3a8a;
-}
+.info-card
+{
+  width:250px;
 
-.hero-buttons a{
-  display:inline-block;
-  padding:12px 20px;
-  margin:10px;
-  border-radius:10px;
-  text-decoration:none;
-  font-weight:bold;
-}
+  background:white;
 
-/* =======================
-   BUTTONS
-======================= */
+  border-radius:18px;
 
-.github-btn{border:2px solid #2563eb;color:#2563eb;}
-.linkedin-btn{background:#2563eb;color:white;}
-.coffee-btn{background:#ffdd00;color:black;}
-.inspiration-btn{background:#4f46e5;color:white;}
+  padding:18px;
 
-/* hover animation */
-.hero-buttons a:hover{
-  transform:scale(1.05);
-  box-shadow:0 8px 20px rgba(0,0,0,0.2);
-}
-
-/* =======================
-   INFO CARDS
-======================= */
-
-.card-grid{
-  display:flex;
-  flex-wrap:wrap;
-  gap:20px;
-  justify-content:center;
-}
-
-.info-card{
-  width:280px;
-  padding:15px;
   text-align:center;
+
+  box-shadow:
+  0 6px 18px rgba(0,0,0,0.08);
+
+  transition:0.3s;
 }
 
-.info-card img{
+.info-card:hover
+{
+  transform:translateY(-8px);
+
+  box-shadow:
+  0 12px 28px rgba(37,99,235,0.18);
+}
+
+/* =======================================================
+   IMAGE STYLE
+======================================================= */
+
+.info-card img
+{
   width:100%;
+
+  height:160px;
+
+  object-fit:cover;
+
   border-radius:12px;
 }
 
-/* =======================
-   ANIMATIONS
-======================= */
+/* =======================================================
+   CARD TITLE
+======================================================= */
 
-@keyframes fadeUp{
-  from{opacity:0; transform:translateY(20px);}
-  to{opacity:1; transform:translateY(0);}
+.info-card h3
+{
+  margin-top:15px;
+
+  color:#2563eb;
+
+  font-size:18px;
 }
 
-.card, .hero-container{
-  animation:fadeUp 0.6s ease;
+/* =======================================================
+   CARD TEXT
+======================================================= */
+
+.info-card p
+{
+  margin-top:10px;
+
+  color:#475569;
+
+  font-size:15px;
+
+  line-height:1.6;
 }
 
-/* =======================
+/* =======================================================
+   BUTTON / LINK
+======================================================= */
+
+.info-card a
+{
+  display:inline-block;
+
+  margin-top:15px;
+
+  padding:10px 18px;
+
+  background:#2563eb;
+
+  color:white;
+
+  text-decoration:none;
+
+  border-radius:10px;
+
+  font-size:14px;
+
+  font-weight:bold;
+
+  transition:0.3s;
+}
+
+.info-card a:hover
+{
+  background:#1d4ed8;
+
+  transform:scale(1.05);
+}
+
+/* =======================================================
    MOBILE RESPONSIVE
-======================= */
+======================================================= */
 
-@media(max-width:768px){
-
-  .main.slide{
-    margin-left:0;
+@media(max-width:768px)
+{
+  .card-grid
+  {
+    justify-content:center;
   }
 
-  .hero-right h1{
-    font-size:28px;
-    text-align:center;
-  }
-
-  .hero-buttons{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-  }
-
-  .info-card{
-    width:90%;
-  }
-
-  .top-buttons{
-    flex-wrap:wrap;
+  .info-card
+  {
+    width:100%;
+    max-width:320px;
   }
 }
+    /* CERTIFICATIONS */
 
-</style>
+    .certifications-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .cert-card {
+      width: 220px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      padding: 15px;
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    .cert-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .cert-card img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .cert-card p {
+      margin-top: 10px;
+      font-weight: bold;
+      color: #2563eb;
+    }
+
+    .cert-card a {
+      color: #475569;
+      font-size: 14px;
+      text-decoration: none;
+    }
+      /* FOOTER */
+
+    footer {
+      text-align: center;
+      margin-top: 35px;
+      color: #64748b;
+      font-size: 15px;
+    }
+
+    /* MOBILE */
+
+    @media(max-width:768px) {
+
+      body {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+      }
+
+      .main {
+        margin-left: 0;
+        width: 100%;
+        padding: 20px;
+      }
+
+      .hero {
+        padding: 30px 20px;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .profile-photo {
+        width: 150px;
+        height: 150px;
+      }
+
+      .card {
+        padding: 25px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- TOP BAR -->
-<div class="top-buttons">
-  <button class="menu-btn" onclick="toggleMenu()">☰</button>
-  <button class="about-tab" onclick="openTab('about')">Home</button>
-  <button class="about-tab" onclick="openTab('resume')">Resume</button>
-  <button class="about-tab" onclick="openTab('projects')">Projects</button>
-</div>
-
-<!-- SIDEBAR -->
-<div class="sidebar" id="sidebar">
-  <button onclick="openTab('projects')">Projects</button>
-  <button onclick="openTab('presentations')">Presentations</button>
-  <button onclick="openTab('research')">Research</button>
-  <button onclick="openTab('contact')">Contact</button>
-</div>
-
-<!-- MAIN -->
-<div class="main" id="main">
-
-<!-- HOME -->
-<div class="card active" id="about">
-
-  <div class="hero-container">
-
-    <img src="Images/profile.jpeg" class="profile-photo">
-
-    <div class="hero-right">
-      <h1>Sai Anirudh</h1>
-      <h3>Embedded | VLSI | RF | Software Testing</h3>
-
-      <div class="hero-buttons">
-
-        <a class="github-btn" href="#">GitHub</a>
-        <a class="linkedin-btn" href="#">LinkedIn</a>
-        <a class="coffee-btn" href="#">☕ Coffee</a>
-        <a class="inspiration-btn" href="#">🌟 Inspiration</a>
-
-      </div>
+    <div class="top-buttons">
+    <button class="menu-btn" onclick="toggleMenu()"> ☰ </button>
+    <button class="about-tab" onclick="openTab('about')"> Home </button>
+    <button class="about-tab" onclick="openTab('resume')">Resume</button>
+    <button class="about-tab" onclick="openTab('moments')">Moments</button>
     </div>
+  
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+      <button onclick="openTab('projects')">Projects</button>
+      <button onclick="openTab('presentations')">Presentations</button>
+      <button onclick="openTab('research')">Research Papers</button>
+      <button onclick="openTab('achievements')">Achievements</button>
+      <button onclick="openTab('certifications')">Certifications</button>
+      <button onclick="openTab('contact')">Contact</button>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main" id="main-content">
+   
+    <!-- ABOUT -->
+    <div class="card active" id="about">
+
+     <div style="text-align:center; margin-bottom:25px;">
+       <!-- HERO SECTION -->
+<div class="hero-container">
+
+  <!-- LEFT : PROFILE PHOTO -->
+  <div class="hero-left">
+
+    <img src="Images/profile.jpeg"
+         alt="Sai Anirudh"
+         class="profile-photo">
 
   </div>
+
+  <!-- RIGHT : HERO CONTENT -->
+  <div class="hero-right">
+
+    <h1>
+      Sai Anirudh Godavarthi
+    </h1>
+
+    <!-- TYPING TEXT -->
+    <h2 class="typing-text"></h2>
+
+    <p class="hero-role">
+       Masters in Electrical and Computer Engineering • Software Tester
+    </p>
+
+    <p class="hero-desc">
+      Embedded & IOT Systems • VLSI & ASIC Physical Design • RF & Mixed Signal 
+      • THz in 6G & Multimedia Communication •  Advanced Power Systems Protection & Instrumentation control
+    </p>
+
+    <!-- BUTTONS -->
+    <div class="hero-buttons">
+      
+      <a href="https://github.com/saianirudh-g"
+         target="_blank"
+         class="github-btn">
+         GitHub
+      </a>
+
+      <a href="https://www.linkedin.com/in/sai-anirudh-godavarthi-710b16273/"
+         target="_blank"
+         class="linkedin-btn">
+         LinkedIn
+      </a>
+    </div>
+    <a href="https://buymeacoffee.com/saianirudh" target="_blank" class="coffee-btn">
+    ☕ Buy Me a Coffee
+</a>
+  </div>
+ </div>
+</div>
+     
+<div class='resume-card'>
+  <h2>🌟 About Me</h2>
+      <p>🎓 Master's student in Electrical Engineering with a strong foundation in embedded systems, semiconductor technologies, and software testing.</p>
+      <p>💡 Passionate about building reliable systems through firmware development, automation, validation, and next-generation communication technologies.</p>
+      <p>⚡ Experienced in both hardware and software domains — bridging the gap between VLSI design, RF systems, and intelligent testing workflows.</p>
+      <p>🎥 I also enjoy creating technical content and sharing knowledge through platforms like YouTube, Medium, and Instagram to help others learn and grow in tech.</p>
+</div>
+      
+<div class='resume-card'> 
+  <h2>🌟 Quick Facts About Me</h2>
+      <p>🔬 Exploring THz communication technologies for future 6G systems </p>
+      <p>⚙️ Skilled in both Manual Testing & Automated Testing workflows </p>
+      <p>🧠 Passionate about ASIC Physical Design and Mixed Signal IC Design</p>
+      <p>☕ I can debug firmware issues for hours with coffee and music</p>
+      <p>📚 Always learning emerging technologies in Embedded Systems and VLSI</p>
+      <p>🎯 Focused on building impactful engineering solutions with precision</p>   
+</div>
+      
+<div class='resume-card'>
+  <h2>🌟 Major Focus Areas</h2>
+  <p>✨ Embedded Firmware Development & Testing</p>
+  <p>✨ ASIC Physical Design & Semiconductor Technologies</p>
+  <p>✨ RF & Mixed Signal IC Research</p>
+  <p>✨ THz Communication Systems for 6G</p>
+  <p>✨ Software Validation & Automation Engineering</p>
+</div>
+  
+<div class='resume-card'>
+  <h2>🌟 My Inspiration</h2>
+      <p>I am deeply inspired by my professor, Dr. Srinivas Rahul Sapireddy, whose guidance and passion for research continuously motivate me to explore innovation in embedded systems, RF engineering, and advanced technologies. His dedication to teaching and research has greatly influenced my learning journey and technical growth.</p>
+      <a href="https://srsapireddy.github.io/about/"
+   target="_blank"
+   class="inspiration-btn">
+   My Professsor
+</a>
+</div>
 
 </div>
 
 <!-- RESUME -->
+
 <div class="card" id="resume">
-  <h2>Resume Section</h2>
-</div>
+<h2>My Resume</h2>
+      
+<!-- RESUME DETAILS SECTION -->
+<div class="resume-cards-container">
+  
+  <!-- EDUCATION -->
+  <div class="resume-card">
+    
+    <h2>🎓 Education</h2>
+    <table>
+      <tr>
+        <th>Degree</th>
+        <th>Institution</th>
+        <th>Year</th>
+      </tr>
+      <tr>
+        <td>Masters in Electrical & Computer Engineering</td>
+        <td>University of Missouri Kansas City</td>
+        <td>2025 - 2027</td>
+      </tr>
+      <tr>
+        <td>Bachelor’s in Electrical & Electronics Engineering</td>
+        <td>Vishnu institute of Technology</td>
+        <td>2019 - 2023</td>
+      </tr>
+    </table>
+  </div>
 
-<!-- PROJECTS -->
-<div class="card" id="projects">
-  <h2>Projects</h2>
-</div>
+  <!-- EXPERIENCE -->
+  <div class="resume-card">
+    <h2>💼 Experience</h2>
+    <table>
+      <tr>
+        <th>Role</th>
+        <th>Company</th>
+        <th>Duration</th>
+      </tr>
+      <tr>
+        <td>Associate Software Development Engineer in Test</td>
+        <td>QualiZeal Technologies Ltd.</td>
+        <td>October 2023 - July 2025</td>
+      </tr>
+      <tr>
+        <td>Trainee</td>
+        <td>QualiZeal India LLP</td>
+        <td>April 2023 - September 2023</td>
+      </tr>
+    </table>
+  </div>
 
-<!-- CONTACT -->
+  <!-- PROFESSIONAL DEVELOPMENT -->
+  <div class="resume-card">
+    <h2>🚀 Professional Development</h2>
+    <table>
+      <tr>
+        <th>Training / Certification</th>
+        <th>Platform</th>
+      </tr>
+      <tr>
+        <td>MCU Embedded C Programming</td>
+        <td>Udemy</td>
+      </tr>
+      <tr>
+        <td>AWS Academy</td>
+        <td>AWS</td>
+      </tr>
+      <tr>
+        <td>Generative AI</td>
+        <td>GUVI</td>
+      </tr>
+      <tr>
+        <td>Python Zero to Hero</td>
+        <td>GUVI</td>
+      </tr>
+    </table>
+  </div>
+</div>
+    </div>
+
+    <!-- MEDIA -->
+    <div class='card' id='moments'>
+      <h2>Image Collection</h2>
+      <div class='card-grid'>
+        
+        <div class="info-card">
+          <img src="Images/3.png">
+          <p>BrowserStack Meet-up for the third time to grab the skills on performance testing, Gen-AI and prompt engineering in 2024</p>
+          <a href="Images/3.png" target="_blank">
+            View
+          </a>
+      </div>
+        <div class="info-card">
+          <img src="Images/6.jpeg">
+          <p>NCL Team Outing 😍 with QualiZeal BU Leaders in 2024</p>
+          <a href="Images/6.jpeg" target="_blank">
+            View
+          </a>
+        </div>
+        <div class="info-card">
+          <img src="Images/5.png">
+          <p>Firmware development team lunch😍 @Qualizeal</p>
+          <a href="Images/5.png" target="_blank">
+            View
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- PROJECTS -->
+
+    <div class="card" id="projects">
+      <h2>Projects</h2>
+      <div class="card-grid">
+        
+      <div class="info-card">
+          <p>STM32 Microcontroller using Embedded tools</p>
+          <p>Year - 2026</p>
+          <a href="https://github.com/saianirudh-g/STM32-MCU-Using-Embedded-Tools" target="_blank">
+            View Project
+          </a>
+      </div>
+      <div class="info-card">
+          <p>Bluetooth Low Energy Receiver Front End Design (Schematic & PCB Design)</p>
+          <p>Year - 2026</p>
+          <a href="https://github.com/saianirudh-g/Bluetooth-Low-Energy-Receiver-Front-End-Design-Schematic-PCB-Design-" target="_blank">
+            View Project
+          </a>
+      </div>    
+      <div class="info-card">
+          <p>Microwave Transmission Line Characterization Using a Handheld VNA</p>
+          <p>Year - 2025</p>
+          <a href="https://github.com/saianirudh-g/Antenna-Radia-Frequency-Design-using-Vector-Network-Analyser-VNAs-" target="_blank">
+            View Project
+          </a>
+      </div>    
+      <div class="info-card">
+          <p>SRAM (Schematic, Layout Design with butterfly curve simulation</p>
+          <p>Year - 2025</p>
+          <a href="https://github.com/saianirudh-g/SRAM-Project" target="_blank">
+            View Project
+          </a>
+      </div>  
+      <div class="info-card">
+          <p>RTL to GDSII Flow (Register Transfer level, Logic Synthesis, Floor & Power Planning, CTS, Placement, Routing)</p>
+          <p>Year - 2025</p>
+          <a href="https://github.com/saianirudh-g/RTL-to-GDSII-Flow" target="_blank">
+            View Project
+          </a>
+      </div>   
+      <div class="info-card">
+          <p>ESP32 Microcontroller using bluetooth with Embedded C tools</p>
+          <p>BTech VIT</p>
+          <p>Year - 2023</p>
+          <a href="https://github.com/saianirudh-g/ESP32-Microcontroller-using-bluetooth-with-Embedded-C-tools" target="_blank">
+            View Project
+          </a>
+      </div>
+      </div>
+    </div>
+
+    <!-- PRESENTATIONS -->
+
+    <div class="card" id="presentations">
+      <h2>Presentations</h2>
+<div class="card-grid">
+
+     <div class="info-card">
+          <p>Multi-KM Multi-Gigabit persecond Sub THz communications for Wireless Backhaul Applications Research PPT</p>
+       <p>Year - 2026</p>
+          <a href="https://docs.google.com/presentation/d/1nhTqQzFcs0jdQZsAPV3i9337eh_l3V8r/edit?usp=sharing&ouid=113903883699754933294&rtpof=true&sd=true" target="_blank">
+            View PPT
+          </a>
+        </div>
+     <div class="info-card">
+          <p>Detection & Identification of Illicit Drugs using Terahertz Imaging Research PPT</p>
+       <p>Year - 2026</p>
+          <a href="https://docs.google.com/presentation/d/12ErTupRbTiylBqEDqrwfZUsP5wpZYDGS/edit?usp=sharing&ouid=113903883699754933294&rtpof=true&sd=true" target="_blank">
+            View PPT
+          </a>
+        </div>
+  <div class="info-card">
+          <p>IOT Based Autonomous Fire Extinguisher, Temperature And AQI Montoring System For Commercial Buildings Project PPT</p>
+    <p>Year - 2023</p>
+          <a href="https://docs.google.com/presentation/d/1C7wtf0Oy1VdH_DvPMYMSmw_d8OPAnThD/edit?usp=sharing&ouid=113903883699754933294&rtpof=true&sd=true" target="_blank">
+            View PPT
+          </a>
+        </div>
+   <div class="info-card">
+          <p>Automatic Irrigation System Using GSM Module Project PPT</p>
+     <p>Year - 2022</p>
+          <a href="https://docs.google.com/presentation/d/1rSiMBqZ2xDQWze_fYIrNmNMRjHFmeKl-NO42k7N2ffg/edit?usp=sharing" target="_blank">
+            View PPT
+          </a>
+        </div>
+  <div class="info-card">
+          <p>Soil Testing Using IOT Device</p>
+          <p>Year - 2022</p>
+          <a href="https://docs.google.com/presentation/d/1ZOQABTm3I_Mspne5UnWYdh4aYCtUhYzZgaBNUoPWesw/edit?usp=sharing" target="_blank">
+            View PPT
+          </a>
+        </div>
+      
+</div>
+    </div>
+
+    <!-- RESEARCH PAPERS -->
+
+    <div class="card" id="research">
+      <h2>Research Papers</h2>
+      <div class="card-grid">
+        
+       <div class="info-card">
+          <p>Multi-KM Multi-Gigabit persecond Sub THz communications for Wireless Backhaul Applications Research Paper</p>
+         <p>Year - 2026</p>
+          <a href="https://drive.google.com/file/d/12hdffeJ9UaW2whqF3nt44lnZZKUTfbct/view?usp=sharing" target="_blank">
+            View Paper
+          </a>
+        </div>
+      
+      <div class="info-card">
+          <p>Perovskite Solar Cells Research Paper</p>
+          <p>Year - 2026</p>
+          <a href="https://drive.google.com/file/d/1M0LxJXcOvHixyqRHYbc8bPfiYBApgTnn/view?usp=sharing" target="_blank">
+            View Paper
+          </a>
+        </div>
+        
+     <div class="info-card">
+          <p>Soil Testing Using IOT Device Research Paper (Observations)</p>
+          <p>Year - 2022</p>
+          <a href="https://docs.google.com/document/d/1Hg8PrzqiAMOI3Tk6iLO0WH4NCusTvGmIrXkXWiIfjNQ/edit?usp=sharing" target="_blank">
+            View Paper
+          </a>
+        </div>     
+      </div>
+   </div>
+
+    <!-- ACHIEVEMENTS -->
+
+    <div class="card" id="achievements">
+      <h2>Achievements</h2>
+      <div class="card-grid">
+        
+      <div class="info-card">
+          <img src="Images/RSA.png">
+          <p>Rising Star Award by CEO of QualiZeal in 2024</p>
+          <a href="Images/RSA.png" target="_blank">
+            View Award
+          </a>
+        </div>
+      
+      <div class="info-card">
+          <img src="Images/2.png">
+          <p>One Year completion at QualiZeal in 2024</p>
+          <a href="Images/2.png" target="_blank">
+            View Award
+          </a>
+        </div>
+      
+      <div class="info-card">
+          <img src="Images/4.jpeg">
+          <p>My B.Tech Graduation day 🎓💐@Vishnu Institute of Technology (Autonomous) in 2024</p>
+          <a href="Images/4.jpeg" target="_blank">
+            View
+          </a>
+      </div>
+      </div>
+    </div>
+
+    <!-- CERTIFICATIONS -->
+
+    <div class="card" id="certifications">
+
+      <h2>Certifications</h2>
+
+      <div class="certifications-container">
+
+        <div class="cert-card">
+          <img src="Certifications/Microcontroller Embedded C.jpg">
+          <p>Microcontroller Embedded C – Udemy</p>
+          <a href="Certifications/Microcontroller Embedded C.jpg" target="_blank">
+            View Certificate
+          </a>
+        </div>
+
+        <div class="cert-card">
+          <img src="Certifications/AWS.png">
+          <p>AWS Academy</p>
+          <a href="Certifications/AWS.png" target="_blank">
+            View Certificate
+          </a>
+        </div>
+
+        <div class="cert-card">
+          <img src="Certifications/Guvi - Gen-AI.jpg">
+          <p>Generative AI in GUVI</p>
+          <a href="Certifications/Guvi - Gen-AI.jpg" target="_blank">
+            View Certificate
+          </a>
+        </div>
+
+        <div class="cert-card">
+          <img src="Certifications/Guvi - Python Zero to Hero.png">
+          <p>Python Zero to Hero</p>
+          <a href="Certifications/Guvi - Python Zero to Hero.png" target="_blank">
+            View Certificate
+          </a>
+        </div>
+
+        <div class="cert-card">
+          <img src="Certifications/Guvi - SAWiT.Ai Challenge.jpg">
+          <p>Guvi - SAWiT.Ai Challenge</p>
+          <a href="Certifications/Guvi - SAWiT.Ai Challenge.jpg" target="_blank">
+            View Certificate
+          </a>
+        </div>
+        
+        <div class="cert-card">
+          <img src="Certifications/food handler.png">
+          <p>Food Handler Certificate</p>
+          <a href="Certifications/food handler.png" target="_blank">
+            View Certificate
+          </a>
+        </div>
+
+        <div class="cert-card">
+          <img src="Certifications/SEL 101.png">
+          <p>SEL Relay 101</p>
+          <a href="Certifications/SEL 101.png" target="_blank">
+            View Certificate
+          </a>
+        </div>
+
+        <div class="cert-card">
+          <img src="Certifications/SEL 102.png">
+          <p>SEL Relay 102</p>
+          <a href="Certifications/SEL 102.png" target="_blank">
+            View Certificate
+          </a>
+        </div>
+
+        <div class="cert-card">
+          <img src="Certifications/CBT 104.png">
+          <p>CBT 104</p>
+          <a href="Certifications/CBT 104.png" target="_blank">
+            View Certificate
+          </a>
+        </div>
+
+        <div class="cert-card">
+          <img src="Certifications/CBT 105.png">
+          <p>CBT 105</p>
+          <a href="Certifications/CBT 105.png" target="_blank">
+            View Certificate
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CONTACT -->
+
 <div class="card" id="contact">
+
   <h2>Contact</h2>
+
+  <!-- CONTACT BUTTONS -->
+
+  <div style="
+    margin-top:30px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:20px;
+  ">
+    <!--EMAIL BUTTON-->
+<a href="mailto:saianirudh.kefp2@gmail.com"
+   target="_blank"
+   style="
+   display:inline-block;
+   padding:14px 28px;
+   background:#2563eb;
+   color:white;
+   text-decoration:none;
+   border-radius:12px;
+   font-weight:bold;
+   box-shadow:0 4px 12px rgba(37,99,235,0.25);
+   transition:transform 0.3s ease;
+   cursor:pointer;
+   "
+   onmouseover="this.style.transform='translateY(-3px)'"
+   onmouseout="this.style.transform='translateY(0px)'">
+
+   📧 Send Email
+
+</a>
+       <!-- CALL BUTTON -->
+    <a href="tel:+18167153854"
+       style="
+       padding:14px 28px;
+       background:#10b981;
+       color:white;
+       text-decoration:none;
+       border-radius:12px;
+       font-weight:bold;
+       box-shadow:0 4px 12px rgba(16,185,129,0.25);
+       transition:0.3s;
+    "
+    onmouseover="this.style.transform='translateY(-3px)'"
+    onmouseout="this.style.transform='translateY(0px)'">
+
+      📞 Call Me
+
+    </a>
+  </div>
 </div>
 
-</div>
+    <footer>
+      FOLLOW:
+      <a href="https://github.com/saianirudh-g">GITHUB </a>
+      <a href="https://www.linkedin.com/in/sai-anirudh-godavarthi-710b16273/">LINKEDIN </a>
+      <a href="https://www.linkedin.com/feed/">FEED</a>
+      <p>© 2026 Sai Anirudh Godavarthi | Powered By GitHub</p>
+    </footer>
 
-<script>
+  </div>
 
-/* ======================
-   SIDEBAR TOGGLE
-====================== */
+  <!-- JAVASCRIPT -->
 
+  <script>
 function toggleMenu(){
-  document.getElementById("sidebar").classList.toggle("active");
-  document.getElementById("main").classList.toggle("slide");
+let sidebar=document.getElementById("sidebar");
+let main=document.getElementById("main-content");
+
+
+/* open */
+if(!sidebar.classList.contains("active")){
+sidebar.classList.add("active");
+main.classList.add("slide");
 }
 
-/* ======================
-   TAB SWITCH
-====================== */
-
-function openTab(id){
-
-  let cards = document.querySelectorAll(".card");
-
-  cards.forEach(c => c.classList.remove("active"));
-
-  document.getElementById(id).classList.add("active");
-
-  document.getElementById("sidebar").classList.remove("active");
-  document.getElementById("main").classList.remove("slide");
+/* close */
+else{
+sidebar.classList.remove("active");
+main.classList.remove("slide");
+}
 }
 
-</script>
+function openTab(tabId){
+const cards=document.querySelectorAll(".card");
+cards.forEach(card=>{
+card.classList.remove("active");
+});
 
+document.getElementById(tabId)
+.classList.add("active");
+}
+  /* TYPING ANIMATION */
+
+const texts =
+[
+  "Welcome to my website !!",
+  "Thanks for Visiting !!"
+];
+
+let count = 0;
+let index = 0;
+let currentText = "";
+let letter = "";
+
+function type()
+{
+  if(count === texts.length)
+  {
+    count = 0;
+  }
+
+  currentText = texts[count];
+
+  letter = currentText.slice(0, ++index);
+
+  document.querySelector(".typing-text").textContent = letter;
+
+  if(letter.length === currentText.length)
+  {
+    setTimeout(erase, 1500);
+    return;
+  }
+
+  setTimeout(type, 100);
+}
+
+function erase()
+{
+  letter = currentText.slice(0, --index);
+
+  document.querySelector(".typing-text").textContent = letter;
+
+  if(letter.length === 0)
+  {
+    count++;
+    setTimeout(type, 500);
+    return;
+  }
+
+  setTimeout(erase, 50);
+}
+
+type();
+
+  </script>  
 </body>
 </html>
