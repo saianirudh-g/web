@@ -15,9 +15,7 @@
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 
-<style>
-
-/* =========================================================
+<style>/* =========================================================
    GLOBAL
 ========================================================= */
 
@@ -296,12 +294,7 @@ nav{
   content:'';
   position:absolute;
   inset:-15px;
-  background:linear-gradient(
-  45deg,
-  #06b6d4,
-  #3b82f6,
-  #8b5cf6
-  );
+  background:linear-gradient(45deg,#06b6d4,#3b82f6,#8b5cf6);
   border-radius:50%;
   filter:blur(30px);
   opacity:0.6;
@@ -326,9 +319,11 @@ nav{
   backdrop-filter:blur(15px);
   border-radius:25px;
 }
+
 /* =========================================================
    SECTION
 ========================================================= */
+
 section{
   padding:100px 30px;
 }
@@ -342,9 +337,11 @@ section{
 .section-title span{
   color:#06b6d4;
 }
+
 /* =========================================================
    ABOUT
 ========================================================= */
+
 .about-grid{
   max-width:1200px;
   margin:auto;
@@ -371,43 +368,49 @@ section{
 .about-card h3{
   margin-bottom:15px;
 }
+
 /* =========================================================
-   PROJECTS
+   PROJECT SLIDER (FIXED)
 ========================================================= */
+
 .projects-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 15px;
   overflow: hidden;
-}
-.projects-grid{
-  max-width:1200px;
-  margin:auto;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-  gap:30px;
+  width: 100%;
 }
 
-.project-card{
-  overflow:hidden;
-  transition:0.4s;
+.projects-container {
+  display: flex;
+  transition: transform 0.4s ease;
+  width: max-content;
 }
 
-.project-card:hover{
-  transform:translateY(-10px);
+.project-card {
+  flex: 0 0 calc(100% / 3);
+  max-width: calc(100% / 3);
+  box-sizing: border-box;
+  margin: 0 10px;
 }
+
 .nav-btn {
-  background: #ffffff33;
-  border: none;
-  padding: 8px 12px;
-  font-size: 24px;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.25);
+  padding: 10px 14px;
+  font-size: 26px;
   cursor: pointer;
-  border-radius: 8px;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  color: white;
+  transition: 0.3s;
 }
+
 .nav-btn:hover {
-  background: #ffffff66;
+  background: rgba(255,255,255,0.3);
 }
+
 .project-content{
   padding:30px;
 }
@@ -483,6 +486,11 @@ footer{
     width:260px;
     height:260px;
   }
+
+  .project-card{
+    flex:0 0 100%;
+    max-width:100%;
+  }
 }
 
 @media(max-width:500px){
@@ -499,12 +507,10 @@ footer{
     padding:30px 20px;
   }
 }
-
 </style>
 </head>
 
 <body>
-
 <!-- BACKGROUND -->
 <div class="bg-animation">
   <span></span>
@@ -515,17 +521,11 @@ footer{
 </div>
 
 <!-- NAVBAR -->
-
 <header>
-
 <nav>
-
-<div class="logo">
-Sai Anirudh
-</div>
+<div class="logo">Sai Anirudh</div>
 
 <div class="nav-links" id="navLinks">
-
 <a href="#home">Home</a>
 <a href="#about">About</a>
 <a href="#resume">Resume</a>
@@ -536,32 +536,20 @@ Sai Anirudh
 <a href="#certifications">Certifications</a>
 <a href="#moments">Moments</a>
 <a href="#contact">Contact</a>
-
 </div>
 
 <div class="menu-btn" id="menuBtn">
 <i class="fa-solid fa-bars"></i>
 </div>
-
 </nav>
-
 </header>
 
 <!-- HERO -->
-
 <section class="hero" id="home">
-
 <div class="hero-container">
 
-<!-- LEFT -->
-
 <div class="hero-left">
-
-<h1>
-Sai Anirudh
-<span>Godavarthi</span>
-</h1>
-
+<h1>Sai Anirudh <span>Godavarthi</span></h1>
 <div class="typing" id="typing"></div>
 
 <p>
@@ -570,115 +558,66 @@ RF Engineering, ASIC Physical Design, THz Communication and Software Testing.
 </p>
 
 <div class="hero-buttons">
-
-<a href="https://github.com/saianirudh-g"
-target="_blank"
-class="btn btn-primary">
-<i class="fab fa-github"></i>
-GitHub
+<a href="https://github.com/saianirudh-g" target="_blank" class="btn btn-primary">
+<i class="fab fa-github"></i> GitHub
 </a>
 
-<a href="https://www.linkedin.com/in/sai-anirudh-godavarthi-710b16273/"
-target="_blank"
-class="btn btn-outline">
-<i class="fab fa-linkedin"></i>
-LinkedIn
+<a href="https://www.linkedin.com/in/sai-anirudh-godavarthi-710b16273/" target="_blank" class="btn btn-outline">
+<i class="fab fa-linkedin"></i> LinkedIn
 </a>
 
-<a href="https://buymeacoffee.com/saianirudh"
-target="_blank"
-class="btn btn-primary">
+<a href="https://buymeacoffee.com/saianirudh" target="_blank" class="btn btn-primary">
 ☕ Buy Me a Coffee
 </a>
-
 </div>
-
 </div>
-
-<!-- RIGHT -->
 
 <div class="hero-right">
-
 <div class="profile-box">
 <img src="Images/profile.jpeg">
 </div>
-
 </div>
 
 </div>
-
 </section>
 
 <!-- ABOUT -->
-
 <section id="about">
-
-<h2 class="section-title">
-About <span>Me</span>
-</h2>
+<h2 class="section-title">About <span>Me</span></h2>
 
 <div class="about-grid">
 
 <div class="about-card glass">
-
 <i class="fa-solid fa-microchip"></i>
-
 <h3>Embedded Systems</h3>
-
-<p>
-Passionate about firmware development,
-MCU programming and hardware integration.
-</p>
-
+<p>Passionate about firmware development, MCU programming and hardware integration.</p>
 </div>
 
 <div class="about-card glass">
-
 <i class="fa-solid fa-wave-square"></i>
-
 <h3>RF & THz Research</h3>
-
-<p>
-Researching advanced THz communication systems for future 6G technologies.
-</p>
-
+<p>Researching advanced THz communication systems for future 6G technologies.</p>
 </div>
 
 <div class="about-card glass">
-
 <i class="fa-solid fa-code"></i>
-
 <h3>Software Testing</h3>
-
-<p>
-Experienced in automation testing,
-validation and software quality engineering.
-</p>
-
+<p>Experienced in automation testing, validation and software quality engineering.</p>
 </div>
 
 </div>
-
 </section>
-   
+
 <!-- RESUME -->
-
 <section id="resume">
-
-<h2 class="section-title">
-My <span>Resume</span>
-</h2>
+<h2 class="section-title">My <span>Resume</span></h2>
 
 <div class="about-grid">
 
 <div class="glass about-card">
-
 <h3>🎓 Education</h3>
-
 <div style="overflow-x:auto; margin-top:20px;">
-
 <table style="width:100%; border-collapse:collapse;">
-
 <tr style="background:rgba(255,255,255,0.08);">
 <th style="padding:12px;">Degree</th>
 <th style="padding:12px;">Institution</th>
@@ -696,21 +635,14 @@ My <span>Resume</span>
 <td style="padding:12px;">Vishnu Institute of Technology</td>
 <td style="padding:12px;">2019-2023</td>
 </tr>
-
 </table>
-
 </div>
-
 </div>
 
 <div class="glass about-card">
-
 <h3>💼 Experience</h3>
-
 <div style="overflow-x:auto; margin-top:20px;">
-
 <table style="width:100%; border-collapse:collapse;">
-
 <tr style="background:rgba(255,255,255,0.08);">
 <th style="padding:12px;">Role</th>
 <th style="padding:12px;">Company</th>
@@ -735,484 +667,288 @@ My <span>Resume</span>
 <td style="padding:12px;">2023</td>
 </tr>
 </table>
+</div>
+</div>
 
 </div>
-</div>
-</div>
-
 </section>
 
 <!-- =========================================================
-     PROJECTS
+     PROJECTS (FIXED SLIDER)
 ========================================================= -->
 <section id="projects">
-  <h2 class="section-title">Featured <span>Projects</span></h2>
+<h2 class="section-title">Featured <span>Projects</span></h2>
 
-  <div class="projects-wrapper">
-    <button class="nav-btn prev-btn">❮</button>
+<div class="projects-wrapper">
+<button class="nav-btn prev-btn">❮</button>
 
-    <div class="project-grid">
-
-      <div class="project-card glass">
-        <div class="project-content">
-          <h3>STM32 Microcontroller using Embedded Tools</h3>
-          <p>Embedded systems programming using STM32 microcontroller and CubeIDE.</p>
-          <div class="tags">
-            <span>STM32 MCU</span>
-            <span>Embedded C</span>
-          </div>
-          <a href="https://github.com/saianirudh-g/STM32-MCU-Using-Embedded-Tools"
-             target="_blank" class="btn btn-primary">View Project</a>
-        </div>
-      </div>
-
-      <div class="project-card glass">
-        <div class="project-content">
-          <h3>SRAM Project</h3>
-          <p>Schematic, Butterfly Curve Simulation, Layout Design using Cadence Virtuoso tool</p>
-          <div class="tags">
-            <span>Cadence</span>
-            <span>Virtuoso</span>
-          </div>
-          <a href="https://github.com/saianirudh-g/SRAM-Project"
-             target="_blank" class="btn btn-primary">View Project</a>
-        </div>
-      </div>
-
-      <div class="project-card glass">
-        <div class="project-content">
-          <h3>BLE Receiver Front End Design</h3>
-          <p>Schematic and PCB design for Bluetooth Low Energy receiver systems.</p>
-          <div class="tags">
-            <span>Schematic - QUCS</span>
-            <span>PCB - KiCad</span>
-          </div>
-          <a href="https://github.com/saianirudh-g/Bluetooth-Low-Energy-Receiver-Front-End-Design-Schematic-PCB-Design-"
-             target="_blank" class="btn btn-primary">View Project</a>
-        </div>
-      </div>
-
-      <div class="project-card glass">
-        <div class="project-content">
-          <h3>RTL to GDSII Flow</h3>
-          <p>ASIC Physical Design project including synthesis, floorplanning and routing.</p>
-          <div class="tags">
-            <span>ASIC</span>
-            <span>VLSI</span>
-          </div>
-          <a href="https://github.com/saianirudh-g/RTL-to-GDSII-Flow"
-             target="_blank" class="btn btn-primary">View Project</a>
-        </div>
-      </div>
-
-      <div class="project-card glass">
-        <div class="project-content">
-          <h3>Microwave Transmission Line Characterization Using a Handheld VNA</h3>
-          <p>50‑ohm coaxial transmission line behaves as a distortionless transmission line within 1–5 GHz.</p>
-          <div class="tags">
-            <span>Vector Network Analyser</span>
-            <span>Microstrip Antenna</span>
-          </div>
-          <a href="https://github.com/saianirudh-g/Microwave-Transmission-Line-Characterization-Using-a-Handheld-VNA"
-             target="_blank" class="btn btn-primary">View Project</a>
-        </div>
-      </div>
-
-      <div class="project-card glass">
-        <div class="project-content">
-          <h3>ESP32 Microcontroller using Bluetooth</h3>
-          <p>Bluetooth communication using the ESP32 microcontroller, programmed in Embedded C.</p>
-          <div class="tags">
-            <span>ESP32 MCU</span>
-            <span>Bluetooth</span>
-          </div>
-          <a href="https://github.com/saianirudh-g/ESP32-Microcontroller-using-bluetooth-with-Embedded-C-tools"
-             target="_blank" class="btn btn-primary">View Project</a>
-        </div>
-      </div>
-
-    </div>
-
-    <button class="nav-btn next-btn">❯</button>
-  </div>
-</section>
-
-<!-- =========================================================
-     PRESENTATIONS
-========================================================= -->
-
-<section id="presentations">
-
-<h2 class="section-title">
-Research <span>Presentations</span>
-</h2>
-
-<div class="project-grid">
+<div class="projects-container">
 
 <div class="project-card glass">
-
 <div class="project-content">
+<h3>STM32 Microcontroller using Embedded Tools</h3>
+<p>Embedded systems programming using STM32 microcontroller and CubeIDE.</p>
+<div class="tags">
+<span>STM32 MCU</span>
+<span>Embedded C</span>
+</div>
+<a href="https://github.com/saianirudh-g/STM32-MCU-Using-Embedded-Tools" target="_blank" class="btn btn-primary">View Project</a>
+</div>
+</div>
 
+<div class="project-card glass">
+<div class="project-content">
+<h3>SRAM Project</h3>
+<p>Schematic, Butterfly Curve Simulation, Layout Design using Cadence Virtuoso tool</p>
+<div class="tags">
+<span>Cadence</span>
+<span>Virtuoso</span>
+</div>
+<a href="https://github.com/saianirudh-g/SRAM-Project" target="_blank" class="btn btn-primary">View Project</a>
+</div>
+</div>
+
+<div class="project-card glass">
+<div class="project-content">
+<h3>BLE Receiver Front End Design</h3>
+<p>Schematic and PCB design for Bluetooth Low Energy receiver systems.</p>
+<div class="tags">
+<span>Schematic - QUCS</span>
+<span>PCB - KiCad</span>
+</div>
+<a href="https://github.com/saianirudh-g/Bluetooth-Low-Energy-Receiver-Front-End-Design-Schematic-PCB-Design-" target="_blank" class="btn btn-primary">View Project</a>
+</div>
+</div>
+
+<div class="project-card glass">
+<div class="project-content">
+<h3>RTL to GDSII Flow</h3>
+<p>ASIC Physical Design project including synthesis, floorplanning and routing.</p>
+<div class="tags">
+<span>ASIC</span>
+<span>VLSI</span>
+</div>
+<a href="https://github.com/saianirudh-g/RTL-to-GDSII-Flow" target="_blank" class="btn btn-primary">View Project</a>
+</div>
+</div>
+
+<div class="project-card glass">
+<div class="project-content">
+<h3>Microwave Transmission Line Characterization Using a Handheld VNA</h3>
+<p>50‑ohm coaxial transmission line behaves as a distortionless transmission line within 1–5 GHz.</p>
+<div class="tags">
+<span>Vector Network Analyser</span>
+<span>Microstrip Antenna</span>
+</div>
+<a href="https://github.com/saianirudh-g/Microwave-Transmission-Line-Characterization-Using-a-Handheld-VNA" target="_blank" class="btn btn-primary">View Project</a>
+</div>
+</div>
+
+<div class="project-card glass">
+<div class="project-content">
+<h3>ESP32 Microcontroller using Bluetooth</h3>
+<p>Bluetooth communication using the ESP32 microcontroller, programmed in Embedded C.</p>
+<div class="tags">
+<span>ESP32 MCU</span>
+<span>Bluetooth</span>
+</div>
+<a href="https://github.com/saianirudh-g/ESP32-Microcontroller-using-bluetooth-with-Embedded-C-tools" target="_blank" class="btn btn-primary">View Project</a>
+</div>
+</div>
+
+</div>
+
+<button class="nav-btn next-btn">❯</button>
+</div>
+</section>
+
+<!-- PRESENTATIONS -->
+<section id="presentations">
+<h2 class="section-title">Research <span>Presentations</span></h2>
+
+<div class="projects-grid">
+
+<div class="project-card glass">
+<div class="project-content">
 <h3>Sub THz Wireless Backhaul</h3>
-
-<p>
-Multi-KM Multi-Gigabit per second Sub THz communications for Wireless Backhaul Applications.
-</p>
-
+<p>Multi-KM Multi-Gigabit per second Sub THz communications for Wireless Backhaul Applications.</p>
 <div class="tags">
 <span>THz</span>
 <span>6G</span>
 <span>Research</span>
 </div>
-
 <div style="margin-top:25px;">
-
-<a href="https://docs.google.com/presentation/d/1nhTqQzFcs0jdQZsAPV3i9337eh_l3V8r/edit?usp=sharing"
-target="_blank"
-class="btn btn-primary">
-View PPT
-</a>
-
+<a href="https://docs.google.com/presentation/d/1nhTqQzFcs0jdQZsAPV3i9337eh_l3V8r/edit?usp=sharing" target="_blank" class="btn btn-primary">View PPT</a>
 </div>
-
 </div>
-
 </div>
 
 <div class="project-card glass">
-
 <div class="project-content">
-
 <h3>THz Imaging for Drug Detection</h3>
-
-<p>
-Detection & Identification of Illicit Drugs using Terahertz Imaging.
-</p>
-
+<p>Detection & Identification of Illicit Drugs using Terahertz Imaging.</p>
 <div class="tags">
 <span>THz Imaging</span>
 <span>Security</span>
 </div>
-
 <div style="margin-top:25px;">
-
-<a href="https://docs.google.com/presentation/d/12ErTupRbTiylBqEDqrwfZUsP5wpZYDGS/edit?usp=sharing"
-target="_blank"
-class="btn btn-primary">
-View PPT
-</a>
-
+<a href="https://docs.google.com/presentation/d/12ErTupRbTiylBqEDqrwfZUsP5wpZYDGS/edit?usp=sharing" target="_blank" class="btn btn-primary">View PPT</a>
+</div>
+</div>
 </div>
 
 </div>
-
-</div>
-
-</div>
-
 </section>
 
-<!-- =========================================================
-     RESEARCH PAPERS
-========================================================= -->
-
+<!-- RESEARCH PAPERS -->
 <section id="research">
-
-<h2 class="section-title">
-Research <span>Papers</span>
-</h2>
+<h2 class="section-title">Research <span>Papers</span></h2>
 
 <div class="projects-grid">
 
 <div class="project-card glass">
-
 <div class="project-content">
-
 <h3>Sub THz Communications Research</h3>
-
-<p>
-Research paper on multi-gigabit THz wireless backhaul systems.
-</p>
-
+<p>Research paper on multi-gigabit THz wireless backhaul systems.</p>
 <div class="tags">
 <span>THz</span>
 <span>6G</span>
 </div>
-
 <div style="margin-top:25px;">
-
-<a href="https://drive.google.com/file/d/12hdffeJ9UaW2whqF3nt44lnZZKUTfbct/view"
-target="_blank"
-class="btn btn-primary">
-View Paper
-</a>
-
+<a href="https://drive.google.com/file/d/12hdffeJ9UaW2whqF3nt44lnZZKUTfbct/view" target="_blank" class="btn btn-primary">View Paper</a>
 </div>
-
 </div>
-
 </div>
 
 <div class="project-card glass">
-
 <div class="project-content">
-
 <h3>Perovskite Solar Cells</h3>
-
-<p>
-Advanced renewable energy semiconductor research paper.
-</p>
-
+<p>Advanced renewable energy semiconductor research paper.</p>
 <div class="tags">
 <span>Solar</span>
 <span>Research</span>
 </div>
-
 <div style="margin-top:25px;">
-
-<a href="https://drive.google.com/file/d/1M0LxJXcOvHixyqRHYbc8bPfiYBApgTnn/view"
-target="_blank"
-class="btn btn-primary">
-View Paper
-</a>
-
+<a href="https://drive.google.com/file/d/1M0LxJXcOvHixyqRHYbc8bPfiYBApgTnn/view" target="_blank" class="btn btn-primary">View Paper</a>
+</div>
+</div>
 </div>
 
 </div>
-
-</div>
-
-</div>
-
 </section>
 
-<!-- =========================================================
-     ACHIEVEMENTS
-========================================================= -->
-
+<!-- ACHIEVEMENTS -->
 <section id="achievements">
-
-<h2 class="section-title">
-My <span>Achievements</span>
-</h2>
+<h2 class="section-title">My <span>Achievements</span></h2>
 
 <div class="projects-grid">
 
 <div class="project-card glass">
-
-<img src="Images/RSA.png"
-style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
-
+<img src="Images/RSA.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
 <div class="project-content">
-
 <h3>Rising Star Award</h3>
-
-<p>
-Awarded by CEO of QualiZeal in 2024.
-</p>
-
+<p>Awarded by CEO of QualiZeal in 2024.</p>
 </div>
-
 </div>
 
 <div class="project-card glass">
-
-<img src="Images/2.png"
-style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
-
+<img src="Images/2.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
 <div class="project-content">
-
 <h3>One Year Completion</h3>
-
-<p>
-Successfully completed one year at QualiZeal.
-</p>
-
+<p>Successfully completed one year at QualiZeal.</p>
 </div>
-
 </div>
 
 <div class="project-card glass">
-
-<img src="Images/4.jpeg"
-style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
-
+<img src="Images/4.jpeg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
 <div class="project-content">
-
 <h3>B.Tech Graduation</h3>
-
-<p>
-Graduation day at Vishnu Institute of Technology.
-</p>
-
+<p>Graduation day at Vishnu Institute of Technology.</p>
+</div>
 </div>
 
 </div>
-
-</div>
-
 </section>
 
-<!-- =========================================================
-     CERTIFICATIONS
-========================================================= -->
-
+<!-- CERTIFICATIONS -->
 <section id="certifications">
-
-<h2 class="section-title">
-My <span>Certifications</span>
-</h2>
+<h2 class="section-title">My <span>Certifications</span></h2>
 
 <div class="projects-grid">
 
 <div class="project-card glass">
-
-<img src="Certifications/AWS.png"
-style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
-
-<div class="project-content">
-
-<h3>AWS Academy</h3>
-
-</div>
-
+<img src="Certifications/AWS.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
+<div class="project-content"><h3>AWS Academy</h3></div>
 </div>
 
 <div class="project-card glass">
-
-<img src="Certifications/Guvi - Gen-AI.jpg"
-style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
-
-<div class="project-content">
-
-<h3>Generative AI</h3>
-
-</div>
-
+<img src="Certifications/Guvi - Gen-AI.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
+<div class="project-content"><h3>Generative AI</h3></div>
 </div>
 
 <div class="project-card glass">
-
-<img src="Certifications/SEL 101.png"
-style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
-
-<div class="project-content">
-
-<h3>SEL Relay 101</h3>
-
+<img src="Certifications/SEL 101.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
+<div class="project-content"><h3>SEL Relay 101</h3></div>
 </div>
 
 </div>
-
-</div>
-
 </section>
 
-<!-- =========================================================
-     MOMENTS / GALLERY
-========================================================= -->
-
+<!-- MOMENTS -->
 <section id="moments">
-
-<h2 class="section-title">
-My <span>Moments</span>
-</h2>
+<h2 class="section-title">My <span>Moments</span></h2>
 
 <div class="projects-grid">
 
 <div class="project-card glass">
-
-<img src="Images/3.png"
-style="width:100%; height:260px; object-fit:cover; border-radius:20px 20px 0 0;">
-
+<img src="Images/3.png" style="width:100%; height:260px; object-fit:cover; border-radius:20px 20px 0 0;">
 <div class="project-content">
-
 <h3>BrowserStack Meetup</h3>
-
-<p>
-Performance testing and Gen-AI meetup experience.
-</p>
-
+<p>Performance testing and Gen-AI meetup experience.</p>
 </div>
-
 </div>
 
 <div class="project-card glass">
-
-<img src="Images/6.jpeg"
-style="width:100%; height:260px; object-fit:cover; border-radius:20px 20px 0 0;">
-
+<img src="Images/6.jpeg" style="width:100%; height:260px; object-fit:cover; border-radius:20px 20px 0 0;">
 <div class="project-content">
-
 <h3>Team Outing</h3>
-
-<p>
-QualiZeal team outing memories.
-</p>
-
+<p>QualiZeal team outing memories.</p>
 </div>
-
 </div>
 
 <div class="project-card glass">
-
-<img src="Images/5.png"
-style="width:100%; height:260px; object-fit:cover; border-radius:20px 20px 0 0;">
-
+<img src="Images/5.png" style="width:100%; height:260px; object-fit:cover; border-radius:20px 20px 0 0;">
 <div class="project-content">
-
 <h3>Firmware Team Lunch</h3>
-
-<p>
-Great memories with firmware development team.
-</p>
-
+<p>Great memories with firmware development team.</p>
+</div>
 </div>
 
 </div>
-
-</div>
-
 </section>
 
 <!-- CONTACT -->
-
 <section id="contact">
-
-<h2 class="section-title">
-Contact <span>Me</span>
-</h2>
+<h2 class="section-title">Contact <span>Me</span></h2>
 
 <div class="contact-container glass">
-
-<h3 style="font-size:32px;">
-Let's Build Something Amazing 🚀
-</h3>
+<h3 style="font-size:32px;">Let's Build Something Amazing 🚀</h3>
 
 <p style="margin-top:20px;color:#cbd5e1;line-height:1.8;">
-Open for research collaboration,
-embedded systems development,
-RF engineering projects and semiconductor opportunities.
+Open for research collaboration, embedded systems development, RF engineering projects and semiconductor opportunities.
 </p>
 
 <div class="contact-buttons">
-
-<a href="mailto:saianirudh.kefp2@gmail.com"
-class="btn btn-primary">
-<i class="fa-solid fa-envelope"></i>
-Email
+<a href="mailto:saianirudh.kefp2@gmail.com" class="btn btn-primary">
+<i class="fa-solid fa-envelope"></i> Email
 </a>
 
-<a href="tel:+18167153854"
-class="btn btn-outline">
-<i class="fa-solid fa-phone"></i>
-Call Me
+<a href="tel:+18167153854" class="btn btn-outline">
+<i class="fa-solid fa-phone"></i> Call Me
 </a>
-
 </div>
 
 </div>
-
 </section>
 
 <!-- FOOTER -->
@@ -1227,20 +963,7 @@ Call Me
 
 <!-- JAVASCRIPT -->
 <script>
-.btn-link {
-  display: inline-block;
-  padding: 10px 20px;
-  background: #007bff;
-  color: white;
-  text-decoration: none;
-  border-radius: 8px;
-  font-weight: 600;
-  margin: 5px;
-  transition: 0.3s;
-}
-.btn-link:hover {
-  background: #0056b3;
-}
+
 /* =========================================================
    MOBILE NAVBAR
 ========================================================= */
@@ -1253,20 +976,8 @@ menuBtn.onclick = () => {
 };
 
 /* =========================================================
-   TYPING EFFECT
+   PROJECT SLIDER (MATCHES YOUR CSS + HTML)
 ========================================================= */
-
-const words = [
-  "Embedded Systems Engineer",
-  "RF & THz Researcher",
-  "Software Automation Tester",
-  "VLSI & ASIC Enthusiast"
-];
-
-let i = 0;
-let j = 0;
-let currentWord = "";
-let isDeleting = false;
 
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.querySelector(".projects-container");
@@ -1278,7 +989,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const cardsPerView = 3;
 
   function updateSlider() {
-    const cardWidth = cards[0].offsetWidth;
+    const cardWidth = cards[0].offsetWidth + 20; // includes margin
     container.style.transform = `translateX(-${index * cardWidth}px)`;
   }
 
@@ -1297,71 +1008,74 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-function type(){
+/* =========================================================
+   TYPING EFFECT
+========================================================= */
 
+const words = [
+  "Embedded Systems Engineer",
+  "RF & THz Researcher",
+  "Software Automation Tester",
+  "VLSI & ASIC Enthusiast"
+];
+
+let i = 0;
+let j = 0;
+let currentWord = "";
+let isDeleting = false;
+
+function type() {
   currentWord = words[i];
 
-  if(isDeleting){
+  if (isDeleting) {
     document.getElementById("typing").textContent =
-    currentWord.substring(0,j--);
-  }
-  else{
+      currentWord.substring(0, j--);
+  } else {
     document.getElementById("typing").textContent =
-    currentWord.substring(0,j++);
+      currentWord.substring(0, j++);
   }
 
-  if(!isDeleting && j === currentWord.length){
+  if (!isDeleting && j === currentWord.length) {
     isDeleting = true;
-    setTimeout(type,1200);
+    setTimeout(type, 1200);
     return;
   }
 
-  if(isDeleting && j === 0){
+  if (isDeleting && j === 0) {
     isDeleting = false;
     i++;
-
-    if(i === words.length){
-      i = 0;
-    }
+    if (i === words.length) i = 0;
   }
 
-  setTimeout(type,isDeleting ? 50 : 100);
+  setTimeout(type, isDeleting ? 50 : 100);
 }
 
 type();
 
 /* =========================================================
-   ACTIVE NAV LINK
+   ACTIVE NAV LINK HIGHLIGHT
 ========================================================= */
 
 const sections = document.querySelectorAll("section");
 const navItems = document.querySelectorAll(".nav-links a");
 
-window.addEventListener("scroll",()=>{
-
+window.addEventListener("scroll", () => {
   let current = "";
 
-  sections.forEach(section=>{
-
+  sections.forEach(section => {
     const sectionTop = section.offsetTop;
-
-    if(pageYOffset >= sectionTop - 200){
+    if (pageYOffset >= sectionTop - 200) {
       current = section.getAttribute("id");
     }
   });
 
-  navItems.forEach(a=>{
-
-    a.classList.remove("active");
-
-    if(a.getAttribute("href") === "#" + current){
+  navItems.forEach(a => {
+    if (a.getAttribute("href") === "#" + current) {
       a.style.color = "#06b6d4";
-    }
-    else{
+    } else {
       a.style.color = "white";
     }
   });
-
 });
 
 </script>
