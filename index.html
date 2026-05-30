@@ -137,12 +137,12 @@ nav{
 }
 .logo {
   display: flex;
-  align-items: center;
-  justify-content: flex-start; /* left corner */
-  padding-left: 10px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-left: 20px;
 }
 .logo svg {
-  height: 50px;
+  height: 80px; /* adjust to fit your navbar */
 }
 .nav-links{
   display:flex;
@@ -514,32 +514,34 @@ footer {
 <header>
 <nav>
 <div class="logo">
-  <svg width="220" height="50" viewBox="0 0 220 50" fill="none">
-    <!-- Left RF Waves -->
-    <path d="M10 25c6-8 14-12 22-12" 
-          stroke="#06b6d4" stroke-width="2.2" stroke-linecap="round"/>
-    <path d="M10 25c8-12 20-18 32-18" 
-          stroke="#06b6d4" stroke-width="1.6" stroke-linecap="round" opacity="0.7"/>
-    <path d="M10 25c10-16 26-24 42-24" 
-          stroke="#06b6d4" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/>
-    <!-- Circuit Node -->
-    <circle cx="10" cy="25" r="4" fill="#06b6d4"/>
-    <!-- Name -->
-    <text x="60" y="32"
-          fill="#e0faff"
-          font-size="28"
-          font-family="Poppins, sans-serif"
-          font-weight="800"
-          letter-spacing="3">
-      ANIRUDH
-    </text>
-    <!-- Right Circuit Node -->
-    <circle cx="200" cy="25" r="4" fill="#06b6d4"/>
-    <line x1="185" y1="25" x2="200" y2="25"
-          stroke="#06b6d4" stroke-width="2" stroke-linecap="round"/>
+  <svg width="80" height="260" viewBox="0 0 80 260" fill="none">
+    <!-- central line -->
+    <line x1="40" y1="10" x2="40" y2="250"
+          stroke="#06b6d4" stroke-width="2.5" stroke-linecap="round"/>
+
+    <!-- top A apex -->
+    <path d="M20 40 L40 10 L60 40" stroke="#06b6d4" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="30" y1="25" x2="50" y2="25" stroke="#06b6d4" stroke-width="2.5"/>
+
+    <!-- letters stacked vertically -->
+    <text x="40" y="70" text-anchor="middle"
+          fill="#e0faff" font-size="28" font-family="Poppins, sans-serif" font-weight="700">N</text>
+    <text x="40" y="100" text-anchor="middle"
+          fill="#e0faff" font-size="28" font-family="Poppins, sans-serif" font-weight="700">I</text>
+    <text x="40" y="130" text-anchor="middle"
+          fill="#e0faff" font-size="28" font-family="Poppins, sans-serif" font-weight="700">R</text>
+    <text x="40" y="160" text-anchor="middle"
+          fill="#e0faff" font-size="28" font-family="Poppins, sans-serif" font-weight="700">U</text>
+    <text x="40" y="190" text-anchor="middle"
+          fill="#e0faff" font-size="28" font-family="Poppins, sans-serif" font-weight="700">D</text>
+    <text x="40" y="220" text-anchor="middle"
+          fill="#e0faff" font-size="28" font-family="Poppins, sans-serif" font-weight="700">H</text>
+
+    <!-- bottom circuit node -->
+    <circle cx="40" cy="250" r="5" fill="#06b6d4"/>
   </svg>
 </div>
-
+    
 <div class="nav-links" id="navLinks">
 <a href="#home">Home</a>
 <a href="#about">About</a>
