@@ -140,10 +140,75 @@ nav{
   top: 2px;
   left: 0px;
 }
-
 .logo img {
   height: 60px;
   width: auto;
+}
+/* ================================
+   RF THz Animated Logo
+================================ */
+.rf-logo-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* Main logo */
+.rf-logo-wrapper img {
+  height: 55px;
+  width: auto;
+  border-radius: 10px;
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 0 6px rgba(6, 182, 212, 0.6));
+}
+
+/* RF wave base style */
+.rf-wave {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid #06b6d4;
+  border-radius: 50%;
+  opacity: 0;
+  z-index: 1;
+  animation: rfPulse 2.5s infinite ease-out;
+}
+
+/* Wave variations */
+.wave1 {
+  width: 60px;
+  height: 60px;
+  animation-delay: 0s;
+}
+
+.wave2 {
+  width: 90px;
+  height: 90px;
+  animation-delay: 0.6s;
+  border-color: #38bdf8;
+}
+
+.wave3 {
+  width: 120px;
+  height: 120px;
+  animation-delay: 1.2s;
+  border-color: #8b5cf6;
+}
+
+/* RF pulse animation */
+@keyframes rfPulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.3);
+    opacity: 0.8;
+  }
+  70% {
+    opacity: 0.2;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.4);
+    opacity: 0;
+  }
 }
 .nav-links{
   display:flex;
@@ -515,7 +580,12 @@ footer {
 <header>
 <nav>
 <div class="logo">
-  <img src="Images/logo.png" alt="Anirudh Logo">
+  <div class="rf-logo-wrapper">
+    <img src="Images/logo.png" alt="Anirudh Logo">
+    <span class="rf-wave wave1"></span>
+    <span class="rf-wave wave2"></span>
+    <span class="rf-wave wave3"></span>
+  </div>
 </div>
     
 <div class="nav-links" id="navLinks">
@@ -1085,7 +1155,7 @@ Open for research collaboration, embedded systems development, RF engineering pr
     FOLLOW:
     <a href="https://github.com/saianirudh-g" class="btn-link" target="_blank">GITHUB</a>
     <a href="https://www.linkedin.com/in/sai-anirudh-godavarthi-710b16273/" class="btn-link" target="_blank">LINKEDIN</a>
-    <a href="https://x.com/sai_anirudh1268" class="btn-link" target="_blank">X</a>
+    <a href="https://x.com/sai_anirudh1268" class="btn-link" target="_blank">X.COM</a>
   </div>
 
   <p>© 2026 Sai Anirudh Godavarthi | Built with HTML CSS & JavaScript</p>
