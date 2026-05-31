@@ -137,84 +137,71 @@ nav{
 }
 .rf-logo{
     position:relative;
-    display:inline-block;
-    padding:8px 15px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    height:40px;          /* keeps navbar stable */
+    padding:6px 10px;
+    overflow:hidden;
 }
 
 .rf-logo span{
     position:relative;
-    font-size:1.8rem;      /* Reduced from 6rem */
+    font-size:1.4rem;
     font-weight:800;
-    letter-spacing:4px;
+    letter-spacing:3px;
     color:#ffffff;
     text-transform:uppercase;
+    z-index:2;
 
     text-shadow:
-        0 0 4px #00e5ff,
-        0 0 8px #00e5ff,
-        0 0 15px #008cff;
+        0 0 4px rgba(0,229,255,0.6),
+        0 0 10px rgba(0,140,255,0.4);
 }
 
-/* RF Wave Background */
+/* RF pulse ring (subtle, centered) */
 .rf-logo::before{
     content:"";
     position:absolute;
-    inset:-5px;
-
-    background:
-    repeating-radial-gradient(
-        circle at center,
-        rgba(0,229,255,.4) 0px,
-        rgba(0,229,255,.4) 1px,
-        transparent 2px,
-        transparent 10px
-    );
-
-    animation:waveExpand 3s linear infinite;
-    opacity:.4;
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    border:1px solid rgba(0,229,255,0.25);
+    animation:rfPulse 3s ease-in-out infinite;
     pointer-events:none;
+    z-index:0;
 }
 
-/* Scanning Beam */
+/* scanning beam (clean + controlled) */
 .rf-logo::after{
     content:"";
     position:absolute;
     top:0;
-    left:-120%;
-
+    left:-100%;
     width:60%;
     height:100%;
-
     background:linear-gradient(
         90deg,
         transparent,
-        rgba(255,255,255,.8),
+        rgba(0,229,255,0.25),
         transparent
     );
-
-    filter:blur(4px);
-    animation:scan 3s linear infinite;
+    transform:skewX(-20deg);
+    animation:rfScan 3.5s linear infinite;
     pointer-events:none;
+    z-index:1;
+    opacity:0.4;
 }
 
-@keyframes scan{
-    from{
-        left:-120%;
-    }
-    to{
-        left:120%;
-    }
+@keyframes rfScan{
+    0%{ left:-120%; }
+    100%{ left:120%; }
 }
 
-@keyframes waveExpand{
-    from{
-        transform:scale(0.95);
-        opacity:.5;
-    }
-    to{
-        transform:scale(1.05);
-        opacity:.15;
-    }
+@keyframes rfPulse{
+    0%{ transform:scale(0.9); opacity:0.6; }
+    50%{ transform:scale(1.25); opacity:0.2; }
+    100%{ transform:scale(0.9); opacity:0.6; }
 }
 .nav-links{
   display:flex;
