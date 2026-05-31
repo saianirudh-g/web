@@ -135,73 +135,15 @@ nav{
   justify-content:space-between;
   align-items:center;
 }
-.rf-logo{
-    position:relative;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    height:40px;          /* keeps navbar stable */
-    padding:6px 10px;
-    overflow:hidden;
+.logo {
+  position: absolute;
+  top: 2px;
+  left: 0px;
 }
 
-.rf-logo span{
-    position:relative;
-    font-size:1.4rem;
-    font-weight:800;
-    letter-spacing:3px;
-    color:#ffffff;
-    text-transform:uppercase;
-    z-index:2;
-
-    text-shadow:
-        0 0 4px rgba(0,229,255,0.6),
-        0 0 10px rgba(0,140,255,0.4);
-}
-
-/* RF pulse ring (subtle, centered) */
-.rf-logo::before{
-    content:"";
-    position:absolute;
-    width:70px;
-    height:70px;
-    border-radius:50%;
-    border:1px solid rgba(0,229,255,0.25);
-    animation:rfPulse 3s ease-in-out infinite;
-    pointer-events:none;
-    z-index:0;
-}
-
-/* scanning beam (clean + controlled) */
-.rf-logo::after{
-    content:"";
-    position:absolute;
-    top:0;
-    left:-100%;
-    width:60%;
-    height:100%;
-    background:linear-gradient(
-        90deg,
-        transparent,
-        rgba(0,229,255,0.25),
-        transparent
-    );
-    transform:skewX(-20deg);
-    animation:rfScan 3.5s linear infinite;
-    pointer-events:none;
-    z-index:1;
-    opacity:0.4;
-}
-
-@keyframes rfScan{
-    0%{ left:-120%; }
-    100%{ left:120%; }
-}
-
-@keyframes rfPulse{
-    0%{ transform:scale(0.9); opacity:0.6; }
-    50%{ transform:scale(1.25); opacity:0.2; }
-    100%{ transform:scale(0.9); opacity:0.6; }
+.logo img {
+  height: 60px;
+  width: auto;
 }
 .nav-links{
   display:flex;
@@ -572,8 +514,8 @@ footer {
 <!-- NAVBAR -->
 <header>
 <nav>
-<div class="rf-logo">
-    <span>ANIRUDH</span>
+<div class="logo">
+  <img src="Images/logo.png" alt="Anirudh Logo">
 </div>
     
 <div class="nav-links" id="navLinks">
