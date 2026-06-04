@@ -261,12 +261,88 @@ nav{
   padding:120px 30px 80px;
 }
 .hero-container{
+  perspective:1200px;
   max-width:1200px;
   width:100%;
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:60px;
   align-items:center;
+  margin:auto;
+}
+    .hero-flip-card
+{
+  position:relative;
+  width:100%;
+  min-height:500px;
+
+  transform-style:preserve-3d;
+
+  transition:transform 1s;
+}
+
+.hero-flip-card.flipped
+{
+  transform:rotateY(180deg);
+}
+
+.hero-front,
+.hero-back
+{
+  position:absolute;
+
+  width:100%;
+  height:100%;
+
+  backface-visibility:hidden;
+
+  background:white;
+
+  border-radius:25px;
+
+  padding:40px;
+
+  box-shadow:0 10px 30px rgba(0,0,0,0.08);
+
+  text-align:center;
+}
+
+.hero-back
+{
+  transform:rotateY(180deg);
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+
+.flip-btn
+{
+  margin-top:25px;
+
+  padding:12px 24px;
+
+  border:none;
+
+  border-radius:12px;
+
+  background:#2563eb;
+
+  color:white;
+
+  cursor:pointer;
+
+  font-weight:bold;
+
+  transition:0.3s;
+}
+
+.flip-btn:hover
+{
+  transform:translateY(-3px);
+
+  background:#1d4ed8;
 }
 .hero-left h1{
   font-size:65px;
@@ -609,35 +685,103 @@ footer {
 
 <!-- HERO -->
 <section class="hero" id="home">
+
 <div class="hero-container">
 
+<div class="hero-flip-card" id="heroCard">
+
+<!-- FRONT SIDE -->
+<div class="hero-front">
+
 <div class="hero-left">
+
 <h1>Sai Anirudh <span>Godavarthi</span></h1>
+
 <div class="typing" id="typing"></div>
+
 <h2>Masters in Electrical & Computer Engineering</h2>
-<p>I'm passionate about Embedded Systems, RF Engineering, ASIC Physical Design, THz Communication and Software Testing.</p>
+
+<p>
+I'm passionate about Embedded Systems,
+RF Engineering, ASIC Physical Design,
+THz Communication and Software Testing.
+</p>
 
 <div class="hero-buttons">
-<a href="https://github.com/saianirudh-g" target="_blank" class="btn btn-primary">
+
+<a href="https://github.com/saianirudh-g"
+target="_blank"
+class="btn btn-primary">
 <i class="fab fa-github"></i> GitHub
 </a>
 
-<a href="https://www.linkedin.com/in/sai-anirudh-godavarthi-710b16273/" target="_blank" class="btn btn-outline">
+<a href="https://www.linkedin.com/in/sai-anirudh-godavarthi-710b16273/"
+target="_blank"
+class="btn btn-outline">
 <i class="fab fa-linkedin"></i> LinkedIn
 </a>
 
-<a href="https://buymeacoffee.com/saianirudh" target="_blank" class="btn btn-primary">
+<a href="https://buymeacoffee.com/saianirudh"
+target="_blank"
+class="btn btn-primary">
 ☕ Buy Me a Coffee
 </a>
+
 </div>
+
+<button class="flip-btn"
+onclick="flipHero()">
+My Bio ↻
+</button>
+
 </div>
 
 <div class="hero-right">
 <div class="profile-box">
-<img src="Images/Media.jpeg">
+<img src="Images/Media.jpeg"
+alt="Sai Anirudh">
 </div>
 </div>
 
+</div>
+
+<!-- BACK SIDE -->
+<div class="hero-back">
+
+<h2>My Description</h2>
+
+<p>
+Enthusiastic engineer with expertise in
+Embedded C, STM32, IoT Firmware Development,
+Selenium Automation Testing, RF Engineering,
+ASIC Physical Design and THz Communication.
+</p>
+
+<br>
+
+<p>
+Currently pursuing a Master's degree in
+Electrical & Computer Engineering while
+building innovative solutions in Embedded
+Systems, Automation Testing and Next-Generation
+Wireless Communication.
+</p>
+
+<br>
+
+<p>
+Experienced in Selenium Java, Postman API Testing,
+Jira, TestRail, Embedded C, Python, JavaScript,
+Web Technologies and IoT Product Development.
+</p>
+
+<button class="flip-btn"
+onclick="flipHero()">
+⬅ Back
+</button>
+
+</div>
+</div>
 </div>
 </section>
 
@@ -1183,6 +1327,13 @@ Open for research collaboration, embedded systems development, RF engineering pr
 
 <!-- JAVASCRIPT -->
 <script>
+function flipHero()
+{
+  document
+  .getElementById("heroCard")
+  .classList
+  .toggle("flipped");
+}
 /* =========================================================
    INJECT .btn-link CSS FROM SCRIPT
 ========================================================= */
