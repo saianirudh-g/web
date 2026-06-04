@@ -229,25 +229,33 @@ nav{
   cursor:pointer;
 }
 /* =========================================================
-   MOBILE NAVBAR
+   MOBILE NAV FIX (ROBUST DRAWER MENU)
 ========================================================= */
 @media(max-width:768px){
-  .menu-btn{
-    display:block;
-  }
+ .menu-btn{
+  z-index:1100;
+  position:relative;
+ }
   .nav-links{
-    position:absolute;
-    top:80px;
+    position:fixed;
+    top:0;
     right:-100%;
-    width:250px;
+    width:260px;
     height:100vh;
-    flex-direction:column;
     background:#111827;
-    padding:40px 25px;
-    transition:0.4s;
+    flex-direction:column;
+    padding:80px 25px;
+    gap:20px;
+    transition:0.4s ease;
+    overflow-y:auto; /* 👈 IMPORTANT for many tabs */
+    z-index:1000;
   }
   .nav-links.active{
     right:0;
+  }
+  .nav-links a{
+    font-size:16px;
+    padding:10px 0;
   }
 }
 /* =========================================================
@@ -1460,7 +1468,11 @@ document.addEventListener("DOMContentLoaded", () => {
 /* =========================================================
    UNIVERSAL SLIDER FOR ALL SECTIONS
 ========================================================= */
-
+document.querySelectorAll(".nav-links a").forEach(link => {
+  link.addEventListener("click", () => {
+    document.getElementById("navLinks").classList.remove("active");
+  });
+});
 document.addEventListener("DOMContentLoaded", () => {
   const sliders = document.querySelectorAll(".slider-wrapper");
 
