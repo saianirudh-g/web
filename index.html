@@ -625,38 +625,103 @@ footer {
   letter-spacing: 1px;
 }
 /* =========================================================
-   MOBILE
+   MOBILE RESPONSIVE FIX (ADD AT END)
 ========================================================= */
-@media(max-width:900px){
-
+@media (max-width: 900px){
+  /* HERO FIX */
+  .hero{
+    padding:120px 20px 60px;
+  }
   .hero-container{
-    grid-template-columns:1fr;
+    grid-template-columns: 1fr;
+    gap:40px;
     text-align:center;
   }
   .hero-left h1{
-    font-size:50px;
+    font-size:40px;
   }
+  .hero-left h2{
+    font-size:20px;
+  }
+  .typing{
+    font-size:18px;
+  }
+  .hero-left p{
+    font-size:16px;
+  }
+  /* PROFILE IMAGE FIX */
+  .profile-box img{
+    width:220px;
+    height:220px;
+  }
+  .flip-btn{
+    right:-10px;
+    width:45px;
+    height:45px;
+    font-size:18px;
+  }
+  /* HERO FLIP CARD FIX */
+  .hero-flip-card{
+    max-width:100%;
+    min-height:unset;
+  }
+  .hero-back{
+    padding:25px;
+  }
+  .hero-back h2{
+    font-size:24px;
+  }
+  .hero-back p{
+    font-size:14px;
+  }
+  /* BUTTON CENTERING */
   .hero-buttons{
     justify-content:center;
   }
-  .profile-box img{
-    width:260px;
-    height:260px;
+  /* NAVBAR FIX */
+  nav{
+    padding:12px 15px;
   }
+  .logo img{
+    height:45px;
+  }
+  /* SLIDER FIX (CRITICAL) */
   .project-card{
-    flex:0 0 100%;
-    max-width:100%;
+    flex: 0 0 100%;
+    margin: 0;
+  }
+  .slider-wrapper{
+    overflow:hidden;
+  }
+  .nav-btn{
+    font-size:20px;
+    padding:8px 10px;
   }
 }
-@media(max-width:500px){
-  .hero-left h1{
-    font-size:40px;
+@media (max-width: 500px){
+  .hero{
+    padding:100px 15px 40px;
   }
-  .section-title{
+  .hero-left h1{
     font-size:32px;
   }
+  .section-title{
+    font-size:28px;
+  }
+  .btn{
+    padding:10px 18px;
+    font-size:14px;
+  }
+  .profile-box img{
+    width:180px;
+    height:180px;
+  }
+  /* CONTACT */
   .contact-container{
-    padding:30px 20px;
+    padding:25px 15px;
+  }
+  .contact-container h3{
+    font-size:22px;
   }
 }
 </style>
@@ -1402,7 +1467,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const nextBtn = wrapper.querySelector(".next-btn");
 
     let index = 0;
-    const cardsPerView = 1;
+    const cardsPerView = window.innerWidth < 900 ? 1 : 3;
 
     function updateSlider() {
       const cardWidth = cards[0].getBoundingClientRect().width + 20;
