@@ -128,16 +128,21 @@ header{
   border-bottom:1px solid rgba(255,255,255,0.08);
 }
 nav{
-  max-width:1200px;
-  margin:auto;
-  padding:18px 25px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  position:relative;
+  width: 100%;
+  margin: 0;
+  padding: 18px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.nav-links {
+  margin-left: auto;  /* adds gap between logo and menu */
+  display: flex;
+  gap: 35px;  
 }
 /* FIX LOGO */
 .logo{
+  margin-right: auto;
   position:relative;   /* IMPORTANT FIX */
 }
 /* MENU */
@@ -773,7 +778,6 @@ footer {
   <i class="fa-solid fa-bars"></i>
 </div>
 
-<div class="nav-links" id="navLinks">
 </nav>
 </header>
 
