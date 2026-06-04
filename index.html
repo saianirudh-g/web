@@ -229,32 +229,45 @@ nav{
   cursor:pointer;
 }
 /* =========================================================
-   MOBILE NAV FIX (ROBUST DRAWER MENU)
+   MOBILE NAV FIX (FORCE WORKING)
 ========================================================= */
-@media(max-width:768px){
- .menu-btn{
-  z-index:1100;
+
+.menu-btn{
+  display:none;
+  font-size:28px;
+  cursor:pointer;
+  z-index:2000;
   position:relative;
- }
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+  .menu-btn{
+    display:block;
+  }
+
   .nav-links{
     position:fixed;
     top:0;
-    right:-100%;
+    right:-260px;   /* fixed width instead of 100% */
     width:260px;
     height:100vh;
     background:#111827;
     flex-direction:column;
-    padding:80px 25px;
+    padding:80px 20px;
     gap:20px;
-    transition:0.4s ease;
-    overflow-y:auto; /* 👈 IMPORTANT for many tabs */
-    z-index:1000;
+    transition:0.3s ease-in-out;
+    z-index:1500;
+    overflow-y:auto;
   }
+
   .nav-links.active{
-    right:0;
+    right:0 !important;  /* FORCE override */
   }
+
   .nav-links a{
-    font-size:16px;
+    display:block;
     padding:10px 0;
   }
 }
@@ -775,8 +788,10 @@ footer {
 </div>
 
 <div class="menu-btn" id="menuBtn">
-<i class="fa-solid fa-bars"></i>
+  <i class="fa-solid fa-bars"></i>
 </div>
+
+<div class="nav-links" id="navLinks">
 </nav>
 </header>
 
@@ -1428,13 +1443,20 @@ document.head.appendChild(btnLinkStyle);
 /* =========================================================
    MOBILE NAVBAR
 ========================================================= */
-
 const menuBtn = document.getElementById("menuBtn");
 const navLinks = document.getElementById("navLinks");
 
-menuBtn.onclick = () => {
+menuBtn.addEventListener("click", () => {
   navLinks.classList.toggle("active");
-};
+  console.log("menu clicked"); // debug check
+});
+
+/* AUTO CLOSE MENU ON LINK CLICK */
+document.querySelectorAll(".nav-links a").forEach(link => {
+  link.addEventListener("click", () => {
+    navLinks.classList.remove("active");
+  });
+});
 /* =========================================================
    IMAGE POPUP FOR ACHIEVEMENTS / CERTIFICATIONS / MOMENTS
 ========================================================= */
@@ -1468,11 +1490,6 @@ document.addEventListener("DOMContentLoaded", () => {
 /* =========================================================
    UNIVERSAL SLIDER FOR ALL SECTIONS
 ========================================================= */
-document.querySelectorAll(".nav-links a").forEach(link => {
-  link.addEventListener("click", () => {
-    document.getElementById("navLinks").classList.remove("active");
-  });
-});
 document.addEventListener("DOMContentLoaded", () => {
   const sliders = document.querySelectorAll(".slider-wrapper");
 
