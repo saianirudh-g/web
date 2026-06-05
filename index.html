@@ -1460,7 +1460,7 @@ btnLinkStyle.textContent = `
   }
 `;
 document.head.appendChild(btnLinkStyle);
-    
+
 /* ============================================================
    MOBILE NAVBAR TOGGLE
    ============================================================ */
@@ -1470,7 +1470,8 @@ const navLinks = document.getElementById("navLinks");
 menuBtn.addEventListener("click", () => {
   navLinks.classList.toggle("active");
 });
-    
+
+
 /* ============================================================
    DESKTOP OVERFLOW HANDLER
    ============================================================ */
@@ -1480,27 +1481,29 @@ function adjustMenu() {
   const links = Array.from(navLinks.children);
   const navWidth = nav.offsetWidth - 120; // space for logo + menu button
   let totalWidth = 0;
+  let hiddenLinks = [];
 
   links.forEach(link => {
     totalWidth += link.offsetWidth;
-
     if (totalWidth > navWidth) {
-      link.style.display = "none";        // hide overflow items
-      menuBtn.style.display = "block";    // show menu button
+      link.style.display = "none"; // hide overflow items
+      hiddenLinks.push(link);
     } else {
       link.style.display = "inline-block";
     }
   });
 
-  // If all items fit, hide the menu button
-  const anyHidden = links.some(link => link.style.display === "none");
-  if (!anyHidden) {
+  // Show menu button only if there are hidden links
+  if (hiddenLinks.length > 0) {
+    menuBtn.style.display = "block";
+  } else {
     menuBtn.style.display = "none";
   }
 }
 
 window.addEventListener("resize", adjustMenu);
 window.addEventListener("load", adjustMenu);
+
 
 /* =========================================================
    IMAGE POPUP FOR ACHIEVEMENTS / CERTIFICATIONS / MOMENTS
