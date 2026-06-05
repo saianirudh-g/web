@@ -1434,13 +1434,13 @@ Open for research collaboration, embedded systems development, RF engineering pr
 
 <!-- JAVASCRIPT -->
 <script>
-function flipHero()
-{
-  document
-  .getElementById("heroCard")
-  .classList
-  .toggle("flipped");
+/* =========================================================
+   HERO FLIP
+========================================================= */
+function flipHero() {
+  document.getElementById("heroCard").classList.toggle("flipped");
 }
+
 /* =========================================================
    INJECT .btn-link CSS FROM SCRIPT
 ========================================================= */
@@ -1465,71 +1465,85 @@ btnLinkStyle.textContent = `
 `;
 document.head.appendChild(btnLinkStyle);
 
-const menuBtn = document.getElementById("menuBtn");
-const navLinks = document.getElementById("navLinks");
-
-menuBtn.addEventListener("click", () => {
-  navLinks.classList.toggle("active");
-});
-
-const nav = document.querySelector("nav");
-
-function adjustMenu() {
-  const links = Array.from(navLinks.children);
-  const navWidth = nav.offsetWidth - 250; // space for logo + button
-  let totalWidth = 0;
-  let hiddenLinks = [];
-
-  links.forEach(link => {
-    totalWidth += link.offsetWidth + 20;
-    if (totalWidth > navWidth) {
-      link.style.display = "none";
-      hiddenLinks.push(link);
-    } else {
-      link.style.display = "inline-block";
-    }
-  });
-
-  menuBtn.style.display = hiddenLinks.length > 0 ? "block" : "none";
-}
-
-window.addEventListener("resize", adjustMenu);
-window.addEventListener("load", adjustMenu);
-    
 /* =========================================================
-   IMAGE POPUP FOR ACHIEVEMENTS / CERTIFICATIONS / MOMENTS
+   MAIN SCRIPT (RUN AFTER DOM LOAD)
 ========================================================= */
 document.addEventListener("DOMContentLoaded", () => {
+
+  /* -------------------------------
+     NAVBAR TOGGLE (MOBILE)
+  -------------------------------- */
+  const menuBtn = document.getElementById("menuBtn");
+  const navLinks = document.getElementById("navLinks");
+  const nav = document.querySelector("nav");
+
+  if (menuBtn && navLinks) {
+    menuBtn.addEventListener("click", () => {
+      navLinks.classList.toggle("active");
+    });
+  }
+
+  /* -------------------------------
+     DESKTOP OVERFLOW MENU LOGIC
+  -------------------------------- */
+  function adjustMenu() {
+    if (!nav || !navLinks || !menuBtn) return;
+
+    const links = Array.from(navLinks.children);
+    const navWidth = nav.offsetWidth - 250; // space for logo + button
+    let totalWidth = 0;
+    let hiddenLinks = [];
+
+    links.forEach(link => {
+      totalWidth += link.offsetWidth + 20;
+
+      if (totalWidth > navWidth) {
+        link.style.display = "none";
+        hiddenLinks.push(link);
+      } else {
+        link.style.display = "inline-block";
+      }
+    });
+
+    menuBtn.style.display = hiddenLinks.length > 0 ? "block" : "none";
+  }
+
+  window.addEventListener("resize", adjustMenu);
+  adjustMenu(); // run once on load
+
+
+  /* =========================================================
+     IMAGE POPUP FOR ACHIEVEMENTS / CERTIFICATIONS / MOMENTS
+  ========================================================= */
   const modal = document.getElementById("imgModal");
   const modalImg = document.getElementById("modalImg");
   const closeBtn = document.querySelector(".close-modal");
 
-  // Select all images inside project-card (Achievements, Certifications, Moments)
-  const clickableImages = document.querySelectorAll(
-    "#achievements img, #certifications img, #moments img"
-  );
+  if (modal && modalImg && closeBtn) {
+    const clickableImages = document.querySelectorAll(
+      "#achievements img, #certifications img, #moments img"
+    );
 
-  clickableImages.forEach(img => {
-    img.style.cursor = "pointer";
-
-    img.addEventListener("click", () => {
-      modal.style.display = "block";
-      modalImg.src = img.src;
+    clickableImages.forEach(img => {
+      img.style.cursor = "pointer";
+      img.addEventListener("click", () => {
+        modal.style.display = "block";
+        modalImg.src = img.src;
+      });
     });
-  });
 
-  closeBtn.onclick = () => {
-    modal.style.display = "none";
-  };
+    closeBtn.onclick = () => {
+      modal.style.display = "none";
+    };
 
-  modal.onclick = (e) => {
-    if (e.target === modal) modal.style.display = "none";
-  };
-});
-/* =========================================================
-   UNIVERSAL SLIDER FOR ALL SECTIONS
-========================================================= */
-document.addEventListener("DOMContentLoaded", () => {
+    modal.onclick = (e) => {
+      if (e.target === modal) modal.style.display = "none";
+    };
+  }
+
+  /* =========================================================
+     UNIVERSAL SLIDER FOR ALL SECTIONS
+  ========================================================= */
   const sliders = document.querySelectorAll(".slider-wrapper");
 
   sliders.forEach(wrapper => {
@@ -1538,22 +1552,27 @@ document.addEventListener("DOMContentLoaded", () => {
     const prevBtn = wrapper.querySelector(".prev-btn");
     const nextBtn = wrapper.querySelector(".next-btn");
 
+    if (!container || cards.length === 0) return;
+
     let index = 0;
-    const cardsPerView = window.innerWidth < 900 ? 1 : 3;
+
+    function cardsPerView() {
+      return window.innerWidth < 900 ? 1 : 3;
+    }
 
     function updateSlider() {
       const cardWidth = cards[0].getBoundingClientRect().width + 20;
       container.style.transform = `translateX(-${index * cardWidth}px)`;
     }
 
-    nextBtn.addEventListener("click", () => {
-      if (index < cards.length - cardsPerView) {
+    nextBtn?.addEventListener("click", () => {
+      if (index < cards.length - cardsPerView()) {
         index++;
         updateSlider();
       }
     });
 
-    prevBtn.addEventListener("click", () => {
+    prevBtn?.addEventListener("click", () => {
       if (index > 0) {
         index--;
         updateSlider();
@@ -1562,12 +1581,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.addEventListener("resize", updateSlider);
   });
+
 });
 
 /* =========================================================
    TYPING EFFECT
 ========================================================= */
-
 const words = [
   "Embedded Systems Engineer",
   "RF & THz Researcher",
@@ -1577,18 +1596,18 @@ const words = [
 
 let i = 0;
 let j = 0;
-let currentWord = "";
 let isDeleting = false;
 
 function type() {
-  currentWord = words[i];
+  const currentWord = words[i];
+  const typingElement = document.getElementById("typing");
+
+  if (!typingElement) return;
 
   if (isDeleting) {
-    document.getElementById("typing").textContent =
-      currentWord.substring(0, j--);
+    typingElement.textContent = currentWord.substring(0, j--);
   } else {
-    document.getElementById("typing").textContent =
-      currentWord.substring(0, j++);
+    typingElement.textContent = currentWord.substring(0, j++);
   }
 
   if (!isDeleting && j === currentWord.length) {
@@ -1599,8 +1618,7 @@ function type() {
 
   if (isDeleting && j === 0) {
     isDeleting = false;
-    i++;
-    if (i === words.length) i = 0;
+    i = (i + 1) % words.length;
   }
 
   setTimeout(type, isDeleting ? 50 : 100);
@@ -1611,7 +1629,6 @@ type();
 /* =========================================================
    ACTIVE NAV LINK HIGHLIGHT
 ========================================================= */
-
 const sections = document.querySelectorAll("section");
 const navItems = document.querySelectorAll(".nav-links a");
 
