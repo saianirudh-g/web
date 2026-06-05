@@ -1453,17 +1453,17 @@ Open for research collaboration, embedded systems development, RF engineering pr
   <p>© 2026 Sai Anirudh Godavarthi | Built with HTML CSS & JavaScript</p>
 </footer>
 
+<!-- JAVASCRIPT -->
 <script>
 /* =========================================================
    HERO FLIP
 ========================================================= */
 function flipHero() {
-  const hero = document.getElementById("heroCard");
-  if (hero) hero.classList.toggle("flipped");
+  document.getElementById("heroCard").classList.toggle("flipped");
 }
 
 /* =========================================================
-   INJECT .btn-link CSS
+   INJECT .btn-link CSS FROM SCRIPT
 ========================================================= */
 const btnLinkStyle = document.createElement("style");
 btnLinkStyle.textContent = `
@@ -1483,120 +1483,58 @@ btnLinkStyle.textContent = `
   .btn-link:hover {
     background: rgba(255,255,255,0.25);
   }
-
-  /* Menu button animation */
-  .menu-btn {
-    cursor: pointer;
-    width: 28px;
-    height: 22px;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  .menu-btn span {
-    display: block;
-    height: 3px;
-    background: white;
-    border-radius: 2px;
-    transition: 0.3s ease;
-  }
-  .menu-btn.active span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-  }
-  .menu-btn.active span:nth-child(2) {
-    opacity: 0;
-  }
-  .menu-btn.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(6px, -6px);
-  }
 `;
 document.head.appendChild(btnLinkStyle);
 
 /* =========================================================
-   MAIN SCRIPT
+   MAIN SCRIPT (RUN AFTER DOM LOAD)
 ========================================================= */
 document.addEventListener("DOMContentLoaded", () => {
-  const nav = document.querySelector("nav");
-  const navLinks = document.getElementById("navLinks");
+
+  /* -------------------------------
+     NAVBAR TOGGLE (MOBILE)
+  -------------------------------- */
   const menuBtn = document.getElementById("menuBtn");
+  const navLinks = document.getElementById("navLinks");
+  const nav = document.querySelector("nav");
 
-// Sync menu button spacing with tab gap
-const navLinksStyle = window.getComputedStyle(navLinks);
-const tabGap = navLinksStyle.getPropertyValue("gap");
-menuBtn.style.marginLeft = tabGap;
+  if (menuBtn && navLinks) {
+    menuBtn.addEventListener("click", () => {
+      navLinks.classList.toggle("active");
+    });
+  }
 
-  if (!nav || !navLinks || !menuBtn) return;
-
-  /* -----------------------------------------
-     ALIGN NAV TO RIGHT
-  ----------------------------------------- */
-  nav.style.justifyContent = "flex-end"; // move everything to right
-  navLinks.style.marginRight = "10px";
-  menuBtn.style.position = "static";
-  menuBtn.style.marginLeft = "10px";
-
-  /* -----------------------------------------
-     CREATE EXTRA MENU (same tab style)
-  ----------------------------------------- */
-  const extraMenu = document.createElement("ul");
-  extraMenu.className = "nav-links"; // uses same CSS
-  extraMenu.style.position = "absolute";
-  extraMenu.style.top = nav.offsetHeight + 10 + "px";
-  extraMenu.style.right = "40px";
-  extraMenu.style.background = "#0b1120";
-  extraMenu.style.padding = "15px 20px";
-  extraMenu.style.borderRadius = "10px";
-  extraMenu.style.display = "none";
-  extraMenu.style.flexDirection = "column";
-  extraMenu.style.gap = "15px";
-  extraMenu.style.zIndex = "5000";
-  nav.appendChild(extraMenu);
-
-  /* -----------------------------------------
-     MOVE EXTRA TABS INTO MENU
-  ----------------------------------------- */
+  /* -------------------------------
+     DESKTOP OVERFLOW MENU LOGIC
+  -------------------------------- */
   function adjustMenu() {
-    const items = Array.from(navLinks.children);
+    if (!nav || !navLinks || !menuBtn) return;
 
-    // Move everything back first
-    const extraItems = Array.from(extraMenu.children);
-    extraItems.forEach(li => navLinks.appendChild(li));
+    const links = Array.from(navLinks.children);
+    const navWidth = nav.offsetWidth - 250; // space for logo + button
+    let totalWidth = 0;
+    let hiddenLinks = [];
 
-    // 🔢 Control how many tabs stay visible
-    const visibleLimit = 7; // change this number anytime
-    extraMenu.innerHTML = "";
+    links.forEach(link => {
+      totalWidth += link.offsetWidth + 20;
 
-    items.forEach((li, index) => {
-      if (index >= visibleLimit) {
-        extraMenu.appendChild(li);
+      if (totalWidth > navWidth) {
+        link.style.display = "none";
+        hiddenLinks.push(link);
+      } else {
+        link.style.display = "inline-block";
       }
     });
 
-    // Show menu button only if there are extra items
-    menuBtn.style.display = extraMenu.children.length > 0 ? "flex" : "none";
-
-    // Reposition extraMenu under the button
-    const btnRect = menuBtn.getBoundingClientRect();
-    const navRect = nav.getBoundingClientRect();
-    extraMenu.style.top = navRect.height + 10 + "px";
-    extraMenu.style.right = (window.innerWidth - btnRect.right + 20) + "px";
+    menuBtn.style.display = hiddenLinks.length > 0 ? "block" : "none";
   }
 
-  adjustMenu();
   window.addEventListener("resize", adjustMenu);
+  adjustMenu(); // run once on load
 
-  /* -----------------------------------------
-     MENU BUTTON CLICK (toggle list + animation)
-  ----------------------------------------- */
-  menuBtn.addEventListener("click", () => {
-    const isOpen = extraMenu.style.display === "flex";
-    extraMenu.style.display = isOpen ? "none" : "flex";
-    menuBtn.classList.toggle("active");
-  });
 
   /* =========================================================
-     IMAGE POPUP
+     IMAGE POPUP FOR ACHIEVEMENTS / CERTIFICATIONS / MOMENTS
   ========================================================= */
   const modal = document.getElementById("imgModal");
   const modalImg = document.getElementById("modalImg");
@@ -1625,7 +1563,7 @@ menuBtn.style.marginLeft = tabGap;
   }
 
   /* =========================================================
-     UNIVERSAL SLIDER
+     UNIVERSAL SLIDER FOR ALL SECTIONS
   ========================================================= */
   const sliders = document.querySelectorAll(".slider-wrapper");
 
@@ -1664,6 +1602,7 @@ menuBtn.style.marginLeft = tabGap;
 
     window.addEventListener("resize", updateSlider);
   });
+
 });
 
 /* =========================================================
@@ -1725,8 +1664,11 @@ window.addEventListener("scroll", () => {
   });
 
   navItems.forEach(a => {
-    a.style.color =
-      a.getAttribute("href") === "#" + current ? "#06b6d4" : "white";
+    if (a.getAttribute("href") === "#" + current) {
+      a.style.color = "#06b6d4";
+    } else {
+      a.style.color = "white";
+    }
   });
 });
 </script>
