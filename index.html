@@ -262,6 +262,11 @@ nav {
   .nav-links.active {
     transform: translateX(0);    /* 👈 SLIDES IN FROM RIGHT */
   }
+    .hero,
+  .hero-container {
+    position: relative;
+    z-index: 1;                  /* 👈 keeps layout behind menu */
+  }
 }
 /* =========================================================
    HERO FLIP CARD
