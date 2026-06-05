@@ -1473,18 +1473,18 @@ menuBtn.addEventListener("click", () => {
 });
 
 /* ============================================================
-   DESKTOP OVERFLOW HANDLER
+   DESKTOP OVERFLOW HANDLER (Improved)
    ============================================================ */
 const nav = document.querySelector("nav");
 
 function adjustMenu() {
   const links = Array.from(navLinks.children);
-  const navWidth = nav.offsetWidth - 150; // space for logo + menu button
+  const navWidth = nav.offsetWidth - 180; // tighter margin for logo + button
   let totalWidth = 0;
   let hiddenLinks = [];
 
   links.forEach(link => {
-    totalWidth += link.offsetWidth;
+    totalWidth += link.offsetWidth + 20; // add spacing buffer
     if (totalWidth > navWidth) {
       link.style.display = "none";
       hiddenLinks.push(link);
@@ -1493,6 +1493,7 @@ function adjustMenu() {
     }
   });
 
+  // Show menu button only if there are hidden links
   menuBtn.style.display = hiddenLinks.length > 0 ? "block" : "none";
 }
 
