@@ -1500,7 +1500,6 @@ menuBtn.addEventListener("click", () => {
     navLinks.classList.toggle("active");
     menuBtn.classList.toggle("active");
   } else {
-    // Desktop toggle for hidden items
     hiddenList.classList.toggle("show");
     menuBtn.classList.toggle("active");
   }
@@ -1526,6 +1525,21 @@ nav.appendChild(hiddenList);
 function adjustMenu() {
   if (!nav || !navLinks || !menuBtn) return;
 
+  /* -------------------------------
+     FIX: On mobile, show ALL tabs
+  -------------------------------- */
+  if (window.innerWidth <= 768) {
+    const links = Array.from(navLinks.children);
+    links.forEach(link => link.style.display = "block");
+
+    hiddenList.style.display = "none";
+    menuBtn.style.display = "block";
+    return; // STOP HERE — do NOT run desktop logic
+  }
+
+  /* -------------------------------
+     DESKTOP LOGIC
+  -------------------------------- */
   const links = Array.from(navLinks.children);
   const navWidth = nav.offsetWidth - 200;
 
@@ -1545,11 +1559,8 @@ function adjustMenu() {
     }
   });
 
-  if (hiddenList.children.length > 0) {
-    menuBtn.style.display = "inline-block";
-  } else {
-    menuBtn.style.display = "none";
-  }
+  menuBtn.style.display =
+    hiddenList.children.length > 0 ? "inline-block" : "none";
 }
 
 window.addEventListener("resize", adjustMenu);
@@ -1694,11 +1705,8 @@ window.addEventListener("scroll", () => {
   });
 
   navItems.forEach(a => {
-    if (a.getAttribute("href") === "#" + current) {
-      a.style.color = "#06b6d4";
-    } else {
-      a.style.color = "white";
-    }
+    a.style.color =
+      a.getAttribute("href") === "#" + current ? "#06b6d4" : "white";
   });
 });
 </script>
