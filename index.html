@@ -1458,7 +1458,8 @@ Open for research collaboration, embedded systems development, RF engineering pr
    HERO FLIP
 ========================================================= */
 function flipHero() {
-  document.getElementById("heroCard").classList.toggle("flipped");
+  const hero = document.getElementById("heroCard");
+  if (hero) hero.classList.toggle("flipped");
 }
 
 /* =========================================================
@@ -1489,27 +1490,35 @@ document.head.appendChild(btnLinkStyle);
    MAIN SCRIPT
 ========================================================= */
 document.addEventListener("DOMContentLoaded", () => {
-
   const nav = document.querySelector("nav");
   const navLinks = document.getElementById("navLinks");
   const menuBtn = document.getElementById("menuBtn");
 
+  if (!nav || !navLinks || !menuBtn) return;
+
   /* -----------------------------------------
-     CREATE SECOND UL FOR EXTRA TABS
+     ALIGN NAV TO RIGHT
+  ----------------------------------------- */
+  nav.style.justifyContent = "flex-end"; // ✅ move everything to right
+  menuBtn.style.position = "static";
+  menuBtn.style.marginLeft = "20px";
+  menuBtn.style.display = "none"; // hidden until needed
+
+  /* -----------------------------------------
+     CREATE EXTRA MENU (same tab style)
   ----------------------------------------- */
   const extraMenu = document.createElement("ul");
-  extraMenu.className = "nav-links";   // ← uses SAME CSS as your tabs
+  extraMenu.className = "nav-links"; // uses same CSS
   extraMenu.style.position = "absolute";
-  extraMenu.style.top = "70px";
-  extraMenu.style.right = "20px";
+  extraMenu.style.top = nav.offsetHeight + 10 + "px";
+  extraMenu.style.right = "40px";
   extraMenu.style.background = "#0b1120";
-  extraMenu.style.padding = "15px 20px";
+  extraMenu.style.padding = "10px 16px";
   extraMenu.style.borderRadius = "10px";
   extraMenu.style.display = "none";
-  extraMenu.style.flexDirection = "column";
-  extraMenu.style.gap = "15px";
+  extraMenu.style.flexDirection = "row";
+  extraMenu.style.gap = "20px";
   extraMenu.style.zIndex = "5000";
-
   nav.appendChild(extraMenu);
 
   /* -----------------------------------------
@@ -1522,8 +1531,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const extraItems = Array.from(extraMenu.children);
     extraItems.forEach(li => navLinks.appendChild(li));
 
-    // Keep only 5 visible
-    const visibleLimit = 5;
+    // 🔢 Control how many tabs stay visible
+    const visibleLimit = 7; // change this number anytime
     extraMenu.innerHTML = "";
 
     items.forEach((li, index) => {
@@ -1532,8 +1541,14 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // Show menu button only if needed
+    // Show menu button only if there are extra items
     menuBtn.style.display = extraMenu.children.length > 0 ? "block" : "none";
+
+    // Reposition extraMenu under the button
+    const btnRect = menuBtn.getBoundingClientRect();
+    const navRect = nav.getBoundingClientRect();
+    extraMenu.style.top = navRect.height + 10 + "px";
+    extraMenu.style.right = (window.innerWidth - btnRect.right + 20) + "px";
   }
 
   adjustMenu();
@@ -1616,7 +1631,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.addEventListener("resize", updateSlider);
   });
-
 });
 
 /* =========================================================
