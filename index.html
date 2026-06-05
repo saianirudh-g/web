@@ -1438,7 +1438,8 @@ Open for research collaboration, embedded systems development, RF engineering pr
    HERO FLIP
 ========================================================= */
 function flipHero() {
-  document.getElementById("heroCard").classList.toggle("flipped");
+  const hero = document.getElementById("heroCard");
+  if (hero) hero.classList.toggle("flipped");
 }
 
 /* =========================================================
@@ -1462,6 +1463,34 @@ btnLinkStyle.textContent = `
   .btn-link:hover {
     background: rgba(255,255,255,0.25);
   }
+
+  /* simple dropdown for overflow menu */
+  .menu-dropdown {
+    position: absolute;
+    right: 20px;
+    top: 60px;
+    background: #020617;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    padding: 8px 0;
+    list-style: none;
+    display: none;
+    z-index: 999;
+  }
+  .menu-dropdown.open {
+    display: block;
+  }
+  .menu-dropdown li {
+    padding: 6px 16px;
+  }
+  .menu-dropdown li a {
+    color: white;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .menu-dropdown li a:hover {
+    color: #06b6d4;
+  }
 `;
 document.head.appendChild(btnLinkStyle);
 
@@ -1471,41 +1500,55 @@ document.head.appendChild(btnLinkStyle);
 document.addEventListener("DOMContentLoaded", () => {
 
   /* -------------------------------
-     NAVBAR TOGGLE (MOBILE)
+     NAVBAR / OVERFLOW MENU
   -------------------------------- */
+  const nav = document.querySelector("nav");
   const menuBtn = document.getElementById("menuBtn");
   const navLinks = document.getElementById("navLinks");
-  const nav = document.querySelector("nav");
 
-  if (menuBtn && navLinks) {
+  // create dropdown for overflow items (desktop)
+  let dropdown = null;
+  if (nav && menuBtn) {
+    dropdown = document.createElement("ul");
+    dropdown.id = "menuDropdown";
+    dropdown.className = "menu-dropdown";
+    nav.appendChild(dropdown);
+
+    // toggle dropdown on click
     menuBtn.addEventListener("click", () => {
-      navLinks.classList.toggle("active");
+      dropdown.classList.toggle("open");
     });
   }
 
-  /* -------------------------------
-     DESKTOP OVERFLOW MENU LOGIC
-  -------------------------------- */
   function adjustMenu() {
-    if (!nav || !navLinks || !menuBtn) return;
+    if (!nav || !navLinks || !menuBtn || !dropdown) return;
+
+    // move everything back to main nav first
+    const fromDropdown = Array.from(dropdown.children);
+    fromDropdown.forEach(li => navLinks.appendChild(li));
 
     const links = Array.from(navLinks.children);
-    const navWidth = nav.offsetWidth - 250; // space for logo + button
     let totalWidth = 0;
-    let hiddenLinks = [];
 
-    links.forEach(link => {
-      totalWidth += link.offsetWidth + 20;
+    // available width = nav width - logo/menu padding - menu button width
+    const navWidth = nav.clientWidth - menuBtn.offsetWidth - 40;
 
-      if (totalWidth > navWidth) {
-        link.style.display = "none";
-        hiddenLinks.push(link);
+    links.forEach(li => {
+      const liWidth = li.offsetWidth + 20;
+      if (totalWidth + liWidth > navWidth) {
+        dropdown.appendChild(li);
       } else {
-        link.style.display = "inline-block";
+        totalWidth += liWidth;
       }
     });
 
-    menuBtn.style.display = hiddenLinks.length > 0 ? "block" : "none";
+    // show menu button only if there are overflow items
+    if (dropdown.children.length > 0) {
+      menuBtn.style.display = "inline-block";
+    } else {
+      menuBtn.style.display = "none";
+      dropdown.classList.remove("open");
+    }
   }
 
   window.addEventListener("resize", adjustMenu);
@@ -1580,6 +1623,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     window.addEventListener("resize", updateSlider);
+    updateSlider();
   });
 
 });
@@ -1602,7 +1646,10 @@ function type() {
   const currentWord = words[i];
   const typingElement = document.getElementById("typing");
 
-  if (!typingElement) return;
+  if (!typingElement) {
+    setTimeout(type, 200);
+    return;
+  }
 
   if (isDeleting) {
     typingElement.textContent = currentWord.substring(0, j--);
