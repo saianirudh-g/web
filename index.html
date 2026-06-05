@@ -235,7 +235,6 @@ nav {
   font-size:28px;
   cursor:pointer;
 }
-/* ===== Desktop Navigation ===== */
 nav {
   display: flex;
   align-items: center;
@@ -246,17 +245,24 @@ nav {
   z-index: 3000;
 }
 
+/* Logo stays left */
+.logo {
+  flex-shrink: 0;
+}
+
+/* Links stay centered and wrap properly */
 .nav-links {
   display: flex;
   flex-wrap: nowrap;
   overflow: hidden;
   white-space: nowrap;
   gap: 25px;
-  transition: 0.3s ease-in-out;
+  flex: 1;
+  justify-content: center;
 }
 
+/* Menu button floats independently */
 .menu-btn {
-  display: none;
   position: absolute;
   right: 20px;
   top: 25px;
@@ -264,9 +270,10 @@ nav {
   cursor: pointer;
   color: #fff;
   font-size: 22px;
+  display: none;
 }
 
-/* ===== Mobile Navigation ===== */
+/* Mobile menu */
 @media (max-width: 768px) {
   .menu-btn {
     display: block;
