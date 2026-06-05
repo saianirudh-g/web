@@ -235,9 +235,7 @@ nav {
   font-size:28px;
   cursor:pointer;
 }
-/* =============================================
-   Desktop navigation
-   =============================================*/
+/* ===== Desktop Navigation ===== */
 nav {
   display: flex;
   align-items: center;
@@ -245,33 +243,35 @@ nav {
   padding: 10px 40px;
   background: #0b1120;
   position: relative;
+  z-index: 3000;
 }
+
 .nav-links {
   display: flex;
   flex-wrap: nowrap;
-  overflow: hidden;        /* hides overflow items */
+  overflow: hidden;
   white-space: nowrap;
   gap: 25px;
+  transition: 0.3s ease-in-out;
 }
+
 .menu-btn {
   display: none;
+  position: absolute;
+  right: 20px;
+  top: 25px;
+  z-index: 4000;
+  cursor: pointer;
+  color: #fff;
+  font-size: 22px;
 }
-/* =========================================================
-   MOBILE NAV FIX (FORCE WORKING)
-========================================================= */
+
+/* ===== Mobile Navigation ===== */
 @media (max-width: 768px) {
-  nav {
-    position: relative;
-    z-index: 3000;
-  }
   .menu-btn {
     display: block;
-    position: absolute;
-    right: 20px;
-    top: 25px;
-    z-index: 4000; /* above everything */
-    cursor: pointer;
   }
+
   .nav-links {
     position: fixed;
     top: 0;
@@ -283,13 +283,14 @@ nav {
     flex-direction: column;
     padding: 80px 20px;
     gap: 20px;
-    transform: translateX(100%); /* hidden to right */
+    transform: translateX(100%);
     transition: 0.3s ease-in-out;
-    z-index: 3500; /* below menu-btn, above page */
+    z-index: 3500;
     overflow-y: auto;
   }
+
   .nav-links.active {
-    transform: translateX(0); /* slide in */
+    transform: translateX(0);
   }
 }
 /* =========================================================
@@ -1471,7 +1472,6 @@ menuBtn.addEventListener("click", () => {
   navLinks.classList.toggle("active");
 });
 
-
 /* ============================================================
    DESKTOP OVERFLOW HANDLER
    ============================================================ */
@@ -1479,31 +1479,25 @@ const nav = document.querySelector("nav");
 
 function adjustMenu() {
   const links = Array.from(navLinks.children);
-  const navWidth = nav.offsetWidth - 120; // space for logo + menu button
+  const navWidth = nav.offsetWidth - 150; // space for logo + menu button
   let totalWidth = 0;
   let hiddenLinks = [];
 
   links.forEach(link => {
     totalWidth += link.offsetWidth;
     if (totalWidth > navWidth) {
-      link.style.display = "none"; // hide overflow items
+      link.style.display = "none";
       hiddenLinks.push(link);
     } else {
       link.style.display = "inline-block";
     }
   });
 
-  // Show menu button only if there are hidden links
-  if (hiddenLinks.length > 0) {
-    menuBtn.style.display = "block";
-  } else {
-    menuBtn.style.display = "none";
-  }
+  menuBtn.style.display = hiddenLinks.length > 0 ? "block" : "none";
 }
 
 window.addEventListener("resize", adjustMenu);
 window.addEventListener("load", adjustMenu);
-
 
 /* =========================================================
    IMAGE POPUP FOR ACHIEVEMENTS / CERTIFICATIONS / MOMENTS
