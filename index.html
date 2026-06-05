@@ -238,34 +238,33 @@ nav {
 /* =========================================================
    MOBILE NAV FIX (FORCE WORKING)
 ========================================================= */
-@media (max-width: 768px) {
-  .menu-btn {
-    display: block;
-    z-index: 2000;
+@media(max-width:768px){
+  .menu-btn{
+    display:block;
+    z-index:3000;
   }
-  .nav-links {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 260px;
-    height: 100vh;
-    background: #111827;
-    display: flex;              /* 👈 REQUIRED */
-    flex-direction: column;
-    padding: 80px 20px;
-    gap: 20px;
-    transform: translateX(100%); /* 👈 HIDDEN TO THE RIGHT */
-    transition: 0.3s ease-in-out;
-    z-index: 1500;
-    overflow-y: auto;
+  .nav-links{
+    position: fixed !important;
+    top:0;
+    right:0;
+    width:260px;
+    height:100vh;
+    background:#111827;
+    display:flex;
+    flex-direction:column;
+    padding:80px 20px;
+    gap:20px;
+    transform:translateX(100%);
+    transition:0.3s ease-in-out;
+    z-index:2500;
+    overflow-y:auto;
   }
-  .nav-links.active {
-    transform: translateX(0);    /* 👈 SLIDES IN FROM RIGHT */
+  .nav-links.active{
+    transform:translateX(0);
   }
-    .hero,
-  .hero-container {
-    position: relative;
-    z-index: 1;                  /* 👈 keeps layout behind menu */
+  .hero-container{
+    position:relative;
+    z-index:1;
   }
 }
 /* =========================================================
@@ -1440,14 +1439,6 @@ const navLinks = document.getElementById("navLinks");
 
 menuBtn.addEventListener("click", () => {
   navLinks.classList.toggle("active");
-  console.log("menu clicked"); // debug check
-});
-
-/* AUTO CLOSE MENU ON LINK CLICK */
-document.querySelectorAll(".nav-links a").forEach(link => {
-  link.addEventListener("click", () => {
-    navLinks.classList.remove("active");
-  });
 });
 /* =========================================================
    IMAGE POPUP FOR ACHIEVEMENTS / CERTIFICATIONS / MOMENTS
