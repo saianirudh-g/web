@@ -1483,6 +1483,33 @@ btnLinkStyle.textContent = `
   .btn-link:hover {
     background: rgba(255,255,255,0.25);
   }
+
+  /* Menu button animation */
+  .menu-btn {
+    cursor: pointer;
+    width: 28px;
+    height: 22px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .menu-btn span {
+    display: block;
+    height: 3px;
+    background: white;
+    border-radius: 2px;
+    transition: 0.3s ease;
+  }
+  .menu-btn.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  .menu-btn.active span:nth-child(2) {
+    opacity: 0;
+  }
+  .menu-btn.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+  }
 `;
 document.head.appendChild(btnLinkStyle);
 
@@ -1499,10 +1526,10 @@ document.addEventListener("DOMContentLoaded", () => {
   /* -----------------------------------------
      ALIGN NAV TO RIGHT
   ----------------------------------------- */
-  nav.style.justifyContent = "flex-end"; // ✅ move everything to right
+  nav.style.justifyContent = "flex-end"; // move everything to right
+  navLinks.style.marginRight = "10px";
   menuBtn.style.position = "static";
-  menuBtn.style.marginLeft = "20px";
-  menuBtn.style.display = "none"; // hidden until needed
+  menuBtn.style.marginLeft = "10px";
 
   /* -----------------------------------------
      CREATE EXTRA MENU (same tab style)
@@ -1513,11 +1540,11 @@ document.addEventListener("DOMContentLoaded", () => {
   extraMenu.style.top = nav.offsetHeight + 10 + "px";
   extraMenu.style.right = "40px";
   extraMenu.style.background = "#0b1120";
-  extraMenu.style.padding = "10px 16px";
+  extraMenu.style.padding = "15px 20px";
   extraMenu.style.borderRadius = "10px";
   extraMenu.style.display = "none";
-  extraMenu.style.flexDirection = "row";
-  extraMenu.style.gap = "20px";
+  extraMenu.style.flexDirection = "column";
+  extraMenu.style.gap = "15px";
   extraMenu.style.zIndex = "5000";
   nav.appendChild(extraMenu);
 
@@ -1542,7 +1569,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Show menu button only if there are extra items
-    menuBtn.style.display = extraMenu.children.length > 0 ? "block" : "none";
+    menuBtn.style.display = extraMenu.children.length > 0 ? "flex" : "none";
 
     // Reposition extraMenu under the button
     const btnRect = menuBtn.getBoundingClientRect();
@@ -1555,11 +1582,12 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("resize", adjustMenu);
 
   /* -----------------------------------------
-     MENU BUTTON CLICK
+     MENU BUTTON CLICK (toggle list + animation)
   ----------------------------------------- */
   menuBtn.addEventListener("click", () => {
-    extraMenu.style.display =
-      extraMenu.style.display === "none" ? "flex" : "none";
+    const isOpen = extraMenu.style.display === "flex";
+    extraMenu.style.display = isOpen ? "none" : "flex";
+    menuBtn.classList.toggle("active");
   });
 
   /* =========================================================
