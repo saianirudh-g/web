@@ -1453,7 +1453,6 @@ Open for research collaboration, embedded systems development, RF engineering pr
   <p>© 2026 Sai Anirudh Godavarthi | Built with HTML CSS & JavaScript</p>
 </footer>
 
-<!-- JAVASCRIPT -->
 <script>
 /* =========================================================
    HERO FLIP
@@ -1463,7 +1462,7 @@ function flipHero() {
 }
 
 /* =========================================================
-   INJECT .btn-link CSS FROM SCRIPT
+   INJECT .btn-link CSS
 ========================================================= */
 const btnLinkStyle = document.createElement("style");
 btnLinkStyle.textContent = `
@@ -1487,61 +1486,69 @@ btnLinkStyle.textContent = `
 document.head.appendChild(btnLinkStyle);
 
 /* =========================================================
-   MAIN SCRIPT (RUN AFTER DOM LOAD)
+   MAIN SCRIPT
 ========================================================= */
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* -------------------------------
-     NAVBAR TOGGLE (MOBILE)
-  -------------------------------- */
-  const menuBtn = document.getElementById("menuBtn");
-  const navLinks = document.getElementById("navLinks");
   const nav = document.querySelector("nav");
+  const navLinks = document.getElementById("navLinks");
+  const menuBtn = document.getElementById("menuBtn");
 
-  if (menuBtn && navLinks) {
-    menuBtn.addEventListener("click", () => {
-      navLinks.classList.toggle("active");
-    });
-  }
+  /* -----------------------------------------
+     CREATE SECOND UL FOR EXTRA TABS
+  ----------------------------------------- */
+  const extraMenu = document.createElement("ul");
+  extraMenu.className = "nav-links";   // ← uses SAME CSS as your tabs
+  extraMenu.style.position = "absolute";
+  extraMenu.style.top = "70px";
+  extraMenu.style.right = "20px";
+  extraMenu.style.background = "#0b1120";
+  extraMenu.style.padding = "15px 20px";
+  extraMenu.style.borderRadius = "10px";
+  extraMenu.style.display = "none";
+  extraMenu.style.flexDirection = "column";
+  extraMenu.style.gap = "15px";
+  extraMenu.style.zIndex = "5000";
 
-  /* -------------------------------
-     DESKTOP MENU: SHOW 5 TABS ONLY
-  -------------------------------- */
-  const dropdown = document.createElement("ul");
-  dropdown.className = "menu-dropdown";
-  nav.appendChild(dropdown);
+  nav.appendChild(extraMenu);
 
+  /* -----------------------------------------
+     MOVE EXTRA TABS INTO MENU
+  ----------------------------------------- */
   function adjustMenu() {
-    if (!nav || !navLinks || !menuBtn) return;
+    const items = Array.from(navLinks.children);
 
-    // Move all items back to main nav first
-    const fromDropdown = Array.from(dropdown.children);
-    fromDropdown.forEach(li => navLinks.appendChild(li));
+    // Move everything back first
+    const extraItems = Array.from(extraMenu.children);
+    extraItems.forEach(li => navLinks.appendChild(li));
 
-    const links = Array.from(navLinks.children);
-    const visibleLimit = 5; // ✅ show only 5 tabs
-    dropdown.innerHTML = "";
+    // Keep only 5 visible
+    const visibleLimit = 5;
+    extraMenu.innerHTML = "";
 
-    links.forEach((li, index) => {
+    items.forEach((li, index) => {
       if (index >= visibleLimit) {
-        dropdown.appendChild(li);
+        extraMenu.appendChild(li);
       }
     });
 
-    // Show menu button only if dropdown has items
-    menuBtn.style.display = dropdown.children.length > 0 ? "inline-block" : "none";
+    // Show menu button only if needed
+    menuBtn.style.display = extraMenu.children.length > 0 ? "block" : "none";
   }
 
+  adjustMenu();
+  window.addEventListener("resize", adjustMenu);
+
+  /* -----------------------------------------
+     MENU BUTTON CLICK
+  ----------------------------------------- */
   menuBtn.addEventListener("click", () => {
-    dropdown.classList.toggle("open");
+    extraMenu.style.display =
+      extraMenu.style.display === "none" ? "flex" : "none";
   });
 
-  window.addEventListener("resize", adjustMenu);
-  adjustMenu(); // run once on load
-
-
   /* =========================================================
-     IMAGE POPUP FOR ACHIEVEMENTS / CERTIFICATIONS / MOMENTS
+     IMAGE POPUP
   ========================================================= */
   const modal = document.getElementById("imgModal");
   const modalImg = document.getElementById("modalImg");
@@ -1570,7 +1577,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* =========================================================
-     UNIVERSAL SLIDER FOR ALL SECTIONS
+     UNIVERSAL SLIDER
   ========================================================= */
   const sliders = document.querySelectorAll(".slider-wrapper");
 
@@ -1671,11 +1678,8 @@ window.addEventListener("scroll", () => {
   });
 
   navItems.forEach(a => {
-    if (a.getAttribute("href") === "#" + current) {
-      a.style.color = "#06b6d4";
-    } else {
-      a.style.color = "white";
-    }
+    a.style.color =
+      a.getAttribute("href") === "#" + current ? "#06b6d4" : "white";
   });
 });
 </script>
