@@ -1488,19 +1488,29 @@ document.head.appendChild(btnLinkStyle);
 ========================================================= */
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* -------------------------------
-     NAVBAR TOGGLE (MOBILE)
-  -------------------------------- */
-  const menuBtn = document.getElementById("menuBtn");
-  const navLinks = document.getElementById("navLinks");
-  const nav = document.querySelector("nav");
+/* -------------------------------
+   NAVBAR TOGGLE (MOBILE)
+-------------------------------- */
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
+const nav = document.querySelector("nav");
 
-  if (menuBtn && navLinks) {
-    menuBtn.addEventListener("click", () => {
-      navLinks.classList.toggle("active");
-    });
-  }
+if (menuBtn && navLinks) {
+  menuBtn.addEventListener("click", () => {
 
+    // Mobile: show ALL tabs inside slide menu
+    if (window.innerWidth <= 768) {
+      const extraItems = Array.from(extraMenu.children);
+      extraItems.forEach(li => navLinks.appendChild(li));
+    }
+
+    // Toggle slide-in menu
+    navLinks.classList.toggle("active");
+
+    // Animate menu icon ↔ X
+    menuBtn.classList.toggle("active");
+  });
+}
   /* -------------------------------
      DESKTOP OVERFLOW MENU LOGIC
   -------------------------------- */
