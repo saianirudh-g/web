@@ -235,7 +235,9 @@ nav {
   font-size:28px;
   cursor:pointer;
 }
-/* Desktop Navigation */
+/* =============================================
+   Desktop navigation
+   =============================================*/
 nav {
   display: flex;
   align-items: center;
@@ -243,26 +245,16 @@ nav {
   padding: 10px 40px;
   background: #0b1120;
   position: relative;
-  z-index: 3000;
 }
 .nav-links {
   display: flex;
-  flex-wrap: wrap;        /* 👈 allows multiple rows if too many tabs */
-  justify-content: flex-end;
-  align-items: center;
+  flex-wrap: nowrap;
+  overflow: hidden;        /* hides overflow items */
+  white-space: nowrap;
   gap: 25px;
 }
-.nav-links a {
-  color: #fff;
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.3s ease;
-}
-.nav-links a:hover {
-  color: #00bcd4;
-}
 .menu-btn {
-  display: none;          /* 👈 hidden on desktop */
+  display: none;
 }
 /* =========================================================
    MOBILE NAV FIX (FORCE WORKING)
@@ -296,7 +288,6 @@ nav {
     z-index: 3500; /* below menu-btn, above page */
     overflow-y: auto;
   }
-
   .nav-links.active {
     transform: translateX(0); /* slide in */
   }
@@ -1469,16 +1460,48 @@ btnLinkStyle.textContent = `
   }
 `;
 document.head.appendChild(btnLinkStyle);
-
-/* =========================================================
-   MOBILE NAVBAR
-========================================================= */
+    
+/* ============================================================
+   MOBILE NAVBAR TOGGLE
+   ============================================================ */
 const menuBtn = document.getElementById("menuBtn");
 const navLinks = document.getElementById("navLinks");
 
 menuBtn.addEventListener("click", () => {
   navLinks.classList.toggle("active");
 });
+    
+/* ============================================================
+   DESKTOP OVERFLOW HANDLER
+   ============================================================ */
+const nav = document.querySelector("nav");
+
+function adjustMenu() {
+  const links = Array.from(navLinks.children);
+  const navWidth = nav.offsetWidth - 120; // space for logo + menu button
+  let totalWidth = 0;
+
+  links.forEach(link => {
+    totalWidth += link.offsetWidth;
+
+    if (totalWidth > navWidth) {
+      link.style.display = "none";        // hide overflow items
+      menuBtn.style.display = "block";    // show menu button
+    } else {
+      link.style.display = "inline-block";
+    }
+  });
+
+  // If all items fit, hide the menu button
+  const anyHidden = links.some(link => link.style.display === "none");
+  if (!anyHidden) {
+    menuBtn.style.display = "none";
+  }
+}
+
+window.addEventListener("resize", adjustMenu);
+window.addEventListener("load", adjustMenu);
+
 /* =========================================================
    IMAGE POPUP FOR ACHIEVEMENTS / CERTIFICATIONS / MOMENTS
 ========================================================= */
