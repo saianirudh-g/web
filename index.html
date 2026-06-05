@@ -1521,6 +1521,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const navLinks = document.getElementById("navLinks");
   const menuBtn = document.getElementById("menuBtn");
 
+// Sync menu button spacing with tab gap
+const navLinksStyle = window.getComputedStyle(navLinks);
+const tabGap = navLinksStyle.getPropertyValue("gap");
+menuBtn.style.marginLeft = tabGap;
+
   if (!nav || !navLinks || !menuBtn) return;
 
   /* -----------------------------------------
