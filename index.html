@@ -1459,8 +1459,7 @@ Open for research collaboration, embedded systems development, RF engineering pr
    HERO FLIP
 ========================================================= */
 function flipHero() {
-  const hero = document.getElementById("heroCard");
-  if (hero) hero.classList.toggle("flipped");
+  document.getElementById("heroCard").classList.toggle("flipped");
 }
 
 /* =========================================================
@@ -1484,34 +1483,6 @@ btnLinkStyle.textContent = `
   .btn-link:hover {
     background: rgba(255,255,255,0.25);
   }
-
-  /* simple dropdown for overflow menu */
-  .menu-dropdown {
-    position: absolute;
-    right: 20px;
-    top: 60px;
-    background: #020617;
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 8px;
-    padding: 8px 0;
-    list-style: none;
-    display: none;
-    z-index: 999;
-  }
-  .menu-dropdown.open {
-    display: block;
-  }
-  .menu-dropdown li {
-    padding: 6px 16px;
-  }
-  .menu-dropdown li a {
-    color: white;
-    text-decoration: none;
-    white-space: nowrap;
-  }
-  .menu-dropdown li a:hover {
-    color: #06b6d4;
-  }
 `;
 document.head.appendChild(btnLinkStyle);
 
@@ -1521,56 +1492,49 @@ document.head.appendChild(btnLinkStyle);
 document.addEventListener("DOMContentLoaded", () => {
 
   /* -------------------------------
-     NAVBAR / OVERFLOW MENU
+     NAVBAR TOGGLE (MOBILE)
   -------------------------------- */
-  const nav = document.querySelector("nav");
   const menuBtn = document.getElementById("menuBtn");
   const navLinks = document.getElementById("navLinks");
+  const nav = document.querySelector("nav");
 
-  // create dropdown for overflow items (desktop)
-  let dropdown = null;
-  if (nav && menuBtn) {
-    dropdown = document.createElement("ul");
-    dropdown.id = "menuDropdown";
-    dropdown.className = "menu-dropdown";
-    nav.appendChild(dropdown);
-
-    // toggle dropdown on click
+  if (menuBtn && navLinks) {
     menuBtn.addEventListener("click", () => {
-      dropdown.classList.toggle("open");
+      navLinks.classList.toggle("active");
     });
   }
 
-  function adjustMenu() {
-    if (!nav || !navLinks || !menuBtn || !dropdown) return;
+  /* -------------------------------
+     DESKTOP MENU: SHOW 5 TABS ONLY
+  -------------------------------- */
+  const dropdown = document.createElement("ul");
+  dropdown.className = "menu-dropdown";
+  nav.appendChild(dropdown);
 
-    // move everything back to main nav first
+  function adjustMenu() {
+    if (!nav || !navLinks || !menuBtn) return;
+
+    // Move all items back to main nav first
     const fromDropdown = Array.from(dropdown.children);
     fromDropdown.forEach(li => navLinks.appendChild(li));
 
     const links = Array.from(navLinks.children);
-    let totalWidth = 0;
+    const visibleLimit = 5; // ✅ show only 5 tabs
+    dropdown.innerHTML = "";
 
-    // available width = nav width - logo/menu padding - menu button width
-    const navWidth = nav.clientWidth - menuBtn.offsetWidth - 40;
-
-    links.forEach(li => {
-      const liWidth = li.offsetWidth + 20;
-      if (totalWidth + liWidth > navWidth) {
+    links.forEach((li, index) => {
+      if (index >= visibleLimit) {
         dropdown.appendChild(li);
-      } else {
-        totalWidth += liWidth;
       }
     });
 
-    // show menu button only if there are overflow items
-    if (dropdown.children.length > 0) {
-      menuBtn.style.display = "inline-block";
-    } else {
-      menuBtn.style.display = "none";
-      dropdown.classList.remove("open");
-    }
+    // Show menu button only if dropdown has items
+    menuBtn.style.display = dropdown.children.length > 0 ? "inline-block" : "none";
   }
+
+  menuBtn.addEventListener("click", () => {
+    dropdown.classList.toggle("open");
+  });
 
   window.addEventListener("resize", adjustMenu);
   adjustMenu(); // run once on load
@@ -1644,7 +1608,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     window.addEventListener("resize", updateSlider);
-    updateSlider();
   });
 
 });
@@ -1667,10 +1630,7 @@ function type() {
   const currentWord = words[i];
   const typingElement = document.getElementById("typing");
 
-  if (!typingElement) {
-    setTimeout(type, 200);
-    return;
-  }
+  if (!typingElement) return;
 
   if (isDeleting) {
     typingElement.textContent = currentWord.substring(0, j--);
