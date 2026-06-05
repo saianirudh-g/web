@@ -238,28 +238,29 @@ nav {
 /* =========================================================
    MOBILE NAV FIX (FORCE WORKING)
 ========================================================= */
-@media(max-width:768px){
-  .menu-btn{
-    display:block;
-    z-index:2000;
+@media (max-width: 768px) {
+  .menu-btn {
+    display: block;
+    z-index: 2000;
   }
-  .nav-links{
-    position:fixed;
-    top:0;
-    right:0;
-    width:260px;
-    height:100vh;
-    background:#111827;
-    flex-direction:column;
-    padding:80px 20px;
-    gap:20px;
-    transform:translateX(100%);   /* 👈 KEY FIX */
-    transition:0.3s ease-in-out;
-    z-index:1500;
-    overflow-y:auto;
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 260px;
+    height: 100vh;
+    background: #111827;
+    display: flex;              /* 👈 REQUIRED */
+    flex-direction: column;
+    padding: 80px 20px;
+    gap: 20px;
+    transform: translateX(100%); /* 👈 HIDDEN TO THE RIGHT */
+    transition: 0.3s ease-in-out;
+    z-index: 1500;
+    overflow-y: auto;
   }
-  .nav-links.active{
-    transform:translateX(0);  /* slides in from RIGHT */
+  .nav-links.active {
+    transform: translateX(0);    /* 👈 SLIDES IN FROM RIGHT */
   }
 }
 /* =========================================================
