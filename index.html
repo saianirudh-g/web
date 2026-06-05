@@ -235,6 +235,9 @@ nav {
   font-size:28px;
   cursor:pointer;
 }
+/* ========================================================
+    Desktop Naigation
+    ======================================================*/
 nav {
   display: flex;
   align-items: center;
@@ -243,25 +246,20 @@ nav {
   background: #0b1120;
   position: relative;
   z-index: 3000;
+  overflow: visible;
 }
-
-/* Logo stays left */
 .logo {
   flex-shrink: 0;
 }
-
-/* Links stay centered and wrap properly */
 .nav-links {
   display: flex;
   flex-wrap: nowrap;
-  overflow: hidden;
   white-space: nowrap;
   gap: 25px;
   flex: 1;
   justify-content: center;
+  overflow: hidden;
 }
-
-/* Menu button floats independently */
 .menu-btn {
   position: absolute;
   right: 20px;
@@ -278,7 +276,6 @@ nav {
   .menu-btn {
     display: block;
   }
-
   .nav-links {
     position: fixed;
     top: 0;
@@ -295,7 +292,6 @@ nav {
     z-index: 3500;
     overflow-y: auto;
   }
-
   .nav-links.active {
     transform: translateX(0);
   }
@@ -1469,9 +1465,6 @@ btnLinkStyle.textContent = `
 `;
 document.head.appendChild(btnLinkStyle);
 
-/* ============================================================
-   MOBILE NAVBAR TOGGLE
-   ============================================================ */
 const menuBtn = document.getElementById("menuBtn");
 const navLinks = document.getElementById("navLinks");
 
@@ -1479,19 +1472,16 @@ menuBtn.addEventListener("click", () => {
   navLinks.classList.toggle("active");
 });
 
-/* ============================================================
-   DESKTOP OVERFLOW HANDLER (Improved)
-   ============================================================ */
 const nav = document.querySelector("nav");
 
 function adjustMenu() {
   const links = Array.from(navLinks.children);
-  const navWidth = nav.offsetWidth - 180; // tighter margin for logo + button
+  const navWidth = nav.offsetWidth - 250; // space for logo + button
   let totalWidth = 0;
   let hiddenLinks = [];
 
   links.forEach(link => {
-    totalWidth += link.offsetWidth + 20; // add spacing buffer
+    totalWidth += link.offsetWidth + 20;
     if (totalWidth > navWidth) {
       link.style.display = "none";
       hiddenLinks.push(link);
@@ -1500,13 +1490,12 @@ function adjustMenu() {
     }
   });
 
-  // Show menu button only if there are hidden links
   menuBtn.style.display = hiddenLinks.length > 0 ? "block" : "none";
 }
 
 window.addEventListener("resize", adjustMenu);
 window.addEventListener("load", adjustMenu);
-
+    
 /* =========================================================
    IMAGE POPUP FOR ACHIEVEMENTS / CERTIFICATIONS / MOMENTS
 ========================================================= */
