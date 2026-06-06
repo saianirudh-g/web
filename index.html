@@ -504,14 +504,16 @@ section{
     flex-wrap: nowrap;
     min-width: max-content;          /* ⭐ allows sliding */
     transition: transform 0.5s ease; /* ⭐ smooth slide */
+    padding-right: 0;
 }
 /* Each card — equal size */
 .project-card {
     flex: 0 0 280px;  /* ⭐ 3 cards on desktop */
-    flex-shrink: 0;                  /* ⭐ prevents shrinking */
+    flex-shrink: 0;  /* ⭐ prevents shrinking */
     margin: 0 10px;
     box-sizing: border-box;
     border-radius: 25px;
+    margin-right: 0;
 }
 /* Make buttons auto-size to text */
 .project-card .btn {
@@ -679,12 +681,14 @@ footer{
         flex-wrap: nowrap;
         min-width: max-content;
         transition: transform 0.5s ease;
+        padding-right: 0;
     }
     .project-card {
         flex: 0 0 260px;              /* ⭐ 1 card on mobile */
         flex-shrink: 0;
         margin: 0 10px;
         box-sizing: border-box;
+        margin-right: 0;
     }
     .nav-btn {
         width: 42px;
