@@ -752,17 +752,41 @@ footer {
   .logo img{
     height:45px;
   }
-  /* SLIDER FIX (CRITICAL) */
-  .project-card{
+  /* PROJECT CARD FIX */
+.project-card {
+  flex: 0 0 100%;
+  margin: 0;
+  box-sizing: border-box;
+}
+/* SLIDER WRAPPER */
+.slider-wrapper {
+  overflow: hidden;
+  width: 100%;
+}
+/* NAV BUTTON FIX (more visible + bigger tap area) */
+.nav-btn {
+  font-size: 26px;
+  padding: 12px 16px;
+  background: rgba(0, 0, 0, 0.4);
+  color: white;
+  border-radius: 50%;
+  border: 2px solid white;
+  cursor: pointer;
+}
+/* HOVER EFFECT FOR DESKTOP */
+.nav-btn:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+/* MOBILE FIX */
+@media (max-width: 768px) {
+  .project-card {
     flex: 0 0 100%;
-    margin: 0;
+    margin-bottom: 12px;
   }
-  .slider-wrapper{
-    overflow:hidden;
-  }
-  .nav-btn{
-    font-size:20px;
-    padding:8px 10px;
+  .nav-btn {
+    font-size: 30px;
+    padding: 14px 18px;
+    border-width: 3px;
   }
 }
 @media (max-width: 500px){
