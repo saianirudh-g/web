@@ -281,42 +281,7 @@ nav {
 
 .menu-dropdown li a:hover {
   color: #06b6d4;
-}
-
-/* =========================================================
-   MOBILE MENU
-========================================================= */
-@media (max-width: 768px) {
-  .menu-btn {
-    display: block;
-  }
-
-  .nav-links {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 260px;
-    height: 100vh;
-    background: #111827;
-    display: flex;
-    flex-direction: column;
-    padding: 80px 20px;
-    gap: 20px;
-    transform: translateX(100%);
-    transition: 0.3s ease-in-out;
-    z-index: 3500;
-    overflow-y: auto;
-  }
-
-  .nav-links.active {
-    transform: translateX(0);
-  }
-
-  .menu-dropdown {
-    display: none !important; /* hide desktop dropdown on mobile */
-  }
-}
-    
+}    
 /* =========================================================
    HERO FLIP CARD
 ========================================================= */
@@ -692,11 +657,41 @@ footer {
   letter-spacing: 1px;
 }
 /* =========================================================
-   MOBILE RESPONSIVE FIX (ADD AT END)
+   MOBILE MENU
 ========================================================= */
+@media (max-width: 768px) {
+  .menu-btn {
+    display: block;
+  }
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 260px;
+    height: 100vh;
+    background: #111827;
+    display: flex;
+    flex-direction: column;
+    padding: 80px 20px;
+    gap: 20px;
+    transform: translateX(100%);
+    transition: 0.3s ease-in-out;
+    z-index: 3500;
+    overflow-y: auto;
+  }
+  .nav-links.active {
+    transform: translateX(0);
+  }
+  .menu-dropdown {
+    display: none !important;
+  }
+}
 
-/* Base mobile adjustments up to 900px */
+/* =========================================================
+   MOBILE RESPONSIVE FIX
+========================================================= */
 @media (max-width: 900px) {
+
   /* HERO FIX */
   .hero {
     padding: 120px 20px 60px;
@@ -759,15 +754,11 @@ footer {
     height: 45px;
   }
 
-  /* PROJECT CARD FIX */
-  .project-card {
-    flex: 0 0 95%;
-    margin: 0 auto;
-    box-sizing: border-box;
-    scroll-snap-align: start;
-  }
+  /* =========================================================
+     PROJECT SLIDER FIX — THIS IS THE REAL FIX
+  ========================================================== */
 
-  /* SLIDER WRAPPER */
+  /* Prevent flexbox overflow */
   .slider-wrapper {
     display: flex;
     overflow-x: auto;
@@ -775,11 +766,20 @@ footer {
     -webkit-overflow-scrolling: touch;
     gap: 16px;
     padding: 0 10px;
+    min-width: 0; /* ⭐ CRITICAL FIX */
   }
 
-  /* Hide scrollbar for mobile */
+  /* Hide scrollbar */
   .slider-wrapper::-webkit-scrollbar {
     display: none;
+  }
+
+  /* Project card */
+  .project-card {
+    flex: 0 0 95%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    scroll-snap-align: start;
   }
 
   /* NAV BUTTONS */
@@ -799,7 +799,9 @@ footer {
   }
 }
 
-/* Smaller screens up to 500px */
+/* =========================================================
+   SMALLER SCREENS (500px)
+========================================================= */
 @media (max-width: 500px) {
   .hero {
     padding: 100px 15px 40px;
@@ -827,7 +829,7 @@ footer {
     font-size: 22px;
   }
 
-  /* PROJECT CARD TIGHTER FIT */
+  /* PROJECT CARD FULL WIDTH */
   .project-card {
     flex: 0 0 100%;
     margin: 0 auto;
