@@ -486,25 +486,25 @@ section{
 .about-card h3{
   margin-bottom:15px;
 }
-
 /* =========================================================
    PROJECT SLIDER (FIXED + CLEANED)
 ========================================================= */
-.slider-container{
-  position:relative;
-  width:100%;
-  overflow:hidden;
+.slider-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  display: flex;              /* ✅ allows horizontal layout */
+  flex-wrap: nowrap;          /* ✅ keeps cards in one row */
+  transition: transform 0.5s ease; /* ✅ enables JS translateX animation */
 }
-
-.slider-wrapper{
-  display:flex;
-  width:100%;
-  transition:transform 0.5s ease;
-  position:relative; /* ADDED */
-  flex-wrap: nowrap;   /* REQUIRED */
-  overflow: hidden;    /* REQUIRED */
+.slider-wrapper {
+  position: relative;         /* ✅ keeps buttons inside slider */
+  display: flex;
+  width: 100%;
+  flex-wrap: nowrap;          /* ✅ horizontal row */
+  overflow: hidden;           /* ✅ hides overflow when sliding */
+  transition: transform 0.5s ease;
 }
-
 .nav-btn{
   position:absolute;
   top:50%;
@@ -677,12 +677,12 @@ footer{
     flex-wrap:nowrap;      /* REQUIRED */
     transition:transform 0.5s ease; /* REQUIRED */
 }
-.slider-wrapper{
-    display:flex;
-    flex-direction:row;
-    flex-wrap:nowrap;
-    overflow:hidden;        /* FIXED */
-    position:relative;
+.slider-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow: hidden;           /* ✅ prevents scroll override */
+  position: relative;         /* ✅ anchors buttons */
 }
 .slider-wrapper::-webkit-scrollbar{
     display:none;
