@@ -734,8 +734,8 @@ footer{
   .logo img{
     height:45px;
   }
-
-  .slider-container{
+  /* SLIDER CONTAINER */
+.slider-container{
     width:100%;
     max-width:100%;
     overflow:hidden;
@@ -744,9 +744,10 @@ footer{
     box-sizing:border-box;
     position:relative;
     min-height:420px;
-  }
+}
 
-  .slider-wrapper{
+/* WRAPPER THAT HOLDS ALL CARDS */
+.slider-wrapper{
     display:flex;
     flex-direction:row;
     flex-wrap:nowrap;
@@ -763,13 +764,13 @@ footer{
     gap:0;
     padding:0;
     box-sizing:border-box;
-  }
-
-  .slider-wrapper::-webkit-scrollbar{
+}
+/* HIDE SCROLLBAR */
+.slider-wrapper::-webkit-scrollbar{
     display:none;
-  }
-
-  .project-card{
+}
+/* EACH PROJECT CARD */
+.project-card{
     flex:0 0 100%;
     min-width:100%;
     max-width:100%;
@@ -781,8 +782,30 @@ footer{
     display:flex;
     flex-direction:column;
     min-height:400px;
-  }
+}
+/* SLIDER BUTTONS — FIXED TO PROJECT SECTION ONLY */
+.slider-buttons{
+    position:absolute;
+    bottom:10px;        /* stays inside project section */
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    gap:12px;
+    z-index:10;
+}
 
+.slider-btn{
+    width:12px;
+    height:12px;
+    border-radius:50%;
+    background:#ccc;
+    cursor:pointer;
+    transition:0.3s ease;
+}
+
+.slider-btn.active{
+    background:#333;
+}
   .project-content{
     width:100%;
     max-width:100%;
