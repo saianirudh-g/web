@@ -1567,28 +1567,6 @@ function adjustMenu() {
   /* -------------------------------
      FIX: On mobile, show ALL tabs
   -------------------------------- */
-let index = 0;
-const wrapper = document.querySelector(".slider-wrapper");
-const cards = document.querySelectorAll(".project-card");
-const total = cards.length;
-
-function showSlide(i) {
-  index = i;
-
-  if (index < 0) index = total - 1;
-  if (index >= total) index = 0;
-
-  wrapper.style.transform = `translateX(-${index * 100}%)`;
-}
-
-document.querySelector(".next").addEventListener("click", () => {
-  showSlide(index + 1);
-});
-
-document.querySelector(".prev").addEventListener("click", () => {
-  showSlide(index - 1);
-});
-
   if (window.innerWidth <= 768) {
     const links = Array.from(navLinks.children);
     links.forEach(link => link.style.display = "block");
