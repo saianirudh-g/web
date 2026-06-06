@@ -486,11 +486,10 @@ section{
 .about-card h3{
   margin-bottom:15px;
 }
-
 /* =========================================================
    PROJECT SLIDER (FINAL FIXED-WIDTH VERSION)
 ========================================================= */
-/* Outer container (keeps buttons inside) */
+/* Outer container */
 .slider-wrapper {
     position: relative;
     width: 100%;
@@ -498,27 +497,26 @@ section{
     overflow: hidden;
     flex-wrap: nowrap;
 }
-/* This is the element that moves left/right */
+/* Sliding container */
 .slider-container {
     display: flex;
     flex-wrap: nowrap;
-    min-width: max-content;          /* ⭐ allows sliding */
-    transition: transform 0.5s ease; /* ⭐ smooth slide */
-    padding-right: 0;
+    min-width: max-content;
+    transition: transform 0.5s ease;
+    padding-right: 0;              /* no empty space at end */
 }
-/* Each card — equal size */
+/* Project card */
 .project-card {
-    flex: 0 0 280px;  /* ⭐ 3 cards on desktop */
-    flex-shrink: 0;  /* ⭐ prevents shrinking */
-    margin: 0 10px;
+    flex: 0 0 280px;               /* fixed width = consistent size */
+    flex-shrink: 0;
+    margin: 0 5px;                 /* fits between slide buttons */
     box-sizing: border-box;
     border-radius: 25px;
-    margin-right: 0;
 }
-/* Make buttons auto-size to text */
+/* Buttons inside cards */
 .project-card .btn {
-    width: auto;                     /* ⭐ button fits text */
-    padding: 6px 12px;               /* smaller button */
+    width: auto;
+    padding: 6px 12px;
     font-size: 13px;
 }
 /* Slide buttons */
@@ -529,7 +527,7 @@ section{
     background: rgba(255,255,255,0.15);
     border: 1px solid rgba(255,255,255,0.25);
     color: white;
-    font-size: 24px;
+    font-size: 22px;
     cursor: pointer;
     border-radius: 10px;
     padding: 8px 12px;
@@ -537,34 +535,33 @@ section{
     transition: 0.3s ease;
     z-index: 20;
 }
-/* Reduce distance between buttons */
+/* Buttons closer to cards */
 .prev-btn { left: 8px; }
 .next-btn { right: 8px; }
-
 .nav-btn:hover {
     background: rgba(255,255,255,0.3);
 }
-
-.project-content{
-  padding:30px;
+/* Card content */
+.project-content {
+    padding: 30px;
 }
-.project-content h3{
-  margin-bottom:12px;
+.project-content h3 {
+    margin-bottom: 12px;
+    font-size: 22px;               /* same font size */
 }
-.tags{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  margin-top:20px;
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
 }
-.tags span{
-  padding:8px 14px;
-  background:rgba(6,182,212,0.15);
-  border-radius:30px;
-  font-size:13px;
-  color:#67e8f9;
+.tags span {
+    padding: 8px 14px;
+    background: rgba(6,182,212,0.15);
+    border-radius: 30px;
+    font-size: 13px;
+    color: #67e8f9;
 }
-
 /* =========================================================
    CONTACT
 ========================================================= */
@@ -665,7 +662,6 @@ footer{
     display:none !important;
   }
 }
-
 /* =========================================================
    MOBILE VERSION (1 CARD ONLY)
 ========================================================= */
@@ -681,20 +677,25 @@ footer{
         flex-wrap: nowrap;
         min-width: max-content;
         transition: transform 0.5s ease;
-        padding-right: 0;
+        padding-right: 0;              /* no empty space at end */
     }
     .project-card {
-        flex: 0 0 260px;              /* ⭐ 1 card on mobile */
+        flex: 0 0 260px;               /* same fixed width as desktop style */
         flex-shrink: 0;
-        margin: 0 10px;
+        margin: 0 5px;                 /* fits between slide buttons */
         box-sizing: border-box;
-        margin-right: 0;
+    }
+    .project-card .btn {
+        width: auto;
+        padding: 6px 12px;             /* same button size */
+        font-size: 13px;
+        text-align: center;
     }
     .nav-btn {
-        width: 42px;
-        height: 42px;
-        font-size: 20px;
-        padding: 6px 10px;
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+        padding: 6px 8px;
         border-radius: 50%;
         background: rgba(0,0,0,0.6);
         border: 2px solid white;
@@ -702,7 +703,6 @@ footer{
     .prev-btn { left: 8px; }
     .next-btn { right: 8px; }
 }
-
 .slider-buttons{
     position:absolute;
     bottom:10px;
