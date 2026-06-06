@@ -749,13 +749,13 @@ footer {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    /* THIS IS THE FIX — wrapper expands to all cards */
-    width: max-content;
+
+    width: max-content;   /* CRITICAL FIX */
     transition: transform 0.4s ease;
   }
   .project-card {
-    width: 100vw;     /* EXACT width of screen */
-    flex-shrink: 0;   /* NEVER shrink */
+    width: 100vw;         /* EXACT width of screen */
+    flex-shrink: 0;       /* NEVER shrink */
     padding: 20px;
     box-sizing: border-box;
   }
@@ -790,7 +790,6 @@ footer {
     padding: 12px 16px;
     border: 2px solid white;
   }
-
   .prev { left: 10px; }
   .next { right: 10px; }
 }
@@ -1569,24 +1568,26 @@ function adjustMenu() {
      FIX: On mobile, show ALL tabs
   -------------------------------- */
 let index = 0;
-
 const wrapper = document.querySelector(".slider-wrapper");
 const cards = document.querySelectorAll(".project-card");
 const total = cards.length;
 
-function updateSlider() {
-  wrapper.style.transform = `translateX(-${index * 100}vw)`;
+function showSlide(i) {
+  index = i;
+
+  if (index < 0) index = total - 1;
+  if (index >= total) index = 0;
+
+  wrapper.style.transform = `translateX(-${index * 100}%)`;
 }
 
-document.querySelector(".next").onclick = () => {
-  index = (index + 1) % total;
-  updateSlider();
-};
+document.querySelector(".next").addEventListener("click", () => {
+  showSlide(index + 1);
+});
 
-document.querySelector(".prev").onclick = () => {
-  index = (index - 1 + total) % total;
-  updateSlider();
-};
+document.querySelector(".prev").addEventListener("click", () => {
+  showSlide(index - 1);
+});
 
   if (window.innerWidth <= 768) {
     const links = Array.from(navLinks.children);
