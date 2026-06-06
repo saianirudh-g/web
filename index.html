@@ -491,34 +491,48 @@ section{
    PROJECT SLIDER (FIXED)
 ========================================================= */
 .slider-wrapper {
- display: flex;
- overflow-x: auto;
- scroll-snap-type: x mandatory;
- -webkit-overflow-scrolling: touch;
- width: 100%;
- max-width: 100%;
- min-width: 0;
- gap: 12px;
- padding: 0 8px;
- box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  gap: 0;                     /* Remove gap for true full-width snapping */
+  padding: 0;
+  box-sizing: border-box;
 }
 .slider-container {
  width: 100%;
- max-width: 100%;
- overflow: hidden;
- padding: 0;
- margin: 0;
- box-sizing: border-box;
+  max-width: 100%;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  position: relative;
+  min-height: 420px;
 }
 .project-card {
- flex: 0 0 100%;
- width: 100%;
- max-width: 100%;
- margin: 0;
- padding: 15px;
- box-sizing: border-box;
- scroll-snap-align: center;
- overflow: hidden;
+  flex: 0 0 100%;
+  min-width: 100%;
+  max-width: 100%;
+
+  margin: 0;
+  padding: 15px;
+  box-sizing: border-box;
+
+  scroll-snap-align: start;   /* Changed from center to start for reliable snapping */
+  scroll-snap-stop: always;
+
+  display: flex;
+  flex-direction: column;
+  min-height: 400px;
 }
 .nav-btn {
   position: absolute;
@@ -760,28 +774,23 @@ footer {
   margin: 0;
   box-sizing: border-box;
   position: relative;
-  min-height: 420px;           /* Ensure container has height on mobile */
+  min-height: 420px;
 }
 
 .slider-wrapper {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-
   overflow-x: auto;
   overflow-y: hidden;
-
   width: 100%;
   max-width: 100%;
   min-width: 0;
-
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
-
   -ms-overflow-style: none;
   scrollbar-width: none;
-
   gap: 0;                     /* Remove gap for true full-width snapping */
   padding: 0;
   box-sizing: border-box;
