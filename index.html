@@ -50,7 +50,6 @@ body{
 ::-webkit-scrollbar{
   width:8px;
 }
-
 ::-webkit-scrollbar-thumb{
   background:#06b6d4;
   border-radius:20px;
@@ -66,7 +65,6 @@ body{
   z-index:-1;
   overflow:hidden;
 }
-
 .bg-animation span{
   position:absolute;
   display:block;
@@ -77,53 +75,15 @@ body{
   bottom:-150px;
   border-radius:50%;
 }
-
-.bg-animation span:nth-child(1){
-  left:10%;
-  width:80px;
-  height:80px;
-  animation-delay:0s;
-}
-
-.bg-animation span:nth-child(2){
-  left:20%;
-  width:20px;
-  height:20px;
-  animation-delay:2s;
-  animation-duration:12s;
-}
-
-.bg-animation span:nth-child(3){
-  left:70%;
-  width:20px;
-  height:20px;
-  animation-delay:4s;
-}
-
-.bg-animation span:nth-child(4){
-  left:40%;
-  width:60px;
-  height:60px;
-  animation-delay:0s;
-  animation-duration:18s;
-}
-
-.bg-animation span:nth-child(5){
-  left:65%;
-  width:20px;
-  height:20px;
-  animation-delay:0s;
-}
+.bg-animation span:nth-child(1){ left:10%; width:80px; height:80px; }
+.bg-animation span:nth-child(2){ left:20%; width:20px; height:20px; animation-delay:2s; animation-duration:12s; }
+.bg-animation span:nth-child(3){ left:70%; width:20px; height:20px; animation-delay:4s; }
+.bg-animation span:nth-child(4){ left:40%; width:60px; height:60px; animation-duration:18s; }
+.bg-animation span:nth-child(5){ left:65%; width:20px; height:20px; }
 
 @keyframes animate{
-  0%{
-    transform:translateY(0) rotate(0deg);
-    opacity:1;
-  }
-  100%{
-    transform:translateY(-1000px) rotate(720deg);
-    opacity:0;
-  }
+  0%{ transform:translateY(0) rotate(0deg); opacity:1; }
+  100%{ transform:translateY(-1000px) rotate(720deg); opacity:0; }
 }
 
 /* =========================================================
@@ -139,10 +99,8 @@ header{
   background:rgba(15,23,42,0.7);
   border-bottom:1px solid rgba(255,255,255,0.08);
 }
-
 nav{
   width:100%;
-  margin:0;
   padding:10px 40px;
   display:flex;
   align-items:center;
@@ -150,15 +108,11 @@ nav{
   background:#0b1120;
   position:relative;
   z-index:3000;
-  overflow:visible;
 }
-
 .logo{
   display:flex;
   align-items:center;
-  flex-shrink:0;
 }
-
 .nav-links{
   display:flex;
   align-items:center;
@@ -168,23 +122,19 @@ nav{
   white-space:nowrap;
   overflow:hidden;
 }
-
 .nav-links a{
   text-decoration:none;
   color:white;
   font-weight:500;
   transition:0.3s;
 }
-
 .nav-links a:hover{
   color:#06b6d4;
 }
-
 .menu-btn{
   position:absolute;
   right:20px;
   top:25px;
-  z-index:4000;
   cursor:pointer;
   color:#fff;
   font-size:22px;
@@ -192,22 +142,16 @@ nav{
 }
 
 /* =========================================================
-   RF THz ANIMATED LOGO
+   RF LOGO
 ========================================================= */
 .rf-logo-wrapper{
   position:relative;
   display:inline-block;
 }
-
 .rf-logo-wrapper img{
   height:55px;
-  width:auto;
-  border-radius:10px;
-  position:relative;
-  z-index:2;
   filter:drop-shadow(0 0 6px rgba(6,182,212,0.6));
 }
-
 .rf-wave{
   position:absolute;
   top:50%;
@@ -216,37 +160,28 @@ nav{
   border:2px solid #06b6d4;
   border-radius:50%;
   opacity:0;
-  z-index:1;
   animation:rfPulse 2.5s infinite ease-out;
 }
-
-.wave1{ width:60px; height:60px; animation-delay:0s; }
-.wave2{ width:90px; height:90px; animation-delay:0.6s; border-color:#38bdf8; }
-.wave3{ width:120px; height:120px; animation-delay:1.2s; border-color:#8b5cf6; }
+.wave1{ width:60px; height:60px; }
+.wave2{ width:90px; height:90px; border-color:#38bdf8; animation-delay:0.6s; }
+.wave3{ width:120px; height:120px; border-color:#8b5cf6; animation-delay:1.2s; }
 
 @keyframes rfPulse{
-  0%{
-    transform:translate(-50%,-50%) scale(0.3);
-    opacity:0.8;
-  }
+  0%{ transform:translate(-50%,-50%) scale(0.3); opacity:0.8; }
   70%{ opacity:0.2; }
-  100%{
-    transform:translate(-50%,-50%) scale(1.4);
-    opacity:0;
-  }
+  100%{ transform:translate(-50%,-50%) scale(1.4); opacity:0; }
 }
 
 /* =========================================================
-   HERO SECTION
+   HERO
 ========================================================= */
 .hero{
   min-height:100vh;
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:0 160px 0px;
+  padding:0 160px;
 }
-
 .hero-container{
   perspective:2200px;
   display:flex;
@@ -255,7 +190,6 @@ nav{
   width:100%;
   max-width:2300px;
 }
-
 .hero-flip-card{
   position:relative;
   width:100%;
@@ -263,20 +197,15 @@ nav{
   min-height:300px;
   transform-style:preserve-3d;
   transition:transform 0.9s ease;
-  margin-left:auto;
-  margin-right:auto;
 }
-
 .hero-flip-card.flipped{
   transform:rotateY(180deg);
 }
-
 .hero-front,
 .hero-back{
   width:100%;
   backface-visibility:hidden;
 }
-
 .hero-back{
   position:absolute;
   top:0;
@@ -287,358 +216,112 @@ nav{
   background:rgba(15,23,42,0.95);
   border-radius:25px;
   padding:50px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
   text-align:center;
-  border:1px solid rgba(255,255,255,0.08);
-  box-shadow:0 20px 40px rgba(0,0,0,0.25);
 }
 
-.hero-back h2{
-  color:#06b6d4;
-  margin-bottom:25px;
-  font-size:36px;
+/* =========================================================
+   PROJECT SLIDER — FIXED & STABLE
+========================================================= */
+
+:root{
+  --card-width: 280px;
+  --gap: 12px;
 }
 
-.hero-back p{
-  max-width:850px;
-  line-height:1.9;
-  color:#cbd5e1;
-  font-size:18px;
-}
-
-/* PROFILE BOX */
-.profile-box{
+.slider-wrapper{
   position:relative;
+  width:100%;
+  overflow:hidden;
+  display:flex;
 }
 
-.profile-box::before{
-  content:'';
+.slider-container{
+  display:flex;
+  gap:var(--gap);
+  transition:transform 0.5s ease;
+  padding:20px 0;
+}
+
+.project-card{
+  flex:0 0 var(--card-width);
+  background:rgba(255,255,255,0.05);
+  border-radius:25px;
+  padding:0;
+  overflow:hidden;
+}
+
+.project-card img{
+  width:100%;
+  display:block;
+}
+
+.project-content{
+  padding:25px;
+}
+
+.project-card h3{
+  font-size:22px;
+  margin-bottom:10px;
+}
+
+.tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:15px;
+}
+.tags span{
+  padding:8px 14px;
+  background:rgba(6,182,212,0.15);
+  border-radius:30px;
+  font-size:13px;
+  color:#67e8f9;
+}
+
+.project-card .btn{
+  margin-top:20px;
+  padding:6px 12px;
+  font-size:13px;
+}
+
+/* Slide buttons */
+.nav-btn{
   position:absolute;
-  inset:-15px;
-  background:linear-gradient(45deg,#06b6d4,#3b82f6,#8b5cf6);
-  border-radius:50%;
-  filter:blur(30px);
-  opacity:0.6;
-}
-
-.profile-box img{
-  position:relative;
-  width:350px;
-  height:350px;
-  object-fit:cover;
-  border-radius:50%;
-  border:5px solid rgba(255,255,255,0.2);
-}
-
-/* FLIP BUTTON */
-.flip-btn{
-  position:absolute;
-  right:-30px;
   top:50%;
   transform:translateY(-50%);
-  width:60px;
-  height:60px;
-  border:none;
-  border-radius:50%;
-  background:#06b6d4;
+  background:rgba(255,255,255,0.15);
+  border:1px solid rgba(255,255,255,0.25);
   color:white;
-  cursor:pointer;
   font-size:22px;
-  box-shadow:0 8px 20px rgba(6,182,212,0.35);
-  transition:0.3s;
-}
-
-.flip-btn:hover{
-  transform:translateY(-50%) scale(1.1);
-  background:#0891b2;
-}
-
-.back-btn{
-  margin-top:30px;
-  padding:12px 24px;
-  border:none;
-  border-radius:12px;
-  background:#06b6d4;
-  color:white;
   cursor:pointer;
-  font-weight:600;
+  border-radius:10px;
+  padding:8px 12px;
+  backdrop-filter:blur(10px);
+  z-index:20;
 }
+.prev-btn{ left:10px; }
+.next-btn{ right:10px; }
 
 /* =========================================================
-   HERO CONTENT
+   MOBILE SLIDER
 ========================================================= */
-.hero-left h1{
-  font-size:65px;
-  line-height:1.1;
-}
-
-.hero-left span{
-  color:#06b6d4;
-}
-
-.typing{
-  color:#38bdf8;
-  margin-top:20px;
-  font-size:24px;
-  min-height:40px;
-}
-
-.hero-left p{
-  margin-top:25px;
-  line-height:1.9;
-  color:#cbd5e1;
-  font-size:18px;
-}
-
-.hero-buttons{
-  margin-top:35px;
-  display:flex;
-  flex-wrap:wrap;
-  gap:18px;
-}
-
-.btn{
-  padding:14px 26px;
-  border-radius:14px;
-  text-decoration:none;
-  font-weight:600;
-  transition:0.3s;
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-}
-
-.btn-primary{
-  background:#06b6d4;
-  color:white;
-}
-
-.btn-primary:hover{
-  transform:translateY(-4px);
-  box-shadow:0 12px 25px rgba(6,182,212,0.35);
-}
-
-.btn-outline{
-  border:1px solid rgba(255,255,255,0.2);
-  color:white;
-}
-
-.btn-outline:hover{
-  background:rgba(255,255,255,0.08);
-}
-
-/* =========================================================
-   GLASS CARD
-========================================================= */
-.glass{
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.08);
-  backdrop-filter:blur(15px);
-  border-radius:25px;
-}
-
-/* =========================================================
-   SECTION
-========================================================= */
-section{
-  padding:100px 30px;
-}
-
-.section-title{
-  text-align:center;
-  font-size:42px;
-  margin-bottom:60px;
-}
-
-.section-title span{
-  color:#06b6d4;
-}
-
-/* =========================================================
-   ABOUT
-========================================================= */
-.about-grid{
-  max-width:1200px;
-  margin:auto;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:30px;
-}
-
-.about-card{
-  padding:35px;
-  transition:0.3s;
-}
-
-.about-card:hover{
-  transform:translateY(-8px);
-}
-
-.about-card i{
-  font-size:40px;
-  color:#06b6d4;
-  margin-bottom:20px;
-}
-
-.about-card h3{
-  margin-bottom:15px;
-}
-/* =========================================================
-   PROJECT SLIDER (FINAL FIXED-WIDTH VERSION)
-========================================================= */
-/* Outer container */
-.slider-wrapper {
-    position: relative;
-    width: 100%;
-    display: flex;
-    overflow: hidden;
-    flex-wrap: nowrap;
-}
-/* Sliding container */
-.slider-container {
-    display: flex;
-    flex-wrap: nowrap;
-    min-width: max-content;
-    transition: transform 0.5s ease;
-    padding-right: 0;              /* no empty space at end */
-}
-/* Project card */
-.project-card {
-    flex: 0 0 280px;               /* fixed width = consistent size */
-    flex-shrink: 0;
-    margin: 0 5px;                 /* fits between slide buttons */
-    box-sizing: border-box;
-    border-radius: 25px;
-}
-/* Buttons inside cards */
-.project-card .btn {
-    width: auto;
-    padding: 6px 12px;
-    font-size: 13px;
-}
-/* Slide buttons */
-.nav-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255,255,255,0.15);
-    border: 1px solid rgba(255,255,255,0.25);
-    color: white;
-    font-size: 22px;
-    cursor: pointer;
-    border-radius: 10px;
-    padding: 8px 12px;
-    backdrop-filter: blur(10px);
-    transition: 0.3s ease;
-    z-index: 20;
-}
-/* Buttons closer to cards */
-.prev-btn { left: 8px; }
-.next-btn { right: 8px; }
-.nav-btn:hover {
-    background: rgba(255,255,255,0.3);
-}
-/* Card content */
-.project-content {
-    padding: 30px;
-}
-.project-content h3 {
-    margin-bottom: 12px;
-    font-size: 22px;               /* same font size */
-}
-.tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 20px;
-}
-.tags span {
-    padding: 8px 14px;
-    background: rgba(6,182,212,0.15);
-    border-radius: 30px;
-    font-size: 13px;
-    color: #67e8f9;
-}
-/* =========================================================
-   CONTACT
-========================================================= */
-.contact-container{
-  max-width:900px;
-  margin:auto;
-  padding:50px;
-  text-align:center;
-}
-.contact-buttons{
-  margin-top:40px;
-  display:flex;
-  justify-content:center;
-  gap:20px;
-  flex-wrap:wrap;
-}
-
-/* =========================================================
-   IMAGE MODAL
-========================================================= */
-.img-modal{
-  display:none;
-  position:fixed;
-  z-index:9999;
-  padding-top:80px;
-  left:0;
-  top:0;
-  width:100%;
-  height:100%;
-  overflow:auto;
-  background:rgba(0,0,0,0.85);
-  backdrop-filter:blur(6px);
-}
-.img-modal img{
-  margin:auto;
-  display:block;
-  max-width:80%;
-  max-height:80vh;
-  border-radius:12px;
-  box-shadow:0 0 25px rgba(255,255,255,0.3);
-}
-.close-modal{
-  position:absolute;
-  top:25px;
-  right:40px;
-  color:white;
-  font-size:45px;
-  font-weight:bold;
-  cursor:pointer;
-  transition:0.3s;
-}
-.close-modal:hover{
-  color:#06b6d4;
-}
-
-/* =========================================================
-   FOOTER
-========================================================= */
-footer{
-  text-align:center;
-  padding:40px 20px;
-  color:#94a3b8;
-  margin-top:40px;
-}
-.footer-follow{
-  margin-bottom:15px;
-  font-size:18px;
-  letter-spacing:1px;
+@media (max-width:900px){
+  :root{
+    --card-width:260px;
+  }
+  .nav-btn{
+    width:40px;
+    height:40px;
+    font-size:18px;
+    border-radius:50%;
+  }
 }
 
 /* =========================================================
    MOBILE MENU
 ========================================================= */
 @media (max-width:768px){
-  .menu-btn{
-    display:block;
-  }
+  .menu-btn{ display:block; }
   .nav-links{
     position:fixed;
     top:0;
@@ -646,135 +329,19 @@ footer{
     width:260px;
     height:100vh;
     background:#111827;
-    display:flex;
     flex-direction:column;
     padding:80px 20px;
     gap:20px;
     transform:translateX(100%);
     transition:0.3s ease-in-out;
-    z-index:3500;
-    overflow-y:auto;
   }
   .nav-links.active{
     transform:translateX(0);
   }
-  .menu-dropdown{
-    display:none !important;
-  }
-}
-/* =========================================================
-   MOBILE VERSION (1 CARD ONLY)
-========================================================= */
-@media (max-width: 900px) {
-    .slider-wrapper {
-        position: relative;
-        display: flex;
-        overflow: hidden;
-        flex-wrap: nowrap;
-    }
-    .slider-container {
-        display: flex;
-        flex-wrap: nowrap;
-        min-width: max-content;
-        transition: transform 0.5s ease;
-        padding-right: 0;              /* no empty space at end */
-    }
-    .project-card {
-        flex: 0 0 260px;               /* same fixed width as desktop style */
-        flex-shrink: 0;
-        margin: 0 5px;                 /* fits between slide buttons */
-        box-sizing: border-box;
-    }
-    .project-card .btn {
-        width: auto;
-        padding: 6px 12px;             /* same button size */
-        font-size: 13px;
-        text-align: center;
-    }
-    .nav-btn {
-        width: 40px;
-        height: 40px;
-        font-size: 18px;
-        padding: 6px 8px;
-        border-radius: 50%;
-        background: rgba(0,0,0,0.6);
-        border: 2px solid white;
-    }
-    .prev-btn { left: 8px; }
-    .next-btn { right: 8px; }
-}
-.slider-buttons{
-    position:absolute;
-    bottom:10px;
-    left:50%;
-    transform:translateX(-50%);
-    display:flex;
-    gap:12px;
-    z-index:10;
-}
-.slider-btn{
-    width:12px;
-    height:12px;
-    border-radius:50%;
-    background:#ccc;
-    cursor:pointer;
-    transition:0.3s ease;
-}
-.slider-btn.active{
-    background:#333;
-}
-.project-content{
-    width:100%;
-    max-width:100%;
-    box-sizing:border-box;
-    flex:1;
-}
-.project-card h3{
-    font-size:22px;
-    line-height:1.3;
-    word-wrap:break-word;
-    overflow-wrap:break-word;
-    margin-top:0;
-}
-.project-card p{
-    font-size:15px;
-    line-height:1.6;
-    word-wrap:break-word;
-    overflow-wrap:break-word;
-}
-.project-card img{
-    width:100%;
-    height:auto;
-    display:block;
-}
-.tags{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-    margin-top:auto;
-}
-.tags span{
-    word-break:break-word;
-}
-.project-card .btn{
-    width:auto;              /* match slider section: auto width */
-    text-align:center;
-    margin-top:20px;
-    padding:6px 12px;        /* smaller button */
-    font-size:13px;
-}
-.nav-btn:hover{
-    background:rgba(0,0,0,0.8);
-}
-.nav-btn.prev{
-    left:12px;
-}
-.nav-btn.next{
-    right:12px;
 }
 
 /* =========================================================
-   SMALL SCREENS
+   SMALL SCREENS FIX
 ========================================================= */
 @media (max-width:500px){
   .hero{
@@ -784,7 +351,8 @@ footer{
     font-size:32px;
   }
   .section-title{
-    font-size
+    font-size:28px;
+  }
 }
 </style>
 </head>
