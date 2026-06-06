@@ -698,6 +698,13 @@ footer {
     overflow-x: hidden;
   }
 
+  /* GLOBAL IMAGE FIX (IMPORTANT - fixes disappearing images) */
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
   /* HERO FIX */
   .hero {
     padding: 120px 20px 60px;
@@ -729,6 +736,7 @@ footer {
   .profile-box img {
     width: 220px;
     height: 220px;
+    object-fit: cover;
   }
 
   .flip-btn {
@@ -771,7 +779,7 @@ footer {
   }
 
   /* =========================================================
-     PROJECT SLIDER FIX
+     PROJECT SLIDER FIX (IMPORTANT FIXES HERE)
   ========================================================= */
 
   .slider-container {
@@ -785,17 +793,18 @@ footer {
 
   .slider-wrapper {
     display: flex;
-    overflow-x: auto;
+    flex-wrap: nowrap;              /* FIX: prevents stacking */
+    overflow-x: auto;               /* FIX: allows horizontal scroll */
+    overflow-y: hidden;
+
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
 
     width: 100%;
     max-width: 100%;
-    min-width: 0;
-
     gap: 12px;
-    padding: 0 8px;
 
+    padding: 0 8px;
     box-sizing: border-box;
   }
 
@@ -812,7 +821,7 @@ footer {
     padding: 15px;
 
     box-sizing: border-box;
-    scroll-snap-align: center;
+    scroll-snap-align: start;
 
     overflow: hidden;
   }
@@ -835,12 +844,6 @@ footer {
     line-height: 1.6;
     word-wrap: break-word;
     overflow-wrap: break-word;
-  }
-
-  .project-card img {
-    width: 100%;
-    height: auto;
-    display: block;
   }
 
   .tags {
@@ -877,39 +880,51 @@ footer {
     background: rgba(0, 0, 0, 0.7);
   }
 }
+
 /* =========================================================
    SMALLER SCREENS (500px)
 ========================================================= */
+
 @media (max-width: 500px) {
+
   .hero {
     padding: 100px 15px 40px;
   }
+
   .hero-left h1 {
     font-size: 32px;
   }
+
   .section-title {
     font-size: 28px;
   }
+
   .btn {
     padding: 10px 18px;
     font-size: 14px;
   }
+
   .profile-box img {
     width: 180px;
     height: 180px;
   }
+
   .contact-container {
     padding: 25px 15px;
   }
+
   .contact-container h3 {
     font-size: 22px;
   }
+
   .project-card {
     padding: 12px;
   }
+
   .project-card h3 {
     font-size: 20px;
   }
+
   .project-card p {
     font-size: 14px;
   }
