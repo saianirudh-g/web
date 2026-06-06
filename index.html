@@ -493,8 +493,9 @@ section{
   position: relative;
   width: 100%;
   overflow: hidden;
-  display: flex;              /* horizontal layout */
+  display: flex;
   flex-wrap: nowrap;
+  min-width: max-content;
   transition: transform 0.5s ease;
 }
 .slider-wrapper {
@@ -505,9 +506,9 @@ section{
   overflow: hidden;
   transition: transform 0.5s ease;
 }
-/* Each project card — equal size */
 .project-card {
-  flex: 0 0 calc(33.333% - 20px); /* ✅ 3 cards visible on desktop */
+  flex: 0 0 calc(33.333% - 20px);
+  flex-shrink: 0;           
   margin: 0 10px;
   box-sizing: border-box;
   border-radius: 25px;
@@ -668,10 +669,11 @@ footer{
     position: relative;
   }
   .project-card {
-    flex: 0 0 100%; /* ✅ 1 card visible on mobile */
-    margin: 0 10px;
-    box-sizing: border-box;
-  }
+  flex: 0 0 100%;
+  flex-shrink: 0;
+  margin: 0 10px;
+  box-sizing: border-box;
+}
   .nav-btn {
     font-size: 24px;
     padding: 10px 12px;
