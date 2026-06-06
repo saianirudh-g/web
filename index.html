@@ -57,7 +57,33 @@ body {
 }
 
 /* =========================================================
-   HEADER / NAVBAR
+   BACKGROUND
+========================================================= */
+.bg-animation {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.bg-animation span {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: rgba(255,255,255,0.05);
+  animation: animate 25s linear infinite;
+  bottom: -150px;
+  border-radius: 50%;
+}
+
+@keyframes animate {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; }
+}
+
+/* =========================================================
+   NAVBAR
 ========================================================= */
 header {
   position: fixed;
@@ -71,27 +97,45 @@ header {
 }
 
 nav {
+  width: 100%;
+  padding: 10px 40px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 40px;
   background: #0b1120;
 }
 
+/* LOGO */
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+/* NAV LINKS */
 .nav-links {
   display: flex;
+  align-items: center;
   gap: 25px;
   flex: 1;
   justify-content: center;
+  white-space: nowrap;
 }
 
 .nav-links a {
-  color: white;
   text-decoration: none;
+  color: white;
+  font-weight: 500;
 }
 
 .nav-links a:hover {
   color: #06b6d4;
+}
+
+/* MENU BUTTON */
+.menu-btn {
+  display: none;
+  font-size: 22px;
+  cursor: pointer;
 }
 
 /* =========================================================
@@ -106,6 +150,7 @@ nav {
 }
 
 .hero-container {
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 60px;
@@ -114,6 +159,7 @@ nav {
 
 .hero-left h1 {
   font-size: 65px;
+  line-height: 1.1;
 }
 
 .hero-left span {
@@ -121,12 +167,16 @@ nav {
 }
 
 .hero-left p {
-  margin-top: 20px;
-  color: #cbd5e1;
+  margin-top: 25px;
   line-height: 1.8;
+  color: #cbd5e1;
 }
 
 /* PROFILE */
+.profile-box {
+  position: relative;
+}
+
 .profile-box img {
   width: 350px;
   height: 350px;
@@ -135,7 +185,7 @@ nav {
 }
 
 /* =========================================================
-   SECTION
+   SECTIONS
 ========================================================= */
 section {
   padding: 100px 30px;
@@ -155,15 +205,15 @@ section {
    ABOUT
 ========================================================= */
 .about-grid {
+  max-width: 1200px;
+  margin: auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 30px;
-  max-width: 1200px;
-  margin: auto;
 }
 
 /* =========================================================
-   ================= PROJECT SLIDER FIX =================
+   PROJECT SLIDER (FIXED CORE)
 ========================================================= */
 
 .slider-container {
@@ -172,9 +222,9 @@ section {
   overflow: hidden;
 }
 
-/* TRACK */
 .slider-wrapper {
   display: flex;
+  flex-wrap: nowrap;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
@@ -186,21 +236,21 @@ section {
   display: none;
 }
 
-/* CARD - ALWAYS FULLY VISIBLE */
+/* EACH CARD ALWAYS FULLY VISIBLE */
 .project-card {
   flex: 0 0 100%;
   min-width: 100%;
+  box-sizing: border-box;
   scroll-snap-align: start;
   display: flex;
   flex-direction: column;
   padding: 20px;
-  box-sizing: border-box;
 }
 
 .project-card img {
   width: 100%;
+  height: auto;
   border-radius: 12px;
-  display: block;
 }
 
 .project-card h3 {
@@ -229,18 +279,15 @@ section {
   font-size: 12px;
 }
 
-/* BUTTON */
+/* BUTTONS */
 .project-card .btn {
   margin-top: 15px;
   width: 100%;
   text-align: center;
 }
 
-/* =========================================================
-   🔥 FIXED NAV BUTTONS (NO HERO CONFLICT)
-========================================================= */
-
-.project-nav-btn {
+/* NAV BUTTONS (FIXED ONCE ONLY) */
+.nav-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -248,21 +295,21 @@ section {
   height: 48px;
   border-radius: 50%;
   background: rgba(0,0,0,0.6);
-  border: 1px solid rgba(255,255,255,0.3);
   color: white;
-  cursor: pointer;
-  z-index: 10;
+  border: 1px solid rgba(255,255,255,0.3);
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  z-index: 10;
 }
 
-.project-nav-btn:hover {
+.nav-btn:hover {
   background: rgba(0,0,0,0.85);
 }
 
-.project-nav-btn.prev { left: 10px; }
-.project-nav-btn.next { right: 10px; }
+.nav-btn.prev { left: 10px; }
+.nav-btn.next { right: 10px; }
 
 /* =========================================================
    CONTACT
@@ -284,9 +331,29 @@ footer {
 }
 
 /* =========================================================
-   MOBILE
+   MOBILE MENU
 ========================================================= */
 @media (max-width: 768px) {
+  .menu-btn {
+    display: block;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 260px;
+    height: 100vh;
+    background: #111827;
+    flex-direction: column;
+    padding: 80px 20px;
+    transform: translateX(100%);
+    transition: 0.3s;
+  }
+
+  .nav-links.active {
+    transform: translateX(0);
+  }
 
   .hero {
     padding: 100px 20px;
@@ -311,7 +378,9 @@ footer {
   }
 }
 
-/* SMALL SCREEN */
+/* =========================================================
+   SMALL SCREENS
+========================================================= */
 @media (max-width: 500px) {
 
   .hero-left h1 {
