@@ -688,7 +688,6 @@ footer {
 /* =========================================================
    MOBILE RESPONSIVE FIX
 ========================================================= */
-
 @media (max-width: 900px) {
 
   html,
@@ -775,12 +774,11 @@ footer {
   }
 
   /* =========================================================
-     PROJECT SLIDER (FIXED PROPERLY)
+     PROJECT SLIDER (FULLY FIXED)
   ========================================================= */
-
   .slider-container {
     width: 100%;
-    overflow: hidden;
+    overflow-x: hidden; /* keep container clean */
     position: relative;
   }
 
@@ -789,14 +787,13 @@ footer {
     flex-direction: row;
     flex-wrap: nowrap;
 
-    overflow-x: scroll;     /* IMPORTANT */
+    overflow-x: auto;     /* FIXED */
     overflow-y: hidden;
 
     width: 100%;
 
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
-
     scroll-behavior: smooth;
   }
 
@@ -805,12 +802,11 @@ footer {
   }
 
   .project-card {
-    flex: 0 0 100%;
+    flex: 0 0 100%;       /* each card takes full width */
     min-width: 100%;
     max-width: 100%;
 
     box-sizing: border-box;
-
     scroll-snap-align: start;
 
     padding: 15px;
@@ -854,7 +850,6 @@ footer {
 /* =========================================================
    SMALL SCREENS
 ========================================================= */
-
 @media (max-width: 500px) {
 
   .hero {
