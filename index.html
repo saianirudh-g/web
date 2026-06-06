@@ -140,7 +140,6 @@ header{
   border-bottom:1px solid rgba(255,255,255,0.08);
 }
 
-/* NAV STRUCTURE */
 nav{
   width:100%;
   margin:0;
@@ -154,14 +153,12 @@ nav{
   overflow:visible;
 }
 
-/* LOGO */
 .logo{
   display:flex;
   align-items:center;
   flex-shrink:0;
 }
 
-/* NAV LINKS */
 .nav-links{
   display:flex;
   align-items:center;
@@ -183,7 +180,6 @@ nav{
   color:#06b6d4;
 }
 
-/* MENU BUTTON */
 .menu-btn{
   position:absolute;
   right:20px;
@@ -251,7 +247,6 @@ nav{
   padding:0 160px 0px;
 }
 
-/* HERO CONTAINER */
 .hero-container{
   perspective:2200px;
   display:flex;
@@ -261,7 +256,6 @@ nav{
   max-width:2300px;
 }
 
-/* HERO FLIP CARD */
 .hero-flip-card{
   position:relative;
   width:100%;
@@ -492,23 +486,23 @@ section{
 .about-card h3{
   margin-bottom:15px;
 }
+
 /* =========================================================
    PROJECT SLIDER (FIXED + CLEANED)
 ========================================================= */
-/* MAIN SLIDER CONTAINER */
 .slider-container{
   position:relative;
   width:100%;
   overflow:hidden;
 }
-/* WRAPPER THAT MOVES LEFT/RIGHT */
+
 .slider-wrapper{
   display:flex;
   width:100%;
   transition:transform 0.5s ease;
-  position:relative; /* ✅ added so nav-btn is positioned inside slider, not near hero */
+  position:relative; /* ADDED */
 }
-/* NAVIGATION BUTTONS (LEFT / RIGHT) */
+
 .nav-btn{
   position:absolute;
   top:50%;
@@ -522,7 +516,7 @@ section{
   padding:10px 14px;
   backdrop-filter:blur(10px);
   transition:0.3s ease;
-  z-index:20; /* ensures buttons stay above cards */
+  z-index:20;
 }
 
 .prev-btn{ left:10px; }
@@ -532,7 +526,6 @@ section{
   background:rgba(255,255,255,0.3);
 }
 
-/* PROJECT CARD CONTENT */
 .project-content{
   padding:30px;
 }
@@ -541,7 +534,6 @@ section{
   margin-bottom:12px;
 }
 
-/* TAGS */
 .tags{
   display:flex;
   flex-wrap:wrap;
@@ -670,85 +662,7 @@ footer{
    MOBILE RESPONSIVE FIX
 ========================================================= */
 @media (max-width:900px){
-  html,body{
-    width:100%;
-    overflow-x:hidden;
-  }
 
-  img{
-    max-width:100%;
-    height:auto;
-    display:block;
-  }
-
-  .hero{
-    padding:120px 20px 60px;
-  }
-
-  .hero-container{
-    grid-template-columns:1fr;
-    gap:40px;
-    text-align:center;
-  }
-
-  .hero-left h1{
-    font-size:40px;
-  }
-
-  .hero-left h2{
-    font-size:20px;
-  }
-
-  .typing{
-    font-size:18px;
-  }
-
-  .hero-left p{
-    font-size:16px;
-  }
-
-  .profile-box img{
-    width:220px;
-    height:220px;
-  }
-
-  .flip-btn{
-    right:-10px;
-    width:45px;
-    height:45px;
-    font-size:18px;
-  }
-
-  .hero-flip-card{
-    max-width:100%;
-    min-height:unset;
-  }
-
-  .hero-back{
-    padding:25px;
-  }
-
-  .hero-back h2{
-    font-size:24px;
-  }
-
-  .hero-back p{
-    font-size:14px;
-  }
-
-  .hero-buttons{
-    justify-content:center;
-  }
-
-  nav{
-    padding:12px 15px;
-  }
-
-  .logo img{
-    height:45px;
-  }
-
-  /* SLIDER CONTAINER */
 .slider-container{
     width:100%;
     max-width:100%;
@@ -760,7 +674,6 @@ footer{
     min-height:420px;
 }
 
-/* WRAPPER THAT HOLDS ALL CARDS */
 .slider-wrapper{
     display:flex;
     flex-direction:row;
@@ -778,13 +691,13 @@ footer{
     gap:0;
     padding:0;
     box-sizing:border-box;
-    position:relative; /* ✅ added so nav-btn stays tied to slider on mobile too */
+    position:relative; /* ADDED */
 }
-/* HIDE SCROLLBAR */
+
 .slider-wrapper::-webkit-scrollbar{
     display:none;
 }
-/* EACH PROJECT CARD */
+
 .project-card{
     flex:0 0 100%;
     min-width:100%;
@@ -798,10 +711,10 @@ footer{
     flex-direction:column;
     min-height:400px;
 }
-/* SLIDER BUTTONS — FIXED TO PROJECT SECTION ONLY */
+
 .slider-buttons{
     position:absolute;
-    bottom:10px;        /* stays inside project section */
+    bottom:10px;
     left:50%;
     transform:translateX(-50%);
     display:flex;
@@ -821,52 +734,53 @@ footer{
 .slider-btn.active{
     background:#333;
 }
-  .project-content{
+
+.project-content{
     width:100%;
     max-width:100%;
     box-sizing:border-box;
     flex:1;
-  }
+}
 
-  .project-card h3{
+.project-card h3{
     font-size:22px;
     line-height:1.3;
     word-wrap:break-word;
     overflow-wrap:break-word;
     margin-top:0;
-  }
+}
 
-  .project-card p{
+.project-card p{
     font-size:15px;
     line-height:1.6;
     word-wrap:break-word;
     overflow-wrap:break-word;
-  }
+}
 
-  .project-card img{
+.project-card img{
     width:100%;
     height:auto;
     display:block;
-  }
+}
 
-  .tags{
+.tags{
     display:flex;
     flex-wrap:wrap;
     gap:8px;
     margin-top:auto;
-  }
+}
 
-  .tags span{
+.tags span{
     word-break:break-word;
-  }
+}
 
-  .project-card .btn{
+.project-card .btn{
     width:100%;
     text-align:center;
     margin-top:20px;
-  }
+}
 
-  .nav-btn{
+.nav-btn{
     font-size:28px;
     padding:12px 16px;
     background:rgba(0,0,0,0.6);
@@ -883,19 +797,20 @@ footer{
     display:flex;
     align-items:center;
     justify-content:center;
-  }
+}
 
-  .nav-btn:hover{
+.nav-btn:hover{
     background:rgba(0,0,0,0.8);
-  }
+}
 
-  .nav-btn.prev{
+.nav-btn.prev{
     left:12px;
-  }
+}
 
-  .nav-btn.next{
+.nav-btn.next{
     right:12px;
-  }
+}
+
 }
 
 /* =========================================================
@@ -911,40 +826,7 @@ footer{
   }
 
   .section-title{
-    font-size:28px;
-  }
-
-  .btn{
-    padding:10px 18px;
-    font-size:14px;
-  }
-
-  .profile-box img{
-    width:180px;
-    height:180px;
-  }
-
-  .contact-container{
-    padding:25px 15px;
-  }
-
-  .contact-container h3{
-    font-size:22px;
-  }
-
-  .project-card{
-    padding:12px;
-  }
-
-  .project-card h3{
-    font-size:20px;
-  }
-
-  .project-card p{
-    font-size:14px;
-  }
-}
-
+    font-size
 </style>
 </head>
 
