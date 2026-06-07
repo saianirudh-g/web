@@ -235,7 +235,6 @@ nav{
     opacity:0;
   }
 }
-
 /* =========================================================
    HERO SECTION
 ========================================================= */
@@ -246,7 +245,6 @@ nav{
   justify-content:center;
   padding:0 160px 0px;
 }
-
 .hero-container{
   perspective:2200px;
   display:flex;
@@ -255,28 +253,66 @@ nav{
   width:100%;
   max-width:2300px;
 }
-
+/* ================================
+   FLIP CARD WRAPPER
+================================ */
 .hero-flip-card{
-  position:relative;
-  width:100%;
-  max-width:2000px;
-  min-height:300px;
-  transform-style:preserve-3d;
-  transition:transform 0.9s ease;
-  margin-left:auto;
-  margin-right:auto;
+  position: relative;
+  width: 100%;
+  max-width: 2000px;
+  margin-left: auto;
+  margin-right: auto;
+  /* Auto height based on content */
+  height: auto;
+  /* 3D flip behavior */
+  transform-style: preserve-3d;
+  transition: transform 0.9s ease;
 }
-
+/* Flip state */
 .hero-flip-card.flipped{
-  transform:rotateY(180deg);
+  transform: rotateY(180deg);
 }
-
+/* ================================
+   FRONT & BACK SIDES
+================================ */
+.hero-flip-card .front,
+.hero-flip-card .back{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Ensure content fits inside */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  /* Auto height support */
+  padding: 20px;
+  box-sizing: border-box;
+}
+/* Back side rotates */
+.hero-flip-card .back{
+  transform: rotateY(180deg);
+}
+/* ================================
+   AUTO HEIGHT FIX
+================================ */
+.hero-flip-card{
+  /* Let the card grow based on tallest side */
+  display: grid;
+}
+.hero-flip-card .front,
+.hero-flip-card .back{
+  position: relative;
+}
 .hero-front,
 .hero-back{
   width:100%;
   backface-visibility:hidden;
 }
-
 .hero-back{
   position:absolute;
   top:0;
@@ -295,25 +331,21 @@ nav{
   border:1px solid rgba(255,255,255,0.08);
   box-shadow:0 20px 40px rgba(0,0,0,0.25);
 }
-
 .hero-back h2{
   color:#06b6d4;
   margin-bottom:25px;
   font-size:36px;
 }
-
 .hero-back p{
   max-width:850px;
   line-height:1.9;
   color:#cbd5e1;
   font-size:18px;
 }
-
 /* PROFILE BOX */
 .profile-box{
   position:relative;
 }
-
 .profile-box::before{
   content:'';
   position:absolute;
@@ -323,7 +355,6 @@ nav{
   filter:blur(30px);
   opacity:0.6;
 }
-
 .profile-box img{
   position:relative;
   width:350px;
@@ -332,7 +363,6 @@ nav{
   border-radius:50%;
   border:5px solid rgba(255,255,255,0.2);
 }
-
 /* FLIP BUTTON */
 .flip-btn{
   position:absolute;
@@ -350,12 +380,10 @@ nav{
   box-shadow:0 8px 20px rgba(6,182,212,0.35);
   transition:0.3s;
 }
-
 .flip-btn:hover{
   transform:translateY(-50%) scale(1.1);
   background:#0891b2;
 }
-
 .back-btn{
   margin-top:30px;
   padding:12px 24px;
@@ -366,7 +394,6 @@ nav{
   cursor:pointer;
   font-weight:600;
 }
-
 /* =========================================================
    HERO CONTENT
 ========================================================= */
@@ -374,11 +401,34 @@ nav{
   font-size:65px;
   line-height:1.1;
 }
-
 .hero-left span{
   color:#06b6d4;
 }
-
+.hero{
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content:space-between;
+    width:100%;
+    padding:140px 60px;
+    overflow:hidden;
+}
+.hero-content,
+.hero-left{
+    width:50%;
+    max-width:600px;
+}
+.hero h1,
+.hero-left h1{
+    font-size:3rem;
+    line-height:1.2;
+}
+.hero-image{
+    width:50%;
+    max-width:480px;
+    margin:0;
+    position:relative;
+}
 .typing{
   color:#38bdf8;
   margin-top:20px;
@@ -392,14 +442,12 @@ nav{
   color:#cbd5e1;
   font-size:18px;
 }
-
 .hero-buttons{
   margin-top:35px;
   display:flex;
   flex-wrap:wrap;
   gap:18px;
 }
-
 .btn{
   padding:14px 26px;
   border-radius:14px;
@@ -410,26 +458,21 @@ nav{
   align-items:center;
   gap:10px;
 }
-
 .btn-primary{
   background:#06b6d4;
   color:white;
 }
-
 .btn-primary:hover{
   transform:translateY(-4px);
   box-shadow:0 12px 25px rgba(6,182,212,0.35);
 }
-
 .btn-outline{
   border:1px solid rgba(255,255,255,0.2);
   color:white;
 }
-
 .btn-outline:hover{
   background:rgba(255,255,255,0.08);
 }
-
 /* =========================================================
    GLASS CARD
 ========================================================= */
@@ -571,7 +614,6 @@ footer{
 *::after{
     box-sizing:border-box;
 }
-
 img{
     max-width:100%;
     display:block;
@@ -588,7 +630,6 @@ img{
     padding: 0 80px; /* space for outside buttons */
     box-sizing: border-box;
 }
-
 /* =========================================================
    SLIDER CONTAINER
 ========================================================= */
@@ -598,7 +639,6 @@ img{
     transition: transform 0.5s ease-in-out;
     will-change: transform;
 }
-
 /* =========================================================
    PROJECT CARD (DESKTOP)
 ========================================================= */
@@ -613,13 +653,11 @@ img{
     background: rgba(255,255,255,0.05);
     box-sizing: border-box;
 }
-
 .project-card > img {
     width: 100%;
     height: 240px;
     object-fit: cover;
 }
-
 .project-content {
     display: flex;
     flex-direction: column;
@@ -627,28 +665,24 @@ img{
     flex: 1;
     padding: 20px;
 }
-
 .project-content h3 {
     font-size: 20px;
     line-height: 1.4;
     margin: 0 0 8px;
     overflow-wrap: break-word;
 }
-
 .project-content p {
     font-size: 14px;
     line-height: 1.6;
     margin: 0 0 10px;
     color: #ddd;
 }
-
 .tags {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
     margin-top: auto;
 }
-
 .tags span {
     padding: 6px 12px;
     font-size: 12px;
@@ -656,7 +690,6 @@ img{
     background: rgba(6,182,212,0.15);
     color: #67e8f9;
 }
-
 .project-card .btn {
     align-self: flex-start;
     margin-top: 16px;
@@ -668,7 +701,6 @@ img{
     cursor: pointer;
     transition: 0.3s;
 }
-
 .project-card .btn:hover {
     background: #0891b2;
 }
@@ -698,17 +730,14 @@ img{
         0 0 12px rgba(255,255,255,0.6);
     transition: 0.25s ease;
 }
-
 .nav-btn:hover {
     background: #22f3ff;
     transform: translateY(-50%) scale(1.1);
 }
-
 /* Buttons outside visible area */
 .prev-btn {
     left: 10px;
 }
-
 .next-btn {
     right: 10px;
 }
@@ -719,13 +748,11 @@ img{
     .slider-wrapper {
         padding: 0 40px;
     }
-
     .project-card {
         flex: 0 0 100%;
         min-width: 100%;
         max-width: 100%;
     }
-
     .nav-btn {
         width: 44px;
         height: 44px;
@@ -736,11 +763,9 @@ img{
         color: #fff;
         box-shadow: none;
     }
-
     .nav-btn:hover {
         background: rgba(0,0,0,0.85);
     }
-
     .prev-btn { left: 5px; }
     .next-btn { right: 5px; }
 }
@@ -748,7 +773,6 @@ img{
    MOBILE HERO (SEPARATE, DOES NOT AFFECT DESKTOP)
 ===================================================== */
 @media (max-width:768px){
-
     .hero{
         flex-direction:column;
         align-items:center;
@@ -757,14 +781,12 @@ img{
         width:100%;
         padding:120px 20px 60px;
     }
-
     .hero-content,
     .hero-left{
         width:100%;
         max-width:100%;
         margin:0 auto;
     }
-
     .hero h1,
     .hero-left h1{
         font-size:clamp(2rem,8vw,3rem);
@@ -774,21 +796,18 @@ img{
         overflow-wrap:break-word;
         word-break:break-word;
     }
-
     .hero .typing{
         font-size:1.2rem;
         line-height:1.5;
         width:100%;
         color:#06b6d4;
     }
-
     .hero p{
         width:100%;
         max-width:500px;
         margin:0 auto;
         line-height:1.7;
     }
-
     .hero-buttons{
         width:100%;
         display:flex;
@@ -810,7 +829,6 @@ img{
         margin:40px auto 0;
         position:relative;
     }
-
     .flip-btn{
         position:absolute;
         bottom:-20px;
@@ -824,7 +842,21 @@ img{
         cursor:pointer;
     }
 }
-
+/* ================================
+   MOBILE RESPONSIVE FIX
+================================ */
+@media (max-width: 768px){
+  .hero-flip-card{
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    padding: 0 10px;
+  }
+  .hero-flip-card .front,
+  .hero-flip-card .back{
+    padding: 16px;
+  }
+}
 /* =========================================================
    MOBILE MENU FIX
 ========================================================= */
@@ -972,7 +1004,7 @@ alt="Sai Anirudh">
 
 <button class="flip-btn"
 onclick="flipHero()">
-flip ↻
+Turn back ↻
 </button>
 
 </div>
@@ -994,7 +1026,7 @@ flip ↻
 
 <button class="back-btn"
 onclick="flipHero()">
-← Back
+← Back to home
 </button>
 
 </div>
