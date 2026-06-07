@@ -254,23 +254,14 @@ nav{
   max-width:2300px;
 }
 .hero-flip-card{
-   position: absolute;
-  top: 20%;              /* moved upward from center */
-  right: -30px;          /* same right-edge placement */
-  transform: translateY(-50%);
-  width: 60px;
-  height: 60px;
-  font-size: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  border-radius: 50%;
-  background: #06b6d4;
-  color: #fff;
-  cursor: pointer;
-  box-shadow: 0 8px 20px rgba(6,182,212,0.35);
-  transition: 0.3s ease;
+  position:relative;
+  width:100%;
+  max-width:2000px;
+  min-height:300px;
+  transform-style:preserve-3d;
+  transition:transform 0.9s ease;
+  margin-left:auto;
+  margin-right:auto;
 }
 .hero-flip-card.flipped{
   transform:rotateY(180deg);
@@ -366,26 +357,24 @@ nav{
   border-radius:50%;
   border:5px solid rgba(255,255,255,0.2);
 }
-/* FLIP BUTTON — FIXED TO FIT INSIDE CARD */
 .flip-btn{
   position: absolute;
-  bottom: 16px;          /* stays inside the card */
-  right: 16px;           /* fits within padding */
-  transform: none;
-  width: 48px;
-  height: 48px;
+  top: 20%;              /* moved upward from center */
+  right: -30px;          /* same right-edge placement */
+  transform: translateY(-50%);
+  width: 60px;
+  height: 60px;
+  font-size: 22px;
   display: flex;
   align-items: center;
   justify-content: center;
   border: none;
   border-radius: 50%;
   background: #06b6d4;
-  color: white;
+  color: #fff;
   cursor: pointer;
-  font-size: 20px;
   box-shadow: 0 8px 20px rgba(6,182,212,0.35);
   transition: 0.3s ease;
-}
 }
 .flip-btn:hover{
   transform:translateY(-50%) scale(1.1);
@@ -838,11 +827,13 @@ img{
    MOBILE RESPONSIVE FIX
 ================================ */
 @media (max-width: 768px){
-  .hero-flip-card{
-    max-width: 100%;
-    width: 100%;
-    height: auto;
-    padding: 0 10px;
+  .flip-btn{
+    top: 20%;            /* same upward position */
+    right: -20px;        /* scaled for mobile */
+    transform: translateY(-50%);
+    width: 42px;
+    height: 42px;
+    font-size: 18px;
   }
   .hero-flip-card .front,
   .hero-flip-card .back{
