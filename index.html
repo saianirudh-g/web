@@ -815,29 +815,49 @@ img{
         position:relative;
     }
     .flip-btn{
+        top: 45%;            /* same upward position */
+        right: -20px;        /* scaled for mobile */
+        transform: translateY(-50%);
         width: 42px;
         height: 42px;
         font-size: 18px;
-        right: -30px;           /* same edge placement but scaled */
-        top: 20%;
-        transform: translateY(-50%);
   }
 }
 /* ================================
    MOBILE RESPONSIVE FIX
 ================================ */
 @media (max-width: 768px){
-  .flip-btn{
-    top: 45%;            /* same upward position */
-    right: -20px;        /* scaled for mobile */
-    transform: translateY(-50%);
-    width: 42px;
-    height: 42px;
-    font-size: 18px;
+  .hero-flip-card{
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    /* Auto height based on tallest side */
+    display: grid;
+    height: auto;
+    transform-style: preserve-3d;
+    transition: transform 0.9s ease;
+    position: relative;
+    padding: 0 10px; /* keeps content inside */
   }
   .hero-flip-card .front,
   .hero-flip-card .back{
+    position: relative;       /* IMPORTANT: allows auto height */
+    width: 100%;
+    height: auto; 
     padding: 16px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  .hero-flip-card .back{
+    transform: rotateY(180deg);
+  }
+  .hero-flip-card.flipped{
+    transform: rotateY(180deg);
   }
 }
 /* =========================================================
