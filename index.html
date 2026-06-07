@@ -712,7 +712,6 @@ img{
 .next-btn {
     right: 10px;
 }
-
 /* =========================================================
    MOBILE VIEW
 ========================================================= */
@@ -745,25 +744,27 @@ img{
     .prev-btn { left: 5px; }
     .next-btn { right: 5px; }
 }
-    /* =====================================================
-       HERO MOBILE REBUILD
-    ===================================================== */
+/* =====================================================
+   MOBILE HERO (SEPARATE, DOES NOT AFFECT DESKTOP)
+===================================================== */
+@media (max-width:768px){
+
     .hero{
-        display:flex;
         flex-direction:column;
         align-items:center;
         justify-content:center;
         text-align:center;
         width:100%;
         padding:120px 20px 60px;
-        overflow:hidden;
     }
+
     .hero-content,
     .hero-left{
         width:100%;
         max-width:100%;
         margin:0 auto;
     }
+
     .hero h1,
     .hero-left h1{
         font-size:clamp(2rem,8vw,3rem);
@@ -773,18 +774,21 @@ img{
         overflow-wrap:break-word;
         word-break:break-word;
     }
+
     .hero .typing{
         font-size:1.2rem;
         line-height:1.5;
         width:100%;
         color:#06b6d4;
     }
+
     .hero p{
         width:100%;
         max-width:500px;
         margin:0 auto;
         line-height:1.7;
     }
+
     .hero-buttons{
         width:100%;
         display:flex;
@@ -793,17 +797,20 @@ img{
         align-items:center;
         margin-top:24px;
     }
+
     .hero-buttons a,
     .hero-buttons button{
         width:100%;
         max-width:280px;
     }
+
     .hero-image{
         width:100%;
         max-width:320px;
         margin:40px auto 0;
         position:relative;
     }
+
     .flip-btn{
         position:absolute;
         bottom:-20px;
@@ -817,12 +824,24 @@ img{
         cursor:pointer;
     }
 }
+
 /* =========================================================
-   MOBILE MENU
+   MOBILE MENU FIX
 ========================================================= */
+/* Hide menu button on desktop */
+.menu-btn{
+    display:none;
+}
+/* Hide nav links by default (desktop layout handles them) */
+.nav-links{
+    display:flex;
+    gap:24px;
+}
+/* MOBILE OVERRIDES */
 @media (max-width:768px){
     .menu-btn{
         display:block;
+        z-index:4000;
     }
     .nav-links{
         position:fixed;
@@ -843,6 +862,7 @@ img{
     .nav-links.active{
         transform:translateX(0);
     }
+    /* Prevent dropdowns from showing on mobile */
     .menu-dropdown{
         display:none !important;
     }
