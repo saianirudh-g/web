@@ -253,24 +253,26 @@ nav{
   width:100%;
   max-width:2300px;
 }
-/* ================================
-   FLIP CARD WRAPPER
-================================ */
-.hero-flip-card{
-  position: relative;
-  width: 100%;
-  max-width: 2000px;
-  margin-left: auto;
-  margin-right: auto;
-  /* Auto height based on content */
-  height: auto;
-  /* 3D flip behavior */
-  transform-style: preserve-3d;
-  transition: transform 0.9s ease;
-}
-/* Flip state */
-.hero-flip-card.flipped{
-  transform: rotateY(180deg);
+/* FLIP BUTTON — RIGHT CENTER, FITS INSIDE CARD */
+.flip-btn{
+  position: absolute;
+  top: 50%;
+  right: 10px;                /* same horizontal position as before */
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: #06b6d4;
+  color: #fff;
+  cursor: pointer;
+  font-size: 20px;
+  box-shadow: 0 8px 20px rgba(6,182,212,0.35);
+  transition: 0.3s ease;
+  z-index: 10;                /* ensures it stays above content but inside card */
 }
 /* ================================
    FRONT & BACK SIDES
@@ -823,18 +825,14 @@ img{
         margin:40px auto 0;
         position:relative;
     }
-    .flip-btn{
-        position:absolute;
-        bottom: 12px;
-        right: 12px;
-        background:#06b6d4;
-        color:#fff;
-        border-radius:50%;
-        width:42px;
-        height:42px;
-        font-size:18px;
-        cursor:pointer;
-    }
+     .flip-btn{
+         width: 42px;
+         height: 42px;
+         font-size: 18px;
+         right: 8px;               /* slightly inset for smaller screens */
+         top: 50%;
+         transform: translateY(-50%);
+  }
 }
 /* ================================
    MOBILE RESPONSIVE FIX
