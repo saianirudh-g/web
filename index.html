@@ -1592,43 +1592,138 @@ Open for research collaboration, embedded systems development, RF engineering pr
   <p>© 2026 Sai Anirudh Godavarthi | Built with HTML CSS & JavaScript</p>
 </footer>
 
+<!-- JAVASCRIPT -->
 <script>
 /* =========================================================
-   HERO FLIP (NEW — FIXED TARGET)
+   HERO FLIP
 ========================================================= */
 function flipHero() {
-  const card = document.querySelector(".hero-container");
-  card.classList.toggle("flipped");
+  document.getElementById("heroCard").classList.toggle("flipped");
 }
 
 /* =========================================================
-   MOBILE MENU (CLEAN + MODERN)
+   INJECT .btn-link CSS FROM SCRIPT
+========================================================= */
+const btnLinkStyle = document.createElement("style");
+btnLinkStyle.textContent = `
+  .btn-link {
+    display: inline-block;
+    padding: 8px 18px;
+    background: rgba(255,255,255,0.12);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    margin: 5px;
+    transition: 0.3s;
+    border: 1px solid rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+  }
+  .btn-link:hover {
+    background: rgba(255,255,255,0.25);
+  }
+`;
+document.head.appendChild(btnLinkStyle);
+
+/* =========================================================
+   MAIN SCRIPT (RUN AFTER DOM LOAD)
 ========================================================= */
 document.addEventListener("DOMContentLoaded", () => {
-  const menuBtn = document.getElementById("menuBtn");
-  const navLinks = document.getElementById("navLinks");
 
-  menuBtn.addEventListener("click", () => {
+/* -------------------------------
+   MOBILE MENU TOGGLE
+-------------------------------- */
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
+const nav = document.querySelector("nav");
+
+menuBtn.addEventListener("click", () => {
+  if (window.innerWidth <= 768) {
     navLinks.classList.toggle("active");
+    menuBtn.classList.toggle("active");
+  } else {
+    hiddenList.classList.toggle("show");
+    menuBtn.classList.toggle("active");
+  }
+});
+
+/* -------------------------------
+   DESKTOP OVERFLOW MENU LOGIC
+-------------------------------- */
+const hiddenList = document.createElement("ul");
+hiddenList.className = "nav-links";
+hiddenList.style.display = "none";
+hiddenList.style.position = "absolute";
+hiddenList.style.top = "70px";
+hiddenList.style.right = "20px";
+hiddenList.style.background = "rgba(0,0,0,0.7)";
+hiddenList.style.padding = "10px 20px";
+hiddenList.style.borderRadius = "10px";
+hiddenList.style.backdropFilter = "blur(10px)";
+hiddenList.style.zIndex = "999";
+
+nav.appendChild(hiddenList);
+
+function adjustMenu() {
+  if (!nav || !navLinks || !menuBtn) return;
+
+  /* -------------------------------
+     FIX: On mobile, show ALL tabs
+  -------------------------------- */
+  if (window.innerWidth <= 768) {
+    const links = Array.from(navLinks.children);
+    links.forEach(link => link.style.display = "block");
+
+    hiddenList.style.display = "none";
+    menuBtn.style.display = "block";
+    return; // STOP HERE — do NOT run desktop logic
+  }
+
+  /* -------------------------------
+     DESKTOP LOGIC
+  -------------------------------- */
+  const links = Array.from(navLinks.children);
+  const navWidth = nav.offsetWidth - 200;
+
+  let totalWidth = 0;
+  hiddenList.innerHTML = "";
+
+  links.forEach(link => {
+    link.style.display = "inline-block";
   });
 
-  window.addEventListener("resize", () => {
-    if (window.innerWidth > 900) {
-      navLinks.classList.remove("active");
+  links.forEach(link => {
+    totalWidth += link.offsetWidth + 20;
+
+    if (totalWidth > navWidth) {
+      hiddenList.appendChild(link.cloneNode(true));
+      link.style.display = "none";
     }
   });
+
+  menuBtn.style.display =
+    hiddenList.children.length > 0 ? "inline-block" : "none";
+}
+
+window.addEventListener("resize", adjustMenu);
+adjustMenu();
+
+/* Toggle hidden list on desktop */
+menuBtn.addEventListener("click", () => {
+  if (window.innerWidth > 768) {
+    hiddenList.style.display =
+      hiddenList.style.display === "none" ? "block" : "none";
+  }
 });
 
 /* =========================================================
-   IMAGE POPUP MODAL
+   IMAGE POPUP
 ========================================================= */
-document.addEventListener("DOMContentLoaded", () => {
-  const modal = document.getElementById("imgModal");
-  const modalImg = document.getElementById("modalImg");
-  const closeBtn = document.querySelector(".close-modal");
+const modal = document.getElementById("imgModal");
+const modalImg = document.getElementById("modalImg");
+const closeBtn = document.querySelector(".close-modal");
 
-  if (!modal || !modalImg || !closeBtn) return;
-
+if (modal && modalImg && closeBtn) {
   const clickableImages = document.querySelectorAll(
     "#achievements img, #certifications img, #moments img"
   );
@@ -1641,58 +1736,60 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  closeBtn.addEventListener("click", () => {
+  closeBtn.onclick = () => {
     modal.style.display = "none";
-  });
+  };
 
-  modal.addEventListener("click", (e) => {
+  modal.onclick = (e) => {
     if (e.target === modal) modal.style.display = "none";
-  });
-});
+  };
+}
 
 /* =========================================================
-   UNIVERSAL SLIDER (OPTIMIZED)
+   UNIVERSAL SLIDER
 ========================================================= */
-document.addEventListener("DOMContentLoaded", () => {
-  const sliders = document.querySelectorAll(".slider-wrapper");
+const sliders = document.querySelectorAll(".slider-wrapper");
 
-  sliders.forEach(wrapper => {
-    const container = wrapper.querySelector(".slider-container");
-    const cards = wrapper.querySelectorAll(".project-card");
-    const prevBtn = wrapper.querySelector(".prev-btn");
-    const nextBtn = wrapper.querySelector(".next-btn");
+sliders.forEach(wrapper => {
+  const container = wrapper.querySelector(".slider-container");
+  const cards = wrapper.querySelectorAll(".project-card");
+  const prevBtn = wrapper.querySelector(".prev-btn");
+  const nextBtn = wrapper.querySelector(".next-btn");
 
-    if (!container || cards.length === 0) return;
+  if (!container || cards.length === 0) return;
 
-    let index = 0;
+  let index = 0;
 
-    const cardsPerView = () => (window.innerWidth < 900 ? 1 : 3);
+  function cardsPerView() {
+    return window.innerWidth < 900 ? 1 : 3;
+  }
 
-    function updateSlider() {
-      const cardWidth = cards[0].getBoundingClientRect().width + 20;
-      container.style.transform = `translateX(-${index * cardWidth}px)`;
+  function updateSlider() {
+    const cardWidth = cards[0].getBoundingClientRect().width + 20;
+    container.style.transform = `translateX(-${index * cardWidth}px)`;
+  }
+
+  nextBtn?.addEventListener("click", () => {
+    if (index < cards.length - cardsPerView()) {
+      index++;
+      updateSlider();
     }
-
-    nextBtn?.addEventListener("click", () => {
-      if (index < cards.length - cardsPerView()) {
-        index++;
-        updateSlider();
-      }
-    });
-
-    prevBtn?.addEventListener("click", () => {
-      if (index > 0) {
-        index--;
-        updateSlider();
-      }
-    });
-
-    window.addEventListener("resize", updateSlider);
   });
+
+  prevBtn?.addEventListener("click", () => {
+    if (index > 0) {
+      index--;
+      updateSlider();
+    }
+  });
+
+  window.addEventListener("resize", updateSlider);
+});
+
 });
 
 /* =========================================================
-   TYPING EFFECT (CLEAN + SMOOTH)
+   TYPING EFFECT
 ========================================================= */
 const words = [
   "Embedded Systems Engineer",
@@ -1701,17 +1798,21 @@ const words = [
   "VLSI & ASIC Enthusiast"
 ];
 
-let i = 0, j = 0, isDeleting = false;
+let i = 0;
+let j = 0;
+let isDeleting = false;
 
 function type() {
+  const currentWord = words[i];
   const typingElement = document.getElementById("typing");
+
   if (!typingElement) return;
 
-  const currentWord = words[i];
-
-  typingElement.textContent = isDeleting
-    ? currentWord.substring(0, j--)
-    : currentWord.substring(0, j++);
+  if (isDeleting) {
+    typingElement.textContent = currentWord.substring(0, j--);
+  } else {
+    typingElement.textContent = currentWord.substring(0, j++);
+  }
 
   if (!isDeleting && j === currentWord.length) {
     isDeleting = true;
@@ -1740,7 +1841,7 @@ window.addEventListener("scroll", () => {
 
   sections.forEach(section => {
     const sectionTop = section.offsetTop;
-    if (scrollY >= sectionTop - 200) {
+    if (pageYOffset >= sectionTop - 200) {
       current = section.getAttribute("id");
     }
   });
