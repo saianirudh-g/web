@@ -1737,7 +1737,6 @@ if (modal && modalImg && closeBtn) {
     if (e.target === modal) modal.style.display = "none";
   };
 }
-
 /* =========================================================
    UNIVERSAL SLIDER
 ========================================================= */
@@ -1757,13 +1756,33 @@ sliders.forEach(wrapper => {
     return window.innerWidth < 900 ? 1 : 3;
   }
 
+  function updateButtons() {
+    const maxIndex = cards.length - cardsPerView();
+
+    // Hide prev button at first card
+    if (index <= 0) {
+      prevBtn.style.display = "none";
+    } else {
+      prevBtn.style.display = "block";
+    }
+
+    // Hide next button at last card
+    if (index >= maxIndex) {
+      nextBtn.style.display = "none";
+    } else {
+      nextBtn.style.display = "block";
+    }
+  }
+
   function updateSlider() {
     const cardWidth = cards[0].getBoundingClientRect().width + 20;
     container.style.transform = `translateX(-${index * cardWidth}px)`;
+    updateButtons();
   }
 
   nextBtn?.addEventListener("click", () => {
-    if (index < cards.length - cardsPerView()) {
+    const maxIndex = cards.length - cardsPerView();
+    if (index < maxIndex) {
       index++;
       updateSlider();
     }
@@ -1776,9 +1795,15 @@ sliders.forEach(wrapper => {
     }
   });
 
-  window.addEventListener("resize", updateSlider);
-});
+  window.addEventListener("resize", () => {
+    // Ensure index never exceeds new maxIndex after resize
+    const maxIndex = cards.length - cardsPerView();
+    if (index > maxIndex) index = maxIndex;
+    updateSlider();
+  });
 
+  // Initial state
+  updateSlider();
 });
 
 /* =========================================================
