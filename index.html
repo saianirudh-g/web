@@ -751,67 +751,71 @@ img{
 ===================================================== */
 @media (max-width:768px){
     .hero{
-        flex-direction:column;
-        align-items:center;
-        justify-content:center;
-        text-align:center;
-        width:100%;
-        padding:120px 20px 60px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        text-align: center;
+        width: 100%;
+        padding: 140px 20px 60px;   /* increased top padding */
     }
     .hero-content,
     .hero-left{
-        width:100%;
-        max-width:100%;
-        margin:0 auto;
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
     }
     .hero h1,
     .hero-left h1{
-        font-size:clamp(2rem,8vw,3rem);
-        line-height:1.2;
-        width:100%;
-        margin:0 auto 16px;
-        overflow-wrap:break-word;
-        word-break:break-word;
+        font-size: clamp(2rem, 8vw, 3rem);
+        line-height: 1.2;
+        width: 100%;
+        margin: 0 auto 16px;
+        overflow-wrap: break-word;
+        word-break: break-word;
     }
     .hero .typing{
-        font-size:1.2rem;
-        line-height:1.5;
-        width:100%;
-        color:#06b6d4;
+        font-size: 1.2rem;
+        line-height: 1.5;
+        width: 100%;
+        color: #06b6d4;
     }
     .hero p{
-        width:100%;
-        max-width:500px;
-        margin:0 auto;
-        line-height:1.7;
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+        line-height: 1.7;
     }
+    /* SOCIAL BUTTONS */
     .hero-buttons{
-        width:100%;
-        display:flex;
-        flex-direction:column;
-        gap:12px;
-        align-items:center;
-        margin-top:24px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        align-items: center;
+        margin-top: 24px;
     }
     .hero-buttons a,
     .hero-buttons button{
-        width:100%;
-        max-width:280px;
+        width: 100%;
+        max-width: 280px;
     }
+    /* MOVE PROFILE IMAGE BELOW SOCIAL BUTTONS */
     .hero-image{
-        width:100%;
-        max-width:320px;
-        margin:40px auto 0;
-        position:relative;
+        width: 100%;
+        max-width: 360px;     /* increased width */
+        margin: 40px auto 0;  /* placed below buttons */
+        position: relative;
+        order: 5;             /* forces image to appear AFTER buttons */
     }
+    /* FLIP BUTTON POSITION FIXED FOR MOBILE */
     .flip-btn{
-        top: 45%;            /* same upward position */
-        right: -20px;        /* scaled for mobile */
+        top: 50%;
+        right: -10px;
         transform: translateY(-50%);
         width: 42px;
         height: 42px;
         font-size: 18px;
-  }
+    }
 }
 /* =========================================================
    MOBILE MENU FIX
