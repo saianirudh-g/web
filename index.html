@@ -245,7 +245,7 @@ nav{
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 140px 160px; /* increased horizontal padding for wider gap */
+  padding: 100px 200px;
   overflow: hidden;
 }
 .hero-container {
@@ -711,6 +711,81 @@ img{
     right: 10px;
 }
 /* =========================================================
+   ANNOUNCEMENT SLIDER
+========================================================= */
+.announcement-section {
+    padding: 80px 20px;
+    margin-top: -40px;
+}
+
+.announcement-marquee {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 20px 0;
+}
+
+.announcement-track {
+    display: flex;
+    gap: 30px;
+    animation: marqueeScroll 22s linear infinite;
+    will-change: transform;
+}
+
+@keyframes marqueeScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* Announcement Card */
+.announce-card {
+    min-width: 300px;
+    max-width: 300px;
+    padding: 20px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+    transition: 0.3s ease;
+}
+
+.announce-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(6,182,212,0.35);
+}
+
+.announce-card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 14px;
+    margin-bottom: 15px;
+}
+
+.announce-card h3 {
+    font-size: 20px;
+    margin-bottom: 8px;
+    color: #06b6d4;
+}
+
+.announce-card p {
+    font-size: 14px;
+    color: #cbd5e1;
+    line-height: 1.6;
+}
+
+/* MOBILE FIX */
+@media (max-width: 768px) {
+    .announce-card {
+        min-width: 240px;
+        max-width: 240px;
+    }
+    .announcement-track {
+        animation-duration: 18s;
+    }
+}
+/* =========================================================
    MOBILE VIEW
 ========================================================= */
 @media (max-width: 768px) {
@@ -1039,6 +1114,60 @@ onclick="flipHero()">
 </div>
 </div>
 </section>
+
+<!-- ============================
+     ANNOUNCEMENT SLIDER SECTION
+============================= -->
+<section class="announcement-section">
+    <h2 class="section-title">Latest <span>Announcements</span></h2>
+
+    <div class="announcement-marquee">
+        <div class="announcement-track">
+
+            <!-- CARD 1 -->
+            <div class="announce-card glass">
+                <img src="images/announce1.jpg" alt="Announcement 1">
+                <h3>New RF Project Launched</h3>
+                <p>Explore my latest THz antenna design with real‑time simulations.</p>
+            </div>
+
+            <!-- CARD 2 -->
+            <div class="announce-card glass">
+                <img src="images/announce2.jpg" alt="Announcement 2">
+                <h3>Portfolio Update</h3>
+                <p>Added 3 new embedded systems projects to the showcase.</p>
+            </div>
+
+            <!-- CARD 3 -->
+            <div class="announce-card glass">
+                <img src="images/announce3.jpg" alt="Announcement 3">
+                <h3>MPU6050 Guide</h3>
+                <p>Full tutorial + Kalman filter code now available.</p>
+            </div>
+
+            <!-- CARD 4 -->
+            <div class="announce-card glass">
+                <img src="images/announce4.jpg" alt="Announcement 4">
+                <h3>Website Upgrade</h3>
+                <p>New animations, flip card, and improved mobile UI.</p>
+            </div>
+
+            <!-- DUPLICATE CARDS FOR INFINITE LOOP -->
+            <div class="announce-card glass">
+                <img src="images/announce1.jpg" alt="Announcement 1">
+                <h3>New RF Project Launched</h3>
+                <p>Explore my latest THz antenna design with real‑time simulations.</p>
+            </div>
+
+            <div class="announce-card glass">
+                <img src="images/announce2.jpg" alt="Announcement 2">
+                <h3>Portfolio Update</h3>
+                <p>Added 3 new embedded systems projects to the showcase.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
     
 <!-- ABOUT -->
 <section id="about">
@@ -1330,6 +1459,21 @@ onclick="flipHero()">
 <button class="nav-btn prev-btn">❮</button>
 
 <div class="slider-container">
+
+<div class="project-card glass">
+<div class="project-content">
+<h3>Scientific Research Paper Review</h3>
+<p>Research paper on detection & identification of illicit drugs using THz imaging system.</p>
+<p>Year - 2026</p>
+<div class="tags">
+<span>THz</span>
+<span>Imaging Scope</span>
+</div>
+<div style="margin-top:25px;">
+<a href="https://docs.google.com/document/d/1w7DvDfEHn1kQey5pkBfWpNIoyfPGbVNX/edit?usp=sharing&ouid=113903883699754933294&rtpof=true&sd=true" target="_blank" class="btn btn-primary">View Paper</a>
+</div>
+</div>
+</div>
 
 <div class="project-card glass">
 <div class="project-content">
