@@ -711,7 +711,7 @@ img{
     right: 10px;
 }
 /* =========================================================
-   ANNOUNCEMENT SLIDER
+   INFINITE ANNOUNCEMENT SLIDER — SEAMLESS LOOP
 ========================================================= */
 .announcement-section {
     padding: 80px 20px;
@@ -728,12 +728,14 @@ img{
 .announcement-track {
     display: flex;
     gap: 30px;
-    animation: marqueeScroll 22s linear infinite;
+    width: max-content;
+    animation: marqueeLoop 22s linear infinite;
     will-change: transform;
 }
 
-@keyframes marqueeScroll {
-    0% { transform: translateX(0); }
+/* ⭐ TRUE SEAMLESS LOOP */
+@keyframes marqueeLoop {
+    0%   { transform: translateX(0); }
     100% { transform: translateX(-50%); }
 }
 
@@ -775,7 +777,7 @@ img{
     line-height: 1.6;
 }
 
-/* MOBILE FIX */
+/* MOBILE */
 @media (max-width: 768px) {
     .announce-card {
         min-width: 240px;
@@ -1138,7 +1140,7 @@ onclick="flipHero()">
             </div>
 
             <div class="announce-card glass">
-                <img src="LED Blinking.mp4" alt="Announcement 3">
+                <img src="https://drive.google.com/file/d/1rtCa4hfSw_rDBUxjiO20AmD9bSfP_LXz/view?usp=sharing" alt="Announcement 3">
                 <h3>LED Blinker</h3>
                 <p>STM32 Microcontroller using CubeIDE with CubeMX, CubeMonitor and CubePragrammer.</p>
             </div>
@@ -1146,37 +1148,31 @@ onclick="flipHero()">
             <div class="announce-card glass">
                 <img src="Images/THz Imaging.jpeg" alt="Announcement 4">
                 <h3>THz Lab</h3>
-                <p>Worked with THz real-time objects such as THz imaging system, THz Receiver, Spectroscopy, waves through Teflon lens.</p>
+                <p>Worked with THz real-time objects such as THz imaging system.</p>
             </div>
 
             <div class="announce-card glass">
                 <img src="Images/THz Receiver.jpeg" alt="Announcement 5">
                 <h3>THz Lab</h3>
-                <p>Worked with THz real-time objects such as THz imaging system, THz Receiver, Spectroscopy, waves through Teflon lens.</p>
+                <p>Worked with THz real-time objects such as THz Receiver.</p>
             </div>
 
             <div class="announce-card glass">
                 <img src="Images/THz Spectroscopy.jpeg" alt="Announcement 6">
                 <h3>THz Lab</h3>
-                <p>Worked with THz real-time objects such as THz imaging system, THz Receiver, Spectroscopy, waves through Teflon lens.</p>
-            </div>
-
-            <div class="announce-card glass">
-                <img src="Images/THz Spectroscopy 2.jpeg" alt="Announcement 7">
-                <h3>THz Lab</h3>
-                <p>Worked with THz real-time objects such as THz imaging system, THz Receiver, Spectroscopy, waves through Teflon lens.</p>
+                <p>Worked with THz real-time objects such as THz Spectroscopy.</p>
             </div>
 
             <div class="announce-card glass">
                 <img src="Images/THz wave.jpeg" alt="Announcement 8">
                 <h3>THz Lab</h3>
-                <p>Worked with THz real-time objects such as THz imaging system, THz Receiver, Spectroscopy, waves through Teflon lens.</p>
+                <p>Worked with THz real-time objects such as THz waves through Teflon lens.</p>
             </div>
 
             <div class="announce-card glass">
                 <img src="images/Teflon.jpeg" alt="Announcement 9">
                 <h3>THz Lab</h3>
-                <p>Worked with THz real-time objects such as THz imaging system, THz Receiver, Spectroscopy, waves through Teflon lens.</p>
+                <p>Worked with THz real-time objects such as THz waves through Teflon lens.</p>
             </div>
 
             <div class="announce-card glass">
@@ -1188,7 +1184,74 @@ onclick="flipHero()">
             <div class="announce-card glass">
                 <img src="Images/Voltage Bias back.jpeg" alt="Announcement 11">
                 <h3>Voltage Bias Device</h3>
+                <p>Conected this device for generating MHz to GHz frequencies using RF input pin.</p>
+            </div>
+
+            <div class="announce-card glass">
+                <img src="Images/upgrade.png" alt="Announcement 12">
+                <h3>Website Upgrade</h3>
+                <p>New animations, flip card, and improved mobile UI.</p>
+            </div>
+
+            <!-- DUPLICATE SET FOR PERFECT LOOP -->
+            <div class="announce-card glass">
+                <img src="Images/cable_connected.jpg" alt="Announcement 1">
+                <h3>New RF Project Launched</h3>
+                <p>Explore my latest THz antenna design with real‑time simulations using Handheld VNA.</p>
+            </div>
+
+            <div class="announce-card glass">
+                <img src="Images/LED Blinker.jpeg" alt="Announcement 2">
+                <h3>LED Blinker</h3>
+                <p>STM32 Microcontroller using CubeIDE with CubeMX, CubeMonitor and CubePragrammer.</p>
+            </div>
+
+            <div class="announce-card glass">
+                <img src="https://drive.google.com/file/d/1rtCa4hfSw_rDBUxjiO20AmD9bSfP_LXz/view?usp=sharing" alt="Announcement 3">
+                <h3>LED Blinker</h3>
+                <p>STM32 Microcontroller using CubeIDE with CubeMX, CubeMonitor and CubePragrammer.</p>
+            </div>
+
+            <div class="announce-card glass">
+                <img src="Images/THz Imaging.jpeg" alt="Announcement 4">
+                <h3>THz Lab</h3>
+                <p>Worked with THz real-time objects such as THz imaging system.</p>
+            </div>
+
+            <div class="announce-card glass">
+                <img src="Images/THz Receiver.jpeg" alt="Announcement 5">
+                <h3>THz Lab</h3>
+                <p>Worked with THz real-time objects such as THz Receiver.</p>
+            </div>
+
+            <div class="announce-card glass">
+                <img src="Images/THz Spectroscopy.jpeg" alt="Announcement 6">
+                <h3>THz Lab</h3>
+                <p>Worked with THz real-time objects such as THz Spectroscopy.</p>
+            </div>
+
+            <div class="announce-card glass">
+                <img src="Images/THz wave.jpeg" alt="Announcement 8">
+                <h3>THz Lab</h3>
+                <p>Worked with THz real-time objects such as THz waves through Teflon lens.</p>
+            </div>
+
+            <div class="announce-card glass">
+                <img src="images/Teflon.jpeg" alt="Announcement 9">
+                <h3>THz Lab</h3>
+                <p>Worked with THz real-time objects such as THz waves through Teflon lens.</p>
+            </div>
+
+            <div class="announce-card glass">
+                <img src="Images/Voltage Bias front.jpeg" alt="Announcement 10">
+                <h3>Voltage Bias Device</h3>
                 <p>Conected this device for generating MHz to GHz frequencies using Local Oscillator as Input Pin and Intermediate Frequency as output Pin.</p>
+            </div>
+
+            <div class="announce-card glass">
+                <img src="Images/Voltage Bias back.jpeg" alt="Announcement 11">
+                <h3>Voltage Bias Device</h3>
+                <p>Conected this device for generating MHz to GHz frequencies using RF input pin.</p>
             </div>
 
             <div class="announce-card glass">
