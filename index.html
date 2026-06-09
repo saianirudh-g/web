@@ -925,23 +925,22 @@ img{
     }
 }
 /* =========================================================
-   DESKTOP MENU — TABS AS VERTICAL LIST
+   DESKTOP MENU FIX — ONLY DESKTOP CODE
 ========================================================= */
-/* Desktop: show menu button if you want, or hide it */
+/* Desktop: menu button hidden */
 .menu-btn {
-    display: none; /* keep hidden on desktop */
+    display: none;
 }
-
-/* Desktop: nav links stacked like a list */
+/* Desktop: nav links always in a horizontal row */
 .nav-links {
     display: flex;
-    flex-direction: column;   /* ✅ vertical list */
-    align-items: flex-start;  /* left aligned */
-    justify-content: flex-start;
-    gap: 14px;
+    flex-direction: row;   /* horizontal */
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
     white-space: nowrap;
+    overflow: hidden;
 }
-
 /* MOBILE OVERRIDES */
 @media (max-width:768px){
     .menu-btn{
