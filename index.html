@@ -945,16 +945,20 @@ img{
     }
 }
 /* =========================================================
-   MOBILE MENU FIX
+   MOBILE MENU FIX — CORRECTED
 ========================================================= */
 /* Hide menu button on desktop */
-.menu-btn{
-    display:none;
+.menu-btn {
+    display: none;
 }
-/* Hide nav links by default (desktop layout handles them) */
-.nav-links{
-    display:flex;
-    gap:24px;
+
+/* Desktop nav links stay in a row */
+.nav-links {
+    display: flex;
+    flex-direction: row; /* ✅ ensures horizontal layout */
+    gap: 24px;
+    align-items: center;
+    justify-content: center;
 }
 /* MOBILE OVERRIDES */
 @media (max-width:768px){
