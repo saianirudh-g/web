@@ -225,7 +225,7 @@ nav{
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 160px 60px;
+  padding: 160px 40px;
   overflow: hidden;
 }
 .hero-container {
@@ -577,9 +577,8 @@ img{
     max-width: 1080px;
     margin: 0 auto;
     overflow: hidden;
-    padding: 0 80px; /* reduced so buttons stay inside slider */
+    padding: 0 80px; /* space for outside buttons */
     box-sizing: border-box;
-    z-index: 900; /* stays below header */
 }
 /* =========================================================
    SLIDER CONTAINER
@@ -656,7 +655,7 @@ img{
     background: #0891b2;
 }
 /* =========================================================
-   NAV BUTTONS (INSIDE SLIDER AREA)
+   NAV BUTTONS (OUTSIDE CARD AREA)
 ========================================================= */
 .nav-btn {
     position: absolute;
@@ -674,7 +673,7 @@ img{
     font-weight: bold;
     border-radius: 16px;
     cursor: pointer;
-    z-index: 950; /* stays below header but above slider */
+    z-index: 3000;
     box-shadow:
         0 0 25px rgba(0,229,255,0.9),
         0 0 12px rgba(255,255,255,0.6);
@@ -684,18 +683,12 @@ img{
     background: #22f3ff;
     transform: translateY(-50%) scale(1.1);
 }
-/* Buttons inside slider area */
+/* Buttons outside visible area */
 .prev-btn {
-    left: 15px;
+    left: 10px;
 }
 .next-btn {
-    right: 15px;
-}
-/* Ensure header stays above everything */
-header,
-nav {
-    position: relative;
-    z-index: 1000;
+    right: 10px;
 }
 /* =========================================================
    INFINITE ANNOUNCEMENT SLIDER — SEAMLESS LOOP
@@ -763,7 +756,6 @@ nav {
     color: #cbd5e1;
     line-height: 1.6;
 }
-
 /* MOBILE */
 @media (max-width: 768px) {
     .announce-card {
@@ -778,107 +770,29 @@ nav {
    MOBILE VIEW
 ========================================================= */
 @media (max-width: 768px) {
-    /* Keep slider content aligned and buttons inside header */
     .slider-wrapper {
-        position: relative;
-        overflow: hidden;
-        padding: 0 50px; /* extra space for buttons inside header */
-        z-index: 900;
-    }
-
-    .project-card {
-        flex: 0 0 100%;
-        min-width: 100%;
-        max-width: 100%;
-    }
-
-    /* Navigation buttons inside header area */
-    .nav-btn {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 42px;
-        height: 42px;
-        font-size: 20px;
-        border-radius: 50%;
-        background: rgba(0, 0, 0, 0.65);
-        border: 2px solid #fff;
-        color: #fff;
-        box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-        cursor: pointer;
-        z-index: 950; /* ensures buttons stay below header but above cards */
-        transition: background 0.3s ease;
-    }
-
-    .nav-btn:hover {
-        background: rgba(0, 0, 0, 0.85);
-    }
-
-    /* Left and right button positions */
-    .prev-btn {
-        left: 10px;
-    }
-
-    .next-btn {
-        right: 10px;
-    }
-
-    /* Ensure header stays above everything */
-    header,
-    nav {
-        position: relative;
-        z-index: 1000;
-    }
-}
-/* =========================================================
-   MOBILE VIEW
-========================================================= */
-@media (max-width: 768px) {
-    /* Keep slider content aligned and buttons inside header */
-    .slider-wrapper {
-        position: relative;
-        overflow: hidden;
-        padding: 0 45px; /* extra space for buttons inside header */
-        z-index: 900;
+        padding: 0 40px;
     }
     .project-card {
         flex: 0 0 100%;
         min-width: 100%;
         max-width: 100%;
     }
-    /* Navigation buttons inside header area */
     .nav-btn {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 42px;
-        height: 42px;
+        width: 44px;
+        height: 44px;
         font-size: 20px;
         border-radius: 50%;
-        background: rgba(0, 0, 0, 0.65);
+        background: rgba(0,0,0,0.65);
         border: 2px solid #fff;
         color: #fff;
-        box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-        cursor: pointer;
-        z-index: 950; /* ensures buttons stay below header but above cards */
-        transition: background 0.3s ease;
+        box-shadow: none;
     }
     .nav-btn:hover {
-        background: rgba(0, 0, 0, 0.85);
+        background: rgba(0,0,0,0.85);
     }
-    /* Left and right button positions */
-    .prev-btn {
-        left: 10px;
-    }
-    .next-btn {
-        right: 10px;
-    }
-    /* Ensure header stays above everything */
-    header,
-    nav {
-        position: relative;
-        z-index: 1000;
-    }
+    .prev-btn { left: 5px; }
+    .next-btn { right: 5px; }
 }
 /* =====================================================
    MOBILE HERO (FINAL FIX — PROFILE IMAGE BELOW BUTTONS)
