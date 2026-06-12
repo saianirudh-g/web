@@ -577,7 +577,7 @@ img{
     max-width: 1080px;
     margin: 0 auto;
     overflow: hidden;
-    padding: 0 60px; /* space for outside buttons */
+    padding: 0 80px; /* space for outside buttons */
     box-sizing: border-box;
 }
 /* =========================================================
@@ -692,10 +692,6 @@ img{
 }
 /* Ensure buttons stay below header when scrolling */
 header,
-nav {
-    z-index: 1000;
-    position: relative;
-}
 .slider-wrapper {
     z-index: 900;
 }
@@ -781,8 +777,6 @@ nav {
 ========================================================= */
 @media (max-width: 768px) {
     .slider-wrapper {
-        position: relative;
-        overflow: hidden;
         padding: 0 40px;
     }
     .project-card {
@@ -808,10 +802,6 @@ nav {
 }
 /* Ensure buttons stay below header when scrolling */
 header,
-nav {
-    z-index: 1000;
-    position: relative;
-}
 .slider-wrapper {
     z-index: 900;
 }
