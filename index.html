@@ -577,7 +577,7 @@ img{
     max-width: 1080px;
     margin: 0 auto;
     overflow: hidden;
-    padding: 0 80px; /* space for buttons inside slider */
+    padding: 0 80px; /* reduced so buttons stay inside slider */
     box-sizing: border-box;
     z-index: 900; /* stays below header */
 }
@@ -656,12 +656,12 @@ img{
     background: #0891b2;
 }
 /* =========================================================
-   NAV BUTTONS (INSIDE SLIDER, ALIGNED TO HEADER BOTTOM)
+   NAV BUTTONS (INSIDE SLIDER AREA)
 ========================================================= */
 .nav-btn {
     position: absolute;
-    top: calc(-40px); /* sits just under the header */
-    transform: translateY(0);
+    top: 50%;
+    transform: translateY(-50%);
     width: 58px;
     height: 58px;
     display: flex;
@@ -674,7 +674,7 @@ img{
     font-weight: bold;
     border-radius: 16px;
     cursor: pointer;
-    z-index: 950; /* below header, above slider */
+    z-index: 950; /* stays below header but above slider */
     box-shadow:
         0 0 25px rgba(0,229,255,0.9),
         0 0 12px rgba(255,255,255,0.6);
@@ -682,14 +682,14 @@ img{
 }
 .nav-btn:hover {
     background: #22f3ff;
-    transform: scale(1.1);
+    transform: translateY(-50%) scale(1.1);
 }
-/* Left and right button positions */
+/* Buttons inside slider area */
 .prev-btn {
-    left: 10px;
+    left: 15px;
 }
 .next-btn {
-    right: 10px;
+    right: 15px;
 }
 /* Ensure header stays above everything */
 header,
@@ -778,52 +778,100 @@ nav {
    MOBILE VIEW
 ========================================================= */
 @media (max-width: 768px) {
-    /* Slider wrapper stays below header and keeps buttons inside */
+    /* Keep slider content aligned and buttons inside header */
     .slider-wrapper {
         position: relative;
         overflow: hidden;
-        padding: 0 45px; /* space for buttons */
-        z-index: 900; /* stays below header */
+        padding: 0 50px; /* extra space for buttons inside header */
+        z-index: 900;
+    }
+
+    .project-card {
+        flex: 0 0 100%;
+        min-width: 100%;
+        max-width: 100%;
+    }
+
+    /* Navigation buttons inside header area */
+    .nav-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 42px;
+        height: 42px;
+        font-size: 20px;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.65);
+        border: 2px solid #fff;
+        color: #fff;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        cursor: pointer;
+        z-index: 950; /* ensures buttons stay below header but above cards */
+        transition: background 0.3s ease;
+    }
+
+    .nav-btn:hover {
+        background: rgba(0, 0, 0, 0.85);
+    }
+
+    /* Left and right button positions */
+    .prev-btn {
+        left: 10px;
+    }
+
+    .next-btn {
+        right: 10px;
+    }
+
+    /* Ensure header stays above everything */
+    header,
+    nav {
+        position: relative;
+        z-index: 1000;
+    }
+}
+/* =========================================================
+   MOBILE VIEW
+========================================================= */
+@media (max-width: 768px) {
+    /* Keep slider content aligned and buttons inside header */
+    .slider-wrapper {
+        position: relative;
+        overflow: hidden;
+        padding: 0 50px; /* extra space for buttons inside header */
+        z-index: 900;
     }
     .project-card {
         flex: 0 0 100%;
         min-width: 100%;
         max-width: 100%;
     }
-    /* =========================================================
-       NAV BUTTONS (INSIDE SLIDER, ALIGNED TO HEADER BOTTOM)
-    ========================================================= */
+    /* Navigation buttons inside header area */
     .nav-btn {
         position: absolute;
-        top: -35px; /* sits just under the header */
-        transform: translateY(0);
-        width: 44px;
-        height: 44px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 42px;
+        height: 42px;
         font-size: 20px;
-        border-radius: 12px;
-        background: #00e5ff;
-        border: 2px solid #ffffff;
-        color: #000;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.65);
+        border: 2px solid #fff;
+        color: #fff;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
         cursor: pointer;
-        z-index: 950; /* below header, above slider */
-        box-shadow:
-            0 0 18px rgba(0,229,255,0.9),
-            0 0 8px rgba(255,255,255,0.6);
-        transition: 0.25s ease;
+        z-index: 950; /* ensures buttons stay below header but above cards */
+        transition: background 0.3s ease;
     }
     .nav-btn:hover {
-        background: #22f3ff;
-        transform: scale(1.08);
+        background: rgba(0, 0, 0, 0.85);
     }
     /* Left and right button positions */
     .prev-btn {
-        left: 5px;
+        left: 10px;
     }
     .next-btn {
-        right: 5px;
+        right: 10px;
     }
     /* Ensure header stays above everything */
     header,
