@@ -1961,6 +1961,12 @@ Open for research collaboration, embedded systems development, RF engineering pr
 document.getElementById("followBtn").addEventListener("click", function () {
     document.getElementById("socialButtons").style.display = "block";
 });
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        document.querySelector('.nav-links').classList.remove('active');
+        document.querySelector('.menu-btn').classList.remove('active');
+    });
+});
 async function shareActualImage(button) {
     const card = button.closest(".project-card");
     const img = card.querySelector("img");
@@ -1980,7 +1986,7 @@ async function shareActualImage(button) {
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
             await navigator.share({
                 title: "Sharing Image",
-                text: "Check this out!",
+                text: "Check the shared image here!!",
                 files: [file]
             });
         } else {
