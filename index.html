@@ -571,15 +571,15 @@ img{
 /* =========================================================
    SLIDER WRAPPER
 ========================================================= */
-header,
 .slider-wrapper {
     position: relative;
     width: 100%;
     max-width: 1080px;
     margin: 0 auto;
     overflow: hidden;
-    padding: 0 80px; /* space for outside buttons */
+    padding: 0 60px; /* reduced so buttons stay inside slider */
     box-sizing: border-box;
+    z-index: 900; /* stays below header */
 }
 /* =========================================================
    SLIDER CONTAINER
@@ -593,7 +593,6 @@ header,
 /* =========================================================
    PROJECT CARD (DESKTOP)
 ========================================================= */
-header,
 .project-card {
     flex: 0 0 calc((100% - 40px) / 3);
     min-width: calc((100% - 40px) / 3);
@@ -657,7 +656,7 @@ header,
     background: #0891b2;
 }
 /* =========================================================
-   NAV BUTTONS (OUTSIDE CARD AREA)
+   NAV BUTTONS (INSIDE SLIDER AREA)
 ========================================================= */
 .nav-btn {
     position: absolute;
@@ -675,7 +674,7 @@ header,
     font-weight: bold;
     border-radius: 16px;
     cursor: pointer;
-    z-index: 3000;
+    z-index: 950; /* stays below header but above slider */
     box-shadow:
         0 0 25px rgba(0,229,255,0.9),
         0 0 12px rgba(255,255,255,0.6);
@@ -685,12 +684,18 @@ header,
     background: #22f3ff;
     transform: translateY(-50%) scale(1.1);
 }
-/* Buttons outside visible area */
+/* Buttons inside slider area */
 .prev-btn {
-    left: 10px;
+    left: 15px;
 }
 .next-btn {
-    right: 10px;
+    right: 15px;
+}
+/* Ensure header stays above everything */
+header,
+nav {
+    position: relative;
+    z-index: 1000;
 }
 /* =========================================================
    INFINITE ANNOUNCEMENT SLIDER — SEAMLESS LOOP
@@ -773,30 +778,51 @@ header,
    MOBILE VIEW
 ========================================================= */
 @media (max-width: 768px) {
-    header,
+    /* Keep slider content aligned and buttons inside header */
     .slider-wrapper {
-        padding: 0 40px;
+        position: relative;
+        overflow: hidden;
+        padding: 0 50px; /* extra space for buttons inside header */
+        z-index: 900;
     }
     .project-card {
         flex: 0 0 100%;
         min-width: 100%;
         max-width: 100%;
     }
+    /* Navigation buttons inside header area */
     .nav-btn {
-        width: 44px;
-        height: 44px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 42px;
+        height: 42px;
         font-size: 20px;
         border-radius: 50%;
-        background: rgba(0,0,0,0.65);
+        background: rgba(0, 0, 0, 0.65);
         border: 2px solid #fff;
         color: #fff;
-        box-shadow: none;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        cursor: pointer;
+        z-index: 950; /* ensures buttons stay below header but above cards */
+        transition: background 0.3s ease;
     }
     .nav-btn:hover {
-        background: rgba(0,0,0,0.85);
+        background: rgba(0, 0, 0, 0.85);
     }
-    .prev-btn { left: 5px; }
-    .next-btn { right: 5px; }
+    /* Left and right button positions */
+    .prev-btn {
+        left: 10px;
+    }
+    .next-btn {
+        right: 10px;
+    }
+    /* Ensure header stays above everything */
+    header,
+    nav {
+        position: relative;
+        z-index: 1000;
+    }
 }
 /* =====================================================
    MOBILE HERO (FINAL FIX — PROFILE IMAGE BELOW BUTTONS)
