@@ -943,10 +943,32 @@ img{
 }
 /* MOBILE OVERRIDES */
 @media (max-width:768px){
+    /* Show menu button */
     .menu-btn{
         display:block;
         z-index:4000;
+        font-size:32px;
+        cursor:pointer;
+        transition:0.3s ease;
     }
+    /* MENU → X animation */
+    .menu-btn.active::before {
+        content: "\00d7"; /* X symbol */
+        font-size: 38px;
+        line-height: 1;
+    }
+    /* Default MENU icon */
+    .menu-btn::before {
+        content: "\2630"; /* ☰ menu icon */
+        font-size: 34px;
+        line-height: 1;
+    }
+    /* Hide original text inside menu-btn if any */
+    .menu-btn span,
+    .menu-btn i {
+        display:none;
+    }
+    /* NAV PANEL */
     .nav-links{
         position:fixed;
         top:0;
@@ -966,7 +988,7 @@ img{
     .nav-links.active{
         transform:translateX(0);
     }
-    /* Prevent dropdowns from showing on mobile */
+    /* Prevent dropdowns on mobile */
     .menu-dropdown{
         display:none !important;
     }
@@ -1010,7 +1032,7 @@ img{
     <span class="rf-wave wave3"></span>
   </div>
 </div>
-    
+
 <div class="nav-links" id="navLinks">
 <a href="#home">Home</a>
 <a href="#announcement">Announcements</a>
