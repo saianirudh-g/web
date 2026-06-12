@@ -571,6 +571,7 @@ img{
 /* =========================================================
    SLIDER WRAPPER
 ========================================================= */
+header,
 .slider-wrapper {
     position: relative;
     width: 100%;
@@ -592,6 +593,7 @@ img{
 /* =========================================================
    PROJECT CARD (DESKTOP)
 ========================================================= */
+header,
 .project-card {
     flex: 0 0 calc((100% - 40px) / 3);
     min-width: calc((100% - 40px) / 3);
@@ -690,11 +692,6 @@ img{
 .next-btn {
     right: 10px;
 }
-/* Ensure buttons stay below header when scrolling */
-header,
-.slider-wrapper {
-    z-index: 900;
-}
 /* =========================================================
    INFINITE ANNOUNCEMENT SLIDER — SEAMLESS LOOP
 ========================================================= */
@@ -776,6 +773,7 @@ header,
    MOBILE VIEW
 ========================================================= */
 @media (max-width: 768px) {
+    header,
     .slider-wrapper {
         padding: 0 40px;
     }
@@ -799,11 +797,6 @@ header,
     }
     .prev-btn { left: 5px; }
     .next-btn { right: 5px; }
-}
-/* Ensure buttons stay below header when scrolling */
-header,
-.slider-wrapper {
-    z-index: 900;
 }
 /* =====================================================
    MOBILE HERO (FINAL FIX — PROFILE IMAGE BELOW BUTTONS)
