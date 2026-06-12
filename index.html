@@ -1008,6 +1008,69 @@ img{
         font-size:24px;
     }
 }
+/* UNIVERSAL SHARE BUTTON ON EVERY PROJECT CARD */
+.project-card {
+    position: relative;
+}
+/* Share icon (CSS-only button) */
+.share-trigger {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: #2563eb;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    z-index: 10;
+}
+/* Hide checkbox */
+#globalShareToggle {
+    display: none;
+}
+/* Global share panel */
+.global-share-panel {
+    position: fixed;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    background: #111827;
+    padding: 20px;
+    border-radius: 20px 20px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: 0.3s ease-in-out;
+    z-index: 9999;
+}
+/* Slide up when opened */
+#globalShareToggle:checked ~ .global-share-panel {
+    bottom: 0;
+}
+/* Share links */
+.global-share-panel a {
+    background: #1f2937;
+    padding: 12px;
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 15px;
+}
+.global-share-panel a:hover {
+    background: #374151;
+}
+/* Close button */
+.close-share {
+    margin-top: 10px;
+    padding: 10px;
+    background: #ef4444;
+    color: white;
+    text-align: center;
+    border-radius: 10px;
+    cursor: pointer;
+}
 </style>
 </head>
 
@@ -1636,6 +1699,7 @@ onclick="flipHero()">
 <h3>Rising Star Award</h3>
 <p>Awarded by CEO of QualiZeal in 2024.</p>
 </div>
+<label for="globalShareToggle" class="share-trigger">Share</label>
 </div>
 
 <div class="project-card glass">
@@ -1644,6 +1708,7 @@ onclick="flipHero()">
 <h3>One Year Completion</h3>
 <p>Successfully completed one year at QualiZeal.</p>
 </div>
+<label for="globalShareToggle" class="share-trigger">Share</label>
 </div>
 
 <div class="project-card glass">
@@ -1652,6 +1717,7 @@ onclick="flipHero()">
 <h3>B.Tech Graduation</h3>
 <p>Graduation day at Vishnu Institute of Technology.</p>
 </div>
+<label for="globalShareToggle" class="share-trigger">Share</label>
 </div>
 
 <div class="project-card glass">
@@ -1660,6 +1726,7 @@ onclick="flipHero()">
 <h3>QualiZeal Brand Ambassdor</h3>
 <p>I'm proud to be a brand ambassdor for such a great organization like Qualizeal.</p>
 </div>
+<label for="globalShareToggle" class="share-trigger">Share</label>
 </div>
     
 </div>
@@ -1681,81 +1748,97 @@ onclick="flipHero()">
 <div class="project-card glass">
 <img src="Certifications/fastbit.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
 <div class="project-content"><h3>Embedded Systems Bootcamp – Fastbit Embedded Brain Academy</h3></div>
+<label for="globalShareToggle" class="share-trigger">Share</label>
 </div>
 
 <div class="project-card glass">
 <img src="Certifications/Microcontroller Embedded C.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
 <div class="project-content"><h3>Microcontroller Embedded C – Udemy</h3></div>
+<label for="globalShareToggle" class="share-trigger">Share</label>
 </div>
 
 <div class="project-card glass">
 <img src="Certifications/AWS.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
 <div class="project-content"><h3>AWS Academy</h3></div>
+<label for="globalShareToggle" class="share-trigger">Share</label>
 </div>
 
 <div class="project-card glass">
 <img src="Certifications/Guvi - Gen-AI.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
 <div class="project-content"><h3>Generative AI</h3></div>
+<label for="globalShareToggle" class="share-trigger">Share</label>
 </div>
 
 <div class="project-card glass">
 <img src="Certifications/Guvi - Python Zero to Hero.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
 <div class="project-content"><h3>Python Zero to Hero</h3></div>
+<label for="globalShareToggle" class="share-trigger">Share</label>
 </div>
 
 <div class="project-card glass">
 <img src="Certifications/Guvi - SAWiT.Ai Challenge.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
 <div class="project-content"><h3>SAWiT.Ai Challenge</h3></div>
+<label for="globalShareToggle" class="share-trigger">Share</label>
 </div>
 
 <div class="project-card glass">
 <img src="Certifications/SEL 101.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
 <div class="project-content"><h3>SEL Relay 101</h3></div>
+<label for="globalShareToggle" class="share-trigger">Share</label>
 </div>
 
 <div class="project-card glass">
 <img src="Certifications/SEL 102.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
 <div class="project-content"><h3>SEL Relay 102</h3></div>
+<label for="globalShareToggle" class="share-trigger">Share</label>
 </div>
 
 <div class="project-card glass">
 <img src="Certifications/CBT 104.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
 <div class="project-content"><h3>Understanding SEL Relay Logic</h3></div>
+<label for="globalShareToggle" class="share-trigger">Share</label>
 </div>
 
 <div class="project-card glass">
 <img src="Certifications/CBT 105.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
 <div class="project-content"><h3>Math Fundamentals</h3></div>
+<label for="globalShareToggle" class="share-trigger">Share</label>
 </div>
 
 <div class="project-card glass">
 <img src="Certifications/food handler.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
 <div class="project-content"><h3>Food Handler Safety Certificate</h3></div>
+<label for="globalShareToggle" class="share-trigger">Share</label>
 </div>
 
 <div class="project-card glass">
 <img src="Certifications/Tosca.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
 <div class="project-content"><h3>Tosca Product Consultant Certification Exam by Tricentis Academy.</h3></div>
+<label for="globalShareToggle" class="share-trigger">Share</label>
 </div>
     
 <div class="project-card glass">
 <img src="Certifications/Neoload.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
 <div class="project-content"><h3>Neoload Product Consultant Certification Exam by Tricentis Academy.</h3></div>
+<label for="globalShareToggle" class="share-trigger">Share</label>
 </div>
 
 <div class="project-card glass">
 <img src="Certifications/Manual.jpeg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
 <div class="project-content"><h3>Manual testing with Browserstack Live</h3></div>
+<label for="globalShareToggle" class="share-trigger">Share</label>
 </div>
 
 <div class="project-card glass">
 <img src="Certifications/Automation.jpeg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
 <div class="project-content"><h3>Test Automation with TestNG Framework by Browserstack Company</h3></div>
+<label for="globalShareToggle" class="share-trigger">Share</label>
 </div>
 
 <div class="project-card glass">
 <img src="Certifications/Sardar.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
 <div class="project-content"><h3>Sardar Unity Trinity Quiz by Swabhimani Bharat.</h3></div>
+<label for="globalShareToggle" class="share-trigger">Share</label>
 </div>
     
 </div>
@@ -1780,6 +1863,7 @@ onclick="flipHero()">
 <h3>Dharma Talk - The Mindscape</h3>
 <p>A Motivational Speech about peace and mind control with the buddha's spirituality by "Robert" in "The Unity Temple" at Kansas City.</p>
 </div>
+<label for="globalShareToggle" class="share-trigger">Share</label>
 </div>
 
 <div class="project-card glass">
@@ -1788,6 +1872,7 @@ onclick="flipHero()">
 <h3>My Last Working Day 2025</h3>
 <p>A picture with CEO of Qualizeal on All hands meeting.</p>
 </div>
+<label for="globalShareToggle" class="share-trigger">Share</label>
 </div>
 
 <div class="project-card glass">
@@ -1796,6 +1881,7 @@ onclick="flipHero()">
 <h3>BrowserStack Meetup II</h3>
 <p>Generative AI meetup experience.</p>
 </div>
+<label for="globalShareToggle" class="share-trigger">Share</label>
 </div>
     
 <div class="project-card glass">
@@ -1804,6 +1890,7 @@ onclick="flipHero()">
 <h3>BrowserStack Meetup I</h3>
 <p>Performance testing and Gen-AI meetup experience.</p>
 </div>
+<label for="globalShareToggle" class="share-trigger">Share</label>
 </div>
 
 <div class="project-card glass">
@@ -1812,6 +1899,7 @@ onclick="flipHero()">
 <h3>Team Outing</h3>
 <p>QualiZeal team outing memories.</p>
 </div>
+<label for="globalShareToggle" class="share-trigger">Share</label>
 </div>
 
 <div class="project-card glass">
@@ -1820,6 +1908,7 @@ onclick="flipHero()">
 <h3>Firmware Team Lunch</h3>
 <p>Great memories with firmware development team.</p>
 </div>
+<label for="globalShareToggle" class="share-trigger">Share</label>
 </div>
 
 <div class="project-card glass">
@@ -1830,12 +1919,29 @@ onclick="flipHero()">
     Total Distance is 65 KM.
     Time Taken is 1:00 pm to 4:30 pm & 6:00 pm to 9:00 pm.</p>
 </div>
+<label for="globalShareToggle" class="share-trigger">Share</label>
 </div>
 
 </div>
 <button class="nav-btn next-btn">❯</button>
 </div>
 </section>
+
+<!-- ⭐ UNIVERSAL SHARE MENU (ADD AT END OF PAGE) ⭐ -->
+<input type="checkbox" id="globalShareToggle">
+
+<div class="global-share-panel">
+    <h3 style="color:white; text-align:center;">Share This</h3>
+
+    <a href="https://wa.me/?text=Check%20this%20out:%20YOUR_URL" target="_blank">WhatsApp</a>
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url=YOUR_URL" target="_blank">LinkedIn</a>
+    <a href="https://www.instagram.com/" target="_blank">Instagram</a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=YOUR_URL" target="_blank">Facebook</a>
+    <a href="https://twitter.com/intent/tweet?url=YOUR_URL" target="_blank">X (Twitter)</a>
+    <a href="mailto:?subject=Check this out&body=YOUR_URL">Email</a>
+
+    <label for="globalShareToggle" class="close-share">Close</label>
+</div>
 
 <!-- CONTACT -->
 <section id="contact">
