@@ -1012,64 +1012,34 @@ img{
 .project-card {
     position: relative;
 }
-/* Share icon (CSS-only button) */
-.share-trigger {
+
+/* Share button inside each card */
+.share-trigger,
+.share-btn {
     position: absolute;
     bottom: 10px;
     right: 10px;
     background: #2563eb;
     color: white;
-    padding: 6px 12px;
+    padding: 8px 14px;
     border-radius: 8px;
     font-size: 14px;
     cursor: pointer;
     z-index: 10;
+    border: none;
+    transition: 0.2s ease;
 }
-/* Hide checkbox */
-#globalShareToggle {
-    display: none;
+
+.share-trigger:hover,
+.share-btn:hover {
+    background: #1e40af;
 }
-/* Global share panel */
-.global-share-panel {
-    position: fixed;
-    bottom: -100%;
-    left: 0;
-    width: 100%;
-    background: #111827;
-    padding: 20px;
-    border-radius: 20px 20px 0 0;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    transition: 0.3s ease-in-out;
-    z-index: 9999;
-}
-/* Slide up when opened */
-#globalShareToggle:checked ~ .global-share-panel {
-    bottom: 0;
-}
-/* Share links */
-.global-share-panel a {
-    background: #1f2937;
-    padding: 12px;
-    border-radius: 10px;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    font-size: 15px;
-}
-.global-share-panel a:hover {
-    background: #374151;
-}
-/* Close button */
+
+/* Remove old global share menu system */
+#globalShareToggle,
+.global-share-panel,
 .close-share {
-    margin-top: 10px;
-    padding: 10px;
-    background: #ef4444;
-    color: white;
-    text-align: center;
-    border-radius: 10px;
-    cursor: pointer;
+    display: none !important;
 }
 </style>
 </head>
@@ -1699,7 +1669,7 @@ onclick="flipHero()">
 <h3>Rising Star Award</h3>
 <p>Awarded by CEO of QualiZeal in 2024.</p>
 </div>
-<label for="globalShareToggle" class="share-trigger">Share</label>
+<button class="share-btn" onclick="shareActualImage(this)">Share</button>
 </div>
 
 <div class="project-card glass">
@@ -1708,7 +1678,7 @@ onclick="flipHero()">
 <h3>One Year Completion</h3>
 <p>Successfully completed one year at QualiZeal.</p>
 </div>
-<label for="globalShareToggle" class="share-trigger">Share</label>
+<button class="share-btn" onclick="shareActualImage(this)">Share</button>
 </div>
 
 <div class="project-card glass">
@@ -1717,7 +1687,7 @@ onclick="flipHero()">
 <h3>B.Tech Graduation</h3>
 <p>Graduation day at Vishnu Institute of Technology.</p>
 </div>
-<label for="globalShareToggle" class="share-trigger">Share</label>
+<button class="share-btn" onclick="shareActualImage(this)">Share</button>
 </div>
 
 <div class="project-card glass">
@@ -1726,7 +1696,7 @@ onclick="flipHero()">
 <h3>QualiZeal Brand Ambassdor</h3>
 <p>I'm proud to be a brand ambassdor for such a great organization like Qualizeal.</p>
 </div>
-<label for="globalShareToggle" class="share-trigger">Share</label>
+<button class="share-btn" onclick="shareActualImage(this)">Share</button>
 </div>
     
 </div>
@@ -1748,97 +1718,97 @@ onclick="flipHero()">
 <div class="project-card glass">
 <img src="Certifications/fastbit.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
 <div class="project-content"><h3>Embedded Systems Bootcamp – Fastbit Embedded Brain Academy</h3></div>
-<label for="globalShareToggle" class="share-trigger">Share</label>
+<button class="share-btn" onclick="shareActualImage(this)">Share</button>
 </div>
 
 <div class="project-card glass">
 <img src="Certifications/Microcontroller Embedded C.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
 <div class="project-content"><h3>Microcontroller Embedded C – Udemy</h3></div>
-<label for="globalShareToggle" class="share-trigger">Share</label>
+<button class="share-btn" onclick="shareActualImage(this)">Share</button>
 </div>
 
 <div class="project-card glass">
 <img src="Certifications/AWS.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
 <div class="project-content"><h3>AWS Academy</h3></div>
-<label for="globalShareToggle" class="share-trigger">Share</label>
+<button class="share-btn" onclick="shareActualImage(this)">Share</button>
 </div>
 
 <div class="project-card glass">
 <img src="Certifications/Guvi - Gen-AI.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
 <div class="project-content"><h3>Generative AI</h3></div>
-<label for="globalShareToggle" class="share-trigger">Share</label>
+<button class="share-btn" onclick="shareActualImage(this)">Share</button>
 </div>
 
 <div class="project-card glass">
 <img src="Certifications/Guvi - Python Zero to Hero.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
 <div class="project-content"><h3>Python Zero to Hero</h3></div>
-<label for="globalShareToggle" class="share-trigger">Share</label>
+<button class="share-btn" onclick="shareActualImage(this)">Share</button>
 </div>
 
 <div class="project-card glass">
 <img src="Certifications/Guvi - SAWiT.Ai Challenge.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
 <div class="project-content"><h3>SAWiT.Ai Challenge</h3></div>
-<label for="globalShareToggle" class="share-trigger">Share</label>
+<button class="share-btn" onclick="shareActualImage(this)">Share</button>
 </div>
 
 <div class="project-card glass">
 <img src="Certifications/SEL 101.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
 <div class="project-content"><h3>SEL Relay 101</h3></div>
-<label for="globalShareToggle" class="share-trigger">Share</label>
+<button class="share-btn" onclick="shareActualImage(this)">Share</button>
 </div>
 
 <div class="project-card glass">
 <img src="Certifications/SEL 102.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
 <div class="project-content"><h3>SEL Relay 102</h3></div>
-<label for="globalShareToggle" class="share-trigger">Share</label>
+<button class="share-btn" onclick="shareActualImage(this)">Share</button>
 </div>
 
 <div class="project-card glass">
 <img src="Certifications/CBT 104.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
 <div class="project-content"><h3>Understanding SEL Relay Logic</h3></div>
-<label for="globalShareToggle" class="share-trigger">Share</label>
+<button class="share-btn" onclick="shareActualImage(this)">Share</button>
 </div>
 
 <div class="project-card glass">
 <img src="Certifications/CBT 105.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
 <div class="project-content"><h3>Math Fundamentals</h3></div>
-<label for="globalShareToggle" class="share-trigger">Share</label>
+<button class="share-btn" onclick="shareActualImage(this)">Share</button>
 </div>
 
 <div class="project-card glass">
 <img src="Certifications/food handler.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
 <div class="project-content"><h3>Food Handler Safety Certificate</h3></div>
-<label for="globalShareToggle" class="share-trigger">Share</label>
+<button class="share-btn" onclick="shareActualImage(this)">Share</button>
 </div>
 
 <div class="project-card glass">
 <img src="Certifications/Tosca.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
 <div class="project-content"><h3>Tosca Product Consultant Certification Exam by Tricentis Academy.</h3></div>
-<label for="globalShareToggle" class="share-trigger">Share</label>
+<button class="share-btn" onclick="shareActualImage(this)">Share</button>
 </div>
     
 <div class="project-card glass">
 <img src="Certifications/Neoload.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
 <div class="project-content"><h3>Neoload Product Consultant Certification Exam by Tricentis Academy.</h3></div>
-<label for="globalShareToggle" class="share-trigger">Share</label>
+<button class="share-btn" onclick="shareActualImage(this)">Share</button>
 </div>
 
 <div class="project-card glass">
 <img src="Certifications/Manual.jpeg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
 <div class="project-content"><h3>Manual testing with Browserstack Live</h3></div>
-<label for="globalShareToggle" class="share-trigger">Share</label>
+<button class="share-btn" onclick="shareActualImage(this)">Share</button>
 </div>
 
 <div class="project-card glass">
 <img src="Certifications/Automation.jpeg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
 <div class="project-content"><h3>Test Automation with TestNG Framework by Browserstack Company</h3></div>
-<label for="globalShareToggle" class="share-trigger">Share</label>
+<button class="share-btn" onclick="shareActualImage(this)">Share</button>
 </div>
 
 <div class="project-card glass">
 <img src="Certifications/Sardar.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;">
 <div class="project-content"><h3>Sardar Unity Trinity Quiz by Swabhimani Bharat.</h3></div>
-<label for="globalShareToggle" class="share-trigger">Share</label>
+<button class="share-btn" onclick="shareActualImage(this)">Share</button>
 </div>
     
 </div>
@@ -1863,7 +1833,7 @@ onclick="flipHero()">
 <h3>Dharma Talk - The Mindscape</h3>
 <p>A Motivational Speech about peace and mind control with the buddha's spirituality by "Robert" in "The Unity Temple" at Kansas City.</p>
 </div>
-<label for="globalShareToggle" class="share-trigger">Share</label>
+<button class="share-btn" onclick="shareActualImage(this)">Share</button>
 </div>
 
 <div class="project-card glass">
@@ -1872,7 +1842,7 @@ onclick="flipHero()">
 <h3>My Last Working Day 2025</h3>
 <p>A picture with CEO of Qualizeal on All hands meeting.</p>
 </div>
-<label for="globalShareToggle" class="share-trigger">Share</label>
+<button class="share-btn" onclick="shareActualImage(this)">Share</button>
 </div>
 
 <div class="project-card glass">
@@ -1881,7 +1851,7 @@ onclick="flipHero()">
 <h3>BrowserStack Meetup II</h3>
 <p>Generative AI meetup experience.</p>
 </div>
-<label for="globalShareToggle" class="share-trigger">Share</label>
+<button class="share-btn" onclick="shareActualImage(this)">Share</button>
 </div>
     
 <div class="project-card glass">
@@ -1890,7 +1860,7 @@ onclick="flipHero()">
 <h3>BrowserStack Meetup I</h3>
 <p>Performance testing and Gen-AI meetup experience.</p>
 </div>
-<label for="globalShareToggle" class="share-trigger">Share</label>
+<button class="share-btn" onclick="shareActualImage(this)">Share</button>
 </div>
 
 <div class="project-card glass">
@@ -1899,7 +1869,7 @@ onclick="flipHero()">
 <h3>Team Outing</h3>
 <p>QualiZeal team outing memories.</p>
 </div>
-<label for="globalShareToggle" class="share-trigger">Share</label>
+<button class="share-btn" onclick="shareActualImage(this)">Share</button>
 </div>
 
 <div class="project-card glass">
@@ -1908,7 +1878,7 @@ onclick="flipHero()">
 <h3>Firmware Team Lunch</h3>
 <p>Great memories with firmware development team.</p>
 </div>
-<label for="globalShareToggle" class="share-trigger">Share</label>
+<button class="share-btn" onclick="shareActualImage(this)">Share</button>
 </div>
 
 <div class="project-card glass">
@@ -1919,7 +1889,7 @@ onclick="flipHero()">
     Total Distance is 65 KM.
     Time Taken is 1:00 pm to 4:30 pm & 6:00 pm to 9:00 pm.</p>
 </div>
-<label for="globalShareToggle" class="share-trigger">Share</label>
+<button class="share-btn" onclick="shareActualImage(this)">Share</button>
 </div>
 
 </div>
@@ -1991,6 +1961,36 @@ Open for research collaboration, embedded systems development, RF engineering pr
 document.getElementById("followBtn").addEventListener("click", function () {
     document.getElementById("socialButtons").style.display = "block";
 });
+async function shareActualImage(button) {
+    const card = button.closest(".project-card");
+    const img = card.querySelector("img");
+
+    if (!img) {
+        alert("No image found in this card");
+        return;
+    }
+
+    const imageURL = img.src;
+
+    try {
+        const response = await fetch(imageURL);
+        const blob = await response.blob();
+        const file = new File([blob], "shared-image.png", { type: blob.type });
+
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            await navigator.share({
+                title: "Sharing Image",
+                text: "Check this out!",
+                files: [file]
+            });
+        } else {
+            alert("Your browser does not support sharing files.");
+        }
+    } catch (error) {
+        console.error("Sharing failed:", error);
+        alert("Unable to share the image.");
+    }
+}
 /* =========================================================
    HERO FLIP
 ========================================================= */
