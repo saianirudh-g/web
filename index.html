@@ -117,60 +117,73 @@ body{
 /* =========================================================
    NAVBAR
 ========================================================= */
-header{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  z-index:999;
-  backdrop-filter:blur(15px);
-  background:rgba(15,23,42,0.7);
-  border-bottom:1px solid rgba(255,255,255,0.08);
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  backdrop-filter: blur(15px);
+  background: rgba(15, 23, 42, 0.7);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
-nav{
-  width:100%;
-  margin:0;
-  padding:10px 40px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  background:#0b1120;
-  position:relative;
-  z-index:3000;
-  overflow:visible;
+
+/* Navbar container */
+nav {
+  width: 100%;
+  margin: 0;
+  padding: 10px 40px;
+  display: flex;
+  align-items: flex-start; /* aligns logo and vertical menu at top */
+  justify-content: flex-start;
+  background: #0b1120;
+  position: relative;
+  z-index: 3000;
+  overflow: visible;
+  gap: 40px; /* space between logo and menu */
 }
-.logo{
-  display:flex;
-  align-items:center;
-  flex-shrink:0;
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
 }
-.nav-links{
-  display:flex;
-  align-items:center;
-  gap:25px;
-  flex:1;
-  justify-content:center;
-  white-space:nowrap;
-  overflow:hidden;
+
+/* Vertical nav links */
+.nav-links {
+  display: flex;
+  flex-direction: column; /* stack items vertically */
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 12px; /* spacing between items */
+  white-space: nowrap;
+  overflow: visible;
+  width: auto;
 }
-.nav-links a{
-  text-decoration:none;
-  color:white;
-  font-weight:500;
-  transition:0.3s;
+
+/* Menu links */
+.nav-links a {
+  text-decoration: none;
+  color: #f8fafc;
+  font-weight: 500;
+  transition: color 0.3s ease;
 }
-.nav-links a:hover{
-  color:#06b6d4;
+
+.nav-links a:hover {
+  color: #06b6d4;
 }
-.menu-btn{
-  position:absolute;
-  right:20px;
-  top:25px;
-  z-index:4000;
-  cursor:pointer;
-  color:#fff;
-  font-size:22px;
-  display:none;
+
+/* Menu button hidden on desktop */
+.menu-btn {
+  position: absolute;
+  right: 20px;
+  top: 25px;
+  z-index: 4000;
+  cursor: pointer;
+  color: #fff;
+  font-size: 22px;
+  display: none;
 }
 /* =========================================================
    RF THz ANIMATED LOGO
@@ -776,23 +789,6 @@ img{
     font-size: 14px;
     color: #cbd5e1;
     line-height: 1.6;
-}
-/* =========================================================
-   DESKTOP MENU FIX — ONLY DESKTOP CODE
-========================================================= */
-/* Desktop: menu button hidden */
-.menu-btn {
-    display: none;
-}
-/* Desktop: nav links in a vertical list */
-.nav-links {
-    display: flex;
-    flex-direction: column;     /* vertical layout */
-    align-items: flex-start;    /* left-align items */
-    justify-content: flex-start;
-    gap: 12px;                  /* spacing between items */
-    padding: 20px 0;
-    white-space: nowrap;
 }
 /* MOBILE */
 @media (max-width: 768px) {
