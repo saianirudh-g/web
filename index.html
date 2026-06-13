@@ -127,39 +127,35 @@ header {
   background: rgba(15, 23, 42, 0.7);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
-
 /* Navbar container */
 nav {
   width: 100%;
   margin: 0;
   padding: 10px 40px;
   display: flex;
-  align-items: center; /* center logo + links vertically */
+  align-items: center;
   justify-content: space-between;
   background: #0b1120;
   position: relative;
   z-index: 3000;
   overflow: visible;
 }
-
 /* Logo */
 .logo {
   display: flex;
   align-items: center;
   flex-shrink: 0;
 }
-
 /* Desktop: nav links horizontal */
 .nav-links {
   display: flex;
-  flex-direction: row;   /* horizontal layout */
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 25px;             /* spacing between items */
+  gap: 25px;
   white-space: nowrap;
   overflow: visible;
 }
-
 /* Menu links */
 .nav-links a {
   text-decoration: none;
@@ -167,11 +163,9 @@ nav {
   font-weight: 500;
   transition: color 0.3s ease;
 }
-
 .nav-links a:hover {
   color: #06b6d4;
 }
-
 /* Menu button hidden on desktop */
 .menu-btn {
   position: absolute;
@@ -198,7 +192,6 @@ nav {
   z-index:2;
   filter:drop-shadow(0 0 6px rgba(6,182,212,0.6));
 }
-
 .rf-wave{
   position:absolute;
   top:50%;
@@ -2012,7 +2005,6 @@ async function shareActualImage(button) {
 function flipHero() {
   document.getElementById("heroCard").classList.toggle("flipped");
 }
-
 /* =========================================================
    INJECT .btn-link CSS FROM SCRIPT
 ========================================================= */
