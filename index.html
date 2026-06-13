@@ -134,13 +134,12 @@ nav {
   margin: 0;
   padding: 10px 40px;
   display: flex;
-  align-items: flex-start; /* aligns logo and vertical menu at top */
-  justify-content: flex-start;
+  align-items: center; /* center logo + links vertically */
+  justify-content: space-between;
   background: #0b1120;
   position: relative;
   z-index: 3000;
   overflow: visible;
-  gap: 40px; /* space between logo and menu */
 }
 
 /* Logo */
@@ -150,16 +149,15 @@ nav {
   flex-shrink: 0;
 }
 
-/* Vertical nav links */
+/* Desktop: nav links horizontal */
 .nav-links {
   display: flex;
-  flex-direction: column; /* stack items vertically */
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: 12px; /* spacing between items */
+  flex-direction: row;   /* horizontal layout */
+  align-items: center;
+  justify-content: center;
+  gap: 25px;             /* spacing between items */
   white-space: nowrap;
   overflow: visible;
-  width: auto;
 }
 
 /* Menu links */
@@ -184,20 +182,6 @@ nav {
   color: #fff;
   font-size: 22px;
   display: none;
-}
-/* Desktop: menu button hidden */
-.menu-btn {
-    display: none;
-}
-/* Desktop: nav links always in a horizontal row */
-.nav-links {
-    display: flex;
-    flex-direction: row;   /* horizontal */
-    align-items: center;
-    justify-content: center;
-    gap: 25px;
-    white-space: nowrap;
-    overflow: hidden;
 }
 /* =========================================================
    RF THz ANIMATED LOGO
