@@ -545,16 +545,30 @@ section{
 /* =========================================================
    FOOTER
 ========================================================= */
-footer{
-  text-align:center;
-  padding:40px 20px;
-  color:#94a3b8;
-  margin-top:40px;
+footer {
+  text-align: center;
+  padding: 40px 20px;
+  color: #94a3b8;
+  margin-top: 40px;
+  background-color: #f9fafb; /* subtle background for contrast */
 }
-.footer-follow{
-  margin-bottom:15px;
-  font-size:18px;
-  letter-spacing:1px;
+.footer-follow {
+  margin-bottom: 15px;
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+.footer-follow .btn-link {
+  color: #94a3b8;
+  margin: 0 10px;
+  font-size: 22px;
+  transition: color 0.3s ease;
+}
+.footer-follow .btn-link:hover {
+  color: #0077b5; /* LinkedIn blue accent */
+}
+/* Font Awesome icon alignment */
+.footer-follow i {
+  vertical-align: middle;
 }
 /* =========================================================
    GLOBAL FIXES (IMPORTANT FOR STABILITY)
@@ -1896,22 +1910,6 @@ onclick="flipHero()">
 </div>
 </section>
 
-<!-- ⭐ UNIVERSAL SHARE MENU (ADD AT END OF PAGE) ⭐ -->
-<input type="checkbox" id="globalShareToggle">
-
-<div class="global-share-panel">
-    <h3 style="color:white; text-align:center;">Share This</h3>
-
-    <a href="https://wa.me/?text=Check%20this%20out:%20YOUR_URL" target="_blank">WhatsApp</a>
-    <a href="https://www.linkedin.com/sharing/share-offsite/?url=YOUR_URL" target="_blank">LinkedIn</a>
-    <a href="https://www.instagram.com/" target="_blank">Instagram</a>
-    <a href="https://www.facebook.com/sharer/sharer.php?u=YOUR_URL" target="_blank">Facebook</a>
-    <a href="https://twitter.com/intent/tweet?url=YOUR_URL" target="_blank">X (Twitter)</a>
-    <a href="mailto:?subject=Check this out&body=YOUR_URL">Email</a>
-
-    <label for="globalShareToggle" class="close-share">Close</label>
-</div>
-
 <!-- CONTACT -->
 <section id="contact">
 <h2 class="section-title">Contact <span>Me</span></h2>
@@ -1946,13 +1944,30 @@ Open for research collaboration, embedded systems development, RF engineering pr
 <footer class="footer">
   <div class="footer-follow">
     FOLLOW:
-    <a href="https://github.com/saianirudh-g" class="btn-link" target="_blank">GITHUB</a>
-    <a href="https://www.linkedin.com/in/sai-anirudh-godavarthi-710b16273/" class="btn-link" target="_blank">LINKEDIN</a>
-    <a href="https://x.com/sai_anirudh1268" class="btn-link" target="_blank">TWITTER</a>
-    <a href="https://umkc.joinhandshake.com/profiles/saianirudh-g" class="btn-link" target="_blank">HANDSHAKE</a>
+    <a href="https://www.facebook.com/godavarthi.saianirudh.9" class="btn-link" target="_blank">
+      <i class="fab fa-facebook"></i>
+    </a>
+    <a href="https://www.instagram.com/godaari_abbayi_in_america" class="btn-link" target="_blank">
+      <i class="fab fa-instagram"></i>
+    </a>
+    <a href="https://www.youtube.com/@life_of_anirudh" class="btn-link" target="_blank">
+      <i class="fab fa-youtube"></i>
+    </a>
+    <a href="https://x.com/sai_anirudh1268" class="btn-link" target="_blank">
+      <i class="fab fa-twitter"></i>
+    </a>
+    <a href="https://www.linkedin.com/in/sai-anirudh-godavarthi-710b16273/" class="btn-link" target="_blank">
+      <i class="fab fa-linkedin-in"></i>
+    </a>
+    <a href="https://github.com/saianirudh-g" class="btn-link" target="_blank">
+      <i class="fab fa-github"></i>
+    </a>
+    <a href="https://umkc.joinhandshake.com/profiles/saianirudh-g" class="btn-link" target="_blank">
+      <i class="fas fa-handshake"></i>
+    </a>
   </div>
 
-  <p>© 2026 Sai Anirudh Godavarthi | Built with HTML CSS & JavaScript</p>
+  <p>© 2026 Sai Anirudh Godavarthi | Built with HTML, CSS & JavaScript</p>
 </footer>
 
 <!-- JAVASCRIPT -->
