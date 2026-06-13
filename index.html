@@ -777,6 +777,23 @@ img{
     color: #cbd5e1;
     line-height: 1.6;
 }
+/* =========================================================
+   DESKTOP MENU FIX — ONLY DESKTOP CODE
+========================================================= */
+/* Desktop: menu button hidden */
+.menu-btn {
+    display: none;
+}
+/* Desktop: nav links in a vertical list */
+.nav-links {
+    display: flex;
+    flex-direction: column;     /* vertical layout */
+    align-items: flex-start;    /* left-align items */
+    justify-content: flex-start;
+    gap: 12px;                  /* spacing between items */
+    padding: 20px 0;
+    white-space: nowrap;
+}
 /* MOBILE */
 @media (max-width: 768px) {
     .announce-card {
@@ -943,23 +960,6 @@ img{
         transform: rotateY(180deg);
         backface-visibility: hidden;
     }
-}
-/* =========================================================
-   DESKTOP MENU FIX — ONLY DESKTOP CODE
-========================================================= */
-/* Desktop: menu button hidden */
-.menu-btn {
-    display: none;
-}
-/* Desktop: nav links always in a horizontal row */
-.nav-links {
-    display: flex;
-    flex-direction: row;   /* horizontal */
-    align-items: center;
-    justify-content: center;
-    gap: 25px;
-    white-space: nowrap;
-    overflow: hidden;
 }
 /* MOBILE OVERRIDES */
 @media (max-width:768px){
@@ -1139,15 +1139,9 @@ img{
        <i class="fab fa-linkedin"></i> LinkedIn
     </a>
 
-    <a href="https://x.com/sai_anirudh1268"
-       target="_blank"
-       class="btn btn-primary">
-       <i class="fab fa-twitter"></i> Twitter
-    </a>
-
     <a href="https://umkc.joinhandshake.com/profiles/saianirudh-g"
        target="_blank"
-       class="btn btn-outline">
+       class="btn btn-primary">
        <i class="fab fa-handshake"></i> HandShake
     </a>
 </div>
