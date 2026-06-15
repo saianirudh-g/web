@@ -795,47 +795,81 @@ img{
     RATING SECTION
     ====================================================*/
 .rating-section {
-    max-width: 600px;
-    margin: 50px auto;
+    max-width: 700px;
+    margin: 60px auto;
     padding: 30px;
     text-align: center;
-    border-radius: 20px;
-    backdrop-filter: blur(15px);
     background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.15);
-    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
 }
 .rating-section h2 {
-    font-size: 2rem;
     margin-bottom: 20px;
+    font-size: 2rem;
 }
-.average-rating h3 {
-    font-size: 2.5rem;
-    margin: 10px 0;
-    color: #ffd700;
+.rating-value {
+    font-size: 3rem;
+    font-weight: bold;
+    color: gold;
 }
-.average-rating p {
-    color: #bbb;
+.rating-count {
+    margin-top: 10px;
+    color: #ccc;
 }
-.star-rating {
-    margin-top: 20px;
+.stars {
+    margin-top: 25px;
 }
 .star {
     font-size: 3rem;
     cursor: pointer;
     color: #555;
-    transition: all 0.3s ease;
+    transition: 0.3s;
     margin: 0 5px;
 }
 .star:hover,
 .star.active {
-    color: #ffd700;
+    color: gold;
     transform: scale(1.2);
 }
 #ratingMessage {
     margin-top: 15px;
     color: #ddd;
+}
+.review-box {
+    margin-top: 25px;
+}
+.review-box textarea {
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+    border: none;
+    resize: none;
     font-size: 1rem;
+}
+.review-box button {
+    margin-top: 10px;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+#reviewsList {
+    margin-top: 30px;
+    text-align: left;
+}
+.review-card {
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.08);
+}
+.review-stars {
+    color: gold;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
 }
 /* =========================================================
    MOBILE VIEW
@@ -1971,23 +2005,42 @@ Open for research collaboration, embedded systems development, RF engineering pr
 
 <!-- RATING SECTION -->
 <section id="reviews" class="rating-section">
-    <h2 class="section-title">Visitor <span>Rating</span></h2>
+    <h2>Rate My Website</h2>
 
-    <div class="average-rating">
-        <span id="averageStars">⭐⭐⭐⭐⭐</span>
-        <h3><span id="averageRating">5.0</span>/5</h3>
-        <p><span id="totalRatings">0</span> Ratings</p>
+    <div class="rating-summary">
+        <div class="rating-value">
+            <span id="averageRating">0.0</span>/5
+        </div>
+
+        <div class="rating-count">
+            <span id="ratingCount">0</span> Reviews
+        </div>
     </div>
 
-    <div class="star-rating">
-        <span class="star" data-value="1">&#9733;</span>
-        <span class="star" data-value="2">&#9733;</span>
-        <span class="star" data-value="3">&#9733;</span>
-        <span class="star" data-value="4">&#9733;</span>
-        <span class="star" data-value="5">&#9733;</span>
+    <div class="stars">
+        <span class="star" data-rating="1">★</span>
+        <span class="star" data-rating="2">★</span>
+        <span class="star" data-rating="3">★</span>
+        <span class="star" data-rating="4">★</span>
+        <span class="star" data-rating="5">★</span>
     </div>
 
-    <p id="ratingMessage">Click a star to rate my website.</p>
+    <div class="review-box">
+    <textarea
+        id="reviewText"
+        placeholder="Write your feedback..."
+        rows="4"></textarea>
+
+    <button id="submitReview">
+        Submit Review
+    </button>
+</div>
+
+<div id="reviewsList"></div>
+
+    <p id="ratingMessage">
+        Click a star to rate my website.
+    </p>
 </section>
 
 <!-- IMAGE POPUP MODAL -->
@@ -2027,50 +2080,100 @@ Open for research collaboration, embedded systems development, RF engineering pr
 </footer>
 
 <!-- JAVASCRIPT -->
-<script>
-const stars = document.querySelectorAll('.star');
-const averageRatingEl = document.getElementById('averageRating');
-const totalRatingsEl = document.getElementById('totalRatings');
-const ratingMessage = document.getElementById('ratingMessage');
-let ratings = JSON.parse(localStorage.getItem('portfolioRatings')) || [];
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
+  import { getFirestore,
+    collection,
+    addDoc,
+    getDocs,
+    getAnalytics } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyBKcogfqWxEAQfz41Fy7BxS1NXeqv4dIkQ",
+    authDomain: "anirudh-website.firebaseapp.com",
+    projectId: "anirudh-website",
+    storageBucket: "anirudh-website.firebasestorage.app",
+    messagingSenderId: "718012564618",
+    appId: "1:718012564618:web:c0b7893882082a7a4e9973",
+    measurementId: "G-M0FMLJXXPR"
+  };
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const stars = document.querySelectorAll(".star");
+const averageRating = document.getElementById("averageRating");
+const ratingCount = document.getElementById("ratingCount");
+const ratingMessage = document.getElementById("ratingMessage");
 
-function updateStats() {
-    if (ratings.length === 0) {
-        averageRatingEl.textContent = "5.0";
-        totalRatingsEl.textContent = "0";
-        return;
-    }
-    const total = ratings.reduce((sum, rating) => sum + rating, 0);
-    const average = (total / ratings.length).toFixed(1);
-
-    averageRatingEl.textContent = average;
-    totalRatingsEl.textContent = ratings.length;
+async function loadRatings() {
+    const querySnapshot = await getDocs(collection(db, "ratings"));
+    let total = 0;
+    let count = 0;
+    querySnapshot.forEach((doc) => {
+        total += doc.data().rating;
+        count++;
+    });
+    const avg = count > 0 ? (total / count).toFixed(1) : 0;
+    averageRating.textContent = avg;
+    ratingCount.textContent = count;
+}
+async function loadReviews() {
+    const snapshot =
+        await getDocs(collection(db, "ratings"));
+    const reviewsList =
+        document.getElementById("reviewsList");
+    reviewsList.innerHTML = "";
+    snapshot.forEach(doc => {
+        const data = doc.data();
+        reviewsList.innerHTML += `
+            <div class="review-card">
+                <div class="review-stars">
+                    ${"★".repeat(data.rating)}
+                </div>
+                <p>${data.comment || ""}</p>
+            </div>
+        `;
+    });
 }
 stars.forEach(star => {
-    star.addEventListener('click', () => {
-        const rating = parseInt(star.dataset.value);
-
-        ratings.push(rating);
-        localStorage.setItem(
-            'portfolioRatings',
-            JSON.stringify(ratings)
-        );
-
-        stars.forEach(s => {
-            s.classList.remove('active');
-
-            if (parseInt(s.dataset.value) <= rating) {
-                s.classList.add('active');
-            }
-        });
-
-        ratingMessage.textContent =
-            `Thank you!! You rated this website ${rating} star${rating > 1 ? 's' : ''}.`;
-
-        updateStats();
+    star.addEventListener("click", async () => {
+        const rating =
+            Number(star.dataset.rating);
+        try {
+            const reviewText =
+                   document.getElementById("reviewText").value;
+            await addDoc(
+                collection(db, "ratings"),
+                {
+                    rating: rating,
+                    timestamp: Date.now()
+                }
+            );
+            stars.forEach(s => {
+                s.classList.remove("active");
+                if (
+                    Number(s.dataset.rating)
+                    <= rating
+                ) {
+                    s.classList.add("active");
+                }
+            });
+            ratingMessage.textContent =
+                `Thank you for giving ${rating} star${rating > 1 ? 's' : ''}!`;
+            loadRatings();
+        } catch (error) {
+            ratingMessage.textContent =
+                "Failed to save rating.";
+            console.error(error);
+        }
     });
 });
-updateStats();
+loadRatings();
+loadReviews();
 document.getElementById("followBtn").addEventListener("click", function () {
     document.getElementById("socialButtons").style.display = "block";
 });
@@ -2083,19 +2186,15 @@ document.querySelectorAll('.nav-links a').forEach(link => {
 async function shareActualImage(button) {
     const card = button.closest(".project-card");
     const img = card.querySelector("img");
-
     if (!img) {
         alert("No image found in this card");
         return;
     }
-
     const imageURL = img.src;
-
     try {
         const response = await fetch(imageURL);
         const blob = await response.blob();
         const file = new File([blob], "shared-image.png", { type: blob.type });
-
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
             await navigator.share({
                 title: "Sharing Image",
