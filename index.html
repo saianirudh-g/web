@@ -2131,14 +2131,6 @@ Open for research collaboration, embedded systems development, RF engineering pr
 <script>
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-analytics.js";
-import {
-    getFirestore,
-    collection,
-    addDoc,
-    getDocs,
-    query,
-    orderBy
-} from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBKcogfqWxEAQfz41Fy7BxS1NXeqv4dIkQ",
@@ -2151,7 +2143,6 @@ const firebaseConfig = {
 };
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-const db = getFirestore(app);
 
 const stars = document.querySelectorAll(".star");
 const averageRatingEl = document.getElementById("averageRating");
