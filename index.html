@@ -791,85 +791,152 @@ img{
         animation-duration: 18s;
     }
 }
-/* =======================================================
-    RATING SECTION
-    ====================================================*/
-.rating-section {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 30px;
-    text-align: center;
-    border-radius: 20px;
-    backdrop-filter: blur(15px);
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.15);
-    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #0f172a;
+    color: #ffffff;
 }
+/* =========================
+   MAIN RATING SECTION
+========================= */
+.rating-section {
+    max-width: 800px;
+    margin: 80px auto;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    text-align: center;
+}
+/* Title */
 .rating-section h2 {
-    font-size: 2rem;
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+/* =========================
+   AVERAGE RATING DISPLAY
+========================= */
+.rating-summary {
     margin-bottom: 20px;
 }
-.average-rating h3 {
-    font-size: 2.5rem;
-    margin: 10px 0;
-    color: #ffd700;
+#averageRating {
+    font-size: 3rem;
+    font-weight: bold;
+    color: gold;
 }
-.average-rating p {
-    color: #bbb;
+#totalRatings {
+    color: #cbd5e1;
 }
+/* =========================
+   STAR RATING INPUT
+========================= */
 .star-rating {
-    margin-top: 20px;
+    margin: 20px 0;
 }
 .star {
     font-size: 3rem;
     cursor: pointer;
-    color: #555;
+    color: #475569;
     transition: all 0.3s ease;
     margin: 0 5px;
 }
-.star:hover,
-.star.active {
-    color: #ffd700;
+/* Hover effect */
+.star:hover {
     transform: scale(1.2);
+    color: gold;
 }
+/* Active (selected stars) */
+.star.active {
+    color: gold;
+    transform: scale(1.15);
+}
+/* =========================
+   MESSAGE
+========================= */
 #ratingMessage {
-    margin-top: 15px;
-    color: #ddd;
-    font-size: 1rem;
-}
-.review-box {
-    margin-top: 25px;
-}
-.review-box textarea {
-    width: 100%;
-    padding: 15px;
-    border-radius: 10px;
-    border: none;
-    resize: none;
-    font-size: 1rem;
-}
-.review-box button {
     margin-top: 10px;
+    font-size: 1rem;
+    color: #cbd5e1;
+}
+/* =========================
+   REVIEW INPUT BOX
+========================= */
+textarea#reviewText {
+    width: 100%;
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 12px;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    resize: none;
+}
+textarea#reviewText::placeholder {
+    color: #94a3b8;
+}
+/* Submit button */
+button#submitReview {
+    margin-top: 15px;
     padding: 12px 25px;
     border: none;
     border-radius: 10px;
-    cursor: pointer;
+    background: linear-gradient(135deg, #facc15, #f97316);
+    color: black;
     font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
 }
+button#submitReview:hover {
+    transform: scale(1.05);
+}
+/* =========================
+   REVIEWS LIST
+========================= */
 #reviewsList {
-    margin-top: 30px;
+    margin-top: 40px;
     text-align: left;
 }
+/* Individual review card */
 .review-card {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     padding: 15px;
     margin-bottom: 15px;
     border-radius: 12px;
-    background: rgba(255,255,255,0.08);
+    transition: 0.3s ease;
 }
+.review-card:hover {
+    transform: translateY(-3px);
+}
+/* Stars inside review */
 .review-stars {
     color: gold;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     margin-bottom: 8px;
+}
+/* Comment text */
+.review-card p {
+    color: #e2e8f0;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+/* =========================
+   MOBILE RESPONSIVE RATING
+========================= */
+@media (max-width: 600px) {
+    .star {
+        font-size: 2.3rem;
+    }
+    #averageRating {
+        font-size: 2.2rem;
+    }
 }
 /* =========================================================
    MOBILE VIEW
@@ -2007,12 +2074,6 @@ Open for research collaboration, embedded systems development, RF engineering pr
 <section id="reviews" class="rating-section">
     <h2 class="section-title">Rate <span>My Website</span></h2>
 
-    <div class="average-rating">
-        <span id="averageStars">⭐⭐⭐⭐⭐</span>
-        <h3><span id="averageRating">5.0</span>/5</h3>
-        <p><span id="totalRatings">0</span> Ratings</p>
-    </div>
-
     <div class="star-rating">
         <span class="star" data-value="1">&#9733;</span>
         <span class="star" data-value="2">&#9733;</span>
@@ -2020,14 +2081,14 @@ Open for research collaboration, embedded systems development, RF engineering pr
         <span class="star" data-value="4">&#9733;</span>
         <span class="star" data-value="5">&#9733;</span>
     </div>
-
-<div class="review-box">
+    
+    <h3><span id="averageRating">0.0</span>/5</h3>
+    <p><span id="totalRatings">0</span> Ratings</p>
+    <p id="ratingMessage">Click a star to rate my website.</p>
     <textarea id="reviewText" placeholder="Write your feedback..." rows="4"></textarea>
     <button id="submitReview">Submit Review</button>
-</div>
 
 <div id="reviewsList"></div>
-<p id="ratingMessage">Click a star to rate my website.</p>
 </section>
 
 <!-- IMAGE POPUP MODAL -->
@@ -2068,63 +2129,169 @@ Open for research collaboration, embedded systems development, RF engineering pr
 
 <!-- JAVASCRIPT -->
 <script>
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-analytics.js";
+import {
+    getFirestore,
+    collection,
+    addDoc,
+    getDocs,
+    query,
+    orderBy
+} from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
-const stars = document.querySelectorAll('.star');
-const averageRatingEl = document.getElementById('averageRating');
-const totalRatingsEl = document.getElementById('totalRatings');
-const ratingMessage = document.getElementById('ratingMessage');
+const firebaseConfig = {
+    apiKey: "AIzaSyBKcogfqWxEAQfz41Fy7BxS1NXeqv4dIkQ",
+    authDomain: "anirudh-website.firebaseapp.com",
+    projectId: "anirudh-website",
+    storageBucket: "anirudh-website.firebasestorage.app",
+    messagingSenderId: "718012564618",
+    appId: "1:718012564618:web:c0b7893882082a7a4e9973",
+    measurementId: "G-M0FMLJXXPR"
+};
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const db = getFirestore(app);
 
-let ratings = JSON.parse(localStorage.getItem('portfolioRatings')) || [];
-function updateStats() {
-    if (ratings.length === 0) {
-        averageRatingEl.textContent = "5.0";
-        totalRatingsEl.textContent = "0";
-        return;
-    }
-    const total = ratings.reduce((sum, rating) => sum + rating, 0);
-    const average = (total / ratings.length).toFixed(1);
-    averageRatingEl.textContent = average;
-    totalRatingsEl.textContent = ratings.length;
-}
+const stars = document.querySelectorAll(".star");
+const averageRatingEl = document.getElementById("averageRating");
+const totalRatingsEl = document.getElementById("totalRatings");
+const ratingMessage = document.getElementById("ratingMessage");
+const reviewText = document.getElementById("reviewText");
+const submitReviewBtn = document.getElementById("submitReview");
+const reviewsList = document.getElementById("reviewsList");
+let selectedRating = 0;
 stars.forEach(star => {
-    star.addEventListener('click', () => {
-        const rating = parseInt(star.dataset.value);
-        ratings.push(rating);
-        localStorage.setItem(
-            'portfolioRatings',
-            JSON.stringify(ratings)
-        );
+    star.addEventListener("click", () => {
+        selectedRating = Number(star.dataset.value);
         stars.forEach(s => {
-            s.classList.remove('active');
-            if (parseInt(s.dataset.value) <= rating) {
-                s.classList.add('active');
+            s.classList.remove("active");
+            if (
+                Number(s.dataset.value)
+                <= selectedRating
+            ) {
+                s.classList.add("active");
             }
         });
         ratingMessage.textContent =
-            `Thank you!! You rated this website ${rating} star${rating > 1 ? 's' : ''}.`;
-        updateStats();
+            `You selected ${selectedRating} star${selectedRating > 1 ? "s" : ""}`;
     });
 });
-updateStats();
+submitReviewBtn.addEventListener(
+    "click",
+    async () => {
+        const comment =
+            reviewText.value.trim();
+        if (selectedRating === 0) {
+            alert(
+                "Please select a rating first."
+            );
+            return;
+        }
+        try {
+            await addDoc(
+                collection(db, "ratings"),
+                {
+                    rating: selectedRating,
+                    comment: comment,
+                    createdAt: Date.now()
+                }
+            );
+            ratingMessage.textContent = "Thank you for your feedback!";
+            reviewText.value = "";
+            selectedRating = 0;
+            stars.forEach(s =>
+                s.classList.remove("active")
+            );
+            await loadRatings();
+            await loadReviews();
+        } catch (error) {
+            console.error(error);
+            ratingMessage.textContent =
+                "Failed to submit review.";
+        }
+    }
+);
+async function loadRatings() {
+    try {
+        const snapshot =
+            await getDocs(
+                collection(db, "ratings")
+            );
+        let total = 0;
+        let count = 0;
+        snapshot.forEach(doc => {
+            const data = doc.data();
+            total += Number(data.rating);
+            count++;
+        });
+        let average = 0;
+        if (count > 0) {
+            average =
+                (total / count).toFixed(1);
+        }
+        averageRatingEl.textContent =
+            average;
+        totalRatingsEl.textContent =
+            count;
+    } catch (error) {
+        console.error(
+            "Error loading ratings:",
+            error
+        );
+    }
+}
 async function loadReviews() {
-    const snapshot =
-        await getDocs(collection(db, "ratings"));
-    const reviewsList =
-        document.getElementById("reviewsList");
-    reviewsList.innerHTML = "";
-    snapshot.forEach(doc => {
-        const data = doc.data();
-        reviewsList.innerHTML += `
-            <div class="review-card">
+    try {
+        reviewsList.innerHTML = "";
+        const ratingsQuery =
+            query(
+                collection(db, "ratings"),
+                orderBy(
+                    "createdAt",
+                    "desc"
+                )
+            );
+        const snapshot =
+            await getDocs(
+                ratingsQuery
+            );
+        snapshot.forEach(doc => {
+            const data = doc.data();
+            const reviewCard =
+                document.createElement("div");
+            reviewCard.classList.add(
+                "review-card"
+            );
+            reviewCard.innerHTML = `
                 <div class="review-stars">
                     ${"★".repeat(data.rating)}
                 </div>
-                <p>${data.comment || ""}</p>
-            </div>
-        `;
-    });
+                <p>
+                    ${
+                        data.comment ||
+                        "No comment provided."
+                    }
+                </p>
+            `;
+            reviewsList.appendChild(
+                reviewCard
+            );
+        });
+    } catch (error) {
+        console.error(
+            "Error loading reviews:",
+            error
+        );
+    }
 }
-loadReviews();
+window.addEventListener(
+    "DOMContentLoaded",
+    async () => {
+        await loadRatings();
+        await loadReviews();
+    }
+);
 document.getElementById("followBtn").addEventListener("click", function () {
     document.getElementById("socialButtons").style.display = "block";
 });
