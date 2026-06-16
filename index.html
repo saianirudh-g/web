@@ -2126,9 +2126,32 @@ Open for research collaboration, embedded systems development, RF engineering pr
 
   <p>© 2026 Sai Anirudh Godavarthi | Built with HTML, CSS & JavaScript</p>
 </footer>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
 
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyBKcogfqWxEAQfz41Fy7BxS1NXeqv4dIkQ",
+    authDomain: "anirudh-website.firebaseapp.com",
+    projectId: "anirudh-website",
+    storageBucket: "anirudh-website.firebasestorage.app",
+    messagingSenderId: "718012564618",
+    appId: "1:718012564618:web:c0b7893882082a7a4e9973",
+    measurementId: "G-M0FMLJXXPR"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
 <!-- JAVASCRIPT -->
 <script>
+// DOM elements
 const stars = document.querySelectorAll(".star");
 const averageRatingEl = document.getElementById("averageRating");
 const totalRatingsEl = document.getElementById("totalRatings");
@@ -2157,38 +2180,32 @@ stars.forEach(star => {
   });
 });
 
-/* ---------------- API HELPERS ---------------- */
+/* ---------------- FIREBASE HELPERS ---------------- */
+import {
+  collection,
+  addDoc,
+  getDocs,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-async function fetchRatingsFromServer() {
-  const res = await fetch("/api/ratings");
-  if (!res.ok) {
-    console.error("Failed to load ratings");
-    return [];
-  }
-  return await res.json();
+async function loadRatingsFromFirebase() {
+  const snapshot = await getDocs(collection(window.db, "ratings"));
+  const list = [];
+
+  snapshot.forEach(doc => list.push(doc.data()));
+
+  return list;
 }
 
-async function submitRatingToServer(rating, comment) {
-  const res = await fetch("/api/ratings", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ rating, comment }),
+async function submitRatingToFirebase(rating, comment) {
+  await addDoc(collection(window.db, "ratings"), {
+    rating,
+    comment,
+    createdAt: serverTimestamp()
   });
-
-  if (!res.ok) {
-    const text = await res.text();
-    console.error("Failed to submit rating:", text);
-    alert("Failed to submit rating. Please try again.");
-    return null;
-  }
-
-  return await res.json();
 }
 
 /* ---------------- LOAD RATINGS (AVERAGE) ---------------- */
-
 function loadRatings() {
   let total = 0;
   let count = ratingsData.length;
@@ -2204,7 +2221,6 @@ function loadRatings() {
 }
 
 /* ---------------- LOAD REVIEWS ---------------- */
-
 function loadReviews() {
   reviewsList.innerHTML = "";
 
@@ -2226,7 +2242,6 @@ function loadReviews() {
 }
 
 /* ---------------- SUBMIT REVIEW ---------------- */
-
 submitReviewBtn.addEventListener("click", async () => {
   const comment = reviewText.value.trim();
 
@@ -2235,8 +2250,7 @@ submitReviewBtn.addEventListener("click", async () => {
     return;
   }
 
-  const newReview = await submitRatingToServer(selectedRating, comment);
-  if (!newReview) return;
+  await submitRatingToFirebase(selectedRating, comment);
 
   ratingMessage.textContent = "Thank you for your feedback!";
   reviewText.value = "";
@@ -2244,16 +2258,14 @@ submitReviewBtn.addEventListener("click", async () => {
 
   stars.forEach(s => s.classList.remove("active"));
 
-  // Update local cache and re-render
-  ratingsData.push(newReview);
+  ratingsData = await loadRatingsFromFirebase();
   loadRatings();
   loadReviews();
 });
 
 /* ---------------- INITIAL LOAD ---------------- */
-
 window.addEventListener("DOMContentLoaded", async () => {
-  ratingsData = await fetchRatingsFromServer();
+  ratingsData = await loadRatingsFromFirebase();
   loadRatings();
   loadReviews();
 });
