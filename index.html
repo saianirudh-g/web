@@ -2138,99 +2138,127 @@ const submitReviewBtn = document.getElementById("submitReview");
 const reviewsList = document.getElementById("reviewsList");
 
 let selectedRating = 0;
-
-// Load from localStorage or start empty
-let ratingsData = JSON.parse(localStorage.getItem("ratings")) || [];
+let ratingsData = [];
 
 /* ---------------- STAR RATING ---------------- */
 stars.forEach(star => {
-    star.addEventListener("click", () => {
-        selectedRating = Number(star.dataset.value);
+  star.addEventListener("click", () => {
+    selectedRating = Number(star.dataset.value);
 
-        stars.forEach(s => {
-            s.classList.remove("active");
-            if (Number(s.dataset.value) <= selectedRating) {
-                s.classList.add("active");
-            }
-        });
-
-        ratingMessage.textContent =
-            `You selected ${selectedRating} star${selectedRating > 1 ? "s" : ""}`;
+    stars.forEach(s => {
+      s.classList.remove("active");
+      if (Number(s.dataset.value) <= selectedRating) {
+        s.classList.add("active");
+      }
     });
+
+    ratingMessage.textContent =
+      `You selected ${selectedRating} star${selectedRating > 1 ? "s" : ""}`;
+  });
 });
 
-/* ---------------- SUBMIT REVIEW ---------------- */
-submitReviewBtn.addEventListener("click", () => {
-    const comment = reviewText.value.trim();
+/* ---------------- API HELPERS ---------------- */
 
-    if (selectedRating === 0) {
-        alert("Please select a rating first.");
-        return;
-    }
+async function fetchRatingsFromServer() {
+  const res = await fetch("/api/ratings");
+  if (!res.ok) {
+    console.error("Failed to load ratings");
+    return [];
+  }
+  return await res.json();
+}
 
-    const newReview = {
-        rating: selectedRating,
-        comment: comment,
-        createdAt: Date.now()
-    };
+async function submitRatingToServer(rating, comment) {
+  const res = await fetch("/api/ratings", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ rating, comment }),
+  });
 
-    ratingsData.push(newReview);
+  if (!res.ok) {
+    const text = await res.text();
+    console.error("Failed to submit rating:", text);
+    alert("Failed to submit rating. Please try again.");
+    return null;
+  }
 
-    // Save to localStorage
-    localStorage.setItem("ratings", JSON.stringify(ratingsData));
-
-    ratingMessage.textContent = "Thank you for your feedback!";
-    reviewText.value = "";
-    selectedRating = 0;
-
-    stars.forEach(s => s.classList.remove("active"));
-
-    loadRatings();
-    loadReviews();
-});
+  return await res.json();
+}
 
 /* ---------------- LOAD RATINGS (AVERAGE) ---------------- */
+
 function loadRatings() {
-    let total = 0;
-    let count = ratingsData.length;
+  let total = 0;
+  let count = ratingsData.length;
 
-    ratingsData.forEach(item => {
-        total += Number(item.rating);
-    });
+  ratingsData.forEach(item => {
+    total += Number(item.rating);
+  });
 
-    let average = count > 0 ? (total / count).toFixed(1) : 0;
+  let average = count > 0 ? (total / count).toFixed(1) : 0;
 
-    averageRatingEl.textContent = average;
-    totalRatingsEl.textContent = count;
+  averageRatingEl.textContent = average;
+  totalRatingsEl.textContent = count;
 }
 
 /* ---------------- LOAD REVIEWS ---------------- */
+
 function loadReviews() {
-    reviewsList.innerHTML = "";
+  reviewsList.innerHTML = "";
 
-    const sorted = [...ratingsData].sort((a, b) => b.createdAt - a.createdAt);
+  const sorted = [...ratingsData].sort((a, b) => b.createdAt - a.createdAt);
 
-    sorted.forEach(data => {
-        const reviewCard = document.createElement("div");
-        reviewCard.classList.add("review-card");
+  sorted.forEach(data => {
+    const reviewCard = document.createElement("div");
+    reviewCard.classList.add("review-card");
 
-        reviewCard.innerHTML = `
-            <div class="review-stars">
-                ${"★".repeat(data.rating)}
-            </div>
-            <p>${data.comment || "No comment provided."}</p>
-        `;
+    reviewCard.innerHTML = `
+      <div class="review-stars">
+        ${"★".repeat(data.rating)}
+      </div>
+      <p>${data.comment || "No comment provided."}</p>
+    `;
 
-        reviewsList.appendChild(reviewCard);
-    });
+    reviewsList.appendChild(reviewCard);
+  });
 }
+
+/* ---------------- SUBMIT REVIEW ---------------- */
+
+submitReviewBtn.addEventListener("click", async () => {
+  const comment = reviewText.value.trim();
+
+  if (selectedRating === 0) {
+    alert("Please select a rating first.");
+    return;
+  }
+
+  const newReview = await submitRatingToServer(selectedRating, comment);
+  if (!newReview) return;
+
+  ratingMessage.textContent = "Thank you for your feedback!";
+  reviewText.value = "";
+  selectedRating = 0;
+
+  stars.forEach(s => s.classList.remove("active"));
+
+  // Update local cache and re-render
+  ratingsData.push(newReview);
+  loadRatings();
+  loadReviews();
+});
+
 /* ---------------- INITIAL LOAD ---------------- */
-window.addEventListener("DOMContentLoaded", () => {
-    loadRatings();
-    loadReviews();
+
+window.addEventListener("DOMContentLoaded", async () => {
+  ratingsData = await fetchRatingsFromServer();
+  loadRatings();
+  loadReviews();
 });
 document.getElementById("followBtn").addEventListener("click", function () {
-    document.getElementById("socialButtons").style.display = "block";
+document.getElementById("socialButtons").style.display = "block";
 });
 document.querySelectorAll('.nav-links a').forEach(link => {
     link.addEventListener('click', () => {
