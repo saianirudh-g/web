@@ -2,49 +2,46 @@ const averageRatingEl = document.getElementById("averageRating");
 const totalRatingsEl = document.getElementById("totalRatings");
 const reviewsList = document.getElementById("reviewsList");
 
-let ratingsData = [];
+// CHANGE THIS TO YOUR BACKEND URL
+const BACKEND_URL = "https://backend-gamma-one-95.vercel.app/api/ratings";
 
-/* ---------------- FETCH ALL RATINGS FROM BACKEND ---------------- */
 async function fetchRatings() {
   try {
-    const res = await fetch("/api/ratings");
-    ratingsData = await res.json();
+    const res = await fetch(BACKEND_URL);
+    const ratings = await res.json();
 
-    loadRatings();
-    loadReviews();
+    loadRatings(ratings);
+    loadReviews(ratings);
   } catch (err) {
-    console.error("Error loading ratings:", err);
+    console.error("Error fetching ratings:", err);
   }
 }
 
-/* ---------------- CALCULATE & DISPLAY AVERAGE ---------------- */
-function loadRatings() {
-  const total = ratingsData.reduce((sum, r) => sum + Number(r.rating), 0);
-  const avg = ratingsData.length ? (total / ratingsData.length).toFixed(1) : 0;
+function loadRatings(ratings) {
+  const total = ratings.reduce((sum, r) => sum + Number(r.rating), 0);
+  const avg = ratings.length ? (total / ratings.length).toFixed(1) : 0;
 
   averageRatingEl.textContent = avg;
-  totalRatingsEl.textContent = ratingsData.length;
+  totalRatingsEl.textContent = ratings.length;
 }
 
-/* ---------------- DISPLAY ALL REVIEWS ---------------- */
-function loadReviews() {
+function loadReviews(ratings) {
   reviewsList.innerHTML = "";
 
-  [...ratingsData]
+  ratings
     .sort((a, b) => b.createdAt - a.createdAt)
-    .forEach(data => {
+    .forEach(r => {
       const div = document.createElement("div");
       div.classList.add("review-card");
 
       div.innerHTML = `
-        <div class="review-stars">${"★".repeat(data.rating)}</div>
-        <p>${data.comment || "No comment provided."}</p>
-        <small>${new Date(data.createdAt).toLocaleString()}</small>
+        <div class="review-stars">${"★".repeat(r.rating)}</div>
+        <p>${r.comment || "No comment provided."}</p>
+        <small>${new Date(r.createdAt).toLocaleString()}</small>
       `;
 
       reviewsList.appendChild(div);
     });
 }
 
-/* ---------------- INIT ---------------- */
 window.addEventListener("DOMContentLoaded", fetchRatings);
