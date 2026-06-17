@@ -2154,6 +2154,13 @@ Open for research collaboration, embedded systems development, RF engineering pr
     <textarea id="reviewText" placeholder="Write your feedback..." rows="4"></textarea>
     <button id="submitReview">Submit Review</button>
 
+<select id="sortSelect">
+    <option value="newest">Newest</option>
+    <option value="oldest">Oldest</option>
+    <option value="highest">Highest Rated</option>
+    <option value="lowest">Lowest Rated</option>
+</select>
+
 <div id="reviewsList"></div>
 <div id="pagination" style="margin-top: 15px;"></div>
 </section>
@@ -2196,7 +2203,6 @@ Open for research collaboration, embedded systems development, RF engineering pr
 
 <!-- JAVASCRIPT -->
 <script>
-// Select elements
 const stars = document.querySelectorAll(".star");
 const averageRatingEl = document.getElementById("averageRating");
 const totalRatingsEl = document.getElementById("totalRatings");
@@ -2205,135 +2211,130 @@ const reviewText = document.getElementById("reviewText");
 const submitBtn = document.getElementById("submitReview");
 const reviewsList = document.getElementById("reviewsList");
 const paginationContainer = document.getElementById("pagination");
-
+const sortSelect = document.getElementById("sortSelect");
 let selectedRating = 0;
 let currentPage = 1;
-const REVIEWS_PER_PAGE = 3;
-
-// Load saved data on page load
-document.addEventListener("DOMContentLoaded", () => {
-    loadReviews(currentPage);
-    loadRatingStats();
-});
-
-// Highlight stars on click
+let currentSort = "newest";
+// Highlight stars
 stars.forEach(star => {
     star.addEventListener("click", () => {
         selectedRating = parseInt(star.dataset.value);
         updateStarHighlight(selectedRating);
-        ratingMessage.textContent = `You selected ${selectedRating} star(s).`;
     });
 });
-
-// Update star UI
 function updateStarHighlight(rating) {
     stars.forEach(star => {
         star.style.color = parseInt(star.dataset.value) <= rating ? "gold" : "gray";
     });
 }
-
 // Submit review
-submitBtn.addEventListener("click", () => {
-    const review = reviewText.value.trim();
-
+submitBtn.addEventListener("click", async () => {
     if (selectedRating === 0) {
-        ratingMessage.textContent = "Please select a star rating.";
+        ratingMessage.textContent = "Please select a rating.";
         return;
     }
-
-    const newReview = {
-        rating: selectedRating,
-        text: review, // optional now
-        date: new Date().toLocaleString()
-    };
-
-    const reviews = JSON.parse(localStorage.getItem("globalReviews")) || [];
-    reviews.push(newReview);
-    localStorage.setItem("globalReviews", JSON.stringify(reviews));
-
-    reviewText.value = "";
+    await fetch("http://localhost:3000/reviews", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            rating: selectedRating,
+            text: reviewText.value.trim()
+        })
+    });
     selectedRating = 0;
+    reviewText.value = "";
     updateStarHighlight(0);
-    ratingMessage.textContent = "Thank you for your feedback!";
-
-    loadReviews(currentPage);
-    loadRatingStats();
+    loadReviews();
+    loadStats();
 });
-
-// Load and display reviews with pagination
-function loadReviews(page) {
-    const reviews = JSON.parse(localStorage.getItem("globalReviews")) || [];
+// Load reviews
+async function loadReviews() {
+    const res = await fetch(`http://localhost:3000/reviews?page=${currentPage}&sort=${currentSort}`);
+    const data = await res.json();
     reviewsList.innerHTML = "";
     paginationContainer.innerHTML = "";
-
-    if (reviews.length === 0) {
-        reviewsList.innerHTML = "<p>No reviews yet.</p>";
-        return;
-    }
-
-    const start = (page - 1) * REVIEWS_PER_PAGE;
-    const end = start + REVIEWS_PER_PAGE;
-
-    const visibleReviews = reviews.slice(start, end);
-
-    visibleReviews.forEach(r => {
+    data.reviews.forEach(r => {
         const div = document.createElement("div");
         div.style.border = "1px solid #ccc";
         div.style.padding = "10px";
         div.style.margin = "10px 0";
-
         div.innerHTML = `
-            <strong>Rating: ${"★".repeat(r.rating)}</strong><br>
+            <strong>${"★".repeat(r.rating)}</strong>
             <p>${r.text || "<i>No written review</i>"}</p>
-            <small>${r.date}</small>
+            <small>${new Date(r.timestamp).toLocaleString()}</small>
+            <br><br>
+            <button onclick="editReview(${r.id}, ${r.rating}, \`${r.text}\`)">Edit</button>
+            <button onclick="deleteReview(${r.id})">Delete</button>
         `;
-
         reviewsList.appendChild(div);
     });
-
-    createPagination(reviews.length);
+    createPagination(data.total);
 }
-
-// Create pagination buttons
-function createPagination(totalReviews) {
-    const totalPages = Math.ceil(totalReviews / REVIEWS_PER_PAGE);
-
-    for (let i = 1; i <= totalPages; i++) {
+// Pagination
+function createPagination(total) {
+    const pages = Math.ceil(total / 3);
+    for (let i = 1; i <= pages; i++) {
         const btn = document.createElement("button");
         btn.textContent = i;
-        btn.style.margin = "5px";
-        btn.style.padding = "5px 10px";
-
         if (i === currentPage) {
             btn.style.background = "#333";
             btn.style.color = "white";
         }
-
         btn.addEventListener("click", () => {
             currentPage = i;
-            loadReviews(currentPage);
+            loadReviews();
         });
-
         paginationContainer.appendChild(btn);
     }
 }
-
-// Load rating stats
-function loadRatingStats() {
-    const reviews = JSON.parse(localStorage.getItem("globalReviews")) || [];
-
-    if (reviews.length === 0) {
+// Sorting
+sortSelect.addEventListener("change", () => {
+    currentSort = sortSelect.value;
+    currentPage = 1;
+    loadReviews();
+});
+// Edit review
+async function editReview(id, rating, text) {
+    const newText = prompt("Edit review:", text);
+    if (newText === null) return;
+    const newRating = parseInt(prompt("Edit rating (1-5):", rating));
+    if (!newRating) return;
+    await fetch(`http://localhost:3000/reviews/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ rating: newRating, text: newText })
+    });
+    loadReviews();
+    loadStats();
+}
+// Delete review
+async function deleteReview(id) {
+    if (!confirm("Delete this review?")) return;
+    await fetch(`http://localhost:3000/reviews/${id}`, {
+        method: "DELETE"
+    });
+    loadReviews();
+    loadStats();
+}
+// Stats
+async function loadStats() {
+    const res = await fetch("http://localhost:3000/reviews?page=1&sort=newest");
+    const data = await res.json();
+    if (data.total === 0) {
         averageRatingEl.textContent = "0.0";
         totalRatingsEl.textContent = "0";
         return;
     }
-
-    const total = reviews.reduce((sum, r) => sum + r.rating, 0);
-    const avg = (total / reviews.length).toFixed(1);
-
+    const all = await fetch("http://localhost:3000/reviews?page=1&sort=oldest");
+    const allData = await all.json();
+    const ratings = allData.reviews.map(r => r.rating);
+    const avg = (ratings.reduce((a, b) => a + b, 0) / ratings.length).toFixed(1);
     averageRatingEl.textContent = avg;
-    totalRatingsEl.textContent = reviews.length;
+    totalRatingsEl.textContent = ratings.length;
 }
+// Init
+loadReviews();
+loadStats();
 document.getElementById("followBtn").addEventListener("click", function () {
 document.getElementById("socialButtons").style.display = "block";
 });
@@ -2398,19 +2399,16 @@ btnLinkStyle.textContent = `
   }
 `;
 document.head.appendChild(btnLinkStyle);
-
 /* =========================================================
    MAIN SCRIPT (RUN AFTER DOM LOAD)
 ========================================================= */
 document.addEventListener("DOMContentLoaded", () => {
-
 /* -------------------------------
    MOBILE MENU TOGGLE
 -------------------------------- */
 const menuBtn = document.getElementById("menuBtn");
 const navLinks = document.getElementById("navLinks");
 const nav = document.querySelector("nav");
-
 menuBtn.addEventListener("click", () => {
   if (window.innerWidth <= 768) {
     navLinks.classList.toggle("active");
@@ -2420,7 +2418,6 @@ menuBtn.addEventListener("click", () => {
     menuBtn.classList.toggle("active");
   }
 });
-
 /* -------------------------------
    DESKTOP OVERFLOW MENU LOGIC
 -------------------------------- */
