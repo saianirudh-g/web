@@ -2195,92 +2195,128 @@ Open for research collaboration, embedded systems development, RF engineering pr
 
 <!-- JAVASCRIPT -->
 <script>
-(async () => {
-  const STORAGE_KEY = 'visitor_reviews_v1';
-  let selectedRating = 0;
-  const stars = document.querySelectorAll('.star');
-  const avgEl = document.getElementById('averageRating');
-  const totalEl = document.getElementById('totalRatings');
-  const msgEl = document.getElementById('ratingMessage');
-  const textarea = document.getElementById('reviewText');
-  const submitBtn = document.getElementById('submitReview');
-  const listEl = document.getElementById('reviewsList');
+// Select elements
+const stars = document.querySelectorAll(".star");
+const averageRatingEl = document.getElementById("averageRating");
+const totalRatingsEl = document.getElementById("totalRatings");
+const ratingMessage = document.getElementById("ratingMessage");
+const reviewText = document.getElementById("reviewText");
+const submitBtn = document.getElementById("submitReview");
+const reviewsList = document.getElementById("reviewsList");
 
-  async function loadReviews() {
-    try {
-      const result = await window.storage.get(STORAGE_KEY, true);
-      return result ? JSON.parse(result.value) : [];
-    } catch { return []; }
-  }
+let selectedRating = 0;
 
-  async function saveReviews(reviews) {
-    await window.storage.set(STORAGE_KEY, JSON.stringify(reviews), true);
-  }
+// Load saved data on page load
+document.addEventListener("DOMContentLoaded", () => {
+    loadReviews(false); // false = show only first 3
+    loadRatingStats();
+});
 
-  function updateStats(reviews) {
-    const total = reviews.length;
-    const avg = total
-      ? (reviews.reduce((s, r) => s + r.rating, 0) / total).toFixed(1)
-      : '0.0';
-    avgEl.textContent = avg;
-    totalEl.textContent = total;
-  }
-
-  function renderReviews(reviews) {
-    listEl.innerHTML = '';
-    [...reviews].reverse().forEach(r => {
-      const card = document.createElement('div');
-      card.className = 'review-card';
-      card.innerHTML = `
-        <div class="review-stars">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</div>
-        ${r.text ? `<p class="review-text">${r.text.replace(/</g,'&lt;')}</p>` : ''}
-        <p class="review-date">${new Date(r.ts).toLocaleDateString(undefined, {year:'numeric',month:'short',day:'numeric'})}</p>
-      `;
-      listEl.appendChild(card);
+// Highlight stars on click
+stars.forEach(star => {
+    star.addEventListener("click", () => {
+        selectedRating = parseInt(star.dataset.value);
+        updateStarHighlight(selectedRating);
+        ratingMessage.textContent = `You selected ${selectedRating} star(s).`;
     });
-  }
+});
 
-  function setStars(val, mode) {
-    stars.forEach(s => {
-      s.classList.remove('hovered', 'selected');
-      if (parseInt(s.dataset.value) <= val) s.classList.add(mode);
+// Update star UI
+function updateStarHighlight(rating) {
+    stars.forEach(star => {
+        star.style.color = parseInt(star.dataset.value) <= rating ? "gold" : "gray";
     });
-  }
+}
 
-  stars.forEach(s => {
-    s.addEventListener('mouseenter', () => setStars(parseInt(s.dataset.value), 'hovered'));
-    s.addEventListener('mouseleave', () => setStars(selectedRating, 'selected'));
-    s.addEventListener('click', () => {
-      selectedRating = parseInt(s.dataset.value);
-      setStars(selectedRating, 'selected');
-      msgEl.textContent = `You selected ${selectedRating} star${selectedRating > 1 ? 's' : ''}.`;
-    });
-  });
+// Submit review
+submitBtn.addEventListener("click", () => {
+    const review = reviewText.value.trim();
 
-  submitBtn.addEventListener('click', async () => {
-    if (!selectedRating) {
-      msgEl.textContent = 'Please select a star rating first.';
-      return;
+    if (selectedRating === 0) {
+        ratingMessage.textContent = "Please select a star rating.";
+        return;
     }
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Submitting...';
-    const reviews = await loadReviews();
-    reviews.push({ rating: selectedRating, text: textarea.value.trim(), ts: Date.now() });
-    await saveReviews(reviews);
-    updateStats(reviews);
-    renderReviews(reviews);
-    selectedRating = 0;
-    setStars(0, 'selected');
-    textarea.value = '';
-    msgEl.textContent = 'Thanks for your feedback!';
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'Submit Review';
-  });
+    if (review === "") {
+        ratingMessage.textContent = "Please write a review.";
+        return;
+    }
 
-  const reviews = await loadReviews();
-  updateStats(reviews);
-  renderReviews(reviews);
-})();
+    const newReview = {
+        rating: selectedRating,
+        text: review,
+        date: new Date().toLocaleString()
+    };
+
+    const reviews = JSON.parse(localStorage.getItem("globalReviews")) || [];
+    reviews.push(newReview);
+    localStorage.setItem("globalReviews", JSON.stringify(reviews));
+
+    reviewText.value = "";
+    selectedRating = 0;
+    updateStarHighlight(0);
+    ratingMessage.textContent = "Thank you for your feedback!";
+
+    loadReviews(false);
+    loadRatingStats();
+});
+
+// Load and display reviews
+function loadReviews(showAll) {
+    const reviews = JSON.parse(localStorage.getItem("globalReviews")) || [];
+    reviewsList.innerHTML = "";
+
+    let visibleReviews = reviews;
+
+    // If more than 3 reviews and showAll = false → show only first 3
+    if (!showAll && reviews.length > 3) {
+        visibleReviews = reviews.slice(0, 3);
+    }
+
+    visibleReviews.forEach(r => {
+        const div = document.createElement("div");
+        div.style.border = "1px solid #ccc";
+        div.style.padding = "10px";
+        div.style.margin = "10px 0";
+
+        div.innerHTML = `
+            <strong>Rating: ${"★".repeat(r.rating)}</strong><br>
+            <p>${r.text}</p>
+            <small>${r.date}</small>
+        `;
+
+        reviewsList.appendChild(div);
+    });
+
+    // Add "Show All" button if needed
+    if (!showAll && reviews.length > 3) {
+        const btn = document.createElement("button");
+        btn.textContent = "Show All Reviews";
+        btn.style.marginTop = "10px";
+
+        btn.addEventListener("click", () => {
+            loadReviews(true); // reload showing all
+        });
+
+        reviewsList.appendChild(btn);
+    }
+}
+
+// Load rating stats
+function loadRatingStats() {
+    const reviews = JSON.parse(localStorage.getItem("globalReviews")) || [];
+
+    if (reviews.length === 0) {
+        averageRatingEl.textContent = "0.0";
+        totalRatingsEl.textContent = "0";
+        return;
+    }
+
+    const total = reviews.reduce((sum, r) => sum + r.rating, 0);
+    const avg = (total / reviews.length).toFixed(1);
+
+    averageRatingEl.textContent = avg;
+    totalRatingsEl.textContent = reviews.length;
+}
 document.getElementById("followBtn").addEventListener("click", function () {
 document.getElementById("socialButtons").style.display = "block";
 });
