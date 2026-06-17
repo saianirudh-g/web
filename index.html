@@ -2206,7 +2206,7 @@ const reviewsList = document.getElementById("reviewsList");
 let selectedRating = 0;
 // Load saved data on page load
 document.addEventListener("DOMContentLoaded", () => {
-    loadReviews();
+    loadReviews(false); // false = show only first 3
     loadRatingStats();
 });
 // Highlight stars on click
@@ -2226,7 +2226,6 @@ function updateStarHighlight(rating) {
 // Submit review
 submitBtn.addEventListener("click", () => {
     const review = reviewText.value.trim();
-
     if (selectedRating === 0) {
         ratingMessage.textContent = "Please select a star rating.";
         return;
@@ -2240,23 +2239,26 @@ submitBtn.addEventListener("click", () => {
         text: review,
         date: new Date().toLocaleString()
     };
-    // Save review
     const reviews = JSON.parse(localStorage.getItem("globalReviews")) || [];
     reviews.push(newReview);
     localStorage.setItem("globalReviews", JSON.stringify(reviews));
-    // Update UI
     reviewText.value = "";
     selectedRating = 0;
     updateStarHighlight(0);
     ratingMessage.textContent = "Thank you for your feedback!";
-    loadReviews();
+    loadReviews(false);
     loadRatingStats();
 });
 // Load and display reviews
-function loadReviews() {
+function loadReviews(showAll) {
     const reviews = JSON.parse(localStorage.getItem("globalReviews")) || [];
     reviewsList.innerHTML = "";
-    reviews.forEach(r => {
+    let visibleReviews = reviews;
+    // If more than 3 reviews and showAll = false → show only first 3
+    if (!showAll && reviews.length > 3) {
+        visibleReviews = reviews.slice(0, 3);
+    }
+    visibleReviews.forEach(r => {
         const div = document.createElement("div");
         div.style.border = "1px solid #ccc";
         div.style.padding = "10px";
@@ -2268,10 +2270,22 @@ function loadReviews() {
         `;
         reviewsList.appendChild(div);
     });
+    // Add "Show All" button if needed
+    if (!showAll && reviews.length > 3) {
+        const btn = document.createElement("button");
+        btn.textContent = "Show All Reviews";
+        btn.style.marginTop = "10px";
+
+        btn.addEventListener("click", () => {
+            loadReviews(true); // reload showing all
+        });
+        reviewsList.appendChild(btn);
+    }
 }
 // Load rating stats
 function loadRatingStats() {
     const reviews = JSON.parse(localStorage.getItem("globalReviews")) || [];
+
     if (reviews.length === 0) {
         averageRatingEl.textContent = "0.0";
         totalRatingsEl.textContent = "0";
