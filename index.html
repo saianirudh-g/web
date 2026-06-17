@@ -2204,6 +2204,7 @@ Open for research collaboration, embedded systems development, RF engineering pr
 <!-- JAVASCRIPT -->
 <script>
 const API = "https://reviews-backend-kohl.vercel.app";
+
 // Select elements
 const stars = document.querySelectorAll(".star");
 const averageRatingEl = document.getElementById("averageRating");
@@ -2213,129 +2214,132 @@ const reviewText = document.getElementById("reviewText");
 const submitBtn = document.getElementById("submitReview");
 const reviewsList = document.getElementById("reviewsList");
 const paginationContainer = document.getElementById("pagination");
-const sortSelect = document.getElementById("sortSelect");
+
 let selectedRating = 0;
 let currentPage = 1;
-let currentSort = "newest";
+const REVIEWS_PER_PAGE = 3;
+
 // Highlight stars
 stars.forEach(star => {
     star.addEventListener("click", () => {
         selectedRating = parseInt(star.dataset.value);
         updateStarHighlight(selectedRating);
+        ratingMessage.textContent = `You selected ${selectedRating} star(s).`;
     });
 });
+
 function updateStarHighlight(rating) {
     stars.forEach(star => {
         star.style.color = parseInt(star.dataset.value) <= rating ? "gold" : "gray";
     });
 }
+
 // Submit review
 submitBtn.addEventListener("click", async () => {
     if (selectedRating === 0) {
-        ratingMessage.textContent = "Please select a rating.";
+        ratingMessage.textContent = "Please select a star rating.";
         return;
     }
+
+    const review = reviewText.value.trim();
+
     await fetch(`${API}/reviews`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
             rating: selectedRating,
-            text: reviewText.value.trim()
+            text: review
         })
     });
-    selectedRating = 0;
+
     reviewText.value = "";
+    selectedRating = 0;
     updateStarHighlight(0);
-    loadReviews();
+    ratingMessage.textContent = "Thank you for your feedback!";
+
+    loadReviews(currentPage);
     loadStats();
 });
-// Load reviews
-async function loadReviews() {
-    const res = await fetch(`${API}/reviews?page=${currentPage}&sort=${currentSort}`);
+
+// Load reviews with pagination
+async function loadReviews(page) {
+    const res = await fetch(`${API}/reviews?page=${page}`);
     const data = await res.json();
+
     reviewsList.innerHTML = "";
     paginationContainer.innerHTML = "";
+
+    if (!data.reviews || data.reviews.length === 0) {
+        reviewsList.innerHTML = "<p>No reviews yet.</p>";
+        return;
+    }
+
     data.reviews.forEach(r => {
         const div = document.createElement("div");
         div.style.border = "1px solid #ccc";
         div.style.padding = "10px";
         div.style.margin = "10px 0";
+        div.style.borderRadius = "8px";
+        div.style.background = "#1e1e1e";
+
         div.innerHTML = `
-            <strong>${"★".repeat(r.rating)}</strong>
+            <strong>Rating: ${"★".repeat(r.rating)}</strong><br>
             <p>${r.text || "<i>No written review</i>"}</p>
             <small>${new Date(r.timestamp).toLocaleString()}</small>
-            <br><br>
-            <button onclick="editReview(${r.id}, ${r.rating}, \`${r.text}\`)">Edit</button>
-            <button onclick="deleteReview(${r.id})">Delete</button>
         `;
+
         reviewsList.appendChild(div);
     });
+
     createPagination(data.total);
 }
-// Pagination
-function createPagination(total) {
-    const pages = Math.ceil(total / 3);
-    for (let i = 1; i <= pages; i++) {
+
+// Create pagination buttons
+function createPagination(totalReviews) {
+    const totalPages = Math.ceil(totalReviews / REVIEWS_PER_PAGE);
+
+    for (let i = 1; i <= totalPages; i++) {
         const btn = document.createElement("button");
         btn.textContent = i;
+        btn.style.margin = "5px";
+        btn.style.padding = "5px 10px";
+        btn.style.borderRadius = "5px";
+        btn.style.cursor = "pointer";
+
         if (i === currentPage) {
             btn.style.background = "#333";
             btn.style.color = "white";
         }
+
         btn.addEventListener("click", () => {
             currentPage = i;
-            loadReviews();
+            loadReviews(currentPage);
         });
+
         paginationContainer.appendChild(btn);
     }
 }
-// Sorting
-sortSelect.addEventListener("change", () => {
-    currentSort = sortSelect.value;
-    currentPage = 1;
-    loadReviews();
-});
-// Edit review
-async function editReview(id, rating, text) {
-    const newText = prompt("Edit review:", text);
-    if (newText === null) return;
-    const newRating = parseInt(prompt("Edit rating (1-5):", rating));
-    if (!newRating) return;
-    await fetch(`${API}/reviews/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ rating: newRating, text: newText })
-    });
-    loadReviews();
-    loadStats();
-}
-// Delete review
-async function deleteReview(id) {
-    if (!confirm("Delete this review?")) return;
-    await fetch(`${API}/reviews/${id}`, {
-        method: "DELETE"
-    });
-    loadReviews();
-    loadStats();
-}
-// Stats
+
+// Load rating stats
 async function loadStats() {
-    const res = await fetch(`${API}/reviews?page=1&sort=newest`);
+    const res = await fetch(`${API}/reviews?page=1`);
     const data = await res.json();
-    if (data.total === 0) {
+
+    if (!data.reviews || data.reviews.length === 0) {
         averageRatingEl.textContent = "0.0";
         totalRatingsEl.textContent = "0";
         return;
     }
-    const all = await fetch(`${API}/reviews?page=1&sort=oldest`);
-    const allData = await all.json();
-    const ratings = allData.reviews.map(r => r.rating);
+
+    const ratings = data.reviews.map(r => r.rating);
     const avg = (ratings.reduce((a, b) => a + b, 0) / ratings.length).toFixed(1);
+
     averageRatingEl.textContent = avg;
     totalRatingsEl.textContent = ratings.length;
 }
+
 // Init
-loadReviews();
+loadReviews(currentPage);
 loadStats();
 document.getElementById("followBtn").addEventListener("click", function () {
 document.getElementById("socialButtons").style.display = "block";
