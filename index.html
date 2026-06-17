@@ -2203,6 +2203,8 @@ Open for research collaboration, embedded systems development, RF engineering pr
 
 <!-- JAVASCRIPT -->
 <script>
+const API = "https://reviews-backend-kohl.vercel.app";
+// Select elements
 const stars = document.querySelectorAll(".star");
 const averageRatingEl = document.getElementById("averageRating");
 const totalRatingsEl = document.getElementById("totalRatings");
@@ -2233,7 +2235,7 @@ submitBtn.addEventListener("click", async () => {
         ratingMessage.textContent = "Please select a rating.";
         return;
     }
-    await fetch("http://localhost:3000/reviews", {
+    await fetch(`${API}/reviews`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -2249,7 +2251,7 @@ submitBtn.addEventListener("click", async () => {
 });
 // Load reviews
 async function loadReviews() {
-    const res = await fetch(`http://localhost:3000/reviews?page=${currentPage}&sort=${currentSort}`);
+    const res = await fetch(`${API}/reviews?page=${currentPage}&sort=${currentSort}`);
     const data = await res.json();
     reviewsList.innerHTML = "";
     paginationContainer.innerHTML = "";
@@ -2299,7 +2301,7 @@ async function editReview(id, rating, text) {
     if (newText === null) return;
     const newRating = parseInt(prompt("Edit rating (1-5):", rating));
     if (!newRating) return;
-    await fetch(`http://localhost:3000/reviews/${id}`, {
+    await fetch(`${API}/reviews/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ rating: newRating, text: newText })
@@ -2310,7 +2312,7 @@ async function editReview(id, rating, text) {
 // Delete review
 async function deleteReview(id) {
     if (!confirm("Delete this review?")) return;
-    await fetch(`http://localhost:3000/reviews/${id}`, {
+    await fetch(`${API}/reviews/${id}`, {
         method: "DELETE"
     });
     loadReviews();
@@ -2318,14 +2320,14 @@ async function deleteReview(id) {
 }
 // Stats
 async function loadStats() {
-    const res = await fetch("http://localhost:3000/reviews?page=1&sort=newest");
+    const res = await fetch(`${API}/reviews?page=1&sort=newest`);
     const data = await res.json();
     if (data.total === 0) {
         averageRatingEl.textContent = "0.0";
         totalRatingsEl.textContent = "0";
         return;
     }
-    const all = await fetch("http://localhost:3000/reviews?page=1&sort=oldest");
+    const all = await fetch(`${API}/reviews?page=1&sort=oldest`);
     const allData = await all.json();
     const ratings = allData.reviews.map(r => r.rating);
     const avg = (ratings.reduce((a, b) => a + b, 0) / ratings.length).toFixed(1);
