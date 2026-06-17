@@ -2208,12 +2208,12 @@ let currentPage = 1;
 const perPage = 3;
 // Load reviews from backend
 async function fetchReviews() {
-    const res = await fetch("http://localhost:3000/reviews");
+    const res = await fetch("https://review-backend-olive.vercel.app/reviews");
     return await res.json();
 }
 // Submit review to backend
 async function submitReviewToServer(review) {
-    await fetch("http://localhost:3000/reviews", {
+    await fetch("https://review-backend-olive.vercel.app/reviews", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(review)
