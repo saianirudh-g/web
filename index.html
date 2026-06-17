@@ -2155,6 +2155,7 @@ Open for research collaboration, embedded systems development, RF engineering pr
     <button id="submitReview">Submit Review</button>
 
 <div id="reviewsList"></div>
+<div id="pagination" style="margin-top: 15px;"></div>
 </section>
 
 <!-- IMAGE POPUP MODAL -->
@@ -2203,12 +2204,15 @@ const ratingMessage = document.getElementById("ratingMessage");
 const reviewText = document.getElementById("reviewText");
 const submitBtn = document.getElementById("submitReview");
 const reviewsList = document.getElementById("reviewsList");
+const paginationContainer = document.getElementById("pagination");
 
 let selectedRating = 0;
+let currentPage = 1;
+const REVIEWS_PER_PAGE = 3;
 
 // Load saved data on page load
 document.addEventListener("DOMContentLoaded", () => {
-    loadReviews(false); // false = show only first 3
+    loadReviews(currentPage);
     loadRatingStats();
 });
 
@@ -2236,14 +2240,10 @@ submitBtn.addEventListener("click", () => {
         ratingMessage.textContent = "Please select a star rating.";
         return;
     }
-    if (review === "") {
-        ratingMessage.textContent = "Please write a review.";
-        return;
-    }
 
     const newReview = {
         rating: selectedRating,
-        text: review,
+        text: review, // optional now
         date: new Date().toLocaleString()
     };
 
@@ -2256,21 +2256,25 @@ submitBtn.addEventListener("click", () => {
     updateStarHighlight(0);
     ratingMessage.textContent = "Thank you for your feedback!";
 
-    loadReviews(false);
+    loadReviews(currentPage);
     loadRatingStats();
 });
 
-// Load and display reviews
-function loadReviews(showAll) {
+// Load and display reviews with pagination
+function loadReviews(page) {
     const reviews = JSON.parse(localStorage.getItem("globalReviews")) || [];
     reviewsList.innerHTML = "";
+    paginationContainer.innerHTML = "";
 
-    let visibleReviews = reviews;
-
-    // If more than 3 reviews and showAll = false → show only first 3
-    if (!showAll && reviews.length > 3) {
-        visibleReviews = reviews.slice(0, 3);
+    if (reviews.length === 0) {
+        reviewsList.innerHTML = "<p>No reviews yet.</p>";
+        return;
     }
+
+    const start = (page - 1) * REVIEWS_PER_PAGE;
+    const end = start + REVIEWS_PER_PAGE;
+
+    const visibleReviews = reviews.slice(start, end);
 
     visibleReviews.forEach(r => {
         const div = document.createElement("div");
@@ -2280,24 +2284,37 @@ function loadReviews(showAll) {
 
         div.innerHTML = `
             <strong>Rating: ${"★".repeat(r.rating)}</strong><br>
-            <p>${r.text}</p>
+            <p>${r.text || "<i>No written review</i>"}</p>
             <small>${r.date}</small>
         `;
 
         reviewsList.appendChild(div);
     });
 
-    // Add "Show All" button if needed
-    if (!showAll && reviews.length > 3) {
+    createPagination(reviews.length);
+}
+
+// Create pagination buttons
+function createPagination(totalReviews) {
+    const totalPages = Math.ceil(totalReviews / REVIEWS_PER_PAGE);
+
+    for (let i = 1; i <= totalPages; i++) {
         const btn = document.createElement("button");
-        btn.textContent = "Show All Reviews";
-        btn.style.marginTop = "10px";
+        btn.textContent = i;
+        btn.style.margin = "5px";
+        btn.style.padding = "5px 10px";
+
+        if (i === currentPage) {
+            btn.style.background = "#333";
+            btn.style.color = "white";
+        }
 
         btn.addEventListener("click", () => {
-            loadReviews(true); // reload showing all
+            currentPage = i;
+            loadReviews(currentPage);
         });
 
-        reviewsList.appendChild(btn);
+        paginationContainer.appendChild(btn);
     }
 }
 
