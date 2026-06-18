@@ -385,7 +385,7 @@ nav {
 }
 /* PROFILE BOX */
 .profile-box{
-  position:relative;
+  position: relative;
 }
 .profile-box::before{
   content:'';
@@ -403,6 +403,36 @@ nav {
   object-fit:cover;
   border-radius:50%;
   border:5px solid rgba(255,255,255,0.2);
+}
+.profile-media-wrapper {
+  position: relative;
+  display: inline-block;
+}
+/* Image & video same size */
+.profile-media-wrapper img,
+.profile-media-wrapper video {
+  width: 100%;
+  height: auto;
+  border-radius: 12px; /* optional */
+  display: block;
+}
+/* Intro button overlay */
+.intro-btn {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+.intro-btn:hover {
+  background: rgba(0, 0, 0, 0.9);
+  transform: translateY(-1px);
 }
 .flip-btn{
   position: absolute;
@@ -1293,13 +1323,29 @@ class="btn btn-primary">
 <div class="hero-right">
 
 <div class="profile-box">
-<img src="Images/Media.jpeg"
-alt="Sai Anirudh">
-
-<button class="flip-btn"
-onclick="flipHero()">
-Turn ↻
-</button>
+    <div class="profile-media-wrapper">
+      <!-- Profile Image -->
+      <img id="profile-photo"
+           src="Images/Media.jpeg"
+           alt="Sai Anirudh">
+      <!-- Intro Video (initially hidden) -->
+      <video id="intro-video"
+             src="Videos/intro.mp4"
+             preload="metadata"
+             controls
+             playsinline
+             style="display: none;">
+      </video>
+      <!-- Intro Button -->
+      <button id="intro-toggle-btn" class="intro-btn">
+        Watch Intro
+      </button>
+      <!-- Flip Button -->
+      <button class="flip-btn" onclick="flipHero()">
+          Turn ↻
+      </button>
+    </div>
+  </div>
 
 </div>
 </div>
@@ -2177,6 +2223,22 @@ Open for research collaboration, embedded systems development, RF engineering pr
 
 <!-- JAVASCRIPT -->
 <script>
+const profilePhoto = document.getElementById('profile-photo');
+  const introVideo = document.getElementById('intro-video');
+  const introBtn = document.getElementById('intro-toggle-btn');
+
+  introBtn.addEventListener('click', () => {
+    // Hide image, show video
+    profilePhoto.style.display = 'none';
+    introVideo.style.display = 'block';
+
+    // Autoplay from start
+    introVideo.currentTime = 0;
+    introVideo.play();
+
+    // Optional: hide button after click
+    introBtn.style.display = 'none';
+  });
 const API = "https://reviews-backend-ten.vercel.app";
 // Select elements
 const stars = document.querySelectorAll(".star");
