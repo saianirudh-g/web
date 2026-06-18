@@ -2198,9 +2198,10 @@ Open for research collaboration, embedded systems development, RF engineering pr
 
 <!-- JAVASCRIPT -->
 <script>
-const API = "https://reviews-backend-ten.vercel.app";
+// ====== CONFIG ======
+const API_BASE = "https://reviews-backend-ten.vercel.app";
 
-// DOM elements
+// ====== DOM ELEMENTS ======
 const ratingInput = document.getElementById("rating");
 const textInput = document.getElementById("text");
 const submitBtn = document.getElementById("submitBtn");
@@ -2210,106 +2211,170 @@ const avgRatingBox = document.getElementById("averageRating");
 
 let currentPage = 1;
 
-// Load reviews
+// ====== LOAD REVIEWS ======
 async function loadReviews(page = 1) {
-  const res = await fetch(`${API}/reviews?page=${page}`);
-  const data = await res.json();
+  try {
+    const res = await fetch(`${API_BASE}/reviews?page=${page}`);
+    const data = await res.json();
 
-  reviewsContainer.innerHTML = "";
+    reviewsContainer.innerHTML = "";
 
-  data.reviews.forEach((r) => {
-    const div = document.createElement("div");
-    div.className = "review-card";
+    data.reviews.forEach((review) => {
+      const card = document.createElement("div");
+      card.className = "review-card";
+      card.dataset.id = review._id;
 
-    div.innerHTML = `
-      <p><strong>Rating:</strong> ${r.rating}</p>
-      <p>${r.text}</p>
-      <button onclick="editReview('${r._id}', ${r.rating}, \`${r.text}\`)">Edit</button>
-      <button onclick="deleteReview('${r._id}')">Delete</button>
-    `;
+      const ratingP = document.createElement("p");
+      ratingP.innerHTML = `<strong>Rating:</strong> ${review.rating}`;
 
-    reviewsContainer.appendChild(div);
-  });
+      const textP = document.createElement("p");
+      textP.textContent = review.text || "";
 
-  renderPagination(data.total, data.perPage, data.page);
-  loadAverageRating();
+      const btnRow = document.createElement("div");
+      btnRow.className = "review-actions";
+
+      const editBtn = document.createElement("button");
+      editBtn.textContent = "Edit";
+      editBtn.className = "edit-btn";
+      editBtn.dataset.id = review._id;
+      editBtn.dataset.rating = review.rating;
+      editBtn.dataset.text = review.text || "";
+
+      const deleteBtn = document.createElement("button");
+      deleteBtn.textContent = "Delete";
+      deleteBtn.className = "delete-btn";
+      deleteBtn.dataset.id = review._id;
+
+      btnRow.appendChild(editBtn);
+      btnRow.appendChild(deleteBtn);
+
+      card.appendChild(ratingP);
+      card.appendChild(textP);
+      card.appendChild(btnRow);
+
+      reviewsContainer.appendChild(card);
+    });
+
+    renderPagination(data.total, data.perPage, data.page);
+    loadAverageRating();
+  } catch (err) {
+    console.error("Failed to load reviews:", err);
+  }
 }
 
-// Submit review
+// ====== SUBMIT REVIEW ======
 submitBtn.addEventListener("click", async () => {
-  const rating = parseInt(ratingInput.value);
-  const text = textInput.value;
+  const rating = parseInt(ratingInput.value, 10);
+  const text = textInput.value.trim();
 
-  if (!rating) return alert("Select a rating");
+  if (!rating || rating < 1 || rating > 5) {
+    alert("Please select a rating between 1 and 5.");
+    return;
+  }
 
-  await fetch(`${API}/reviews`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ rating, text }),
-  });
+  try {
+    await fetch(`${API_BASE}/reviews`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ rating, text }),
+    });
 
-  ratingInput.value = "";
-  textInput.value = "";
+    ratingInput.value = "";
+    textInput.value = "";
 
-  loadReviews(currentPage);
+    loadReviews(currentPage);
+  } catch (err) {
+    console.error("Failed to submit review:", err);
+  }
 });
 
-// Edit review
-async function editReview(id, oldRating, oldText) {
-  const newRating = prompt("New rating (1-5):", oldRating);
-  const newText = prompt("New text:", oldText);
+// ====== EDIT / DELETE HANDLERS (EVENT DELEGATION) ======
+reviewsContainer.addEventListener("click", async (e) => {
+  const target = e.target;
 
-  if (!newRating) return;
+  // DELETE
+  if (target.classList.contains("delete-btn")) {
+    const id = target.dataset.id;
+    if (!id) return;
 
-  await fetch(`${API}/reviews/${id}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ rating: parseInt(newRating), text: newText }),
-  });
+    const ok = confirm("Delete this review?");
+    if (!ok) return;
 
-  loadReviews(currentPage);
-}
+    try {
+      await fetch(`${API_BASE}/reviews/${id}`, {
+        method: "DELETE",
+      });
+      loadReviews(currentPage);
+    } catch (err) {
+      console.error("Failed to delete review:", err);
+    }
+  }
 
-// Delete review
-async function deleteReview(id) {
-  if (!confirm("Delete this review?")) return;
+  // EDIT
+  if (target.classList.contains("edit-btn")) {
+    const id = target.dataset.id;
+    if (!id) return;
 
-  await fetch(`${API}/reviews/${id}`, {
-    method: "DELETE",
-  });
+    const oldRating = parseInt(target.dataset.rating, 10);
+    const oldText = target.dataset.text || "";
 
-  loadReviews(currentPage);
-}
+    const newRatingStr = prompt("New rating (1-5):", oldRating);
+    if (newRatingStr === null) return; // cancelled
 
-// Average rating
+    const newRating = parseInt(newRatingStr, 10);
+    if (!newRating || newRating < 1 || newRating > 5) {
+      alert("Invalid rating.");
+      return;
+    }
+
+    const newText = prompt("New text:", oldText);
+    if (newText === null) return; // cancelled
+
+    try {
+      await fetch(`${API_BASE}/reviews/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ rating: newRating, text: newText }),
+      });
+      loadReviews(currentPage);
+    } catch (err) {
+      console.error("Failed to edit review:", err);
+    }
+  }
+});
+
+// ====== AVERAGE RATING ======
 async function loadAverageRating() {
-  const res = await fetch(`${API}/reviews/average`);
-  const data = await res.json();
+  try {
+    const res = await fetch(`${API_BASE}/reviews/average`);
+    const data = await res.json();
 
-  avgRatingBox.innerHTML = `
-    ⭐ Average Rating: <strong>${data.average}</strong>  
-    (${data.total} reviews)
-  `;
+    avgRatingBox.innerHTML = `
+      ⭐ Average Rating: <strong>${data.average}</strong>
+      (${data.total} review${data.total === 1 ? "" : "s"})
+    `;
+  } catch (err) {
+    console.error("Failed to load average rating:", err);
+  }
 }
 
-// Pagination
+// ====== PAGINATION ======
 function renderPagination(total, perPage, page) {
   paginationContainer.innerHTML = "";
-  const totalPages = Math.ceil(total / perPage);
+  const totalPages = Math.max(1, Math.ceil(total / perPage));
 
   for (let i = 1; i <= totalPages; i++) {
     const btn = document.createElement("button");
     btn.textContent = i;
-    btn.className = i === page ? "active" : "";
-    btn.onclick = () => {
+    if (i === page) btn.classList.add("active");
+    btn.addEventListener("click", () => {
       currentPage = i;
       loadReviews(i);
-    };
+    });
     paginationContainer.appendChild(btn);
   }
 }
-
-// Initial load
+// ====== INITIAL LOAD ======
 loadReviews();
 document.getElementById("followBtn").addEventListener("click", function () {
 document.getElementById("socialButtons").style.display = "block";
