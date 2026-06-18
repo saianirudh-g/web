@@ -1278,64 +1278,108 @@ button#submitReview:hover {
 
 <!-- HERO -->
 <section class="hero" id="home">
-<div class="hero-flip-card" id="heroCard">
-<!-- INNER WRAPPER (must wrap both sides) -->
-<div class="hero-container">
-    <!-- FRONT SIDE -->
-    <div class="hero-front">
-        <div class="hero-left">
-            <h1>Sai Anirudh <span>Godavarthi</span></h1>
-            <div class="typing" id="typing"></div>
-            <h2>Masters in Electrical & Computer Engineering</h2>
-            <p>I'm passionate about Embedded Systems, RF Engineering, ASIC Physical Design, THz Communication and Software Testing.</p>
-        <div class="hero-buttons">
-        <button id="followBtn" class="btn btn-primary" style="font-size: 20px;"> Follow </button>
-        <div id="socialButtons" style="display: none; margin-top: 15px;">
-            <a href="https://github.com/saianirudh-g" target="_blank" class="btn btn-primary">
-            <i class="fab fa-github"></i> GitHub
-            </a>
-            <a href="https://www.linkedin.com/in/sai-anirudh-godavarthi-710b16273/" target="_blank" class="btn btn-outline">
-            <i class="fab fa-linkedin"></i> LinkedIn
-            </a>
-            <a href="https://umkc.joinhandshake.com/profiles/saianirudh-g" target="_blank" class="btn btn-primary">
-            <i class="fab fa-handshake"></i> HandShake
-            </a>
-        </div>
-            <a href="https://buymeacoffee.com/saianirudh" target="_blank" class="btn btn-primary">
-                ☕ Buy Me a Coffee
-            </a>
-        </div>
-        </div>
-    <div class="hero-right">
-      <div class="profile-box">
-      <div class="profile-media-wrapper">
-            <img id="profile-photo" src="Images/Media.jpeg" alt="Sai Anirudh">
-            <video id="intro-video" src="Videos/intro.mp4" preload="metadata" controls playsinline style="display: none;"></video>
-          <button id="intro-toggle-btn" class="intro-btn">
-                Watch Intro
-          </button>
-          <button class="flip-btn" onclick="flipHero()">
-             Turn ↻
-          </button>
-        </div>
-    </div>
- </div>
-</div> <!-- END FRONT -->
 
-<!-- BACK SIDE -->
-<div class="hero-back">
-    <h2 class="section-title">My <span>Bio</span></h2>
-    <p>I am a high‑caliber embedded systems engineer with strong expertise in STM32 development, IoT firmware, and advanced automation frameworks, backed by hands‑on experience delivering production‑grade solutions. 
-        With a technical foundation spanning VLSI, RF systems, mixed‑signal design, and high‑precision debugging, I bring analytical depth, rapid execution, and award‑winning performance that elevates engineering teams.</p>
-    <br>
-    <p>My technical background spans VLSI/ASIC flows, RF & antenna systems, mixed‑signal design, PCB development, and sub‑THz communication projects, supported by strong tool proficiency in Cadence, CST Studio, MATLAB, and Embedded C.</p>
-            
-<button class="back-btn" onclick="flipHero()">
-    ← Back to home
-</button>
-</div>
-</div> <!-- END hero-container -->
+<div class="hero-flip-card" id="heroCard">
+
+    <!-- MUST WRAP BOTH FRONT & BACK -->
+    <div class="hero-container">
+
+        <!-- FRONT SIDE -->
+        <div class="hero-front">
+
+            <div class="hero-left">
+                <h1>Sai Anirudh <span>Godavarthi</span></h1>
+                <div class="typing" id="typing"></div>
+                <h2>Masters in Electrical & Computer Engineering</h2>
+                <p>I'm passionate about Embedded Systems, RF Engineering, ASIC Physical Design, THz Communication and Software Testing.</p>
+
+                <div class="hero-buttons">
+
+                    <button id="followBtn" class="btn btn-primary" style="font-size: 20px;"> Follow </button>
+
+                    <div id="socialButtons" style="display: none; margin-top: 15px;">
+                        
+                        <a href="https://github.com/saianirudh-g"
+                           target="_blank"
+                           class="btn btn-primary">
+                           <i class="fab fa-github"></i> GitHub
+                        </a>
+
+                        <a href="https://www.linkedin.com/in/sai-anirudh-godavarthi-710b16273/"
+                           target="_blank"
+                           class="btn btn-outline">
+                           <i class="fab fa-linkedin"></i> LinkedIn
+                        </a>
+
+                        <a href="https://umkc.joinhandshake.com/profiles/saianirudh-g"
+                           target="_blank"
+                           class="btn btn-primary">
+                           <i class="fab fa-handshake"></i> HandShake
+                        </a>
+                    </div>
+
+                    <a href="https://buymeacoffee.com/saianirudh"
+                       target="_blank"
+                       class="btn btn-primary">
+                       ☕ Buy Me a Coffee
+                    </a>
+
+                </div>
+            </div>
+
+            <div class="hero-right">
+                <div class="profile-box">
+                    <div class="profile-media-wrapper">
+
+                        <img id="profile-photo"
+                             src="Images/Media.jpeg"
+                             alt="Sai Anirudh">
+
+                        <video id="intro-video"
+                               src="Videos/intro.mp4"
+                               preload="metadata"
+                               controls
+                               playsinline
+                               style="display: none;">
+                        </video>
+
+                        <button id="intro-toggle-btn" class="intro-btn">
+                            Watch Intro
+                        </button>
+
+                        <button class="flip-btn" onclick="flipHero()">
+                            Turn ↻
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+
+        </div> <!-- END FRONT -->
+
+
+        <!-- BACK SIDE -->
+        <div class="hero-back">
+
+            <h2 class="section-title">My <span>Bio</span></h2>
+
+            <p>I am a high‑caliber embedded systems engineer with strong expertise in STM32 development, IoT firmware, and advanced automation frameworks, backed by hands‑on experience delivering production‑grade solutions. 
+                With a technical foundation spanning VLSI, RF systems, mixed‑signal design, and high‑precision debugging, I bring analytical depth, rapid execution, and award‑winning performance that elevates engineering teams.</p>
+
+            <br>
+
+            <p>My technical background spans VLSI/ASIC flows, RF & antenna systems, mixed‑signal design, PCB development, and sub‑THz communication projects, supported by strong tool proficiency in Cadence, CST Studio, MATLAB, and Embedded C.</p>
+
+            <button class="back-btn" onclick="flipHero()">
+                ← Back to home
+            </button>
+
+        </div> <!-- END BACK -->
+
+    </div> <!-- END hero-container -->
+
 </div> <!-- END hero-flip-card -->
+
 </section>
 
 <!-- ============================
