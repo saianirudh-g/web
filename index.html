@@ -2200,142 +2200,117 @@ Open for research collaboration, embedded systems development, RF engineering pr
 <script>
 const API = "https://reviews-backend-ten.vercel.app";
 
-// Select elements
-const stars = document.querySelectorAll(".star");
-const averageRatingEl = document.getElementById("averageRating");
-const totalRatingsEl = document.getElementById("totalRatings");
-const ratingMessage = document.getElementById("ratingMessage");
-const reviewText = document.getElementById("reviewText");
-const submitBtn = document.getElementById("submitReview");
-const reviewsList = document.getElementById("reviewsList");
+// DOM elements
+const ratingInput = document.getElementById("rating");
+const textInput = document.getElementById("text");
+const submitBtn = document.getElementById("submitBtn");
+const reviewsContainer = document.getElementById("reviews");
 const paginationContainer = document.getElementById("pagination");
+const avgRatingBox = document.getElementById("averageRating");
 
-let selectedRating = 0;
 let currentPage = 1;
-const REVIEWS_PER_PAGE = 3;
 
-// Highlight stars
-stars.forEach(star => {
-    star.addEventListener("click", () => {
-        selectedRating = parseInt(star.dataset.value);
-        updateStarHighlight(selectedRating);
-        ratingMessage.textContent = `You selected ${selectedRating} star(s).`;
-    });
-});
+// Load reviews
+async function loadReviews(page = 1) {
+  const res = await fetch(`${API}/reviews?page=${page}`);
+  const data = await res.json();
 
-function updateStarHighlight(rating) {
-    stars.forEach(star => {
-        star.style.color = parseInt(star.dataset.value) <= rating ? "gold" : "gray";
-    });
+  reviewsContainer.innerHTML = "";
+
+  data.reviews.forEach((r) => {
+    const div = document.createElement("div");
+    div.className = "review-card";
+
+    div.innerHTML = `
+      <p><strong>Rating:</strong> ${r.rating}</p>
+      <p>${r.text}</p>
+      <button onclick="editReview('${r._id}', ${r.rating}, \`${r.text}\`)">Edit</button>
+      <button onclick="deleteReview('${r._id}')">Delete</button>
+    `;
+
+    reviewsContainer.appendChild(div);
+  });
+
+  renderPagination(data.total, data.perPage, data.page);
+  loadAverageRating();
 }
 
 // Submit review
 submitBtn.addEventListener("click", async () => {
-    if (selectedRating === 0) {
-        ratingMessage.textContent = "Please select a star rating.";
-        return;
-    }
+  const rating = parseInt(ratingInput.value);
+  const text = textInput.value;
 
-    const review = reviewText.value.trim();
+  if (!rating) return alert("Select a rating");
 
-    await fetch(`${API}/reviews`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            rating: selectedRating,
-            text: review
-        })
-    });
+  await fetch(`${API}/reviews`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ rating, text }),
+  });
 
-    reviewText.value = "";
-    selectedRating = 0;
-    updateStarHighlight(0);
-    ratingMessage.textContent = "Thank you for your feedback!";
+  ratingInput.value = "";
+  textInput.value = "";
 
-    loadReviews(currentPage);
-    loadStats();
+  loadReviews(currentPage);
 });
 
-// Load reviews with pagination
-async function loadReviews(page) {
-    const res = await fetch(`${API}/reviews?page=${page}`);
-    const data = await res.json();
+// Edit review
+async function editReview(id, oldRating, oldText) {
+  const newRating = prompt("New rating (1-5):", oldRating);
+  const newText = prompt("New text:", oldText);
 
-    reviewsList.innerHTML = "";
-    paginationContainer.innerHTML = "";
+  if (!newRating) return;
 
-    if (!data.reviews || data.reviews.length === 0) {
-        reviewsList.innerHTML = "<p>No reviews yet.</p>";
-        return;
-    }
+  await fetch(`${API}/reviews/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ rating: parseInt(newRating), text: newText }),
+  });
 
-    data.reviews.forEach(r => {
-        const div = document.createElement("div");
-        div.style.border = "1px solid #ccc";
-        div.style.padding = "10px";
-        div.style.margin = "10px 0";
-        div.style.borderRadius = "8px";
-        div.style.background = "#1e1e1e";
-
-        div.innerHTML = `
-            <strong>Rating: ${"★".repeat(r.rating)}</strong><br>
-            <p>${r.text || "<i>No written review</i>"}</p>
-            <small>${new Date(r.timestamp).toLocaleString()}</small>
-        `;
-
-        reviewsList.appendChild(div);
-    });
-
-    createPagination(data.total);
+  loadReviews(currentPage);
 }
 
-// Create pagination buttons
-function createPagination(totalReviews) {
-    const totalPages = Math.ceil(totalReviews / REVIEWS_PER_PAGE);
+// Delete review
+async function deleteReview(id) {
+  if (!confirm("Delete this review?")) return;
 
-    for (let i = 1; i <= totalPages; i++) {
-        const btn = document.createElement("button");
-        btn.textContent = i;
-        btn.style.margin = "5px";
-        btn.style.padding = "5px 10px";
-        btn.style.borderRadius = "5px";
-        btn.style.cursor = "pointer";
+  await fetch(`${API}/reviews/${id}`, {
+    method: "DELETE",
+  });
 
-        if (i === currentPage) {
-            btn.style.background = "#333";
-            btn.style.color = "white";
-        }
-
-        btn.addEventListener("click", () => {
-            currentPage = i;
-            loadReviews(currentPage);
-        });
-
-        paginationContainer.appendChild(btn);
-    }
+  loadReviews(currentPage);
 }
 
-// Load rating stats
-async function loadStats() {
-    const res = await fetch(`${API}/reviews?page=1`);
-    const data = await res.json();
+// Average rating
+async function loadAverageRating() {
+  const res = await fetch(`${API}/reviews/average`);
+  const data = await res.json();
 
-    if (!data.reviews || data.reviews.length === 0) {
-        averageRatingEl.textContent = "0.0";
-        totalRatingsEl.textContent = "0";
-        return;
-    }
-
-    const ratings = data.reviews.map(r => r.rating);
-    const avg = (ratings.reduce((a, b) => a + b, 0) / ratings.length).toFixed(1);
-
-    averageRatingEl.textContent = avg;
-    totalRatingsEl.textContent = ratings.length;
+  avgRatingBox.innerHTML = `
+    ⭐ Average Rating: <strong>${data.average}</strong>  
+    (${data.total} reviews)
+  `;
 }
 
-// Init
-loadReviews(currentPage);
-loadStats();
+// Pagination
+function renderPagination(total, perPage, page) {
+  paginationContainer.innerHTML = "";
+  const totalPages = Math.ceil(total / perPage);
+
+  for (let i = 1; i <= totalPages; i++) {
+    const btn = document.createElement("button");
+    btn.textContent = i;
+    btn.className = i === page ? "active" : "";
+    btn.onclick = () => {
+      currentPage = i;
+      loadReviews(i);
+    };
+    paginationContainer.appendChild(btn);
+  }
+}
+
+// Initial load
+loadReviews();
 document.getElementById("followBtn").addEventListener("click", function () {
 document.getElementById("socialButtons").style.display = "block";
 });
