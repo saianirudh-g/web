@@ -384,37 +384,38 @@ nav {
   font-size:18px;
 }
 /* PROFILE BOX */
-.profile-box{
+.profile-box {
   position: relative;
+  width: 260px;   /* smaller size */
+  height: 260px;  /* smaller size */
+  margin: auto;
 }
-.profile-box::before{
-  content:'';
-  position:absolute;
-  inset:-15px;
-  background:linear-gradient(45deg,#06b6d4,#3b82f6,#8b5cf6);
-  border-radius:50%;
-  filter:blur(30px);
-  opacity:0.6;
+.profile-box::before {
+  content: '';
+  position: absolute;
+  inset: -12px;
+  background: linear-gradient(45deg, #06b6d4, #3b82f6, #8b5cf6);
+  border-radius: 50%;
+  filter: blur(25px);
+  opacity: 0.6;
 }
-.profile-box img{
-  position:relative;
-  width:350px;
-  height:350px;
-  object-fit:cover;
-  border-radius:50%;
-  border:5px solid rgba(255,255,255,0.2);
-}
+/* Wrapper must also be circular */
 .profile-media-wrapper {
   position: relative;
-  display: inline-block;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  overflow: hidden; /* forces video to stay circular */
 }
-/* Image & video same size */
+/* Image & video same size and circular */
 .profile-media-wrapper img,
 .profile-media-wrapper video {
   width: 100%;
-  height: auto;
-  border-radius: 12px; /* optional */
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
   display: block;
+  border: 5px solid rgba(255,255,255,0.2);
 }
 /* Intro button overlay */
 .intro-btn {
