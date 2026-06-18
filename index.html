@@ -1331,16 +1331,14 @@ button#submitReview:hover {
                  controls
                  playsinline
                  preload="auto"
-                 style="display: none;">
+                 style="display: none; width: 100%; border-radius: 10px;">
           </video>
           <!-- Intro Button -->
-          <button id="intro-toggle-btn" class="intro-btn">
-            Watch Intro
-          </button>
+          <button id="intro-toggle-btn" class="intro-btn">Watch Intro</button>
+          <!-- Hide Button -->
+          <button id="hide-intro-btn" class="intro-btn" style="display: none; margin-top: 10px;">Hide Intro</button>
           <!-- Flip Button -->
-          <button class="flip-btn" onclick="flipHero()">
-            Turn ↻
-          </button>
+          <button class="flip-btn" onclick="flipHero()">Turn ↻</button>
         </div>
       </div>
     </div>
@@ -2214,20 +2212,27 @@ Open for research collaboration, embedded systems development, RF engineering pr
 <!-- JAVASCRIPT -->
 <script>
 const profilePhoto = document.getElementById('profile-photo');
-  const introVideo = document.getElementById('intro-video');
-  const introBtn = document.getElementById('intro-toggle-btn');
-
+const introVideo = document.getElementById('intro-video');
+const introBtn = document.getElementById('intro-toggle-btn');
+const hideIntroBtn = document.getElementById('hide-intro-btn');
   introBtn.addEventListener('click', () => {
     // Hide image, show video
     profilePhoto.style.display = 'none';
     introVideo.style.display = 'block';
-
     // Autoplay from start
     introVideo.currentTime = 0;
     introVideo.play();
-
     // Optional: hide button after click
     introBtn.style.display = 'none';
+  });
+  // Hide video and return to photo
+  hideIntroBtn.addEventListener('click', () => {
+    introVideo.pause();
+    introVideo.currentTime = 0;
+    introVideo.style.display = 'none';
+    profilePhoto.style.display = 'block';
+    hideIntroBtn.style.display = 'none';
+    introBtn.style.display = 'inline-block';
   });
 const API = "https://reviews-backend-ten.vercel.app";
 // Select elements
