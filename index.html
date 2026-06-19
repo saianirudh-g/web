@@ -313,37 +313,45 @@ nav {
 /* ============================================
    FLIP CARD WRAPPER (DESKTOP)
 ============================================ */
-.hero-flip-card{
+.hero-flip-card {
   position: relative;
   width: 100%;
   max-width: 2000px;
   margin-left: auto;
   margin-right: auto;
-  display: grid;
-  height: auto;
+  display: block; /* grid not needed */
+  height: auto; /* allow full expansion */
   transform-style: preserve-3d;
   transition: transform 0.9s ease;
-}
-/* Flip state */
-.hero-flip-card.flipped{
-  transform: rotateY(180deg);
 }
 /* ============================================
    FRONT & BACK PANELS (DESKTOP)
 ============================================ */
 .hero-flip-card .front,
-.hero-flip-card .back{
-  position: relative;
+.hero-flip-card .back {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
+  /* 🔥 KEY FIX: Let the card grow with content */
+  min-height: 100%;
   height: auto;
-  padding: 20px;
+  padding: 40px 30px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start; /* content starts at top */
+  align-items: flex-start; /* align left for bio text */
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+}
+/* Ensure wrapper expands to tallest side */
+.hero-flip-card {
+  height: auto;
+}
+/* Flip state */
+.hero-flip-card.flipped{
+  transform: rotateY(180deg);
 }
 /* Back side rotates */
 .hero-flip-card .back{
@@ -1115,24 +1123,32 @@ button#submitReview:hover {
     .hero-flip-card {
         width: 100%;
         max-width: 100%;
-        height: auto;
+        height: auto; /* 🔥 KEY FIX */
         padding: 0 12px;
+        position: relative;
         transform-style: preserve-3d;
         transition: transform 0.8s ease;
     }
     /* Front & Back panels adjust to content height */
     .hero-flip-card .front,
     .hero-flip-card .back {
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
+        /* 🔥 KEY FIX: Let panels grow naturally */
+        min-height: 100%;
         height: auto;
         padding: 26px 18px;
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        align-items: center;
+        align-items: flex-start; /* better for bio text */
         gap: 18px;
-        text-align: center;
+        text-align: left; /* more readable for long text */
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
     }
     /* Readable header */
     .hero-flip-card .front h2,
@@ -1140,14 +1156,17 @@ button#submitReview:hover {
         font-size: 1.6rem;
         line-height: 1.3;
         word-break: break-word;
+        text-align: left;
     }
     /* Description text */
     .hero-flip-card p {
         font-size: 1rem;
         line-height: 1.6;
-        max-width: 95%;
-        margin: 0 auto;
+        max-width: 100%;
+        margin: 0;
+        text-align: left;
     }
+}
     /* Back button spacing */
     .hero-flip-card .back .back-btn {
         margin-top: 10px;
@@ -1265,9 +1284,6 @@ button#submitReview:hover {
     text-transform: uppercase;
     letter-spacing: 1px;
   }
-  .section-title span {
-    color: #d4af37; /* Gold accent */
-  }
   .achievement-strip {
     display: flex;
     gap: 15px;
@@ -1372,9 +1388,7 @@ button#submitReview:hover {
           </p>
 
           <div class="hero-buttons">
-
             <button id="followBtn" class="btn btn-primary" style="font-size: 20px;">Follow</button>
-
             <div id="socialButtons" style="display: none; margin-top: 15px;">
               <a href="mailto:saianirudh.kefp2@gmail.com" target="_blank" class="btn btn-primary">
                 <i class="fa-solid fa-envelope"></i> Email
@@ -1395,10 +1409,8 @@ button#submitReview:hover {
         <div class="hero-right">
           <div class="profile-box">
             <div class="profile-media-wrapper">
-
               <!-- Profile Image -->
               <img id="profile-photo" src="Images/Media.jpeg" alt="Sai Anirudh">
-
               <!-- Intro Video -->
               <video id="intro-video"
                      src="Videos/intro_fixed.mp4"
@@ -1406,20 +1418,15 @@ button#submitReview:hover {
                      preload="auto"
                      style="display: none;">
               </video>
-
               <!-- Intro Button -->
               <button id="intro-toggle-btn" class="intro-btn">Watch Intro</button>
-
               <!-- Hide Intro Button -->
               <button id="hide-intro-btn" class="hide-btn">Hide Intro</button>
-
               <!-- Flip Button -->
               <button class="flip-btn" onclick="flipHero()">Turn ↻</button>
-
             </div>
           </div>
         </div>
-
       </div>
     </div>
 
@@ -1428,20 +1435,18 @@ button#submitReview:hover {
       <!-- TAGLINE -->
       <h3 class="tagline">Engineer Who Builds Intelligent Hardware</h3>
       <h2 class="section-title">My <span>Bio</span></h2>
-<p>
-  I build high‑performance embedded and IoT systems engineered for real‑world deployment. 
-  My expertise blends <strong>STM32 firmware</strong>, <strong>real‑time control</strong>, and 
-  <strong>hardware‑aware optimization</strong> to deliver devices that are fast, stable, and production‑ready.
-</p>
-<br>
-<p>
-  I work across the full hardware stack — from <strong>RF & antenna systems</strong> and 
-  <strong>mixed‑signal design</strong> to <strong>PCB development</strong> and 
-  <strong>sub‑THz communication</strong>. With strong proficiency in 
-  <strong>Cadence</strong>, <strong>CST Studio</strong>, <strong>MATLAB</strong>, and 
-  <strong>Embedded C</strong>, I create solutions engineered with precision and built to scale.
-</p>
-<br><br>
+        <p>I build high‑performance embedded and IoT systems engineered for real‑world deployment.
+            My expertise blends <strong>STM32 firmware</strong>, <strong>real‑time control</strong>, 
+            and <strong>hardware‑aware optimization</strong> to deliver devices that are fast, stable, and production‑ready.
+        </p>
+    <br>
+    <p>I work across the full hardware stack — from <strong>RF & antenna systems</strong> and 
+        <strong>mixed‑signal design</strong> to <strong>PCB development</strong> and 
+        <strong>sub‑THz communication</strong>. With strong proficiency in 
+        <strong>Cadence</strong>, <strong>CST Studio</strong>, <strong>MATLAB</strong>, and 
+        <strong>Embedded C</strong>, I create solutions engineered with precision and built to scale.
+    </p>
+    <br><br>
 <!-- MICRO ACHIEVEMENT STRIP -->
 <div class="achievement-strip">
   <div class="achievement">⚡ Real‑time sensor fusion pipelines</div>
@@ -1471,9 +1476,9 @@ button#submitReview:hover {
   <li>Mixed‑signal and PCB systems</li>
   <li>Automation‑driven firmware architectures</li>
 </ul>
-      <button class="back-btn" onclick="flipHero()">← Back to home</button>
-    </div>
-  </div>
+<button class="back-btn" onclick="flipHero()">← Back to home</button>
+</div>
+</div>
 </section>
 
 <!-- ============================
