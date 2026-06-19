@@ -438,8 +438,15 @@ nav {
   transform: translateX(-50%) scale(1.05);
 }
 /* Hide all default controls */
-#intro-video::-webkit-media-controls-panel {
-  display: none !important;
+#intro-video::-webkit-media-controls-panel,
+#intro-video::-webkit-media-controls-timeline,
+#intro-video::-webkit-media-controls-current-time-display,
+#intro-video::-webkit-media-controls-time-remaining-display,
+#intro-video::-webkit-media-controls-fullscreen-button,
+#intro-video::-webkit-media-controls-picture-in-picture-button,
+#intro-video::-webkit-media-controls-cast-button,
+{
+  display: flex !important;
   opacity: 0 !important;
 }
 /* Show only play and mute buttons */
@@ -1349,14 +1356,16 @@ button#submitReview:hover {
           <!-- Intro Video -->
           <video id="intro-video"
                  src="Videos/intro_fixed.mp4"
+                 controls
                  playsinline
                  preload="auto"
+                 muted
                  style="display: none; width: 100%; border-radius: 10px;">
           </video>
           <!-- Intro Button -->
           <button id="intro-toggle-btn" class="intro-btn">Watch Intro</button>
           <!-- Hide Button -->
-          <button id="hide-intro-btn" class="intro-btn" style="display: none; margin-top: 10px;">Hide Intro</button>
+          <button id="hide-intro-btn" class="intro-btn" style="display: none; margin-top: 15px; position: relative; z-index: 1000;">Hide Intro</button>
           <!-- Flip Button -->
           <button class="flip-btn" onclick="flipHero()">Turn ↻</button>
         </div>
