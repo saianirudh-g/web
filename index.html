@@ -319,8 +319,8 @@ nav {
   max-width: 2000px;
   margin-left: auto;
   margin-right: auto;
-  display: block; /* grid not needed */
-  height: auto; /* allow full expansion */
+  display: grid;
+  height: 2000px; /* allow full expansion */
   transform-style: preserve-3d;
   transition: transform 0.9s ease;
 }
@@ -1111,33 +1111,43 @@ button#submitReview:hover {
         font-size: 18px;
     }
 }
-/* =====================================================
-   MOBILE FIXES FOR FLIP CARD (ONLY MOBILE)
-===================================================== */
+/* =========================================================
+   MOBILE FIX — UPDATED
+========================================================= */
 @media (max-width: 768px) {
-    /* Flip card wrapper expands fully with content */
-    .hero-flip-card {
-        width: 100%;
-        max-width: 100%;
-        height: 2000px;
-        padding: 0 12px;
-        transform-style: preserve-3d;
-        transition: transform 0.8s ease;
-    }
-    /* Front & Back panels adjust to content height */
-    .hero-flip-card .front,
-    .hero-flip-card .back {
-        width: 100%;
-        height: 2000px;
-        padding: 26px 18px;
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-        gap: 18px;
-        text-align: center;
-    }
+  .hero-flip-card {
+    width: 100%;
+    max-width: 100%;
+    height: 2000px;
+    padding: 0 12px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.8s ease;
+    /* NEW: allow scroll if needed */
+    overflow: visible;
+  }
+  .hero-flip-card .front,
+  .hero-flip-card .back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* NEW: auto height + scroll */
+    height: 2000px;
+    min-height: 100%;
+    max-height: none;
+    overflow-y: visible;
+    padding: 26px 18px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 18px;
+    text-align: left;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
     /* Readable header */
     .hero-flip-card .front h2,
     .hero-flip-card .back h2 {
@@ -1416,8 +1426,8 @@ button#submitReview:hover {
 
     <!-- BACK SIDE -->
     <div class="hero-back">
-      <h2 class="section-title">My <span>Bio</span></h2>
       <h3 class="tagline">Engineer Who Builds Intelligent Hardware</h3>
+      <h2 class="section-title">My <span>Bio</span></h2>
         <p>I build high‑performance embedded and IoT systems engineered for real‑world deployment. My expertise blends <strong>STM32 firmware</strong>, <strong>real‑time control</strong>, 
             and <strong>hardware‑aware optimization</strong> to deliver devices that are fast, stable, and production‑ready.
         </p>
