@@ -437,18 +437,6 @@ nav {
   background: rgba(0, 0, 0, 0.9);
   transform: translateX(-50%) scale(1.05);
 }
-/* Hide all default controls */
-#intro-video::-webkit-media-controls-panel,
-#intro-video::-webkit-media-controls-timeline,
-#intro-video::-webkit-media-controls-current-time-display,
-#intro-video::-webkit-media-controls-time-remaining-display,
-#intro-video::-webkit-media-controls-fullscreen-button,
-#intro-video::-webkit-media-controls-picture-in-picture-button,
-#intro-video::-webkit-media-controls-cast-button,
-{
-  display: flex !important;
-  opacity: 0 !important;
-}
 /* Show only play and mute buttons */
 #intro-video::-webkit-media-controls-play-button,
 #intro-video::-webkit-media-controls-mute-button {
@@ -1359,7 +1347,6 @@ button#submitReview:hover {
                  controls
                  playsinline
                  preload="auto"
-                 muted
                  style="display: none; width: 100%; border-radius: 10px;">
           </video>
           <!-- Intro Button -->
