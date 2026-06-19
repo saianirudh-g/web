@@ -335,7 +335,7 @@ nav {
   width: 100%;
   /* 🔥 KEY FIX: Let the card grow with content */
   min-height: 100%;
-  height: auto;
+  height: 2000px;
   padding: 40px 30px;
   box-sizing: border-box;
   display: flex;
@@ -344,10 +344,6 @@ nav {
   align-items: flex-start; /* align left for bio text */
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-}
-/* Ensure wrapper expands to tallest side */
-.hero-flip-card {
-  height: auto;
 }
 /* Flip state */
 .hero-flip-card.flipped{
@@ -1123,32 +1119,24 @@ button#submitReview:hover {
     .hero-flip-card {
         width: 100%;
         max-width: 100%;
-        height: auto; /* 🔥 KEY FIX */
+        height: 2000px;
         padding: 0 12px;
-        position: relative;
         transform-style: preserve-3d;
         transition: transform 0.8s ease;
     }
     /* Front & Back panels adjust to content height */
     .hero-flip-card .front,
     .hero-flip-card .back {
-        position: absolute;
-        top: 0;
-        left: 0;
         width: 100%;
-        /* 🔥 KEY FIX: Let panels grow naturally */
-        min-height: 100%;
-        height: auto;
+        height: 2000px;
         padding: 26px 18px;
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        align-items: flex-start; /* better for bio text */
+        align-items: center;
         gap: 18px;
-        text-align: left; /* more readable for long text */
-        backface-visibility: hidden;
-        -webkit-backface-visibility: hidden;
+        text-align: center;
     }
     /* Readable header */
     .hero-flip-card .front h2,
@@ -1156,28 +1144,24 @@ button#submitReview:hover {
         font-size: 1.6rem;
         line-height: 1.3;
         word-break: break-word;
-        text-align: left;
     }
     /* Description text */
     .hero-flip-card p {
         font-size: 1rem;
         line-height: 1.6;
-        max-width: 100%;
-        margin: 0;
-        text-align: left;
+        max-width: 95%;
+        margin: 0 auto;
     }
-}
-    /* Back button spacing */
-    .hero-flip-card .back .back-btn {
+/* Back button spacing */
+.hero-flip-card .back .back-btn {
         margin-top: 10px;
         padding: 10px 20px;
         font-size: 1rem;
-    }
-    /* Ensure back panel flips cleanly */
-    .hero-flip-card .back {
-        transform: rotateY(180deg);
-        backface-visibility: hidden;
-    }
+}
+/* Ensure back panel flips cleanly */
+.hero-flip-card .back {
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
 }
 /* MOBILE OVERRIDES */
 @media (max-width:768px){
