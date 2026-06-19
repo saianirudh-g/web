@@ -448,29 +448,6 @@ nav {
   background-color: black;
   border-radius: 10px;
 }
-.video-wrapper {
-  position: relative;
-  width: 100%;
-  max-width: 450px;
-  margin: auto;
-}
-#intro-video, #profile-photo {
-  width: 100%;
-  border-radius: 12px;
-}
-.video-btn {
-  position: absolute;
-  bottom: 15px;
-  left: 15px;
-  background: rgba(0,0,0,0.6);
-  color: white;
-  border: none;
-  padding: 10px 14px;
-  font-size: 22px;
-  border-radius: 50%;
-  cursor: pointer;
-  z-index: 20;
-}
 .hide-btn {
   display: none;
   margin-top: 12px;
@@ -1372,7 +1349,7 @@ button#submitReview:hover {
 
     <div class="hero-right">
       <div class="profile-box">
-        <div class="video-wrapper">
+        <div class="profile-media-wrapper">
           <!-- Profile Image -->
           <img id="profile-photo" src="Images/Media.jpeg" alt="Sai Anirudh">
           <!-- Intro Video -->
@@ -1384,10 +1361,6 @@ button#submitReview:hover {
           </video>
           <!-- Intro Button -->
           <button id="intro-toggle-btn" class="intro-btn">Watch Intro</button>
-          <!-- Custom Play Button -->
-          <button id="play-btn" class="video-btn">▶</button>
-          <!-- Custom Mute Button -->
-          <button id="mute-btn" class="video-btn" style="right: 10px; left: auto;">🔇</button>
           <!-- Hide Intro Button -->
           <button id="hide-intro-btn" class="hide-btn">Hide Intro</button>
           <!-- Flip Button -->
@@ -2266,41 +2239,27 @@ Open for research collaboration, embedded systems development, RF engineering pr
 <script>
 const profilePhoto = document.getElementById('profile-photo');
 const introVideo = document.getElementById('intro-video');
-const playBtn = document.getElementById('play-btn');
-const muteBtn = document.getElementById('mute-btn');
+const introBtn = document.getElementById('intro-toggle-btn');
 const hideIntroBtn = document.getElementById('hide-intro-btn');
-// Show video when play is clicked
-playBtn.addEventListener('click', () => {
-  profilePhoto.style.display = "none";
-  introVideo.style.display = "block";
-  introVideo.currentTime = 0;
-  introVideo.play();
-  hideIntroBtn.style.display = "block";
-});
-// Play/Pause toggle
-playBtn.addEventListener('click', () => {
-  if (introVideo.paused) {
+  introBtn.addEventListener('click', () => {
+    // Hide image, show video
+    profilePhoto.style.display = 'none';
+    introVideo.style.display = 'block';
+    // Autoplay from start
+    introVideo.currentTime = 0;
     introVideo.play();
-    playBtn.textContent = "⏸";
-  } else {
+    // Optional: hide button after click
+    introBtn.style.display = 'none';
+  });
+  // Hide video and return to photo
+  hideIntroBtn.addEventListener('click', () => {
     introVideo.pause();
-    playBtn.textContent = "▶";
-  }
-});
-// Mute toggle
-muteBtn.addEventListener('click', () => {
-  introVideo.muted = !introVideo.muted;
-  muteBtn.textContent = introVideo.muted ? "🔇" : "🔊";
-});
-// Hide intro button
-hideIntroBtn.addEventListener('click', () => {
-  introVideo.pause();
-  introVideo.currentTime = 0;
-  introVideo.style.display = "none";
-  profilePhoto.style.display = "block";
-  hideIntroBtn.style.display = "none";
-  playBtn.textContent = "▶";
-});
+    introVideo.currentTime = 0;
+    introVideo.style.display = 'none';
+    profilePhoto.style.display = 'block';
+    hideIntroBtn.style.display = 'none';
+    introBtn.style.display = 'inline-block';
+  });
 const API = "https://reviews-backend-ten.vercel.app";
 // Select elements
 const stars = document.querySelectorAll(".star");
