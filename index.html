@@ -386,19 +386,22 @@ nav {
 /* PROFILE BOX */
 .profile-box {
   position: relative;
-  width: 320px;   /* rectangular size */
-  height: 400px;  /* taller for video */
+  width: 100%;          /* take full width of container */
+  max-width: 320px;     /* limit size on large screens */
+  aspect-ratio: 4 / 5;  /* keeps shape without fixed height */
   margin: auto;
-  max-width: 90%;
+  border-radius: 20px;
 }
+/* Glow border */
 .profile-box::before {
   content: '';
   position: absolute;
   inset: -15px;
   background: linear-gradient(45deg, #06b6d4, #3b82f6, #8b5cf6);
-  border-radius: 20px; /* rectangular glow */
+  border-radius: 20px;
   filter: blur(25px);
   opacity: 0.6;
+  z-index: -1;
 }
 /* Wrapper rectangular */
 .profile-media-wrapper {
@@ -993,12 +996,12 @@ button#submitReview:hover {
 @media (max-width: 480px) {
   .profile-box {
     width: 90%;
-    height: auto; /* allow flexible height for content */
+    aspect-ratio: 4 / 5; /* allow flexible height for content */
   }
 
   .profile-box::before {
     inset: -10px; /* smaller glow */
-    filter: blur(20px);
+    filter: blur(18px);
   }
 }
 /* =========================
