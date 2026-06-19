@@ -437,6 +437,22 @@ nav {
   background: rgba(0, 0, 0, 0.9);
   transform: translateX(-50%) scale(1.05);
 }
+/* Hide all default controls */
+#intro-video::-webkit-media-controls-panel {
+  display: none !important;
+  opacity: 0 !important;
+}
+/* Show only play and mute buttons */
+#intro-video::-webkit-media-controls-play-button,
+#intro-video::-webkit-media-controls-mute-button {
+  display: block !important;
+  opacity: 1 !important;
+}
+/* Optional styling for clarity */
+#intro-video {
+  background-color: black;
+  border-radius: 10px;
+}
 #hide-intro-btn {
   position: relative;
   z-index: 9999;
@@ -1333,9 +1349,8 @@ button#submitReview:hover {
           <!-- Intro Video -->
           <video id="intro-video"
                  src="Videos/intro_fixed.mp4"
-                 controls
                  playsinline
-                 preload="metadata"
+                 preload="auto"
                  style="display: none; width: 100%; border-radius: 10px;">
           </video>
           <!-- Intro Button -->
