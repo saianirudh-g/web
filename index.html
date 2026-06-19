@@ -388,7 +388,7 @@ nav {
   position: relative;
   width: 100%;          /* take full width of container */
   max-width: 320px;     /* limit size on large screens */
-  aspect-ratio: 4 / 5;  /* keeps shape without fixed height */
+  aspect-ratio: 3 / 5;  /* keeps shape without fixed height */
   margin: auto;
   border-radius: 20px;
 }
@@ -991,17 +991,6 @@ button#submitReview:hover {
     color: #e2e8f0;
     font-size: 0.95rem;
     line-height: 1.4;
-}
-/* 📱 Mobile adjustments */
-@media (max-width: 480px) {
-  .profile-box {
-    width: 90%;
-    aspect-ratio: 3 / 4; /* allow flexible height for content */
-  }
-  .profile-box::before {
-    inset: -10px; /* smaller glow */
-    filter: blur(18px);
-  }
 }
 /* =========================
    MOBILE RESPONSIVE RATING
