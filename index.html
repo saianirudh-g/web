@@ -447,6 +447,11 @@ nav {
 #intro-video {
   background-color: black;
   border-radius: 10px;
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 450px;
+  margin: auto;
 }
 #intro-video, #profile-photo {
   width: 100%;
@@ -1369,15 +1374,19 @@ button#submitReview:hover {
         <div class="profile-media-wrapper">
           <!-- Profile Image -->
           <img id="profile-photo" src="Images/Media.jpeg" alt="Sai Anirudh">
-          <!-- Intro Video -->
+          <!-- Intro Button -->
+          <button id="intro-toggle-btn" class="intro-btn">Watch Intro</button>
+          <!-- Flip Button -->
+          <button class="flip-btn" onclick="flipHero()">Turn ↻</button>
+        </div>
+          <div class="video-wrapper">
+              <!-- Intro Video -->
           <video id="intro-video"
                  src="Videos/intro_fixed.mp4"
                  playsinline
                  preload="auto"
                  style="display: none;">
           </video>
-          <!-- Intro Button -->
-          <button id="intro-toggle-btn" class="intro-btn">Watch Intro</button>
           <!-- Custom Play Button -->
           <button id="play-btn" class="video-btn">▶</button>
           <!-- Custom Mute Button -->
@@ -2264,6 +2273,16 @@ const introBtn = document.getElementById('intro-toggle-btn');
 const playBtn = document.getElementById('play-btn');
 const muteBtn = document.getElementById('mute-btn');
 const hideIntroBtn = document.getElementById('hide-intro-btn');
+introBtn.addEventListener('click', () => {
+    // Hide image, show video
+    profilePhoto.style.display = 'none';
+    introVideo.style.display = 'block';
+    // Autoplay from start
+    introVideo.currentTime = 0;
+    introVideo.play();
+    // Optional: hide button after click
+    introBtn.style.display = 'none';
+});
 // Show video when play is clicked
 playBtn.addEventListener('click', () => {
   profilePhoto.style.display = "none";
