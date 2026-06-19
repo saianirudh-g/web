@@ -389,6 +389,7 @@ nav {
   width: 320px;   /* rectangular size */
   height: 400px;  /* taller for video */
   margin: auto;
+  max-width: 90%;
 }
 .profile-box::before {
   content: '';
@@ -987,6 +988,18 @@ button#submitReview:hover {
     color: #e2e8f0;
     font-size: 0.95rem;
     line-height: 1.4;
+}
+/* 📱 Mobile adjustments */
+@media (max-width: 480px) {
+  .profile-box {
+    width: 90%;
+    height: auto; /* allow flexible height for content */
+  }
+
+  .profile-box::before {
+    inset: -10px; /* smaller glow */
+    filter: blur(20px);
+  }
 }
 /* =========================
    MOBILE RESPONSIVE RATING
@@ -2235,6 +2248,9 @@ Open for research collaboration, embedded systems development, RF engineering pr
 <footer class="footer">
   <div class="footer-follow">
     FOLLOW:
+    <a href="mailto:saianirudh.kefp2@gmail.com" class="btn-link" target="_blank">
+      <i class="fab fa-email"></i>
+    </a>
     <a href="https://www.facebook.com/godavarthi.saianirudh.9" class="btn-link" target="_blank">
       <i class="fab fa-facebook"></i>
     </a>
