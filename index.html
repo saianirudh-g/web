@@ -1315,43 +1315,44 @@ button#submitReview:hover {
     margin-bottom: 6px;
     font-size: 1rem;
   }
+    body {
+      background-color: #0b1220;
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center; /* centers horizontally */
+      align-items: center;     /* centers vertically */
+      font-family: "Segoe UI", sans-serif;
+    }
     .counter-row {
       display: flex;
-      gap: 10px; /* less gap between circles */
+      gap: 12px; /* small gap between circles */
     }
-    .counter-circle {
-      width: 90px;
-      height: 90px;
+    .counter {
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, #38bdf8, #0ea5e9);
+      background: #1fb6ff;
+      border: 4px solid #0ea5e9;
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
-      color: #e5e7eb;
-      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.7);
-      position: relative;
-      overflow: hidden;
-    }
-    .counter-circle::before {
-      content: "";
-      position: absolute;
-      inset: 4px;
-      border-radius: 50%;
-      border: 2px solid rgba(15, 23, 42, 0.35);
+      align-items: center;
+      color: #fff;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
     }
     .counter-number {
-      font-size: 1.4rem;
+      font-size: 2rem;
       font-weight: 700;
-      z-index: 1;
+      line-height: 1;
     }
     .counter-label {
-      font-size: 0.7rem;
+      font-size: 0.8rem;
+      font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      opacity: 0.85;
-      margin-top: 4px;
-      z-index: 1;
+      margin-top: 6px;
+      line-height: 1.1;
     }
     /* Optional: subtle hover */
     .counter-circle:hover {
@@ -1469,27 +1470,27 @@ button#submitReview:hover {
         
     <!-- COUNTER -->
     <div class="counter-row">
-    <div class="counter-circle">
-      <div class="counter-number" data-target="150">2</div>
-      <div class="counter-label">Years Experience</div>
-    </div>
-    <div class="counter-circle">
-      <div class="counter-number" data-target="320">2</div>
-      <div class="counter-label">Academic Degrees</div>
-    </div>
-    <div class="counter-circle">
-      <div class="counter-number" data-target="98">8</div>
-      <div class="counter-label">Projects</div>
-    </div>
-    <div class="counter-circle">
-      <div class="counter-number" data-target="24">5</div>
-      <div class="counter-label">Presentations</div>
-    </div>
-    <div class="counter-circle">
-      <div class="counter-number" data-target="24">4</div>
-      <div class="counter-label">Research Papers</div>
-    </div>
-  </div>
+       <div class="counter-circle">
+         <div class="counter-number" href="resume" data-target="150">2</div>
+            <p>Years Experience</p>
+         </div>
+       <div class="counter-circle">
+         <div class="counter-number" href="resume" data-target="320">2</div>
+            <p>Academic Degrees</p>
+         </div>
+       <div class="counter-circle">
+         <div class="counter-number" href="projects" data-target="98">8</div>
+           <p>Projects</p>
+         </div>
+       <div class="counter-circle">
+         <div class="counter-number" href="presentations" data-target="24">5</div>
+            <p>Presentations</p>
+         </div>
+       <div class="counter-circle">
+         <div class="counter-number" href="research" data-target="24">4</div>
+            <p>Research Papers</p>
+         </div>
+       </div>
         
     </div>
       
