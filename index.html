@@ -1318,7 +1318,6 @@ button#submitReview:hover {
   .stats-section {
   width: 100%;
   padding: 60px 0;
-  background: #0d0d0d;
   color: white;
 }
 .stats-container {
@@ -2404,32 +2403,6 @@ Open for research collaboration, embedded systems development, RF engineering pr
 
 <!-- JAVASCRIPT -->
 <script>
-const counters = document.querySelectorAll('.counter');
-  const speed = 200;
-  const animateCounters = () => {
-    counters.forEach(counter => {
-      const updateCount = () => {
-        const target = +counter.getAttribute('data-target');
-        const count = +counter.innerText;
-        const increment = target / speed;
-        if (count < target) {
-          counter.innerText = Math.ceil(count + increment);
-          setTimeout(updateCount, 20);
-        } else {
-          counter.innerText = target;
-        }
-      };
-      updateCount();
-    });
-  };
-  // Trigger animation when section enters viewport
-  const observer = new IntersectionObserver(entries => {
-    if (entries[0].isIntersecting) {
-      animateCounters();
-      observer.disconnect();
-    }
-  });
-observer.observe(document.querySelector('.stats-section'));
 const profilePhoto = document.getElementById('profile-photo');
 const introVideo = document.getElementById('intro-video');
 const introBtn = document.getElementById('intro-toggle-btn');
