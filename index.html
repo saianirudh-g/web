@@ -166,66 +166,6 @@ nav {
 .nav-links a:hover {
   color: #06b6d4;
 }
-/* Menu button (hamburger) */
-.men-btn {
-  cursor: pointer;
-  width: 30px;
-  height: 25px;
-  position: relative;
-  display: block;
-}
-
-.men-btn span {
-  background: white;
-  position: absolute;
-  height: 3px;
-  width: 100%;
-  left: 0;
-  transition: 0.4s;
-}
-
-.men-btn span:nth-child(1) { top: 0; }
-.men-btn span:nth-child(2) { top: 10px; }
-.men-btn span:nth-child(3) { top: 20px; }
-
-/* X icon transformation */
-.men-btn.active span:nth-child(1) {
-  transform: rotate(45deg);
-  top: 10px;
-}
-.men-btn.active span:nth-child(2) {
-  opacity: 0;
-}
-.men-btn.active span:nth-child(3) {
-  transform: rotate(-45deg);
-  top: 10px;
-}
-/* ---------- MENU ---------- */
-.nav-menu {
-  display: none;
-  position: absolute;
-  right: 40px;
-  top: 60px;
-  background-color: #111;
-  border: 1px solid #333;
-  border-radius: 6px;
-  padding: 10px 0;
-  width: 180px;
-}
-.nav-menu a {
-  display: block;
-  color: white;
-  text-decoration: none;
-  padding: 10px 20px;
-  transition: background 0.3s;
-}
-.nav-menu a:hover {
-  background-color: #333;
-}
-/* Show menu when active */
-.nav-menu.active {
-  display: block;
-}
 /* =========================================================
    RF THz ANIMATED LOGO
 ========================================================= */
@@ -1430,19 +1370,18 @@ button#submitReview:hover {
 <div class="nav-links" id="navLinks">
 <a href="#home">Home</a>
 <a href="#announcement">Announcements</a>
+<a href="#about">About</a>
+<a href="#resume">Resume</a>
+<a href="#projects">Projects</a>
+<a href="#presentations">Presentations</a>
+<a href="#research">Research</a>
+<a href="#achievements">Achievements</a>
+<a href="#certifications">Certifications</a>
+<a href="#moments">Moments</a>
+<a href="#contact">Contact</a>
 <a href="#reviews">Rate</a>
 </div>
-<nav class="nav-menu" id="navMenu">
-    <a href="#about">About</a>
-    <a href="#resume">Resume</a>
-    <a href="#projects">Projects</a>
-    <a href="#presentations">Presentations</a>
-    <a href="#research">Research</a>
-    <a href="#achievements">Achievements</a>
-    <a href="#certifications">Certifications</a>
-    <a href="#moments">Moments</a>
-    <a href="#contact">Contact</a>
-</nav>
+    
 <div class="menu-btn" id="menuBtn">
   <i class="fa-solid fa-bars"></i>
 </div>
@@ -2458,11 +2397,6 @@ Open for research collaboration, embedded systems development, RF engineering pr
 
 <!-- JAVASCRIPT -->
 <script>
-const menBtn = document.getElementById('menBtn');
-const navMenu = document.getElementById('navMenu');
-menBtn.addEventListener('click', () => {
-menBtn.classList.toggle('active');
-navMenu.classList.toggle('active');
 const profilePhoto = document.getElementById('profile-photo');
 const introVideo = document.getElementById('intro-video');
 const introBtn = document.getElementById('intro-toggle-btn');
