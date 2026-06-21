@@ -1315,24 +1315,34 @@ button#submitReview:hover {
     margin-bottom: 6px;
     font-size: 1rem;
   }
-.stat-box {
-  text-align: center;
-  padding: 20px;
-  min-width: 150px;
-  transition: transform 0.3s ease;
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+    margin: 40px 0;
+    flex-wrap: wrap; /* keeps it responsive */
 }
-.stat-box:hover {
-  transform: scale(1.1);
+.stat-btn {
+    font-size: 18px !important;
+    width: 100%;
+}
+.stat-btn a {
+    color: white;
+    text-decoration: none;
+}
+.stat-box {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    width: 180px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 .stat-box h2 {
-  font-size: 48px;
-  font-weight: 700;
-  color: #00d4ff;
-}
-.stat-box p {
-  font-size: 18px;
-  margin-top: 8px;
-  opacity: 0.8;
+    font-size: 48px;
+    margin-bottom: 10px;
+    font-weight: bold;
 }
 </style>
 </head>
@@ -1441,32 +1451,40 @@ button#submitReview:hover {
         </div>
           
       </div>
-        
+
+    <div class="stat-row">
         <div class="stat-box">
+            <h2 class="counter" data-target="5">2</h2>
+            <button class="btn btn-primary stat-btn">
+                <a href="#resume">Years Experience</a>
+            </button>
+         </div>
+         <div class="stat-box">
             <h2 class="counter" data-target="3">2</h2>
-            <button id="followBtn" class="btn btn-primary" style="font-size: 20px;">
-                <a href="#resume">Degrees</a>
+            <button class="btn btn-primary stat-btn">
+                <a href="#resume">Academic Degrees</a>
             </button>
-        </div>
-        <div class="stat-box">
-            <h2 class="counter" data-target="5">4</h2>
-            <button id="followBtn" class="btn btn-primary" style="font-size: 20px;">
+         </div>
+         <div class="stat-box">
+             <h2 class="counter" data-target="5">4</h2>
+             <button class="btn btn-primary stat-btn">
                 <a href="#projects">Projects</a>
-            </button>
-        </div>
-        <div class="stat-box">
+             </button>
+         </div>
+         <div class="stat-box">
             <h2 class="counter" data-target="15">8</h2>
-            <button id="followBtn" class="btn btn-primary" style="font-size: 20px;">
-                <a href="#presentations">Presentations</a>
+            <button class="btn btn-primary stat-btn">
+               <a href="#presentations">Presentations</a>
             </button>
-        </div>
-        <div class="stat-box">
-            <h2 class="counter" data-target="8">5</h2>
-            <button id="followBtn" class="btn btn-primary" style="font-size: 20px;">
-                <a href="#research">Research Papers</a>
-            </button>
-        </div>
-        
+         </div>
+         <div class="stat-box">
+           <h2 class="counter" data-target="8">5</h2>
+           <button class="btn btn-primary stat-btn">
+            <a href="#research">Research Papers</a>
+           </button>
+         </div>
+    </div>
+
     </div>
       
     <!-- BACK SIDE -->
