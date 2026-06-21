@@ -316,7 +316,7 @@ nav {
 .hero-flip-card {
   position: relative;
   width: 100%;
-  max-width: 1500px;
+  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
   display: grid;
@@ -335,7 +335,7 @@ nav {
   width: 100%;
   /* 🔥 KEY FIX: Let the card grow with content */
   min-height: 100%;
-  height: 500px;
+  height: 400px;
   padding: 40px 30px;
   box-sizing: border-box;
   display: flex;
@@ -1315,42 +1315,44 @@ button#submitReview:hover {
     margin-bottom: 6px;
     font-size: 1rem;
   }
-    .counter-row {
-      display: flex;
-      gap: 12px; /* small gap between circles */
-    }
-    .counter {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      background: #1fb6ff;
-      border: 4px solid #0ea5e9;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      color: #fff;
-      text-align: center;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-    }
-    .counter-number {
-      font-size: 2rem;
-      font-weight: 700;
-      line-height: 1;
-    }
-    .counter-label {
-      font-size: 0.8rem;
-      font-weight: 500;
-      text-transform: uppercase;
-      margin-top: 6px;
-      line-height: 1.1;
-    }
-    /* Optional: subtle hover */
-    .counter-circle:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 24px rgba(15, 23, 42, 0.9);
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
-    }
+  .counter-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px; /* small gap between circles */
+  }
+  .counter-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: #1fb6ff;
+    border: 4px solid #0ea5e9;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  }
+  .counter-number {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .counter-circle p {
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-top: 6px;
+    line-height: 1.1;
+  }
+  /* Optional: subtle hover */
+  .counter-circle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.9);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
 </style>
 </head>
 
@@ -1457,38 +1459,38 @@ button#submitReview:hover {
           </div>
         </div>
           
-      </div>
+</div>
+
+<!-- COUNTER -->
+<div class="counter-row">
+  <div class="counter-circle">
+    <div class="counter-number" href="resume" data-target="150">2</div>
+    <p>Years Experience</p>
+  </div>
+  <div class="counter-circle">
+    <div class="counter-number" href="resume" data-target="320">2</div>
+    <p>Academic Degrees</p>
+  </div>
+  <div class="counter-circle">
+    <div class="counter-number" href="projects" data-target="98">8</div>
+    <p>Projects</p>
+  </div>
+  <div class="counter-circle">
+    <div class="counter-number" href="presentations" data-target="24">5</div>
+    <p>Presentations</p>
+  </div>
+  <div class="counter-circle">
+    <div class="counter-number" href="research" data-target="24">4</div>
+    <p>Research Papers</p>
+  </div>
+</div>
         
-    <!-- COUNTER -->
-    <div class="counter-row">
-       <div class="counter-circle">
-         <div class="counter-number" href="resume" data-target="150">2</div>
-            <p>Years Experience</p>
-         </div>
-       <div class="counter-circle">
-         <div class="counter-number" href="resume" data-target="320">2</div>
-            <p>Academic Degrees</p>
-         </div>
-       <div class="counter-circle">
-         <div class="counter-number" href="projects" data-target="98">8</div>
-           <p>Projects</p>
-         </div>
-       <div class="counter-circle">
-         <div class="counter-number" href="presentations" data-target="24">5</div>
-            <p>Presentations</p>
-         </div>
-       <div class="counter-circle">
-         <div class="counter-number" href="research" data-target="24">4</div>
-            <p>Research Papers</p>
-         </div>
-       </div>
-        
-    </div>
+</div>
       
     <!-- BACK SIDE -->
     <div class="hero-back">
-      <h3 class="tagline">Engineer Who Builds Intelligent Hardware</h3>
       <h2 class="section-title">My <span>Bio</span></h2>
+      <h3 class="tagline">Engineer Who Builds Intelligent Hardware</h3>
         <p>I build high‑performance embedded and IoT systems engineered for real‑world deployment. My expertise blends <strong>STM32 firmware</strong>, <strong>real‑time control</strong>, 
             and <strong>hardware‑aware optimization</strong> to deliver devices that are fast, stable, and production‑ready.
         </p>
