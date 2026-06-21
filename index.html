@@ -1315,6 +1315,37 @@ button#submitReview:hover {
     margin-bottom: 6px;
     font-size: 1rem;
   }
+  .stats-section {
+  width: 100%;
+  padding: 60px 0;
+  background: #0d0d0d;
+  color: white;
+}
+.stats-container {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+.stat-box {
+  text-align: center;
+  padding: 20px;
+  min-width: 150px;
+  transition: transform 0.3s ease;
+}
+.stat-box:hover {
+  transform: scale(1.1);
+}
+.stat-box h2 {
+  font-size: 48px;
+  font-weight: 700;
+  color: #00d4ff;
+}
+.stat-box p {
+  font-size: 18px;
+  margin-top: 8px;
+  opacity: 0.8;
+}
 </style>
 </head>
 
@@ -1424,10 +1455,34 @@ button#submitReview:hover {
       </div>        
     </div>
       
+<!-- COUNTER -->
+<section class="stats-section">
+  <div class="stats-container">
+
+    <div class="stat-box">
+      <h2 class="counter" data-target="3">2</h2>
+      <a href="resume">Years Experience</a>
+    </div>
+    <div class="stat-box">
+      <h2 class="counter" data-target="15">8</h2>
+      <a href="#projects">Projects</a>
+    </div>
+    <div class="stat-box">
+      <h2 class="counter" data-target="8">5</h2>
+      <a href="#presentations">Presentations</a>
+    </div>
+    <div class="stat-box">
+      <h2 class="counter" data-target="5">4</h2>
+      <a href="#research">Research Papers</a>
+    </div>
+
+  </div>
+</section>
+
     <!-- BACK SIDE -->
     <div class="hero-back">
+      <h3 class="tagline">Engineer Who Builds Intelligent Hardware</h3>
       <h2 class="section-title">My <span>Bio</span></h2>
-        <h3 class="tagline">Engineer Who Builds Intelligent Hardware</h3>
         <p>I build high‑performance embedded and IoT systems engineered for real‑world deployment. My expertise blends <strong>STM32 firmware</strong>, <strong>real‑time control</strong>, 
             and <strong>hardware‑aware optimization</strong> to deliver devices that are fast, stable, and production‑ready.
         </p>
@@ -2349,6 +2404,32 @@ Open for research collaboration, embedded systems development, RF engineering pr
 
 <!-- JAVASCRIPT -->
 <script>
+const counters = document.querySelectorAll('.counter');
+  const speed = 200;
+  const animateCounters = () => {
+    counters.forEach(counter => {
+      const updateCount = () => {
+        const target = +counter.getAttribute('data-target');
+        const count = +counter.innerText;
+        const increment = target / speed;
+        if (count < target) {
+          counter.innerText = Math.ceil(count + increment);
+          setTimeout(updateCount, 20);
+        } else {
+          counter.innerText = target;
+        }
+      };
+      updateCount();
+    });
+  };
+  // Trigger animation when section enters viewport
+  const observer = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      animateCounters();
+      observer.disconnect();
+    }
+  });
+observer.observe(document.querySelector('.stats-section'));
 const profilePhoto = document.getElementById('profile-photo');
 const introVideo = document.getElementById('intro-video');
 const introBtn = document.getElementById('intro-toggle-btn');
