@@ -1305,43 +1305,62 @@ button#submitReview:hover {
     font-size: 1rem;
   }
   .counter-row {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  flex-wrap: wrap; /* allows wrapping on smaller screens */
+}
+.counter-circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: #1fb6ff;
+  border: 4px solid #0ea5e9;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.counter-number {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+}
+.counter-circle p {
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-top: 6px;
+  line-height: 1.1;
+}
+/* Hover */
+.counter-circle:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.9);
+}
+/* ----------------------------- */
+/* 📱 MOBILE RESPONSIVE SECTION  */
+/* ----------------------------- */
+@media (max-width: 600px) {
+  .counter-row {
+    gap: 20px; /* reduce spacing */
   }
   .counter-circle {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    background: #1fb6ff;
-    border: 4px solid #0ea5e9;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    text-align: center;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    width: 90px;
+    height: 90px;
   }
   .counter-number {
-    font-size: 2rem;
-    font-weight: 700;
-    line-height: 1;
+    font-size: 1.5rem;
   }
   .counter-circle p {
-    font-size: 0.8rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    margin-top: 6px;
-    line-height: 1.1;
+    font-size: 0.65rem;
   }
-  /* Optional: subtle hover */
-  .counter-circle:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.9);
-    transition: transform 0.18s ease, box-shadow 0.18s ease;
-  }
+}
 </style>
 </head>
 
@@ -2322,7 +2341,7 @@ Open for research collaboration, embedded systems development, RF engineering pr
 </a>
 
 <a href="https://calendar.app.google/Zd2W1eWn4ykCccVg6" class="btn btn-primary">
-<i class="fa-solid fa-meeting"></i> Schedule Meeting
+<i class="fa-solid fa-calendar"></i> Schedule Meeting
 </a>
 </div>
 
