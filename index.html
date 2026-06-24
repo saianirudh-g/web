@@ -800,8 +800,8 @@ img{
 }
 /* Announcement Card */
 .announce-card {
-    min-width: 500px;
-    max-width: 500px;
+    min-width: 300px;
+    max-width: 300px;
     padding: 20px;
     border-radius: 20px;
     background: rgba(255,255,255,0.06);
@@ -2740,12 +2740,19 @@ menuBtn.addEventListener("click", () => {
 const modal = document.getElementById("imgModal");
 const modalImg = document.getElementById("modalImg");
 const closeBtn = document.querySelector(".close-modal");
-
+// Select all images inside announcement cards
+const announcementImages = document.querySelectorAll(".announce-card img");
+// Add click event to each image
+announcementImages.forEach(img => {
+    img.addEventListener("click", () => {
+        modal.style.display = "block";
+        modalImg.src = img.src;
+    });
+});
 if (modal && modalImg && closeBtn) {
   const clickableImages = document.querySelectorAll(
     "#achievements img, #certifications img, #moments img"
   );
-
   clickableImages.forEach(img => {
     img.style.cursor = "pointer";
     img.addEventListener("click", () => {
@@ -2753,11 +2760,9 @@ if (modal && modalImg && closeBtn) {
       modalImg.src = img.src;
     });
   });
-
   closeBtn.onclick = () => {
     modal.style.display = "none";
   };
-
   modal.onclick = (e) => {
     if (e.target === modal) modal.style.display = "none";
   };
