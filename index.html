@@ -1541,7 +1541,7 @@ button#submitReview:hover {
 
 </div>
 </section>
-
+    
 <!---- ANNOUCEMENT SECTION ----->
 <section class="announcement-section" id="announcement">
     <h2 class="section-title">Latest <span>Announcements</span></h2>
@@ -1550,86 +1550,98 @@ button#submitReview:hover {
         <div class="announcement-track">
 
             <div class="announce-card glass">
-                <img src="Images/cable_connected.jpg" alt="Announcement 1">
+                <video src="Videos/Gaming.mp4" muted autoplay loop class="img-modal"></video>
+                <h3>New Gaming Project Launched</h3>
+                <p>Created a real-time gaming experience with STM32 Microcontroller Board.</p>
+            </div>
+
+            <div class="announce-card glass">
+                <img src="Images/cable_connected.jpg" class="img-modal" alt="Announcement 1">
                 <h3>New RF Project Launched</h3>
                 <p>Explore my latest THz antenna design with real‑time simulations using Handheld VNA.</p>
             </div>
 
             <div class="announce-card glass">
-                <img src="Images/LED Blinker.jpeg" alt="Announcement 2">
+                <img src="Images/LED Blinker.jpeg" class="img-modal" alt="Announcement 2">
                 <h3>LED Blinker</h3>
                 <p>STM32 Microcontroller using CubeIDE with CubeMX, CubeMonitor and CubePragrammer.</p>
             </div>
 
             <div class="announce-card glass">
-                <img src="Images/THz Imaging.jpeg" alt="Announcement 4">
+                <img src="Images/THz Imaging.jpeg" class="img-modal" alt="Announcement 4">
                 <h3>THz Lab</h3>
                 <p>Worked with THz real-time objects such as THz imaging system.</p>
             </div>
 
             <div class="announce-card glass">
-                <img src="Images/THz Receiver.jpeg" alt="Announcement 5">
+                <img src="Images/THz Receiver.jpeg" class="img-modal" alt="Announcement 5">
                 <h3>THz Lab</h3>
                 <p>Worked with THz real-time objects such as THz Receiver.</p>
             </div>
 
             <div class="announce-card glass">
-                <img src="Images/THz Spectroscopy.jpeg" alt="Announcement 6">
+                <img src="Images/THz Spectroscopy.jpeg" class="img-modal" alt="Announcement 6">
                 <h3>THz Lab</h3>
                 <p>Worked with THz real-time objects such as THz Spectroscopy.</p>
             </div>
 
             <div class="announce-card glass">
-                <img src="Images/Voltage Bias front.jpeg" alt="Announcement 7">
+                <img src="Images/Voltage Bias front.jpeg" class="img-modal" alt="Announcement 7">
                 <h3>Voltage Bias Device</h3>
                 <p>Conected this device for generating MHz to GHz frequencies using Local Oscillator as Input Pin and Intermediate Frequency as output Pin.</p>
             </div>
 
             <div class="announce-card glass">
-                <img src="Images/upgrade.png" alt="Announcement 8">
+                <img src="Images/upgrade.png" class="img-modal" alt="Announcement 8">
                 <h3>Website Upgrade</h3>
                 <p>New animations, flip card, and improved mobile UI.</p>
             </div>
 
             <!-- DUPLICATE SET FOR PERFECT LOOP -->
             <div class="announce-card glass">
-                <img src="Images/cable_connected.jpg" alt="Announcement 1">
+                <video src="Videos/Gaming.mp4" muted autoplay loop class="img-modal"></video>
+                <h3>New Gaming Project Launched</h3>
+                <p>Created a real-time gaming experience with STM32 Microcontroller Board.</p>
+            </div>
+            
+            <div class="announce-card glass">
+                <img src="Images/cable_connected.jpg" class="img-modal" alt="Announcement 1">
                 <h3>New RF Project Launched</h3>
                 <p>Explore my latest THz antenna design with real‑time simulations using Handheld VNA.</p>
             </div>
 
             <div class="announce-card glass">
-                <img src="Images/LED Blinker.jpeg" alt="Announcement 2">
+                <img src="Images/LED Blinker.jpeg" class="img-modal" alt="Announcement 2">
                 <h3>LED Blinker</h3>
                 <p>STM32 Microcontroller using CubeIDE with CubeMX, CubeMonitor and CubePragrammer.</p>
             </div>
 
             <div class="announce-card glass">
-                <img src="Images/THz Imaging.jpeg" alt="Announcement 4">
+                <img src="Images/THz Imaging.jpeg" class="img-modal" alt="Announcement 4">
                 <h3>THz Lab</h3>
                 <p>Worked with THz real-time objects such as THz imaging system.</p>
             </div>
 
             <div class="announce-card glass">
-                <img src="Images/THz Receiver.jpeg" alt="Announcement 5">
+                <img src="Images/THz Receiver.jpeg" class="img-modal" alt="Announcement 5">
                 <h3>THz Lab</h3>
                 <p>Worked with THz real-time objects such as THz Receiver.</p>
             </div>
 
             <div class="announce-card glass">
-                <img src="Images/THz Spectroscopy.jpeg" alt="Announcement 6">
+                <img src="Images/THz Spectroscopy.jpeg" class="img-modal" alt="Announcement 6">
                 <h3>THz Lab</h3>
                 <p>Worked with THz real-time objects such as THz Spectroscopy.</p>
             </div>
 
             <div class="announce-card glass">
-                <img src="Images/Voltage Bias front.jpeg" alt="Announcement 7">
+                <img src="Images/Voltage Bias front.jpeg" class="img-modal" alt="Announcement 7">
                 <h3>Voltage Bias Device</h3>
                 <p>Conected this device for generating MHz to GHz frequencies using Local Oscillator as Input Pin and Intermediate Frequency as output Pin.</p>
             </div>
 
             <div class="announce-card glass">
-                <img src="Images/upgrade.png" alt="Announcement 8">
+                <img src="Images/upgrade.png" class="img-modal" alt="Announcement 8">
                 <h3>Website Upgrade</h3>
                 <p>New animations, flip card, and improved mobile UI.</p>
             </div>
@@ -1637,6 +1649,12 @@ button#submitReview:hover {
         </div>
     </div>
 </section>
+
+<!-- IMAGE POPUP MODAL -->
+<div id="imgModal" class="img-modal">
+  <span class="close-modal">&times;</span>
+  <img class="modal-content" id="modalImg">
+</div>
 
 <!-- ABOUT -->
 <section id="about">
