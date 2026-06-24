@@ -2742,8 +2742,15 @@ const modalImg = document.getElementById("modalImg");
 const closeBtn = document.querySelector(".close-modal");
 // Select all images inside announcement cards
 const announcementImages = document.querySelectorAll(".announce-card img");
+const announcementVideos = document.querySelectorAll(".announce-card video");
 // Add click event to each image
 announcementImages.forEach(img => {
+    img.addEventListener("click", () => {
+        modal.style.display = "block";
+        modalImg.src = img.src;
+    });
+});
+announcementVideos.forEach(video => {
     img.addEventListener("click", () => {
         modal.style.display = "block";
         modalImg.src = img.src;
