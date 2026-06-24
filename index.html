@@ -823,10 +823,8 @@ img{
 }
 .announce-card video {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
     border-radius: inherit;
-    display: block;
 }
 .announce-card h3 {
     font-size: 20px;
@@ -1549,17 +1547,17 @@ button#submitReview:hover {
         <div class="announcement-track">
 
             <div class="announce-card glass">
-                <video src="Videos/Gaming.mp4" muted autoplay loop></video>
-                <h3>New Gaming Project Launched</h3>
-                <p>Created a real-time gaming experience with STM32 Microcontroller Board.</p>
-            </div>
-
-            <div class="announce-card glass">
                 <img src="Images/cable_connected.jpg" alt="Announcement 1">
                 <h3>New RF Project Launched</h3>
                 <p>Explore my latest THz antenna design with real‑time simulations using Handheld VNA.</p>
             </div>
 
+            <div class="announce-card glass">
+                <video src="Videos/Gaming.mp4" muted autoplay loop></video>
+                <h3>New Gaming Project Launched</h3>
+                <p>Created a real-time gaming experience with STM32 Microcontroller Board.</p>
+            </div>
+            
             <div class="announce-card glass">
                 <img src="Images/LED Blinker.jpeg" alt="Announcement 2">
                 <h3>LED Blinker</h3>
@@ -1596,19 +1594,19 @@ button#submitReview:hover {
                 <p>New animations, flip card, and improved mobile UI.</p>
             </div>
 
-            <!-- DUPLICATE SET FOR PERFECT LOOP -->
-            <div class="announce-card glass">
-                <video src="Videos/Gaming.mp4" muted autoplay loop></video>
-                <h3>New Gaming Project Launched</h3>
-                <p>Created a real-time gaming experience with STM32 Microcontroller Board.</p>
-            </div>
-            
+            <!-- DUPLICATE SET FOR PERFECT LOOP -->            
             <div class="announce-card glass">
                 <img src="Images/cable_connected.jpg" alt="Announcement 1">
                 <h3>New RF Project Launched</h3>
                 <p>Explore my latest THz antenna design with real‑time simulations using Handheld VNA.</p>
             </div>
 
+            <div class="announce-card glass">
+                <video src="Videos/Gaming.mp4" muted autoplay loop></video>
+                <h3>New Gaming Project Launched</h3>
+                <p>Created a real-time gaming experience with STM32 Microcontroller Board.</p>
+            </div>
+            
             <div class="announce-card glass">
                 <img src="Images/LED Blinker.jpeg" alt="Announcement 2">
                 <h3>LED Blinker</h3>
@@ -1648,12 +1646,6 @@ button#submitReview:hover {
         </div>
     </div>
 </section>
-
-<!-- IMAGE POPUP MODAL -->
-<div id="imgModal" class="img-modal">
-  <span class="close-modal">&times;</span>
-  <img class="modal-content" id="modalImg">
-</div>
 
 <!-- ABOUT -->
 <section id="about">
