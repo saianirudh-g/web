@@ -2750,12 +2750,6 @@ announcementImages.forEach(img => {
         modalImg.src = img.src;
     });
 });
-announcementVideos.forEach(video => {
-    img.addEventListener("click", () => {
-        modal.style.display = "block";
-        modalImg.src = img.src;
-    });
-});
 if (modal && modalImg && closeBtn) {
   const clickableImages = document.querySelectorAll(
     "#achievements img, #certifications img, #moments img"
