@@ -2733,41 +2733,51 @@ menuBtn.addEventListener("click", () => {
       hiddenList.style.display === "none" ? "block" : "none";
   }
 });
-
-/* =========================================================
-   IMAGE POPUP
-========================================================= */
+// IMAGE AND VIDEO POPUP
 const modal = document.getElementById("imgModal");
 const modalImg = document.getElementById("modalImg");
+// Create a video element for popup
+let modalVideo = document.createElement("video");
+modalVideo.className = "modal-content";
+modalVideo.id = "modalVideo";
+modalVideo.controls = true;
+modalVideo.style.display = "none";
+modal.appendChild(modalVideo);
+// Close button
 const closeBtn = document.querySelector(".close-modal");
-// Select all images inside announcement cards
-const announcementImages = document.querySelectorAll(".announce-card img");
-const announcementVideos = document.querySelectorAll(".announce-card video");
-// Add click event to each image
-announcementImages.forEach(img => {
-    img.addEventListener("click", () => {
+// Select all images & videos inside announcement cards
+const mediaItems = document.querySelectorAll(".announce-card img, .announce-card video");
+// Add click event to each media item
+mediaItems.forEach(media => {
+    media.addEventListener("click", () => {
         modal.style.display = "block";
-        modalImg.src = img.src;
+
+        if (media.tagName === "IMG") {
+            // Show image
+            modalImg.style.display = "block";
+            modalVideo.style.display = "none";
+            modalImg.src = media.src;
+        } else {
+            // Show video
+            modalImg.style.display = "none";
+            modalVideo.style.display = "block";
+            modalVideo.src = media.src;
+            modalVideo.play();
+        }
     });
 });
-if (modal && modalImg && closeBtn) {
-  const clickableImages = document.querySelectorAll(
-    "#achievements img, #certifications img, #moments img"
-  );
-  clickableImages.forEach(img => {
-    img.style.cursor = "pointer";
-    img.addEventListener("click", () => {
-      modal.style.display = "block";
-      modalImg.src = img.src;
-    });
-  });
-  closeBtn.onclick = () => {
+// Close modal
+closeBtn.addEventListener("click", () => {
     modal.style.display = "none";
-  };
-  modal.onclick = (e) => {
-    if (e.target === modal) modal.style.display = "none";
-  };
-}
+    modalVideo.pause();
+});
+// Close modal when clicking outside content
+modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+        modal.style.display = "none";
+        modalVideo.pause();
+    }
+});
 /* =========================================================
    UNIVERSAL SLIDER
 ========================================================= */
