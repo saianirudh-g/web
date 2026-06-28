@@ -991,60 +991,6 @@ button#submitReview:hover {
     font-size: 0.95rem;
     line-height: 1.4;
 }
-/* Review item container */
-.review-item {
-  background: #ffffff;
-  border: 1px solid #e2e2e2;
-  padding: 15px;
-  border-radius: 8px;
-  margin-bottom: 15px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.review-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-/* Review text */
-.review-content {
-  font-size: 15px;
-  color: #333;
-  margin-bottom: 12px;
-  line-height: 1.5;
-}
-/* Action buttons container */
-.review-actions {
-  display: flex;
-  gap: 10px;
-}
-/* Edit button */
-.edit-review {
-  background-color: #4a90e2;
-  color: #fff;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background 0.2s ease;
-}
-.edit-review:hover {
-  background-color: #357ABD;
-}
-/* Delete button */
-.delete-review {
-  background-color: #e74c3c;
-  color: #fff;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background 0.2s ease;
-}
-.delete-review:hover {
-  background-color: #c0392b;
-}
 /* =========================
    MOBILE RESPONSIVE RATING
 ========================= */
@@ -2459,13 +2405,6 @@ Open for research collaboration, embedded systems development, RF engineering pr
 
   <!-- Reviews list and pagination -->
   <div id="reviewsList" style="margin-top: 20px;"></div>
-    <div class="review-item">
-        <p class="review-content">This is a sample review...</p>
-        <div class="review-actions">
-          <button class="edit-review">Edit</button>
-          <button class="delete-review">Delete</button>
-        </div>
-    </div>
   <div id="pagination" style="margin-top: 15px;"></div>
 </div>
 </section>
