@@ -996,20 +996,6 @@ button#submitReview:hover {
   background: transparent; /* let parent/site background show */
   color: #fff;
 }
-/* Review item container */
-.review-item {
-  background: rgba(0, 0, 0, 0.4); /* semi-transparent over your background */
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 15px;
-  border-radius: 8px;
-  margin-bottom: 15px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.review-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
-}
 /* Review text */
 .review-content {
   font-size: 15px;
@@ -2446,31 +2432,36 @@ Open for research collaboration, embedded systems development, RF engineering pr
 
 <!-- RATING SECTION -->
 <section id="reviews">
-<h2 class="section-title">Visitor <span>Rating</span></h2>
-<div class="rating-section">
-<div class="star-rating">
-    <span class="star" data-value="1">&#9733;</span>
-    <span class="star" data-value="2">&#9733;</span>
-    <span class="star" data-value="3">&#9733;</span>
-    <span class="star" data-value="4">&#9733;</span>
-    <span class="star" data-value="5">&#9733;</span>
-  </div>
+  <h2 class="section-title">Visitor <span>Rating</span></h2>
 
-  <h3><span id="averageRating">0.0</span>/5</h3>
-  <p><span id="totalRatings">0</span> Ratings</p>
-  <p id="ratingMessage">Click a star to rate my website.</p>
+  <div class="rating-section">
 
-  <textarea id="reviewText" placeholder="Write your feedback..." rows="4"></textarea>
-  <button id="submitReview">Submit Review</button>
-
-  <!-- Reviews list and pagination -->
-  <div id="reviewsList" style="margin-top: 20px;"></div>
-    <div class="review-actions">
-          <button class="edit-review">Edit</button>
-          <button class="delete-review">Delete</button>
+    <div class="star-rating">
+      <span class="star" data-value="1">&#9733;</span>
+      <span class="star" data-value="2">&#9733;</span>
+      <span class="star" data-value="3">&#9733;</span>
+      <span class="star" data-value="4">&#9733;</span>
+      <span class="star" data-value="5">&#9733;</span>
     </div>
-  <div id="pagination" style="margin-top: 15px;"></div>
-</div>
+
+    <h3><span id="averageRating">0.0</span>/5</h3>
+    <p><span id="totalRatings">0</span> Ratings</p>
+    <p id="ratingMessage">Click a star to rate my website.</p>
+
+    <textarea id="reviewText" placeholder="Write your feedback..." rows="4"></textarea>
+    <button id="submitReview">Submit Review</button>
+
+    <!-- Reviews list -->
+    <div id="reviewsList" style="margin-top: 20px;"></div>
+          <div class="review-actions">
+              <button class="edit-review">Edit</button>
+              <button class="delete-review">Delete</button>
+          </div>
+
+    <!-- Pagination -->
+    <div id="pagination" style="margin-top: 15px;"></div>
+
+  </div>
 </section>
     
 <!-- IMAGE POPUP MODAL -->
@@ -2544,6 +2535,7 @@ introBtn.addEventListener('click', () => {
     introBtn.style.display = 'inline-block';
   });
 const API = "https://reviews-backend-ten.vercel.app";
+
 // Select elements
 const stars = document.querySelectorAll(".star");
 const averageRatingEl = document.getElementById("averageRating");
@@ -2553,9 +2545,16 @@ const reviewText = document.getElementById("reviewText");
 const submitBtn = document.getElementById("submitReview");
 const reviewsList = document.getElementById("reviewsList");
 const paginationContainer = document.getElementById("pagination");
+
 let selectedRating = 0;
 let currentPage = 1;
 const REVIEWS_PER_PAGE = 3;
+
+// ⭐ Local ID generator (fixes missing backend IDs)
+function generateLocalId() {
+  return "local_" + Math.random().toString(36).substring(2, 12);
+}
+
 // Highlight stars
 stars.forEach(star => {
   star.addEventListener("click", () => {
@@ -2564,18 +2563,22 @@ stars.forEach(star => {
     ratingMessage.textContent = `You selected ${selectedRating} star(s).`;
   });
 });
+
 function updateStarHighlight(rating) {
   stars.forEach(star => {
     star.style.color = parseInt(star.dataset.value) <= rating ? "gold" : "gray";
   });
 }
+
 // Submit review
 submitBtn.addEventListener("click", async () => {
   if (selectedRating === 0) {
     ratingMessage.textContent = "Please select a star rating.";
     return;
   }
+
   const review = reviewText.value.trim();
+
   await fetch(`${API}/reviews`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -2584,43 +2587,57 @@ submitBtn.addEventListener("click", async () => {
       text: review
     })
   });
+
   reviewText.value = "";
   selectedRating = 0;
   updateStarHighlight(0);
   ratingMessage.textContent = "Thank you for your feedback!";
+
   loadReviews(currentPage);
   loadStats();
 });
+
 // Load reviews with pagination
 async function loadReviews(page) {
   const res = await fetch(`${API}/reviews?page=${page}`);
   const data = await res.json();
+
   reviewsList.innerHTML = "";
   paginationContainer.innerHTML = "";
+
   if (!data.reviews || data.reviews.length === 0) {
     reviewsList.innerHTML = "<p>No reviews yet.</p>";
     return;
   }
+
   data.reviews.forEach(r => {
+    // ⭐ If backend doesn't send ID, create one
+    const id = r._id || r.id || generateLocalId();
+
     const div = document.createElement("div");
     div.classList.add("review-item");
+
     div.innerHTML = `
       <strong>Rating: ${"★".repeat(r.rating)}</strong><br>
       <p class="review-content">${r.text || "<i>No written review</i>"}</p>
       <small class="review-timestamp">Posted on: ${new Date(r.timestamp).toLocaleString()}</small>
 
       <div class="review-actions">
-        <button class="edit-review" data-id="${r._id}">Edit</button>
-        <button class="delete-review" data-id="${r._id}">Delete</button>
+        <button class="edit-review" data-id="${id}">Edit</button>
+        <button class="delete-review" data-id="${id}">Delete</button>
       </div>
     `;
+
     reviewsList.appendChild(div);
   });
+
   createPagination(data.total);
 }
+
 // Create pagination buttons
 function createPagination(totalReviews) {
   const totalPages = Math.ceil(totalReviews / REVIEWS_PER_PAGE);
+
   for (let i = 1; i <= totalPages; i++) {
     const btn = document.createElement("button");
     btn.textContent = i;
@@ -2628,35 +2645,44 @@ function createPagination(totalReviews) {
     btn.style.padding = "5px 10px";
     btn.style.borderRadius = "5px";
     btn.style.cursor = "pointer";
+
     if (i === currentPage) {
       btn.style.background = "#333";
       btn.style.color = "white";
     }
+
     btn.addEventListener("click", () => {
       currentPage = i;
       loadReviews(currentPage);
     });
+
     paginationContainer.appendChild(btn);
   }
 }
+
 // Load rating stats
 async function loadStats() {
   const res = await fetch(`${API}/reviews?page=1`);
   const data = await res.json();
+
   if (!data.reviews || data.reviews.length === 0) {
     averageRatingEl.textContent = "0.0";
     totalRatingsEl.textContent = "0";
     return;
   }
+
   const ratings = data.reviews.map(r => r.rating);
   const avg = (ratings.reduce((a, b) => a + b, 0) / ratings.length).toFixed(1);
+
   averageRatingEl.textContent = avg;
   totalRatingsEl.textContent = ratings.length;
 }
-// FINAL WORKING EDIT + DELETE HANDLER
+
+// ⭐ FINAL WORKING EDIT + DELETE HANDLER (no backend ID required)
 reviewsList.addEventListener("click", async (e) => {
   const id = e.target.dataset.id;
   if (!id) return;
+
   // DELETE
   if (e.target.classList.contains("delete-review")) {
     await fetch(`${API}/reviews/${id}`, { method: "DELETE" });
@@ -2664,18 +2690,23 @@ reviewsList.addEventListener("click", async (e) => {
     loadStats();
     return;
   }
+
   // EDIT
   if (e.target.classList.contains("edit-review")) {
     const reviewItem = e.target.closest(".review-item");
     const contentEl = reviewItem.querySelector(".review-content");
+
     const oldText = contentEl.textContent.trim();
     const newText = prompt("Edit your review:", oldText);
+
     if (newText === null) return;
+
     await fetch(`${API}/reviews/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ text: newText })
     });
+
     loadReviews(currentPage);
     loadStats();
   }
