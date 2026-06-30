@@ -2466,7 +2466,6 @@ Open for research collaboration, embedded systems development, RF engineering pr
   <!-- Reviews list and pagination -->
   <div id="reviewsList" style="margin-top: 20px;"></div>
     <div class="review-item">
-        <p class="review-content">This is a sample review...</p>
         <div class="review-actions">
           <button class="edit-review">Edit</button>
           <button class="delete-review">Delete</button>
@@ -2607,19 +2606,23 @@ async function loadReviews(page) {
     return;
   }
   data.reviews.forEach(r => {
-    const div = document.createElement("div");
-    div.classList.add("review-item");
-    div.innerHTML = `
-      <strong>Rating: ${"★".repeat(r.rating)}</strong><br>
-      <p class="review-content">${r.text || "<i>No written review</i>"}</p>
-      <small>${new Date(r.timestamp).toLocaleString()}</small>
-      <div class="review-actions">
-        <button class="edit-review" data-id="${r.id}">Edit</button>
-        <button class="delete-review" data-id="${r.id}">Delete</button>
-      </div>
-    `;
-    reviewsList.appendChild(div);
-  });
+  const div = document.createElement("div");
+  div.classList.add("review-item");
+
+  div.innerHTML = `
+    <strong>Rating: ${"★".repeat(r.rating)}</strong><br>
+    <p class="review-content">${r.text || "<i>No written review</i>"}</p>
+    <small>${new Date(r.timestamp).toLocaleString()}</small>
+
+    <div class="review-actions">
+      <button class="edit-review" data-id="${r._id}">Edit</button>
+      <button class="delete-review" data-id="${r._id}">Delete</button>
+    </div>
+  `;
+
+  reviewsList.appendChild(div);
+});
+
   createPagination(data.total);
 }
 // Create pagination buttons
