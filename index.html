@@ -2432,35 +2432,34 @@ Open for research collaboration, embedded systems development, RF engineering pr
 
 <!-- RATING SECTION -->
 <section id="reviews">
-  <h2 class="section-title">Visitor <span>Rating</span></h2>
-
-  <div class="rating-section">
-
-    <!-- Star Rating -->
-    <div class="star-rating">
-      <span class="star" data-value="1">&#9733;</span>
-      <span class="star" data-value="2">&#9733;</span>
-      <span class="star" data-value="3">&#9733;</span>
-      <span class="star" data-value="4">&#9733;</span>
-      <span class="star" data-value="5">&#9733;</span>
-    </div>
-
-    <!-- Stats -->
-    <h3><span id="averageRating">0.0</span>/5</h3>
-    <p><span id="totalRatings">0</span> Ratings</p>
-    <p id="ratingMessage">Click a star to rate my website.</p>
-
-    <!-- Review Input -->
-    <textarea id="reviewText" placeholder="Write your feedback..." rows="4"></textarea>
-    <button id="submitReview">Submit Review</button>
-
-    <!-- Reviews List (JS inserts reviews here) -->
-    <div id="reviewsList" class="reviews-container"></div>
-
-    <!-- Pagination -->
-    <div id="pagination" class="pagination-container"></div>
-
+<h2 class="section-title">Visitor <span>Rating</span></h2>
+<div class="rating-section">
+<div class="star-rating">
+    <span class="star" data-value="1">&#9733;</span>
+    <span class="star" data-value="2">&#9733;</span>
+    <span class="star" data-value="3">&#9733;</span>
+    <span class="star" data-value="4">&#9733;</span>
+    <span class="star" data-value="5">&#9733;</span>
   </div>
+
+  <h3><span id="averageRating">0.0</span>/5</h3>
+  <p><span id="totalRatings">0</span> Ratings</p>
+  <p id="ratingMessage">Click a star to rate my website.</p>
+
+  <textarea id="reviewText" placeholder="Write your feedback..." rows="4"></textarea>
+  <button id="submitReview">Submit Review</button>
+
+  <!-- Reviews list and pagination -->
+  <div id="reviewsList" style="margin-top: 20px;"></div>
+    <div class="review-item">
+        <div class="review-actions">
+          <button class="edit-review">Edit</button>
+          <button class="delete-review">Delete</button>
+        </div>
+      </div>
+
+  <div id="pagination" style="margin-top: 15px;"></div>
+</div>
 </section>
     
 <!-- IMAGE POPUP MODAL -->
