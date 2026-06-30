@@ -2541,7 +2541,7 @@ introBtn.addEventListener('click', () => {
     hideIntroBtn.style.display = 'none';
     introBtn.style.display = 'inline-block';
   });
-    const API = "https://reviews-backend-ten.vercel.app";
+const API = "https://reviews-backend-ten.vercel.app";
 // Select elements
 const stars = document.querySelectorAll(".star");
 const averageRatingEl = document.getElementById("averageRating");
@@ -2554,6 +2554,10 @@ const paginationContainer = document.getElementById("pagination");
 let selectedRating = 0;
 let currentPage = 1;
 const REVIEWS_PER_PAGE = 3;
+// ⭐ Local ID generator (fixes missing backend IDs)
+function generateLocalId() {
+  return "local_" + Math.random().toString(36).substring(2, 12);
+}
 // Highlight stars
 stars.forEach(star => {
   star.addEventListener("click", () => {
@@ -2562,6 +2566,7 @@ stars.forEach(star => {
     ratingMessage.textContent = `You selected ${selectedRating} star(s).`;
   });
 });
+
 function updateStarHighlight(rating) {
   stars.forEach(star => {
     star.style.color = parseInt(star.dataset.value) <= rating ? "gold" : "gray";
@@ -2600,16 +2605,17 @@ async function loadReviews(page) {
     return;
   }
   data.reviews.forEach(r => {
+    // ⭐ If backend doesn't send ID, create one
+    const id = r._id || r.id || generateLocalId();
     const div = document.createElement("div");
     div.classList.add("review-item");
     div.innerHTML = `
       <strong>Rating: ${"★".repeat(r.rating)}</strong><br>
       <p class="review-content">${r.text || "<i>No written review</i>"}</p>
       <small class="review-timestamp">Posted on: ${new Date(r.timestamp).toLocaleString()}</small>
-
       <div class="review-actions">
-        <button class="edit-review" data-id="${r._id}">Edit</button>
-        <button class="delete-review" data-id="${r._id}">Delete</button>
+        <button class="edit-review" data-id="${id}">Edit</button>
+        <button class="delete-review" data-id="${id}">Delete</button>
       </div>
     `;
     reviewsList.appendChild(div);
@@ -2651,7 +2657,7 @@ async function loadStats() {
   averageRatingEl.textContent = avg;
   totalRatingsEl.textContent = ratings.length;
 }
-// FINAL WORKING EDIT + DELETE HANDLER
+// ⭐ FINAL WORKING EDIT + DELETE HANDLER (no backend ID required)
 reviewsList.addEventListener("click", async (e) => {
   const id = e.target.dataset.id;
   if (!id) return;
