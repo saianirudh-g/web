@@ -991,51 +991,54 @@ button#submitReview:hover {
     font-size: 0.95rem;
     line-height: 1.4;
 }
-/* Use your site background (assuming dark) */
+/* Main rating section */
 .rating-section {
-  background: transparent; /* let parent/site background show */
+  background: transparent;
   color: #fff;
 }
-/* Review item container */
-.review-item {
-  background: #ffffff;
-  border: 1px solid #e2e2e2;
-  padding: 15px;
-  border-radius: 8px;
-  margin-bottom: 15px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+/* Review container */
+.reviews-container {
+  margin-top: 20px;
 }
-.review-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+/* Review card */
+.review-item {
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
 }
 /* Review text */
 .review-content {
   font-size: 15px;
-  color: #333;
-  margin-bottom: 12px;
-  line-height: 1.5;
+  color: #fff;
+  margin: 10px 0;
 }
-/* Action buttons container */
+/* Timestamp */
+.review-timestamp {
+  display: block;
+  font-size: 13px;
+  color: #ccc;
+  margin-bottom: 10px;
+}
+/* Buttons container */
 .review-actions {
   display: flex;
   gap: 10px;
-  margin-top: 10px;
 }
 /* Edit button */
 .edit-review {
-  background-color: #4a90e2;
+  background-color: #3498db;
   color: #fff;
   border: none;
   padding: 8px 14px;
   border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
-  transition: background 0.2s ease;
 }
 .edit-review:hover {
-  background-color: #357ABD;
+  background-color: #1f6fa5;
 }
 /* Delete button */
 .delete-review {
@@ -1046,7 +1049,6 @@ button#submitReview:hover {
   border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
-  transition: background 0.2s ease;
 }
 .delete-review:hover {
   background-color: #c0392b;
