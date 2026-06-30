@@ -648,6 +648,15 @@ footer p {
   font-size: 14px;
   color: #cbd5e1; /* softer bright gray */
 }
+#socialButtons{
+    display:none;
+    margin-top:15px;
+    flex-wrap:wrap;
+    gap:12px;
+}
+#socialButtons a{
+    margin:5px;
+}
 /* =========================================================
    GLOBAL FIXES (IMPORTANT FOR STABILITY)
 ========================================================= */
@@ -990,11 +999,6 @@ button#submitReview:hover {
     color: #e2e8f0;
     font-size: 0.95rem;
     line-height: 1.4;
-}
-/* Main rating section */
-.rating-section {
-  background: transparent;
-  color: #fff;
 }
 /* Review container */
 .reviews-container {
@@ -2762,6 +2766,27 @@ menuBtn.addEventListener("click", () => {
     menuBtn.classList.toggle("active");
   }
 });
+const followBtn = document.getElementById("followBtn");
+const socialButtons = document.getElementById("socialButtons");
+
+if (followBtn && socialButtons) {
+    followBtn.addEventListener("click", function () {
+
+        if (
+            socialButtons.style.display === "none" ||
+            socialButtons.style.display === ""
+        ) {
+            socialButtons.style.display = "flex";
+            socialButtons.style.flexWrap = "wrap";
+            socialButtons.style.gap = "12px";
+            followBtn.innerHTML = "Hide";
+        } else {
+            socialButtons.style.display = "none";
+            followBtn.innerHTML = "Follow";
+        }
+
+    });
+}
 /* -------------------------------
    DESKTOP OVERFLOW MENU LOGIC
 -------------------------------- */
