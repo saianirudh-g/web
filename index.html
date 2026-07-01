@@ -1075,19 +1075,6 @@ button#submitReview:hover {
   font-weight: 600;
   color: #333;
 }
-/* Profile photo styling */
-#userInfo img {
-  border-radius: 50%;
-  width: 48px;
-  height: 48px;
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
-}
-.review-item img {
-  border-radius: 50%;
-  width: 45px;
-  height: 45px;
-  margin-bottom: 8px;
-}
 .review-actions button {
   margin-right: 10px;
   padding: 6px 12px;
@@ -2497,15 +2484,8 @@ Open for research collaboration, embedded systems development, RF engineering pr
 <section id="reviews">
 <h2 class="section-title">Visitor <span>Rating</span></h2>
 <div class="rating-section">
-<div class="star-rating">
-    <span class="star" data-value="1">&#9733;</span>
-    <span class="star" data-value="2">&#9733;</span>
-    <span class="star" data-value="3">&#9733;</span>
-    <span class="star" data-value="4">&#9733;</span>
-    <span class="star" data-value="5">&#9733;</span>
-  </div>
 
-  <!-- Google Identity Services -->
+<!-- Google Identity Services -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <div id="g_id_onload"
      data-client_id="45864194532-e5kr4hputtnpi42p9cq0g1gleppooqot.apps.googleusercontent.com"
@@ -2522,6 +2502,14 @@ Open for research collaboration, embedded systems development, RF engineering pr
 <!-- Display logged‑in user info -->
 <div id="userInfo"></div>
 
+<div class="star-rating">
+    <span class="star" data-value="1">&#9733;</span>
+    <span class="star" data-value="2">&#9733;</span>
+    <span class="star" data-value="3">&#9733;</span>
+    <span class="star" data-value="4">&#9733;</span>
+    <span class="star" data-value="5">&#9733;</span>
+  </div>
+
   <h3><span id="averageRating">0.0</span>/5</h3>
   <p><span id="totalRatings">0</span> Ratings</p>
   <p id="ratingMessage">Click a star to rate my website.</p>
@@ -2534,7 +2522,7 @@ Open for research collaboration, embedded systems development, RF engineering pr
   <div id="pagination" style="margin-top: 15px;"></div>
 </div>
 </section>
-    
+
 <!-- IMAGE POPUP MODAL -->
 <div id="imgModal" class="img-modal">
   <span class="close-modal">&times;</span>
