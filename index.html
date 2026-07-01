@@ -1013,6 +1013,12 @@ button#submitReview:hover {
   margin-bottom: 15px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.4);
 }
+.review-item img {
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  margin-bottom: 8px;
+}
 /* Review text */
 .review-content {
   font-size: 15px;
@@ -1074,6 +1080,12 @@ button#submitReview:hover {
   font-size: 1.15rem;
   font-weight: 600;
   color: #333;
+}
+#userInfo img {
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
 }
 .review-actions button {
   margin-right: 10px;
@@ -2596,6 +2608,7 @@ introBtn.addEventListener('click', () => {
     introBtn.style.display = 'inline-block';
   });
 const API = "https://review-backend-nine.vercel.app";
+
 // Select elements
 const stars = document.querySelectorAll(".star");
 const averageRatingEl = document.getElementById("averageRating");
@@ -2616,16 +2629,25 @@ let userPhoto = null;
 
 // ⭐ Google Login Callback
 function handleGoogleLogin(response) {
-  const data = jwt_decode(response.credential);
+  try {
+    const data = jwt_decode(response.credential);
 
-  userName = data.name;
-  userPhoto = data.picture;
+    // ✅ Extract correct fields
+    userName = data.name || data.given_name || "Anonymous";
+    userPhoto = data.picture || "https://via.placeholder.com/45";
 
-  document.getElementById("userInfo").innerHTML = `
-    <img src="${userPhoto}">
-    <strong>${userName}</strong>
-  `;
-  document.getElementById("userInfo").style.display = "flex";
+    // ✅ Display user info
+    document.getElementById("userInfo").innerHTML = `
+      <img src="${userPhoto}" width="45" style="border-radius:50%">
+      <strong>${userName}</strong>
+    `;
+    document.getElementById("userInfo").style.display = "flex";
+
+    console.log("Google Login Success:", data);
+  } catch (err) {
+    console.error("Google Login Error:", err);
+    alert("Login failed. Please try again.");
+  }
 }
 
 // ⭐ Reverse geocoding → convert lat/lon → city
@@ -2682,49 +2704,41 @@ submitBtn.addEventListener("click", async () => {
       const lon = pos.coords.longitude;
       const city = await getCity(lat, lon);
 
-      await fetch(`${API}/reviews`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: userName,
-          photo: userPhoto,
-          rating: selectedRating,
-          text: review,
-          location: { city, lat, lon }
-        })
-      });
-
-      reviewText.value = "";
-      selectedRating = 0;
-      updateStarHighlight(0);
-      ratingMessage.textContent = "Thank you for your feedback!";
-
-      loadReviews(currentPage);
-      loadStats();
+      await postReview(city, lat, lon, review);
     },
     async () => {
-      await fetch(`${API}/reviews`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: userName,
-          photo: userPhoto,
-          rating: selectedRating,
-          text: review,
-          location: { city: "Unknown", lat: null, lon: null }
-        })
-      });
-
-      reviewText.value = "";
-      selectedRating = 0;
-      updateStarHighlight(0);
-      ratingMessage.textContent = "Thank you for your feedback!";
-
-      loadReviews(currentPage);
-      loadStats();
+      await postReview("Unknown", null, null, review);
     }
   );
 });
+
+// ⭐ Helper: Post review
+async function postReview(city, lat, lon, review) {
+  try {
+    await fetch(`${API}/reviews`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: userName,
+        photo: userPhoto,
+        rating: selectedRating,
+        text: review,
+        location: { city, lat, lon }
+      })
+    });
+
+    reviewText.value = "";
+    selectedRating = 0;
+    updateStarHighlight(0);
+    ratingMessage.textContent = "Thank you for your feedback!";
+
+    loadReviews(currentPage);
+    loadStats();
+  } catch (err) {
+    console.error("Review submission failed:", err);
+    alert("Failed to submit review. Please try again.");
+  }
+}
 
 // ⭐ Load reviews with pagination
 async function loadReviews(page) {
@@ -2746,8 +2760,8 @@ async function loadReviews(page) {
     div.classList.add("review-item");
 
     div.innerHTML = `
-      <img src="${r.photo}">
-      <strong>${r.name}</strong> — ${"★".repeat(r.rating)}<br>
+      <img src="${r.photo || "https://via.placeholder.com/45"}" width="45" style="border-radius:50%">
+      <strong>${r.name || "Anonymous"}</strong> — ${"★".repeat(r.rating)}<br>
       <p class="review-content">${r.text || "<i>No written review</i>"}</p>
       <small class="review-timestamp">Posted on: ${new Date(r.timestamp).toLocaleString()}</small><br>
       <small>Location: ${r.location?.city || "Unknown"}</small>
@@ -2839,6 +2853,7 @@ reviewsList.addEventListener("click", async (e) => {
     loadStats();
   }
 });
+
 // ⭐ Init
 loadReviews(currentPage);
 loadStats();
