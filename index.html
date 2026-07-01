@@ -2487,6 +2487,7 @@ Open for research collaboration, embedded systems development, RF engineering pr
 
 <!-- Google Identity Services -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
 <div id="g_id_onload"
      data-client_id="45864194532-e5kr4hputtnpi42p9cq0g1gleppooqot.apps.googleusercontent.com"
      data-callback="handleGoogleLogin">
@@ -2593,8 +2594,7 @@ introBtn.addEventListener('click', () => {
     hideIntroBtn.style.display = 'none';
     introBtn.style.display = 'inline-block';
   });
-    const API = "https://review-backend-nine.vercel.app";
-
+const API = "https://review-backend-nine.vercel.app";
 // Select elements
 const stars = document.querySelectorAll(".star");
 const averageRatingEl = document.getElementById("averageRating");
@@ -2611,14 +2611,17 @@ const REVIEWS_PER_PAGE = 3;
 
 // Google user info
 let userName = null;
+let userPhoto = null;
 
 // ⭐ Google Login Callback
 function handleGoogleLogin(response) {
   const data = jwt_decode(response.credential);
 
   userName = data.name;
+  userPhoto = data.picture;
 
   document.getElementById("userInfo").innerHTML = `
+    <img src="${userPhoto}">
     <strong>${userName}</strong>
   `;
   document.getElementById("userInfo").style.display = "flex";
@@ -2704,6 +2707,7 @@ submitBtn.addEventListener("click", async () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: userName,
+          photo: userPhoto,
           rating: selectedRating,
           text: review,
           location: { city: "Unknown", lat: null, lon: null }
@@ -2829,6 +2833,7 @@ reviewsList.addEventListener("click", async (e) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ text: newText })
     });
+
     loadReviews(currentPage);
     loadStats();
   }
