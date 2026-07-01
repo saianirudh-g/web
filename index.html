@@ -1028,6 +1028,7 @@ button#submitReview:hover {
 }
 /* Buttons container */
 .review-actions {
+  margin-top: 10px;
   display: flex;
   gap: 10px;
 }
@@ -1056,6 +1057,48 @@ button#submitReview:hover {
 }
 .delete-review:hover {
   background-color: #c0392b;
+}
+/* Google Sign-In button container */
+.g_id_signin {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+/* User info display after login */
+#userInfo {
+  display: none; /* hidden until login */
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #333;
+}
+/* Profile photo styling */
+#userInfo img {
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
+}
+.review-item img {
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  margin-bottom: 8px;
+}
+.review-actions button {
+  margin-right: 10px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background: #007bff;
+  color: white;
+}
+.review-actions button.delete-review {
+  background: #dc3545;
 }
 /* =========================
    MOBILE RESPONSIVE RATING
@@ -2451,6 +2494,23 @@ Open for research collaboration, embedded systems development, RF engineering pr
 </section>
 
 <!-- RATING SECTION -->
+<!-- Google Identity Services -->
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<div id="g_id_onload"
+     data-client_id="45864194532-e5kr4hputtnpi42p9cq0g1gleppooqot.apps.googleusercontent.com"
+     data-callback="handleGoogleLogin">
+</div>
+<div class="g_id_signin"
+     data-type="standard"
+     data-size="large"
+     data-theme="outline"
+     data-text="signin_with"
+     data-shape="rectangular"
+     data-logo_alignment="left">
+</div>
+<!-- Display logged‑in user info -->
+<div id="userInfo"></div>
+
 <section id="reviews">
 <h2 class="section-title">Visitor <span>Rating</span></h2>
 <div class="rating-section">
@@ -2545,7 +2605,7 @@ introBtn.addEventListener('click', () => {
     hideIntroBtn.style.display = 'none';
     introBtn.style.display = 'inline-block';
   });
-const API = "https://review-backend-nine.vercel.app";   // ← REMOVE trailing slash
+    const API = "https://review-backend-nine.vercel.app";
 
 // Select elements
 const stars = document.querySelectorAll(".star");
@@ -2560,6 +2620,43 @@ const paginationContainer = document.getElementById("pagination");
 let selectedRating = 0;
 let currentPage = 1;
 const REVIEWS_PER_PAGE = 3;
+
+// Google user info
+let userName = null;
+let userPhoto = null;
+
+// ⭐ Google Login Callback
+function handleGoogleLogin(response) {
+  const data = jwt_decode(response.credential);
+
+  userName = data.name;
+  userPhoto = data.picture;
+
+  document.getElementById("userInfo").innerHTML = `
+    <img src="${userPhoto}">
+    <strong>${userName}</strong>
+  `;
+  document.getElementById("userInfo").style.display = "flex";
+}
+
+// ⭐ Reverse geocoding → convert lat/lon → city
+async function getCity(lat, lon) {
+  try {
+    const res = await fetch(
+      `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`
+    );
+    const data = await res.json();
+    return (
+      data.address.city ||
+      data.address.town ||
+      data.address.village ||
+      data.address.state ||
+      "Unknown"
+    );
+  } catch {
+    return "Unknown";
+  }
+}
 
 // ⭐ Highlight stars
 stars.forEach(star => {
@@ -2578,6 +2675,11 @@ function updateStarHighlight(rating) {
 
 // ⭐ Submit review
 submitBtn.addEventListener("click", async () => {
+  if (!userName) {
+    alert("Please sign in with Google first.");
+    return;
+  }
+
   if (selectedRating === 0) {
     ratingMessage.textContent = "Please select a star rating.";
     return;
@@ -2585,22 +2687,54 @@ submitBtn.addEventListener("click", async () => {
 
   const review = reviewText.value.trim();
 
-  await fetch(`${API}/reviews`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      rating: selectedRating,
-      text: review
-    })
-  });
+  navigator.geolocation.getCurrentPosition(
+    async (pos) => {
+      const lat = pos.coords.latitude;
+      const lon = pos.coords.longitude;
+      const city = await getCity(lat, lon);
 
-  reviewText.value = "";
-  selectedRating = 0;
-  updateStarHighlight(0);
-  ratingMessage.textContent = "Thank you for your feedback!";
+      await fetch(`${API}/reviews`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: userName,
+          photo: userPhoto,
+          rating: selectedRating,
+          text: review,
+          location: { city, lat, lon }
+        })
+      });
 
-  loadReviews(currentPage);
-  loadStats();
+      reviewText.value = "";
+      selectedRating = 0;
+      updateStarHighlight(0);
+      ratingMessage.textContent = "Thank you for your feedback!";
+
+      loadReviews(currentPage);
+      loadStats();
+    },
+    async () => {
+      await fetch(`${API}/reviews`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: userName,
+          photo: userPhoto,
+          rating: selectedRating,
+          text: review,
+          location: { city: "Unknown", lat: null, lon: null }
+        })
+      });
+
+      reviewText.value = "";
+      selectedRating = 0;
+      updateStarHighlight(0);
+      ratingMessage.textContent = "Thank you for your feedback!";
+
+      loadReviews(currentPage);
+      loadStats();
+    }
+  );
 });
 
 // ⭐ Load reviews with pagination
@@ -2617,15 +2751,17 @@ async function loadReviews(page) {
   }
 
   data.reviews.forEach(r => {
-    const id = r._id;   // ⭐ REAL MongoDB ID
+    const id = r._id;
 
     const div = document.createElement("div");
     div.classList.add("review-item");
 
     div.innerHTML = `
-      <strong>Rating: ${"★".repeat(r.rating)}</strong><br>
+      <img src="${r.photo}">
+      <strong>${r.name}</strong> — ${"★".repeat(r.rating)}<br>
       <p class="review-content">${r.text || "<i>No written review</i>"}</p>
-      <small class="review-timestamp">Posted on: ${new Date(r.timestamp).toLocaleString()}</small>
+      <small class="review-timestamp">Posted on: ${new Date(r.timestamp).toLocaleString()}</small><br>
+      <small>Location: ${r.location?.city || "Unknown"}</small>
       <div class="review-actions">
         <button class="edit-review" data-id="${id}">Edit</button>
         <button class="delete-review" data-id="${id}">Delete</button>
@@ -2709,12 +2845,10 @@ reviewsList.addEventListener("click", async (e) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ text: newText })
     });
-
     loadReviews(currentPage);
     loadStats();
   }
 });
-
 // ⭐ Init
 loadReviews(currentPage);
 loadStats();
