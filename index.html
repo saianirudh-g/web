@@ -2634,8 +2634,8 @@ function handleGoogleLogin(response) {
     const data = jwt_decode(response.credential);
 
     // ✅ Extract correct fields
-    userName = data.name || data.given_name || "Anonymous";
-    userPhoto = data.picture || "https://via.placeholder.com/45";
+    userName = data.name;
+    userPhoto = data.picture || "https://i.imgur.com/1ZQZ1ZC.png";
 
     // ✅ Display user info
     document.getElementById("userInfo").innerHTML = `
