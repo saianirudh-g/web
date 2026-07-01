@@ -2629,6 +2629,7 @@ let userPhoto = null;
 
 // ⭐ Google Login Callback
 function handleGoogleLogin(response) {
+    console.log("Credential:", response.credential);
   try {
     const data = jwt_decode(response.credential);
 
