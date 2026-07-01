@@ -2494,7 +2494,18 @@ Open for research collaboration, embedded systems development, RF engineering pr
 </section>
 
 <!-- RATING SECTION -->
-<!-- Google Identity Services -->
+<section id="reviews">
+<h2 class="section-title">Visitor <span>Rating</span></h2>
+<div class="rating-section">
+<div class="star-rating">
+    <span class="star" data-value="1">&#9733;</span>
+    <span class="star" data-value="2">&#9733;</span>
+    <span class="star" data-value="3">&#9733;</span>
+    <span class="star" data-value="4">&#9733;</span>
+    <span class="star" data-value="5">&#9733;</span>
+  </div>
+
+  <!-- Google Identity Services -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <div id="g_id_onload"
      data-client_id="45864194532-e5kr4hputtnpi42p9cq0g1gleppooqot.apps.googleusercontent.com"
@@ -2510,17 +2521,6 @@ Open for research collaboration, embedded systems development, RF engineering pr
 </div>
 <!-- Display logged‑in user info -->
 <div id="userInfo"></div>
-
-<section id="reviews">
-<h2 class="section-title">Visitor <span>Rating</span></h2>
-<div class="rating-section">
-<div class="star-rating">
-    <span class="star" data-value="1">&#9733;</span>
-    <span class="star" data-value="2">&#9733;</span>
-    <span class="star" data-value="3">&#9733;</span>
-    <span class="star" data-value="4">&#9733;</span>
-    <span class="star" data-value="5">&#9733;</span>
-  </div>
 
   <h3><span id="averageRating">0.0</span>/5</h3>
   <p><span id="totalRatings">0</span> Ratings</p>
@@ -2623,17 +2623,14 @@ const REVIEWS_PER_PAGE = 3;
 
 // Google user info
 let userName = null;
-let userPhoto = null;
 
 // ⭐ Google Login Callback
 function handleGoogleLogin(response) {
   const data = jwt_decode(response.credential);
 
   userName = data.name;
-  userPhoto = data.picture;
 
   document.getElementById("userInfo").innerHTML = `
-    <img src="${userPhoto}">
     <strong>${userName}</strong>
   `;
   document.getElementById("userInfo").style.display = "flex";
@@ -2719,7 +2716,6 @@ submitBtn.addEventListener("click", async () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: userName,
-          photo: userPhoto,
           rating: selectedRating,
           text: review,
           location: { city: "Unknown", lat: null, lon: null }
