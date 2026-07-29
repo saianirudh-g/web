@@ -2590,16 +2590,20 @@ Open for research collaboration, embedded systems development, RF engineering pr
 
 <!-- JAVASCRIPT -->
 <script>
-const tabs = document.querySelectorAll('.nav-links a');
-const pages = document.querySelectorAll('.tab-page');
-
+const tabs = document.querySelectorAll(".nav-links a[data-tab]");
+const pages = document.querySelectorAll(".tab-page");
 tabs.forEach(tab => {
-    tab.addEventListener('click', e => {
+    tab.addEventListener("click", function(e){
         e.preventDefault();
-        const id = tab.getAttribute('data-tab');
-
-        pages.forEach(p => p.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
+        const id = this.dataset.tab;
+        pages.forEach(page => page.classList.remove("active"));
+        const selectedPage = document.getElementById(id);
+        if(selectedPage){
+            selectedPage.classList.add("active");
+            selectedPage.scrollIntoView({
+                behavior: "smooth"
+            });
+        }
     });
 });
 
