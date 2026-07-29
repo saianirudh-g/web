@@ -1505,6 +1505,8 @@ button#submitReview:hover {
 </div>
 
 <div class="nav-links" id="navLinks">
+    <a href="#home" data-tab="home">Home</a>
+    <a href="#announcement" data-tab="announcement">Announcements</a>
     <a href="#about" data-tab="about">About</a>
     <a href="#resume" data-tab="resume">Resume</a>
     <a href="#projects" data-tab="projects">Projects</a>
@@ -1526,7 +1528,7 @@ button#submitReview:hover {
 </header>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero tab-page" id="home">
   <div class="hero-flip-card" id="heroCard">
 
     <!-- FRONT SIDE -->
@@ -1662,7 +1664,7 @@ button#submitReview:hover {
 </section>
 
 <!---- ANNOUCEMENT SECTION ----->
-<section class="announcement-section">
+<section class="announcement-section tab-page" id="announcement">
     <h2 class="section-title">Latest <span>Announcements</span></h2>
 
     <div class="announcement-marquee">
@@ -2591,17 +2593,39 @@ Open for research collaboration, embedded systems development, RF engineering pr
 document.addEventListener("DOMContentLoaded", () => {
     const tabLinks = document.querySelectorAll(".nav-links a[data-tab]");
     const tabPages = document.querySelectorAll(".tab-page");
-    // Hide all tab pages initially
-    tabPages.forEach(page => page.style.display = "none");
+    // Show first 3 tabs by default
+    const defaultTabs = ["home", "announcement", "about"];
+    tabPages.forEach(page => {
+        if (defaultTabs.includes(page.id)) {
+            page.style.display = "block";   // show these three
+        } else {
+            page.style.display = "none";    // hide all others
+        }
+    });
     tabLinks.forEach(link => {
         link.addEventListener("click", function(e) {
             e.preventDefault();
-            // Hide every tab page
+            const selected = this.dataset.tab;
+            // If clicking one of the first 3 tabs → show only those 3
+            if (defaultTabs.includes(selected)) {
+                tabPages.forEach(page => {
+                    if (defaultTabs.includes(page.id)) {
+                        page.style.display = "block";
+                    } else {
+                        page.style.display = "none";
+                    }
+                });
+                document.getElementById(selected).scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+                return;
+            }
+            // If clicking any other tab → show ONLY that tab
             tabPages.forEach(page => {
                 page.style.display = "none";
             });
-            // Show only the selected tab page
-            const selectedPage = document.getElementById(this.dataset.tab);
+            const selectedPage = document.getElementById(selected);
             if (selectedPage) {
                 selectedPage.style.display = "block";
                 selectedPage.scrollIntoView({
