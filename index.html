@@ -2590,20 +2590,28 @@ Open for research collaboration, embedded systems development, RF engineering pr
 
 <!-- JAVASCRIPT -->
 <script>
-const tabs = document.querySelectorAll(".nav-links a[data-tab]");
-const pages = document.querySelectorAll(".tab-page");
-tabs.forEach(tab => {
-    tab.addEventListener("click", function(e){
-        e.preventDefault();
-        const id = this.dataset.tab;
-        pages.forEach(page => page.classList.remove("active"));
-        const selectedPage = document.getElementById(id);
-        if(selectedPage){
-            selectedPage.classList.add("active");
-            selectedPage.scrollIntoView({
-                behavior: "smooth"
+document.addEventListener("DOMContentLoaded", () => {
+    const tabLinks = document.querySelectorAll(".nav-links a[data-tab]");
+    const tabPages = document.querySelectorAll(".tab-page");
+    // Hide all tab pages initially
+    tabPages.forEach(page => page.style.display = "none");
+    tabLinks.forEach(link => {
+        link.addEventListener("click", function(e) {
+            e.preventDefault();
+            // Hide every tab page
+            tabPages.forEach(page => {
+                page.style.display = "none";
             });
-        }
+            // Show only the selected tab page
+            const selectedPage = document.getElementById(this.dataset.tab);
+            if (selectedPage) {
+                selectedPage.style.display = "block";
+                selectedPage.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+            }
+        });
     });
 });
 
