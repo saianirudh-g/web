@@ -208,6 +208,12 @@ nav {
     opacity:0;
   }
 }
+.tab-page {
+    display: none;
+}
+.tab-page.active {
+    display: block;
+}
 /* =========================================================
    HERO SECTION (DESKTOP)
 ========================================================= */
@@ -1502,13 +1508,13 @@ button#submitReview:hover {
     <a href="#home">Home</a>
     <a href="#announcement">Announcements</a>
     <a href="#about">About</a>
-    <a href="#resume">Resume</a>
-    <a href="#projects">Projects</a>
-    <a href="#presentations">Presentations</a>
-    <a href="#research">Research</a>
-    <a href="#achievements">Achievements</a>
-    <a href="#certifications">Certifications</a>
-    <a href="#highlights">Highlights</a>
+    <a href="#resume" data-tab="resume">Resume</a>
+    <a href="#projects" data-tab="projects">Projects</a>
+    <a href="#presentations" data-tab="presentations">Presentations</a>
+    <a href="#research" data-tab="research">Research</a>
+    <a href="#achievements" data-tab="achievements">Achievements</a>
+    <a href="#certifications" data-tab="certifications">Certifications</a>
+    <a href="#highlights" data-tab="highlights">Highlights</a>
     <a href="#contact">Contact</a>
     <a href="#reviews">Rate</a>
 </div>
@@ -1793,7 +1799,7 @@ button#submitReview:hover {
 </section>
 
 <!-- RESUME -->
-<section id="resume">
+<section class="tab-page" id="resume">
 <h2 class="section-title">My <span>Resume</span></h2>
 
 <div class="about-grid">
@@ -1860,7 +1866,7 @@ button#submitReview:hover {
 <!-- =========================================================
      PROJECTS (SLIDER)
 ========================================================= -->
-<section id="projects">
+<section class="tab-page" id="projects">
 <h2 class="section-title">Featured <span>Projects</span></h2>
 
 <div class="slider-wrapper">
@@ -1982,7 +1988,7 @@ button#submitReview:hover {
 <!-- =========================================================
      PRESENTATIONS (SLIDER)
 ========================================================= -->
-<section id="presentations">
+<section class="tab-page" id="presentations">
 <h2 class="section-title">Research <span>Presentations</span></h2>
 
 <div class="slider-wrapper">
@@ -2069,7 +2075,7 @@ button#submitReview:hover {
 <!-- =========================================================
      RESEARCH PAPERS (SLIDER)
 ========================================================= -->
-<section id="research">
+<section class="tab-page" id="research">
 <h2 class="section-title">Research <span>Papers</span></h2>
 
 <div class="slider-wrapper">
@@ -2145,7 +2151,7 @@ button#submitReview:hover {
 <!-- =========================================================
      ACHIEVEMENTS (SLIDER)
 ========================================================= -->
-<section id="achievements">
+<section class="tab-page" id="achievements">
 <h2 class="section-title">My <span>Achievements</span></h2>
 
 <div class="slider-wrapper">
@@ -2201,7 +2207,7 @@ button#submitReview:hover {
 <!-- =========================================================
      CERTIFICATIONS (SLIDER)
 ========================================================= -->
-<section id="certifications">
+<section class="tab-page" id="certifications">
 <h2 class="section-title">My <span>Certifications</span></h2>
 
 <div class="slider-wrapper">
@@ -2379,7 +2385,7 @@ button#submitReview:hover {
 <!-- =========================================================
      MOMENTS (SLIDER)
 ========================================================= -->
-<section id="highlights">
+<section class="tab-page" id="highlights">
 <h2 class="section-title">My <span>Highlights</span></h2>
 
 <div class="slider-wrapper">
@@ -2584,6 +2590,19 @@ Open for research collaboration, embedded systems development, RF engineering pr
 
 <!-- JAVASCRIPT -->
 <script>
+const tabs = document.querySelectorAll('.nav-links a');
+const pages = document.querySelectorAll('.tab-page');
+
+tabs.forEach(tab => {
+    tab.addEventListener('click', e => {
+        e.preventDefault();
+        const id = tab.getAttribute('data-tab');
+
+        pages.forEach(p => p.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+    });
+});
+
 const profilePhoto = document.getElementById('profile-photo');
 const introVideo = document.getElementById('intro-video');
 const introBtn = document.getElementById('intro-toggle-btn');
