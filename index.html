@@ -2593,7 +2593,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const tabLinks = document.querySelectorAll(".nav-links a[data-tab]");
     const tabPages = document.querySelectorAll(".tab-page");
     // Show first 3 tabs by default
-    const defaultTabs = ["home", "announcement", "about"];
+    const defaultTabs = ["home"];
     tabPages.forEach(page => {
         if (defaultTabs.includes(page.id)) {
             page.style.display = "block";   // show these three
