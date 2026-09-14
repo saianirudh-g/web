@@ -125,7 +125,7 @@ section { width: min(1320px, 100%); margin: 0 auto; padding: 112px clamp(18px, 4
 .hero-back {
   position: absolute; inset: 0; min-height: 650px; overflow: auto; transform: rotateY(180deg);
   padding: clamp(28px, 5vw, 60px); border: 1px solid var(--line); border-radius: 30px;
-  background: linear-gradient(150deg, rgba(10,28,48,.98), rgba(15,27,49,.96)); box-shadow: var(--shadow);
+  background: #071426; box-shadow: var(--shadow); opacity:1; isolation:isolate;
 }
 .hero-container { display: grid; grid-template-columns: minmax(0,1.35fr) minmax(280px,.65fr); align-items: center; gap: clamp(40px, 7vw, 100px); min-height: 570px; }
 .hero-left { max-width: 780px; }
@@ -1358,8 +1358,8 @@ Open for research collaboration, embedded systems development, RF engineering pr
 </div>
 </section>
 <!-- IMAGE POPUP MODAL -->
-<div aria-label="Media gallery" aria-modal="true" class="img-modal" id="imgModal" role="dialog">
-<button aria-label="Close media gallery" class="close-modal" type="button">×</button>
+<div aria-label="Section media gallery" aria-modal="true" class="img-modal" id="imgModal" role="dialog">
+<button aria-label="Close section media gallery" class="close-modal" type="button">×</button>
 <div class="media-stage" id="mediaStage">
 <button aria-label="Previous media" class="gallery-nav prev" id="galleryPrev" type="button">‹</button>
 <img alt="Expanded portfolio media" id="modalImg"/>
@@ -1424,6 +1424,8 @@ Open for research collaboration, embedded systems development, RF engineering pr
   let currentPage = 1;
   let userName = null;
   let userPhoto = null;
+  let userEmail = null;
+  let userGoogleId = null;
 
   function safeExternalLinks() {
     $$('a[target="_blank"]').forEach(link => {
@@ -1636,8 +1638,12 @@ Open for research collaboration, embedded systems development, RF engineering pr
       return Boolean(media.closest('section'));
     };
 
-    const buildGallery = () => {
-      gallery = [...document.querySelectorAll('section img, section video')]
+    const buildGallery = sourceMedia => {
+      // Keep each popup gallery scoped to the section the clicked media belongs to.
+      // Announcements only browse announcements, certifications only certifications, etc.
+      const section = sourceMedia?.closest('section');
+      if (!section) { gallery = []; return; }
+      gallery = [...section.querySelectorAll('img, video')]
         .filter(isGalleryMedia)
         .map(media => ({
           el: media,
@@ -1709,7 +1715,7 @@ Open for research collaboration, embedded systems development, RF engineering pr
     };
 
     const openMedia = media => {
-      buildGallery();
+      buildGallery(media);
       const src = media.currentSrc || media.src;
       const index = gallery.findIndex(item => item.el === media || item.src === src);
       if (index < 0) return;
@@ -1828,13 +1834,15 @@ Open for research collaboration, embedded systems development, RF engineering pr
     try {
       if (!response?.credential || typeof window.jwt_decode !== 'function') throw new Error('Google credential decoder unavailable');
       const data = window.jwt_decode(response.credential);
-      userName = data.name || null;
+      userName = data.name || [data.given_name, data.family_name].filter(Boolean).join(' ') || null;
       userPhoto = data.picture || null;
+      userEmail = data.email || null;
+      userGoogleId = data.sub || null;
       const info = $('#userInfo');
       if (info) {
         info.replaceChildren();
         if (userPhoto) {
-          const img = document.createElement('img'); img.src = userPhoto; img.alt = `${userName || 'Google user'} profile`; info.appendChild(img);
+          const img = document.createElement('img'); img.src = userPhoto; img.alt = `${userName || 'Google user'} profile`; img.referrerPolicy = 'no-referrer'; img.decoding = 'async'; info.appendChild(img);
         }
         const strong = document.createElement('strong'); strong.textContent = userName || 'Signed in'; info.appendChild(strong);
         info.style.display = 'flex';
@@ -1879,8 +1887,11 @@ Open for research collaboration, embedded systems development, RF engineering pr
     const item = document.createElement('article');
     item.className = 'review-item';
     const head = document.createElement('div'); head.className = 'review-head';
-    const img = document.createElement('img'); img.src = review.photo || 'Images/logo.png'; img.alt = `${review.name || 'Anonymous'} profile`;
-    const name = document.createElement('strong'); name.textContent = review.name || 'Anonymous';
+    const reviewerName = review.name || review.userName || review.googleName || 'Anonymous';
+    const reviewerPhoto = review.photo || review.picture || review.userPhoto || review.profilePhoto || 'Images/logo.png';
+    const img = document.createElement('img'); img.src = reviewerPhoto; img.alt = `${reviewerName} profile`; img.referrerPolicy = 'no-referrer'; img.loading = 'lazy';
+    img.addEventListener('error', () => { if (!img.src.endsWith('/Images/logo.png') && !img.src.endsWith('Images/logo.png')) img.src = 'Images/logo.png'; }, { once: true });
+    const name = document.createElement('strong'); name.textContent = reviewerName;
     const stars = document.createElement('span'); stars.className = 'review-stars'; stars.textContent = '★'.repeat(Math.max(0, Math.min(5, Number(review.rating) || 0)));
     head.append(img, name, stars);
     const content = document.createElement('p'); content.className = 'review-content'; content.textContent = review.text || 'No written review.';
@@ -1889,10 +1900,10 @@ Open for research collaboration, embedded systems development, RF engineering pr
     meta.textContent = `${when && !Number.isNaN(when.valueOf()) ? when.toLocaleString() : 'Date unavailable'} • ${review.location?.city || 'Unknown location'}`;
     item.append(head, content, meta);
 
-    if (userName && review.name === userName && review._id) {
+    if (review._id) {
       const actions = document.createElement('div'); actions.className = 'review-actions';
-      const edit = document.createElement('button'); edit.type = 'button'; edit.className = 'edit-review'; edit.dataset.id = review._id; edit.textContent = 'Edit';
-      const del = document.createElement('button'); del.type = 'button'; del.className = 'delete-review'; del.dataset.id = review._id; del.textContent = 'Delete';
+      const edit = document.createElement('button'); edit.type = 'button'; edit.className = 'edit-review'; edit.dataset.id = review._id; edit.textContent = '✏ Edit';
+      const del = document.createElement('button'); del.type = 'button'; del.className = 'delete-review'; del.dataset.id = review._id; del.textContent = '🗑 Delete';
       actions.append(edit, del); item.appendChild(actions);
     }
     return item;
@@ -1946,7 +1957,16 @@ Open for research collaboration, embedded systems development, RF engineering pr
       const post = async (city = 'Unknown', lat = null, lon = null) => {
         await apiJson(`${API}/reviews`, {
           method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name: userName, photo: userPhoto, rating: selectedRating, text: reviewText, location: { city, lat, lon } })
+          body: JSON.stringify({
+            name: userName,
+            photo: userPhoto,
+            picture: userPhoto,
+            email: userEmail,
+            googleId: userGoogleId,
+            rating: selectedRating,
+            text: reviewText,
+            location: { city, lat, lon }
+          })
         });
       };
 
