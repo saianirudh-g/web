@@ -251,13 +251,16 @@ textarea#reviewText:focus { border-color:rgba(34,211,238,.55); box-shadow:0 0 0 
 .review-actions { display:flex; gap:8px; margin-top:12px; }
 .review-actions button, #pagination button { border:1px solid var(--line); border-radius:9px; padding:7px 10px; color:#fff; background:rgba(255,255,255,.06); cursor:pointer; }
 .review-actions .delete-review { color:#fecdd3; border-color:rgba(251,113,133,.25); }
+.review-actions .edit-review { display:inline-flex; align-items:center; gap:7px; color:#bae6fd; border-color:rgba(56,189,248,.28); }
+.review-actions .edit-review i { font-size:.9rem; }
 #pagination { margin-top:16px; display:flex; justify-content:center; flex-wrap:wrap; gap:6px; }
 #pagination button.active { background:var(--cyan-2); color:#001018; border-color:transparent; }
 
 .img-modal { display:none; position:fixed; inset:0; z-index:9000; padding:72px 18px 18px; background:rgba(1,5,13,.94); backdrop-filter:blur(14px); overscroll-behavior:contain; }
 .img-modal.open { display:grid; grid-template-rows:minmax(0,1fr) auto; place-items:center; gap:14px; }
-.media-stage { position:relative; width:min(1180px,100%); height:min(76vh,780px); display:grid; place-items:center; overflow:hidden; border-radius:18px; }
-#modalImg, #modalVideo { display:none; max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; border-radius:16px; box-shadow:0 30px 90px rgba(0,0,0,.55); touch-action:pan-y; }
+.media-stage { position:relative; width:min(1180px,calc(100vw - 36px)); height:min(78dvh,820px); min-height:0; display:grid; place-items:center; overflow:hidden; border-radius:18px; }
+#modalImg, #modalVideo { display:none; width:auto; height:auto; max-width:calc(100vw - 52px); max-height:min(78dvh,820px); object-fit:contain; object-position:center; border-radius:16px; box-shadow:0 30px 90px rgba(0,0,0,.55); touch-action:pan-y; }
+#modalImg { image-orientation:from-image; }
 #modalVideo { background:#000; }
 .close-modal, .gallery-nav { position:absolute; z-index:3; display:grid; place-items:center; border:1px solid rgba(255,255,255,.16); color:#fff; background:rgba(6,18,32,.72); backdrop-filter:blur(10px); cursor:pointer; box-shadow:0 8px 30px rgba(0,0,0,.25); }
 .close-modal { top:18px; right:22px; width:46px; height:46px; border-radius:50%; font-size:2rem; line-height:1; }
@@ -276,8 +279,8 @@ section img:not(#modalImg):not(.no-popup), section video:not(#modalVideo):not(.n
 body.media-modal-open { overflow:hidden; }
 @media (max-width:760px) {
   .img-modal { padding:64px 0 10px; }
-  .media-stage { width:100%; height:68vh; border-radius:0; }
-  #modalImg, #modalVideo { max-width:100%; max-height:100%; border-radius:0; }
+  .media-stage { width:100%; height:min(72dvh,720px); border-radius:0; }
+  #modalImg, #modalVideo { width:auto; height:auto; max-width:100vw; max-height:min(72dvh,720px); object-fit:contain; object-position:center; border-radius:0; }
   .gallery-nav { width:42px; height:54px; border-radius:12px; font-size:1.55rem; }
   .gallery-nav.prev { left:8px; }
   .gallery-nav.next { right:8px; }
@@ -1887,9 +1890,15 @@ Open for research collaboration, embedded systems development, RF engineering pr
     const item = document.createElement('article');
     item.className = 'review-item';
     const head = document.createElement('div'); head.className = 'review-head';
-    const reviewerName = review.name || review.userName || review.googleName || 'Anonymous';
-    const reviewerPhoto = review.photo || review.picture || review.userPhoto || review.profilePhoto || 'Images/logo.png';
-    const img = document.createElement('img'); img.src = reviewerPhoto; img.alt = `${reviewerName} profile`; img.referrerPolicy = 'no-referrer'; img.loading = 'lazy';
+    const reviewerName = review.googleName || review.googleProfile?.name || review.user?.name || review.name || review.userName || 'Anonymous';
+    const reviewerPhoto = review.googlePhoto || review.googleProfile?.picture || review.user?.picture || review.picture || review.photo || review.userPhoto || review.profilePhoto || review.profileImage || review.avatarUrl || review.avatar || review.image || 'Images/logo.png';
+    const img = document.createElement('img');
+    img.src = reviewerPhoto;
+    img.alt = `${reviewerName} Google profile photo`;
+    img.referrerPolicy = 'no-referrer';
+    img.crossOrigin = 'anonymous';
+    img.loading = 'lazy';
+    img.decoding = 'async';
     img.addEventListener('error', () => { if (!img.src.endsWith('/Images/logo.png') && !img.src.endsWith('Images/logo.png')) img.src = 'Images/logo.png'; }, { once: true });
     const name = document.createElement('strong'); name.textContent = reviewerName;
     const stars = document.createElement('span'); stars.className = 'review-stars'; stars.textContent = '★'.repeat(Math.max(0, Math.min(5, Number(review.rating) || 0)));
@@ -1902,7 +1911,10 @@ Open for research collaboration, embedded systems development, RF engineering pr
 
     if (review._id) {
       const actions = document.createElement('div'); actions.className = 'review-actions';
-      const edit = document.createElement('button'); edit.type = 'button'; edit.className = 'edit-review'; edit.dataset.id = review._id; edit.textContent = '✏ Edit';
+      const edit = document.createElement('button');
+      edit.type = 'button'; edit.className = 'edit-review'; edit.dataset.id = review._id;
+      edit.setAttribute('aria-label', 'Edit review');
+      edit.innerHTML = '<i class="fa-solid fa-pen-to-square" aria-hidden="true"></i><span>Edit</span>';
       const del = document.createElement('button'); del.type = 'button'; del.className = 'delete-review'; del.dataset.id = review._id; del.textContent = '🗑 Delete';
       actions.append(edit, del); item.appendChild(actions);
     }
@@ -1959,10 +1971,15 @@ Open for research collaboration, embedded systems development, RF engineering pr
           method: 'POST', headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             name: userName,
+            googleName: userName,
             photo: userPhoto,
             picture: userPhoto,
+            googlePhoto: userPhoto,
+            profilePhoto: userPhoto,
+            profileImage: userPhoto,
             email: userEmail,
             googleId: userGoogleId,
+            googleProfile: { id: userGoogleId, name: userName, picture: userPhoto, email: userEmail },
             rating: selectedRating,
             text: reviewText,
             location: { city, lat, lon }
