@@ -5,12 +5,12 @@
 <meta content="Sai Anirudh Godavarthi Portfolio | Embedded Systems | VLSI | RF &amp; THz | IoT | Software Testing" name="description"/>
 <meta content="Sai Anirudh Godavarthi, Embedded Systems, Firmware, VLSI, ASIC, RF, THz, IoT, Software Testing, Selenium" name="keywords"/>
 <meta content="Sai Anirudh Godavarthi" name="author"/>
-<meta content="mlu6Z8D3tsDo9E6YT5PubXAjrpi9PG2UgDvktoqXpH4" name="google-site-verification">
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-<meta content="#06111f" name="theme-color"/>
-<meta content="dark" name="color-scheme"/>
-<meta content="website" property="og:type"/>
+<meta content="mlu6Z8D3tsDo9E6YT5PubXAjrpi9PG2UgDvktoqXpH4" name="google-site-verification"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="#06111f" name="theme-color">
+<meta content="dark" name="color-scheme">
+<meta content="website" property="og:type">
 <meta content="Sai Anirudh Godavarthi | Engineering Portfolio" property="og:title"/>
 <meta content="Embedded systems, VLSI, RF/THz, IoT, research, projects and software testing portfolio." property="og:description"/>
 <title>
@@ -20,7 +20,7 @@
 <!-- GOOGLE FONT -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <!-- FONT AWESOME -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
 <style>
 :root {
   --bg: #06111f;
@@ -171,15 +171,27 @@ section { width: min(1320px, 100%); margin: 0 auto; padding: 112px clamp(18px, 4
 .back-btn { margin-top:26px; padding:11px 18px; border-radius:12px; background:linear-gradient(135deg,var(--cyan-2),#2563eb); }
 
 .announcement-section { width:100%; max-width:none; padding-top:84px; overflow:hidden; }
-.announcement-marquee { overflow:hidden; mask-image:linear-gradient(to right,transparent,black 7%,black 93%,transparent); }
-.announcement-track { display:flex; gap:18px; width:max-content; animation:marqueeLoop 32s linear infinite; padding:12px 0 26px; }
-.announcement-track:hover { animation-play-state:paused; }
+.announcement-head { max-width:1180px; margin:0 auto 4px; padding:0 24px; display:flex; align-items:center; justify-content:space-between; gap:14px; }
+.announcement-head .section-title { margin:0; text-align:left; }
+.announcement-toggle { flex:0 0 auto; min-width:44px; min-height:40px; border:1px solid var(--line); border-radius:12px; color:#dff8ff; background:rgba(255,255,255,.05); cursor:pointer; }
+.announcement-marquee { overflow:hidden; mask-image:linear-gradient(to right,transparent,black 7%,black 93%,transparent); -webkit-mask-image:linear-gradient(to right,transparent,black 7%,black 93%,transparent); }
+.announcement-track { display:flex; gap:18px; width:max-content; animation:marqueeLoop var(--marquee-duration,32s) linear infinite; padding:12px 0 26px; will-change:transform; }
+.announcement-track.is-paused { animation-play-state:paused !important; }
 @keyframes marqueeLoop { from { transform:translate3d(0,0,0); } to { transform:translate3d(calc(-1 * var(--marquee-distance, calc(50% + 9px))),0,0); } }
 .announce-card { width:300px; flex:0 0 300px; overflow:hidden; padding:14px; }
-.announce-card img, .announce-card video { width:100%; height:165px; object-fit:cover; border-radius:15px; cursor:zoom-in; }
-section img:not(#modalImg):not(.no-popup) { cursor: zoom-in; }
+.announce-card { position:relative; }
+.announce-card.media-error img, .announce-card.media-error video { opacity:.28; }
+.announce-card.media-error::before { content:"Media unavailable"; position:absolute; inset:14px 14px auto; height:165px; display:grid; place-items:center; color:var(--muted); font-size:.82rem; pointer-events:none; }
+.announce-card img, .announce-card video { width:100%; height:165px; object-fit:cover; border-radius:15px; cursor:zoom-in; background:#071424; }
 .announce-card h3 { margin:15px 4px 7px; color:#a5f3fc; font-size:1rem; }
 .announce-card p { margin:0 4px 5px; color:var(--muted); font-size:.88rem; line-height:1.6; }
+.announce-card[data-announcement-clone="true"] { aria-hidden:true; }
+@media (max-width:760px) {
+  .announcement-head { padding:0 16px; }
+  .announcement-track { gap:12px; }
+  .announce-card { width:min(84vw,300px); flex-basis:min(84vw,300px); }
+  .announcement-marquee { mask-image:none; -webkit-mask-image:none; }
+}
 
 .about-grid { max-width:1180px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; }
 .about-card { padding:28px; transition:.22s ease; overflow:hidden; }
@@ -242,10 +254,39 @@ textarea#reviewText:focus { border-color:rgba(34,211,238,.55); box-shadow:0 0 0 
 #pagination { margin-top:16px; display:flex; justify-content:center; flex-wrap:wrap; gap:6px; }
 #pagination button.active { background:var(--cyan-2); color:#001018; border-color:transparent; }
 
-.img-modal { display:none; position:fixed; inset:0; z-index:9000; padding:70px 20px 30px; background:rgba(1,5,13,.90); backdrop-filter:blur(12px); }
-.img-modal.open { display:grid; place-items:center; }
-.img-modal img, #modalVideo { max-width:min(100%,1050px); max-height:82vh; object-fit:contain; border-radius:16px; box-shadow:0 30px 90px rgba(0,0,0,.55); }
-.close-modal { position:absolute; top:18px; right:26px; width:44px; height:44px; display:grid; place-items:center; border-radius:50%; font-size:2rem; line-height:1; cursor:pointer; color:#fff; background:rgba(255,255,255,.08); }
+.img-modal { display:none; position:fixed; inset:0; z-index:9000; padding:72px 18px 18px; background:rgba(1,5,13,.94); backdrop-filter:blur(14px); overscroll-behavior:contain; }
+.img-modal.open { display:grid; grid-template-rows:minmax(0,1fr) auto; place-items:center; gap:14px; }
+.media-stage { position:relative; width:min(1180px,100%); height:min(76vh,780px); display:grid; place-items:center; overflow:hidden; border-radius:18px; }
+#modalImg, #modalVideo { display:none; max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; border-radius:16px; box-shadow:0 30px 90px rgba(0,0,0,.55); touch-action:pan-y; }
+#modalVideo { background:#000; }
+.close-modal, .gallery-nav { position:absolute; z-index:3; display:grid; place-items:center; border:1px solid rgba(255,255,255,.16); color:#fff; background:rgba(6,18,32,.72); backdrop-filter:blur(10px); cursor:pointer; box-shadow:0 8px 30px rgba(0,0,0,.25); }
+.close-modal { top:18px; right:22px; width:46px; height:46px; border-radius:50%; font-size:2rem; line-height:1; }
+.gallery-nav { top:50%; transform:translateY(-50%); width:48px; height:64px; border-radius:14px; font-size:1.8rem; }
+.gallery-nav.prev { left:14px; }
+.gallery-nav.next { right:14px; }
+.gallery-nav:disabled { opacity:.32; cursor:default; }
+.gallery-meta { width:min(1180px,100%); display:grid; grid-template-columns:1fr auto; gap:10px 18px; align-items:center; padding:0 4px; }
+.gallery-caption { min-width:0; color:#e5f5ff; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.gallery-counter { color:var(--muted); font-size:.9rem; }
+.gallery-thumbs { grid-column:1 / -1; display:flex; gap:8px; width:100%; overflow-x:auto; padding:4px 2px 8px; scroll-snap-type:x proximity; scrollbar-width:thin; }
+.gallery-thumb { flex:0 0 72px; width:72px; height:52px; padding:0; border-radius:9px; overflow:hidden; border:1px solid var(--line); background:rgba(255,255,255,.04); opacity:.65; cursor:pointer; scroll-snap-align:center; }
+.gallery-thumb.active { opacity:1; border-color:var(--cyan); box-shadow:0 0 0 2px rgba(34,211,238,.15); }
+.gallery-thumb img, .gallery-thumb video { width:100%; height:100%; object-fit:cover; pointer-events:none; }
+section img:not(#modalImg):not(.no-popup), section video:not(#modalVideo):not(.no-popup) { cursor:zoom-in; }
+body.media-modal-open { overflow:hidden; }
+@media (max-width:760px) {
+  .img-modal { padding:64px 0 10px; }
+  .media-stage { width:100%; height:68vh; border-radius:0; }
+  #modalImg, #modalVideo { max-width:100%; max-height:100%; border-radius:0; }
+  .gallery-nav { width:42px; height:54px; border-radius:12px; font-size:1.55rem; }
+  .gallery-nav.prev { left:8px; }
+  .gallery-nav.next { right:8px; }
+  .close-modal { top:12px; right:12px; }
+  .gallery-meta { width:100%; padding:0 12px; }
+  .gallery-caption { font-size:.9rem; }
+  .gallery-thumbs { padding-bottom:4px; }
+  .gallery-thumb { flex-basis:64px; width:64px; height:46px; }
+}
 
 footer { margin-top:40px; padding:42px 20px; text-align:center; border-top:1px solid var(--line); background:rgba(3,11,22,.74); color:var(--muted); }
 .footer-follow { margin:8px 0 14px; font-size:.82rem; font-weight:700; letter-spacing:.08em; }
@@ -313,7 +354,7 @@ footer p { margin:7px 0; font-size:.82rem; }
 }
 
 </style>
-</link></meta></meta></meta></head>
+</meta></meta></meta></head>
 <body>
 <!-- BACKGROUND -->
 <div class="bg-animation">
@@ -389,9 +430,9 @@ footer p { margin:7px 0; font-size:.82rem; }
 <div class="profile-box">
 <div class="profile-media-wrapper">
 <!-- Profile Image -->
-<img alt="Sai Anirudh" decoding="async" id="profile-photo" loading="eager" src="Images/1371.png"/>
+<img alt="Sai Anirudh" aria-label="Open image: Sai Anirudh" data-gallery-media="true" decoding="async" id="profile-photo" loading="eager" role="button" src="Images/1371.png" tabindex="0"/>
 <!-- Intro Video -->
-<video id="intro-video" playsinline="" preload="auto" src="Videos/Intro.mp4" style="display: none;">
+<video aria-label="Open video in media gallery" data-gallery-media="true" id="intro-video" playsinline="" preload="auto" src="Videos/Intro.mp4" style="display: none;">
 </video>
 <!-- Intro Button -->
 <button class="intro-btn" id="intro-toggle-btn" type="button">Watch Intro</button>
@@ -483,91 +524,62 @@ footer p { margin:7px 0; font-size:.82rem; }
     ANNOUNCEMENT SECTION
 ========================================================= -->
 <section class="announcement-section tab-page" data-tab-group="home" id="announcements">
+<div class="announcement-head">
 <h2 class="section-title">Latest <span>Announcements</span></h2>
+<button aria-label="Pause announcements" aria-pressed="false" class="announcement-toggle" title="Pause announcements" type="button">❚❚</button>
+</div>
 <div class="announcement-marquee">
 <div class="announcement-track">
 <!-- ORIGINAL SET -->
 <div class="announce-card glass">
-<img alt="Announcement 1" decoding="async" loading="lazy" src="Images/cable_connected.jpg"/>
+<img alt="Announcement 1" aria-label="Open image: Announcement 1" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Images/cable_connected.jpg" tabindex="0"/>
 <h3>New RF Project Launched</h3>
 <p>Explore my latest THz antenna design with real‑time simulations using Handheld VNA.</p>
 </div>
 <div class="announce-card glass">
-<video autoplay="" loop="" muted="" src="Videos/LED Blinker.mp4"></video>
+<video aria-label="Open video in media gallery" autoplay="" data-gallery-media="true" loop="" muted="" src="Videos/LED Blinker.mp4"></video>
 <h3>LED Blinker</h3>
 <p>STM32 Microcontroller using CubeIDE with CubeMX, CubeMonitor and CubeProgrammer.</p>
 </div>
 <div class="announce-card glass">
-<video autoplay="" loop="" muted="" src="Videos/Gaming.mp4"></video>
+<video aria-label="Open video in media gallery" autoplay="" data-gallery-media="true" loop="" muted="" src="Videos/Gaming.mp4"></video>
 <h3>New Gaming Project Launched</h3>
 <p>Created a real-time gaming experience with STM32 Microcontroller Board.</p>
 </div>
 <div class="announce-card glass">
-<img alt="Announcement 4" decoding="async" loading="lazy" src="Images/THz Imaging.jpeg"/>
+<img alt="Announcement 4" aria-label="Open image: Announcement 4" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Images/THz Imaging.jpeg" tabindex="0"/>
 <h3>THz Lab</h3>
 <p>Worked with THz real-time objects such as THz imaging system.</p>
 </div>
 <div class="announce-card glass">
-<img alt="Announcement 5" decoding="async" loading="lazy" src="Images/THz Receiver.jpeg"/>
+<img alt="Announcement 5" aria-label="Open image: Announcement 5" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Images/THz Receiver.jpeg" tabindex="0"/>
 <h3>THz Lab</h3>
 <p>Worked with THz real-time objects such as THz Receiver.</p>
 </div>
 <div class="announce-card glass">
-<img alt="Announcement 6" decoding="async" loading="lazy" src="Images/THz Spectroscopy.jpeg"/>
+<img alt="Announcement 6" aria-label="Open image: Announcement 6" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Images/THz Spectroscopy.jpeg" tabindex="0"/>
 <h3>THz Lab</h3>
 <p>Worked with THz real-time objects such as THz Spectroscopy.</p>
 </div>
 <div class="announce-card glass">
-<img alt="Announcement 7" decoding="async" loading="lazy" src="Images/Voltage Bias front.jpeg"/>
+<img alt="Announcement 7" aria-label="Open image: Announcement 7" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Images/Voltage Bias front.jpeg" tabindex="0"/>
 <h3>Voltage Bias Device</h3>
 <p>Connected this device for generating MHz to GHz frequencies using Local Oscillator as Input Pin and Intermediate Frequency as output Pin.</p>
 </div>
 <div class="announce-card glass">
-<img alt="Announcement 8" decoding="async" loading="lazy" src="Images/upgrade.png"/>
+<img alt="Announcement 8" aria-label="Open image: Announcement 8" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Images/upgrade.png" tabindex="0"/>
 <h3>Website Upgrade</h3>
 <p>New animations, flip card, logo design, ratings and improved mobile UI.</p>
 </div>
-<!-- DUPLICATE SET FOR PERFECT LOOP -->
-<div class="announce-card glass">
-<img alt="Announcement 1" decoding="async" loading="lazy" src="Images/cable_connected.jpg"/>
-<h3>New RF Project Launched</h3>
-<p>Explore my latest THz antenna design with real‑time simulations using Handheld VNA.</p>
-</div>
-<div class="announce-card glass">
-<video autoplay="" loop="" muted="" src="Videos/LED Blinker.mp4"></video>
-<h3>LED Blinker</h3>
-<p>STM32 Microcontroller using CubeIDE with CubeMX, CubeMonitor and CubeProgrammer.</p>
-</div>
-<div class="announce-card glass">
-<video autoplay="" loop="" muted="" src="Videos/Gaming.mp4"></video>
-<h3>New Gaming Project Launched</h3>
-<p>Created a real-time gaming experience with STM32 Microcontroller Board.</p>
-</div>
-<div class="announce-card glass">
-<img alt="Announcement 4" decoding="async" loading="lazy" src="Images/THz Imaging.jpeg"/>
-<h3>THz Lab</h3>
-<p>Worked with THz real-time objects such as THz imaging system.</p>
-</div>
-<div class="announce-card glass">
-<img alt="Announcement 5" decoding="async" loading="lazy" src="Images/THz Receiver.jpeg"/>
-<h3>THz Lab</h3>
-<p>Worked with THz real-time objects such as THz Receiver.</p>
-</div>
-<div class="announce-card glass">
-<img alt="Announcement 6" decoding="async" loading="lazy" src="Images/THz Spectroscopy.jpeg"/>
-<h3>THz Lab</h3>
-<p>Worked with THz real-time objects such as THz Spectroscopy.</p>
-</div>
-<div class="announce-card glass">
-<img alt="Announcement 7" decoding="async" loading="lazy" src="Images/Voltage Bias front.jpeg"/>
-<h3>Voltage Bias Device</h3>
-<p>Connected this device for generating MHz to GHz frequencies using Local Oscillator as Input Pin and Intermediate Frequency as output Pin.</p>
-</div>
-<div class="announce-card glass">
-<img alt="Announcement 8" decoding="async" loading="lazy" src="Images/upgrade.png"/>
-<h3>Website Upgrade</h3>
-<p>New animations, flip card, logo design, ratings and improved mobile UI.</p>
-</div>
+
+
+
+
+
+
+
+
+
 </div>
 </div>
 </section>
@@ -1022,7 +1034,7 @@ footer p { margin:7px 0; font-size:.82rem; }
 <button class="nav-btn prev-btn" type="button">❮</button>
 <div class="slider-container">
 <div class="project-card glass">
-<img alt="Rising Star Award" decoding="async" loading="lazy" src="Images/RSA.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;"/>
+<img alt="Rising Star Award" aria-label="Open image: Rising Star Award" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Images/RSA.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Rising Star Award</h3>
 <p>Awarded by CEO of QualiZeal</p>
@@ -1031,7 +1043,7 @@ footer p { margin:7px 0; font-size:.82rem; }
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
 <div class="project-card glass">
-<img alt="One Year Completion" decoding="async" loading="lazy" src="Images/2.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;"/>
+<img alt="One Year Completion" aria-label="Open image: One Year Completion" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Images/2.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>One Year Completion</h3>
 <p>Successfully completed one year at QualiZeal</p>
@@ -1040,7 +1052,7 @@ footer p { margin:7px 0; font-size:.82rem; }
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
 <div class="project-card glass">
-<img alt="B.Tech Graduation" decoding="async" loading="lazy" src="Images/4.jpeg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;"/>
+<img alt="B.Tech Graduation" aria-label="Open image: B.Tech Graduation" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Images/4.jpeg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>B.Tech Graduation</h3>
 <p>Graduation day at Vishnu Institute of Technology, Bhimavaram</p>
@@ -1049,7 +1061,7 @@ footer p { margin:7px 0; font-size:.82rem; }
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
 <div class="project-card glass">
-<img alt="QualiZeal Brand Ambassdor" decoding="async" loading="lazy" src="Certifications/Brand Ambassdor.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;"/>
+<img alt="QualiZeal Brand Ambassdor" aria-label="Open image: QualiZeal Brand Ambassdor" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Brand Ambassdor.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>QualiZeal Brand Ambassdor</h3>
 <p>I'm proud to be a brand ambassdor for such a great organization like Qualizeal</p>
@@ -1070,7 +1082,7 @@ footer p { margin:7px 0; font-size:.82rem; }
 <button class="nav-btn prev-btn" type="button">❮</button>
 <div class="slider-container">
 <div class="project-card glass">
-<img alt="Gaming Controlled Physics Engine on STM32 by Microsoft AI Learning Companion." decoding="async" loading="lazy" src="Certifications/Game Physics Engine.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;"/>
+<img alt="Gaming Controlled Physics Engine on STM32 by Microsoft AI Learning Companion." aria-label="Open image: Gaming Controlled Physics Engine on STM32 by Microsoft AI Learning Companion." data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Game Physics Engine.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Gaming Controlled Physics Engine on STM32 by Microsoft AI Learning Companion.</h3>
 <p>Year - 2026</p>
@@ -1078,7 +1090,7 @@ footer p { margin:7px 0; font-size:.82rem; }
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
 <div class="project-card glass">
-<img alt="RISC-V CPU Design by MicroSoft Copilot AI Learning Companion" decoding="async" loading="lazy" src="Certifications/RISC-V CPU.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;"/>
+<img alt="RISC-V CPU Design by MicroSoft Copilot AI Learning Companion" aria-label="Open image: RISC-V CPU Design by MicroSoft Copilot AI Learning Companion" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/RISC-V CPU.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>RISC-V CPU Design by MicroSoft Copilot AI Learning Companion</h3>
 <p>Year - 2026</p>
@@ -1086,7 +1098,7 @@ footer p { margin:7px 0; font-size:.82rem; }
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
 <div class="project-card glass">
-<img alt="Embedded Systems Bootcamp by Fastbit Embedded Brain Academy" decoding="async" loading="lazy" src="Certifications/fastbit.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;"/>
+<img alt="Embedded Systems Bootcamp by Fastbit Embedded Brain Academy" aria-label="Open image: Embedded Systems Bootcamp by Fastbit Embedded Brain Academy" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/fastbit.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Embedded Systems Bootcamp by Fastbit Embedded Brain Academy</h3>
 <p>Year - 2026</p>
@@ -1094,7 +1106,7 @@ footer p { margin:7px 0; font-size:.82rem; }
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
 <div class="project-card glass">
-<img alt="Microcontroller Embedded C by Udemy" decoding="async" loading="lazy" src="Certifications/Microcontroller Embedded C.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;"/>
+<img alt="Microcontroller Embedded C by Udemy" aria-label="Open image: Microcontroller Embedded C by Udemy" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Microcontroller Embedded C.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Microcontroller Embedded C by Udemy</h3>
 <p>Year - 2026</p>
@@ -1102,7 +1114,7 @@ footer p { margin:7px 0; font-size:.82rem; }
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
 <div class="project-card glass">
-<img alt="SEL Relay 101" decoding="async" loading="lazy" src="Certifications/SEL 101.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;"/>
+<img alt="SEL Relay 101" aria-label="Open image: SEL Relay 101" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/SEL 101.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>SEL Relay 101</h3>
 <p>Year - 2026</p>
@@ -1110,7 +1122,7 @@ footer p { margin:7px 0; font-size:.82rem; }
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
 <div class="project-card glass">
-<img alt="SEL Relay 102" decoding="async" loading="lazy" src="Certifications/SEL 102.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;"/>
+<img alt="SEL Relay 102" aria-label="Open image: SEL Relay 102" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/SEL 102.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>SEL Relay 102</h3>
 <p>Year - 2026</p>
@@ -1118,7 +1130,7 @@ footer p { margin:7px 0; font-size:.82rem; }
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
 <div class="project-card glass">
-<img alt="Understanding SEL Relay Logic" decoding="async" loading="lazy" src="Certifications/CBT 104.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;"/>
+<img alt="Understanding SEL Relay Logic" aria-label="Open image: Understanding SEL Relay Logic" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/CBT 104.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Understanding SEL Relay Logic</h3>
 <p>Year - 2026</p>
@@ -1126,7 +1138,7 @@ footer p { margin:7px 0; font-size:.82rem; }
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
 <div class="project-card glass">
-<img alt="Math Fundamentals" decoding="async" loading="lazy" src="Certifications/CBT 105.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;"/>
+<img alt="Math Fundamentals" aria-label="Open image: Math Fundamentals" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/CBT 105.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Math Fundamentals</h3>
 <p>Year - 2026</p>
@@ -1134,7 +1146,7 @@ footer p { margin:7px 0; font-size:.82rem; }
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
 <div class="project-card glass">
-<img alt="Food Handler Safety Certificate" decoding="async" loading="lazy" src="Certifications/food handler.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;"/>
+<img alt="Food Handler Safety Certificate" aria-label="Open image: Food Handler Safety Certificate" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/food handler.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Food Handler Safety Certificate</h3>
 <p>Year - 2025</p>
@@ -1142,7 +1154,7 @@ footer p { margin:7px 0; font-size:.82rem; }
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
 <div class="project-card glass">
-<img alt="Tosca Product Consultant Certification Exam by Tricentis Academy" decoding="async" loading="lazy" src="Certifications/Tosca.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;"/>
+<img alt="Tosca Product Consultant Certification Exam by Tricentis Academy" aria-label="Open image: Tosca Product Consultant Certification Exam by Tricentis Academy" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Tosca.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Tosca Product Consultant Certification Exam by Tricentis Academy</h3>
 <p>Year - 2025</p>
@@ -1150,7 +1162,7 @@ footer p { margin:7px 0; font-size:.82rem; }
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
 <div class="project-card glass">
-<img alt="Neoload Product Consultant Certification Exam by Tricentis Academy" decoding="async" loading="lazy" src="Certifications/Neoload.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;"/>
+<img alt="Neoload Product Consultant Certification Exam by Tricentis Academy" aria-label="Open image: Neoload Product Consultant Certification Exam by Tricentis Academy" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Neoload.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Neoload Product Consultant Certification Exam by Tricentis Academy</h3>
 <p>Year - 2025</p>
@@ -1158,7 +1170,7 @@ footer p { margin:7px 0; font-size:.82rem; }
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
 <div class="project-card glass">
-<img alt="Manual testing with Browserstack Live" decoding="async" loading="lazy" src="Certifications/Manual.jpeg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;"/>
+<img alt="Manual testing with Browserstack Live" aria-label="Open image: Manual testing with Browserstack Live" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Manual.jpeg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Manual testing with Browserstack Live</h3>
 <p>Year - 2025</p>
@@ -1166,7 +1178,7 @@ footer p { margin:7px 0; font-size:.82rem; }
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
 <div class="project-card glass">
-<img alt="Test Automation with TestNG Framework by Browserstack Company" decoding="async" loading="lazy" src="Certifications/Automation.jpeg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;"/>
+<img alt="Test Automation with TestNG Framework by Browserstack Company" aria-label="Open image: Test Automation with TestNG Framework by Browserstack Company" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Automation.jpeg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Test Automation with TestNG Framework by Browserstack Company</h3>
 <p>Year - 2025</p>
@@ -1174,7 +1186,7 @@ footer p { margin:7px 0; font-size:.82rem; }
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
 <div class="project-card glass">
-<img alt="Generative AI" decoding="async" loading="lazy" src="Certifications/Guvi - Gen-AI.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;"/>
+<img alt="Generative AI" aria-label="Open image: Generative AI" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Guvi - Gen-AI.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Generative AI</h3>
 <p>Year - 2024</p>
@@ -1182,7 +1194,7 @@ footer p { margin:7px 0; font-size:.82rem; }
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
 <div class="project-card glass">
-<img alt="Python Zero to Hero" decoding="async" loading="lazy" src="Certifications/Guvi - Python Zero to Hero.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;"/>
+<img alt="Python Zero to Hero" aria-label="Open image: Python Zero to Hero" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Guvi - Python Zero to Hero.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Python Zero to Hero</h3>
 <p>Year - 2024</p>
@@ -1190,7 +1202,7 @@ footer p { margin:7px 0; font-size:.82rem; }
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
 <div class="project-card glass">
-<img alt="SAWiT.Ai Challenge" decoding="async" loading="lazy" src="Certifications/Guvi - SAWiT.Ai Challenge.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;"/>
+<img alt="SAWiT.Ai Challenge" aria-label="Open image: SAWiT.Ai Challenge" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Guvi - SAWiT.Ai Challenge.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>SAWiT.Ai Challenge</h3>
 <p>Year - 2024</p>
@@ -1198,7 +1210,7 @@ footer p { margin:7px 0; font-size:.82rem; }
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
 <div class="project-card glass">
-<img alt="Sardar Unity Trinity Quiz by Swabhimani Bharat" decoding="async" loading="lazy" src="Certifications/Sardar.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;"/>
+<img alt="Sardar Unity Trinity Quiz by Swabhimani Bharat" aria-label="Open image: Sardar Unity Trinity Quiz by Swabhimani Bharat" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Sardar.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Sardar Unity Trinity Quiz by Swabhimani Bharat</h3>
 <p>Year - 2024</p>
@@ -1206,7 +1218,7 @@ footer p { margin:7px 0; font-size:.82rem; }
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
 <div class="project-card glass">
-<img alt="AWS Academy" decoding="async" loading="lazy" src="Certifications/AWS.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;"/>
+<img alt="AWS Academy" aria-label="Open image: AWS Academy" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/AWS.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>AWS Academy</h3>
 <p>Year - 2023</p>
@@ -1226,7 +1238,7 @@ footer p { margin:7px 0; font-size:.82rem; }
 <button class="nav-btn prev-btn" type="button">❮</button>
 <div class="slider-container">
 <div class="project-card glass">
-<img alt="Dharma Talk - The Mindscape" decoding="async" loading="lazy" src="Images/Robert.png" style="width:100%; height:260px; object-fit:cover; border-radius:20px 20px 0 0;"/>
+<img alt="Dharma Talk - The Mindscape" aria-label="Open image: Dharma Talk - The Mindscape" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Images/Robert.png" style="width:100%; height:260px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Dharma Talk - The Mindscape</h3>
 <p>A Motivational Speech about peace and mind control with the buddha's spirituality by "Robert" in "The Unity Temple" at Kansas City.</p>
@@ -1235,7 +1247,7 @@ footer p { margin:7px 0; font-size:.82rem; }
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
 <div class="project-card glass">
-<img alt="My Last Working Day in QualiZeal" decoding="async" loading="lazy" src="Images/last_work.jpeg" style="width:100%; height:260px; object-fit:cover; border-radius:20px 20px 0 0;"/>
+<img alt="My Last Working Day in QualiZeal" aria-label="Open image: My Last Working Day in QualiZeal" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Images/last_work.jpeg" style="width:100%; height:260px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>My Last Working Day in QualiZeal</h3>
 <p>A picture with CEO of Qualizeal on All hands meeting</p>
@@ -1244,7 +1256,7 @@ footer p { margin:7px 0; font-size:.82rem; }
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
 <div class="project-card glass">
-<img alt="BrowserStack Meetup II" decoding="async" loading="lazy" src="Images/Browserstack.jpeg" style="width:100%; height:260px; object-fit:cover; border-radius:20px 20px 0 0;"/>
+<img alt="BrowserStack Meetup II" aria-label="Open image: BrowserStack Meetup II" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Images/Browserstack.jpeg" style="width:100%; height:260px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>BrowserStack Meetup II</h3>
 <p>Generative AI meetup in the year</p>
@@ -1253,7 +1265,7 @@ footer p { margin:7px 0; font-size:.82rem; }
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
 <div class="project-card glass">
-<img alt="BrowserStack Meetup I" decoding="async" loading="lazy" src="Images/3.png" style="width:100%; height:260px; object-fit:cover; border-radius:20px 20px 0 0;"/>
+<img alt="BrowserStack Meetup I" aria-label="Open image: BrowserStack Meetup I" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Images/3.png" style="width:100%; height:260px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>BrowserStack Meetup I</h3>
 <p>Performance testing meetup</p>
@@ -1262,7 +1274,7 @@ footer p { margin:7px 0; font-size:.82rem; }
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
 <div class="project-card glass">
-<img alt="Team Outing" decoding="async" loading="lazy" src="Images/6.jpeg" style="width:100%; height:260px; object-fit:cover; border-radius:20px 20px 0 0;"/>
+<img alt="Team Outing" aria-label="Open image: Team Outing" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Images/6.jpeg" style="width:100%; height:260px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Team Outing</h3>
 <p>QualiZeal team outing with BU Leaders</p>
@@ -1271,7 +1283,7 @@ footer p { margin:7px 0; font-size:.82rem; }
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
 <div class="project-card glass">
-<img alt="Firmware Team Lunch" decoding="async" loading="lazy" src="Images/5.png" style="width:100%; height:260px; object-fit:cover; border-radius:20px 20px 0 0;"/>
+<img alt="Firmware Team Lunch" aria-label="Open image: Firmware Team Lunch" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Images/5.png" style="width:100%; height:260px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Firmware Team Lunch</h3>
 <p>Great memories with firmware development team</p>
@@ -1280,7 +1292,7 @@ footer p { margin:7px 0; font-size:.82rem; }
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
 <div class="project-card glass">
-<img alt="Long Bicycle Ride" decoding="async" loading="lazy" src="Images/Perupalam.jpeg" style="width:100%; height:260px; object-fit:cover; border-radius:20px 20px 0 0;"/>
+<img alt="Long Bicycle Ride" aria-label="Open image: Long Bicycle Ride" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Images/Perupalam.jpeg" style="width:100%; height:260px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Long Bicycle Ride</h3>
 <p>Bhimavaram to Perupalam Beach Up &amp; down.
@@ -1346,9 +1358,19 @@ Open for research collaboration, embedded systems development, RF engineering pr
 </div>
 </section>
 <!-- IMAGE POPUP MODAL -->
-<div aria-label="Media preview" aria-modal="true" class="img-modal" id="imgModal" role="dialog">
-<span aria-label="Close media preview" class="close-modal" role="button" tabindex="0">×</span>
-
+<div aria-label="Media gallery" aria-modal="true" class="img-modal" id="imgModal" role="dialog">
+<button aria-label="Close media gallery" class="close-modal" type="button">×</button>
+<div class="media-stage" id="mediaStage">
+<button aria-label="Previous media" class="gallery-nav prev" id="galleryPrev" type="button">‹</button>
+<img alt="Expanded portfolio media" id="modalImg"/>
+<video controls="" id="modalVideo" playsinline="" preload="metadata"></video>
+<button aria-label="Next media" class="gallery-nav next" id="galleryNext" type="button">›</button>
+</div>
+<div class="gallery-meta">
+<div class="gallery-caption" id="galleryCaption"></div>
+<div class="gallery-counter" id="galleryCounter"></div>
+<div aria-label="Media thumbnails" class="gallery-thumbs" id="galleryThumbs"></div>
+</div>
 </div>
 <!-- FOOTER -->
 <footer class="footer">
@@ -1579,58 +1601,183 @@ Open for research collaboration, embedded systems development, RF engineering pr
   function setupModal() {
     const modal = $('#imgModal');
     const modalImg = $('#modalImg');
+    const modalVideo = $('#modalVideo');
+    const stage = $('#mediaStage');
     const close = $('.close-modal');
-    if (!modal || !modalImg || !close) return;
+    const prev = $('#galleryPrev');
+    const next = $('#galleryNext');
+    const caption = $('#galleryCaption');
+    const counter = $('#galleryCounter');
+    const thumbs = $('#galleryThumbs');
+    if (!modal || !modalImg || !modalVideo || !stage || !close || !prev || !next || !caption || !counter || !thumbs) return;
 
-    const video = document.createElement('video');
-    video.id = 'modalVideo';
-    video.controls = true;
-    video.playsInline = true;
-    video.style.display = 'none';
-    modal.appendChild(video);
+    let gallery = [];
+    let currentIndex = 0;
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let lastFocused = null;
+
+    const getCaption = media => {
+      const card = media.closest('.announce-card, .project-card, .achievement-card, .certification-card, .highlight-card, .about-card, article, figure, .glass');
+      return card?.querySelector('h1,h2,h3,h4,.title')?.textContent?.trim()
+        || media.getAttribute('alt')
+        || media.getAttribute('title')
+        || media.currentSrc?.split('/').pop()?.replace(/[-_]/g, ' ')
+        || media.src?.split('/').pop()?.replace(/[-_]/g, ' ')
+        || 'Portfolio media';
+    };
+
+    const isGalleryMedia = media => {
+      if (!(media instanceof HTMLImageElement || media instanceof HTMLVideoElement)) return false;
+      if (media.closest('#imgModal')) return false;
+      if (media.classList.contains('no-popup')) return false;
+      if (media.closest('[data-announcement-clone="true"]')) return false;
+      if (media.closest('.logo') || media.closest('#userInfo') || media.closest('.review-item')) return false;
+      return Boolean(media.closest('section'));
+    };
+
+    const buildGallery = () => {
+      gallery = [...document.querySelectorAll('section img, section video')]
+        .filter(isGalleryMedia)
+        .map(media => ({
+          el: media,
+          type: media instanceof HTMLVideoElement ? 'video' : 'image',
+          src: media.currentSrc || media.src,
+          caption: getCaption(media),
+          poster: media instanceof HTMLVideoElement ? media.poster : ''
+        }))
+        .filter(item => item.src);
+    };
+
+    const renderThumbs = () => {
+      thumbs.replaceChildren();
+      gallery.forEach((item, index) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'gallery-thumb';
+        button.setAttribute('aria-label', `Open media ${index + 1}`);
+        if (item.type === 'image') {
+          const img = document.createElement('img');
+          img.src = item.src;
+          img.alt = '';
+          img.loading = 'lazy';
+          button.appendChild(img);
+        } else {
+          const video = document.createElement('video');
+          video.src = item.src;
+          video.muted = true;
+          video.playsInline = true;
+          video.preload = 'metadata';
+          if (item.poster) video.poster = item.poster;
+          button.appendChild(video);
+        }
+        button.addEventListener('click', () => showAt(index));
+        thumbs.appendChild(button);
+      });
+    };
+
+    const showAt = index => {
+      if (!gallery.length) return;
+      currentIndex = (index + gallery.length) % gallery.length;
+      const item = gallery[currentIndex];
+      modalVideo.pause();
+      modalVideo.removeAttribute('src');
+      modalVideo.load();
+      modalImg.removeAttribute('src');
+      modalImg.style.display = 'none';
+      modalVideo.style.display = 'none';
+
+      if (item.type === 'video') {
+        modalVideo.src = item.src;
+        if (item.poster) modalVideo.poster = item.poster;
+        else modalVideo.removeAttribute('poster');
+        modalVideo.style.display = 'block';
+        modalVideo.load();
+        modalVideo.play().catch(() => {});
+      } else {
+        modalImg.src = item.src;
+        modalImg.alt = item.caption || 'Expanded portfolio media';
+        modalImg.style.display = 'block';
+      }
+
+      caption.textContent = item.caption || 'Portfolio media';
+      counter.textContent = `${currentIndex + 1} / ${gallery.length}`;
+      prev.disabled = gallery.length < 2;
+      next.disabled = gallery.length < 2;
+      [...thumbs.children].forEach((thumb, i) => thumb.classList.toggle('active', i === currentIndex));
+      thumbs.children[currentIndex]?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    };
+
+    const openMedia = media => {
+      buildGallery();
+      const src = media.currentSrc || media.src;
+      const index = gallery.findIndex(item => item.el === media || item.src === src);
+      if (index < 0) return;
+      lastFocused = document.activeElement;
+      renderThumbs();
+      modal.classList.add('open');
+      modal.style.display = 'grid';
+      document.body.classList.add('media-modal-open');
+      showAt(index);
+      close.focus({ preventScroll: true });
+    };
 
     const closeModal = () => {
+      if (!modal.classList.contains('open')) return;
       modal.classList.remove('open');
       modal.style.display = 'none';
-      video.pause();
-      video.removeAttribute('src');
-      video.load();
-    };
-    const openImage = src => {
-      modalImg.src = src;
-      modalImg.style.display = 'block';
-      video.style.display = 'none';
-      modal.style.display = 'grid';
-      modal.classList.add('open');
-    };
-    const openVideo = src => {
-      modalImg.style.display = 'none';
-      video.src = src;
-      video.style.display = 'block';
-      modal.style.display = 'grid';
-      modal.classList.add('open');
-      video.play().catch(() => {});
+      document.body.classList.remove('media-modal-open');
+      modalVideo.pause();
+      modalVideo.removeAttribute('src');
+      modalVideo.load();
+      modalImg.removeAttribute('src');
+      lastFocused?.focus?.({ preventScroll: true });
     };
 
-    const isPopupImage = img => {
-      if (!(img instanceof HTMLImageElement)) return false;
-      if (img.id === 'modalImg' || img.closest('.logo') || img.closest('#userInfo') || img.closest('.review-item')) return false;
-      return Boolean(img.closest('section'));
-    };
-
-    // Event delegation keeps the popup working for every current and future portfolio image.
     document.addEventListener('click', event => {
-      const img = event.target.closest?.('img');
-      if (!isPopupImage(img)) return;
+      const media = event.target.closest?.('img, video');
+      if (!isGalleryMedia(media)) return;
       event.preventDefault();
-      openImage(img.currentSrc || img.src);
+      event.stopPropagation();
+      openMedia(media);
+    }, true);
+
+    document.addEventListener('keydown', event => {
+      if (modal.classList.contains('open')) return;
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      const media = event.target.closest?.('img, video');
+      if (!isGalleryMedia(media)) return;
+      event.preventDefault();
+      openMedia(media);
     });
 
-    $$('.announce-card video').forEach(item => item.addEventListener('click', () => openVideo(item.currentSrc || item.src)));
     close.addEventListener('click', closeModal);
-    close.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); closeModal(); } });
-    modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+    prev.addEventListener('click', () => showAt(currentIndex - 1));
+    next.addEventListener('click', () => showAt(currentIndex + 1));
+    modal.addEventListener('click', event => { if (event.target === modal) closeModal(); });
+
+    document.addEventListener('keydown', event => {
+      if (!modal.classList.contains('open')) return;
+      if (event.key === 'Escape') closeModal();
+      else if (event.key === 'ArrowLeft') showAt(currentIndex - 1);
+      else if (event.key === 'ArrowRight') showAt(currentIndex + 1);
+    });
+
+    stage.addEventListener('touchstart', event => {
+      const touch = event.changedTouches[0];
+      touchStartX = touch.clientX;
+      touchStartY = touch.clientY;
+    }, { passive: true });
+
+    stage.addEventListener('touchend', event => {
+      if (!gallery.length) return;
+      const touch = event.changedTouches[0];
+      const dx = touch.clientX - touchStartX;
+      const dy = touch.clientY - touchStartY;
+      if (Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy) * 1.15) {
+        showAt(dx < 0 ? currentIndex + 1 : currentIndex - 1);
+      }
+    }, { passive: true });
   }
 
   window.shareActualImage = async button => {
@@ -1840,40 +1987,131 @@ Open for research collaboration, embedded systems development, RF engineering pr
   }
 
   function setupAnnouncements() {
-    const track = $('.announcement-track');
-    if (!track) return;
+    const section = $('#announcements');
+    const track = section?.querySelector('.announcement-track');
+    const toggle = section?.querySelector('.announcement-toggle');
+    if (!section || !track) return;
 
-    const cards = [...track.children].filter(el => el.classList.contains('announce-card'));
-    const midpoint = Math.floor(cards.length / 2);
+    // Normalize the track so the HTML only needs one logical set. Existing duplicate cards are removed,
+    // then one fresh clone set is generated for a seamless marquee.
+    const rawCards = [...track.children].filter(el => el.classList.contains('announce-card'));
+    if (!rawCards.length) return;
+
+    const signature = card => {
+      const media = card.querySelector('img,video');
+      const src = media?.getAttribute('src') || '';
+      const title = card.querySelector('h3')?.textContent?.trim() || '';
+      return `${src}__${title}`;
+    };
+
+    const originals = [];
+    const seen = new Set();
+    rawCards.forEach(card => {
+      const key = signature(card);
+      if (!seen.has(key)) {
+        seen.add(key);
+        originals.push(card);
+      } else {
+        card.remove();
+      }
+    });
+
+    originals.forEach(card => {
+      card.dataset.announcementOriginal = 'true';
+      card.removeAttribute('aria-hidden');
+      const clone = card.cloneNode(true);
+      clone.dataset.announcementClone = 'true';
+      clone.setAttribute('aria-hidden', 'true');
+      clone.querySelectorAll('a,button,input,textarea,select,[tabindex]').forEach(el => el.setAttribute('tabindex', '-1'));
+      track.appendChild(clone);
+    });
+
+    const allCards = [...track.querySelectorAll('.announce-card')];
+    let resizeTimer = null;
+    let userPaused = false;
+    let interactionPaused = false;
 
     const updateDistance = () => {
-      if (cards.length < 2 || midpoint < 1 || !cards[midpoint]) return;
-      // Exact start position of duplicate set = seamless loop distance, including the inter-set gap.
-      track.style.setProperty('--marquee-distance', `${cards[midpoint].offsetLeft}px`);
+      const firstClone = track.querySelector('[data-announcement-clone="true"]');
+      if (!firstClone) return;
+      const distance = firstClone.offsetLeft;
+      if (distance > 0) track.style.setProperty('--marquee-distance', `${distance}px`);
+      // Keep speed visually consistent as card width changes.
+      const pxPerSecond = window.innerWidth <= 760 ? 38 : 48;
+      track.style.setProperty('--marquee-duration', `${Math.max(18, distance / pxPerSecond)}s`);
     };
 
-    const playAnnouncementVideos = () => {
-      $$('.announce-card video', track).forEach(video => {
-        video.muted = true;
-        video.loop = true;
-        video.playsInline = true;
-        video.play().catch(() => {});
+    const syncPauseState = () => {
+      const paused = userPaused || interactionPaused || document.hidden;
+      track.classList.toggle('is-paused', paused);
+      if (toggle) {
+        toggle.textContent = userPaused ? '▶' : '❚❚';
+        toggle.setAttribute('aria-pressed', String(userPaused));
+        toggle.setAttribute('aria-label', userPaused ? 'Play announcements' : 'Pause announcements');
+        toggle.title = userPaused ? 'Play announcements' : 'Pause announcements';
+      }
+    };
+
+    const prepareVideo = video => {
+      video.muted = true;
+      video.loop = true;
+      video.playsInline = true;
+      video.preload = 'metadata';
+      video.setAttribute('muted', '');
+      video.setAttribute('playsinline', '');
+      video.addEventListener('error', () => {
+        video.closest('.announce-card')?.classList.add('media-error');
       });
+      video.play().catch(() => {});
     };
 
-    track.addEventListener('mouseenter', () => { track.style.animationPlayState = 'paused'; });
-    track.addEventListener('mouseleave', () => { track.style.animationPlayState = 'running'; });
-    track.addEventListener('focusin', () => { track.style.animationPlayState = 'paused'; });
-    track.addEventListener('focusout', () => { track.style.animationPlayState = 'running'; });
+    track.querySelectorAll('video').forEach(prepareVideo);
 
-    updateDistance();
-    playAnnouncementVideos();
-    window.addEventListener('resize', updateDistance, { passive: true });
-    window.addEventListener('load', () => { updateDistance(); playAnnouncementVideos(); }, { once: true });
-    document.addEventListener('visibilitychange', () => {
-      if (!document.hidden) playAnnouncementVideos();
+    track.querySelectorAll('img').forEach(img => {
+      img.addEventListener('error', () => img.closest('.announce-card')?.classList.add('media-error'));
+      if (!img.complete) img.addEventListener('load', updateDistance, { once: true });
     });
+
+    toggle?.addEventListener('click', event => {
+      event.stopPropagation();
+      userPaused = !userPaused;
+      syncPauseState();
+    });
+
+    track.addEventListener('mouseenter', () => { interactionPaused = true; syncPauseState(); });
+    track.addEventListener('mouseleave', () => { interactionPaused = false; syncPauseState(); });
+    track.addEventListener('focusin', () => { interactionPaused = true; syncPauseState(); });
+    track.addEventListener('focusout', event => {
+      if (!track.contains(event.relatedTarget)) { interactionPaused = false; syncPauseState(); }
+    });
+    track.addEventListener('touchstart', () => { interactionPaused = true; syncPauseState(); }, { passive: true });
+    track.addEventListener('touchend', () => {
+      window.setTimeout(() => { interactionPaused = false; syncPauseState(); }, 450);
+    }, { passive: true });
+
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(updateDistance, 120);
+    }, { passive: true });
+
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) track.querySelectorAll('video').forEach(video => video.play().catch(() => {}));
+      syncPauseState();
+    });
+
+    if ('ResizeObserver' in window) {
+      const observer = new ResizeObserver(updateDistance);
+      originals.forEach(card => observer.observe(card));
+    }
+
+    requestAnimationFrame(() => {
+      updateDistance();
+      syncPauseState();
+    });
+    window.addEventListener('load', updateDistance, { once: true });
+    document.fonts?.ready?.then(updateDistance).catch(() => {});
   }
+
 
   document.addEventListener('DOMContentLoaded', () => {
     safeExternalLinks();
