@@ -2074,7 +2074,7 @@ Open for research collaboration, embedded systems development, RF engineering pr
       const distance = firstClone.offsetLeft;
       if (distance > 0) track.style.setProperty('--marquee-distance', `${distance}px`);
       // Keep speed visually consistent as card width changes.
-      const pxPerSecond = window.innerWidth <= 760 ? 38 : 70;
+      const pxPerSecond = window.innerWidth <= 760 ? 38 : 90;
       track.style.setProperty('--marquee-duration', `${Math.max(18, distance / pxPerSecond)}s`);
     };
 
