@@ -192,7 +192,135 @@ section { width: min(1320px, 100%); margin: 0 auto; padding: 112px clamp(18px, 4
   .announce-card { width:min(84vw,300px); flex-basis:min(84vw,300px); }
   .announcement-marquee { mask-image:none; -webkit-mask-image:none; }
 }
+.announcement-track
+.announce-card
+@media (max-width:760px)
 
+/* =========================================================
+   GLOBAL VISITOR COUNTER
+========================================================= */
+.visitor-counter-container {
+  width: min(900px, calc(100% - 32px));
+  margin: 22px auto 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+.visitor-counter-card {
+  position: relative;
+  min-height: 125px;
+  padding: 24px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  overflow: hidden;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(34, 211, 238, .10),
+      rgba(96, 165, 250, .06)
+    );
+  border: 1px solid rgba(34, 211, 238, .18);
+  transition:
+    transform .25s ease,
+    border-color .25s ease,
+    box-shadow .25s ease;
+}
+.visitor-counter-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(34, 211, 238, .42);
+  box-shadow:
+    0 20px 55px rgba(0, 0, 0, .28),
+    0 0 30px rgba(34, 211, 238, .08);
+}
+/* ICON */
+.visitor-counter-icon {
+  position: relative;
+  width: 62px;
+  height: 62px;
+  flex: 0 0 62px;
+  display: grid;
+  place-items: center;
+  border-radius: 18px;
+  font-size: 1.65rem;
+  color: var(--cyan);
+  background: rgba(34, 211, 238, .09);
+  border: 1px solid rgba(34, 211, 238, .18);
+}
+/* NUMBER + LABEL */
+.visitor-counter-info {
+  display: flex;
+  flex-direction: column;
+}
+.visitor-counter-number {
+  font-size: clamp(1.9rem, 4vw, 2.7rem);
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -.04em;
+  color: #ffffff;
+}
+.visitor-counter-label {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: .88rem;
+  font-weight: 500;
+}
+/* =========================================================
+   LIVE GREEN DOT
+========================================================= */
+.live-dot {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 rgba(34, 197, 94, .7);
+  animation: liveVisitorPulse 1.8s infinite;
+}
+@keyframes liveVisitorPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, .65);
+  }
+  70% {
+    box-shadow: 0 0 0 9px rgba(34, 197, 94, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
+}
+/* =========================================================
+   MOBILE
+========================================================= */
+@media (max-width: 760px) {
+  .visitor-counter-container {
+    width: calc(100% - 32px);
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .visitor-counter-card {
+    min-height: 105px;
+    padding: 19px 22px;
+    justify-content: flex-start;
+  }
+  .visitor-counter-icon {
+    width: 54px;
+    height: 54px;
+    flex-basis: 54px;
+    border-radius: 15px;
+    font-size: 1.4rem;
+  }
+  .visitor-counter-number {
+    font-size: 2rem;
+  }
+  .visitor-counter-label {
+    font-size: .82rem;
+  }
+}
+    
 .about-grid { max-width:1180px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; }
 .about-card { padding:28px; transition:.22s ease; overflow:hidden; }
 .about-card:hover { transform:translateY(-5px); border-color:rgba(34,211,238,.28); }
@@ -575,6 +703,35 @@ footer p { margin:7px 0; font-size:.82rem; }
 <p>New animations, flip card, logo design, ratings and improved mobile UI.</p>
 </div>
 </div>
+</div>
+
+<!-- =========================================================
+     GLOBAL VISITOR COUNTER
+========================================================= -->
+<div class="visitor-counter-container">
+
+    <div class="visitor-counter-card glass">
+        <div class="visitor-counter-icon live-icon">
+            <span class="live-dot"></span>
+            <i class="fa-solid fa-eye"></i>
+        </div>
+
+        <div class="visitor-counter-info">
+            <span class="visitor-counter-number" id="liveVisitors">0</span>
+            <span class="visitor-counter-label">Watching Now</span>
+        </div>
+    </div>
+
+    <div class="visitor-counter-card glass">
+        <div class="visitor-counter-icon">
+            <i class="fa-solid fa-earth-americas"></i>
+        </div>
+
+        <div class="visitor-counter-info">
+            <span class="visitor-counter-number" id="totalVisitors">0</span>
+            <span class="visitor-counter-label">Total Visitors Worldwide</span>
+        </div>
+    </div>
 </div>
 </section>
 
@@ -2227,7 +2384,203 @@ Open for research collaboration, embedded systems development, RF engineering pr
     setupAnnouncements();
   });
 })();
+</script>
 
+<script type="module">
+/* =========================================================
+   FIREBASE GLOBAL VISITOR TRACKING
+========================================================= */
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+import {
+  getAuth,
+  signInAnonymously,
+  setPersistence,
+  browserLocalPersistence
+}
+from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+import {
+  getDatabase,
+  ref,
+  push,
+  set,
+  get,
+  onValue,
+  onDisconnect
+}
+from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
+/* =========================================================
+   YOUR FIREBASE CONFIGURATION
+   Replace these values with YOUR Firebase configuration
+========================================================= */
+const firebaseConfig = {
+    apiKey: "AIzaSyAlSNEwnnv_--ij0zMsYBFTphDMs0cpwjQ",
+    authDomain: "my-visitors-count.firebaseapp.com",
+    databaseURL: "https://console.firebase.google.com/project/my-visitors-count/database/my-visitors-count-default-rtdb/data/~2F?fb_gclid=CjwKCAjw_eLVBhBEEiwAeaYZfKjxsAv-pihd-vQEUXHSQ6KrC2LyYvpwgvwopUOO7nAmsjdiu6_wtBoC_uEQAvD_BwE&fb_utm_campaign=Cloud-SS-DR-Firebase-FY26-global-gsem-1713590&fb_utm_content=text-ad&fb_utm_medium=cpc&fb_utm_source=google&fb_utm_term=KW_firebase",
+    projectId: "my-visitors-count",
+    storageBucket: "my-visitors-count.firebasestorage.app",
+    messagingSenderId: "745673976497",
+    appId: "1:745673976497:web:2d512d517d08cc55ec9090",
+    measurementId: "G-299RE69KXP"
+  };
+/* =========================================================
+   INITIALIZE FIREBASE
+========================================================= */
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const database = getDatabase(app);
+/* =========================================================
+   DOM
+========================================================= */
+const liveVisitorsElement =
+  document.getElementById("liveVisitors");
+const totalVisitorsElement =
+  document.getElementById("totalVisitors");
+/* =========================================================
+   COUNT OBJECT CHILDREN
+========================================================= */
+function countChildren(snapshot) {
+  const data = snapshot.val();
+  if (!data || typeof data !== "object") {
+    return 0;
+  }
+  return Object.keys(data).length;
+}
+/* =========================================================
+   START VISITOR SYSTEM
+========================================================= */
+async function startVisitorTracking() {
+  try {
+    /*
+       Keep anonymous visitor identity in the browser.
+
+       This means refreshing the page does NOT automatically
+       create another total visitor.
+    */
+    await setPersistence(
+      auth,
+      browserLocalPersistence
+    );
+    /* Anonymous Firebase Login */
+    const credential =
+      await signInAnonymously(auth);
+    const user = credential.user;
+    const uid = user.uid;
+    /* =====================================================
+       REGISTER UNIQUE VISITOR
+    ===================================================== */
+    const visitorReference =
+      ref(database, `visitors/${uid}`);
+    const visitorSnapshot =
+      await get(visitorReference);
+    if (!visitorSnapshot.exists()) {
+      await set(
+        visitorReference,
+        true
+      );
+    }
+    /* =====================================================
+       TOTAL VISITORS
+    ===================================================== */
+    const visitorsReference =
+      ref(database, "visitors");
+    onValue(
+      visitorsReference,
+      (snapshot) => {
+        const total =
+          countChildren(snapshot);
+        if (totalVisitorsElement) {
+          totalVisitorsElement.textContent =
+            total.toLocaleString();
+        }
+      }
+    );
+    /* =====================================================
+       LIVE VISITOR PRESENCE
+    ===================================================== */
+    const presenceRoot =
+      ref(database, "presence");
+    /*
+       Number of unique users currently connected.
+    */
+    onValue(
+      presenceRoot,
+      (snapshot) => {
+        const users =
+          snapshot.val() || {};
+        const onlineUsers =
+          Object.values(users)
+            .filter(connections => {
+              return (
+                connections &&
+                typeof connections === "object" &&
+                Object.keys(connections).length > 0
+              );
+            })
+            .length;
+        if (liveVisitorsElement) {
+          liveVisitorsElement.textContent =
+            onlineUsers.toLocaleString();
+        }
+      }
+    );
+    /* =====================================================
+       FIREBASE CONNECTION STATUS
+    ===================================================== */
+    const connectedReference =
+      ref(database, ".info/connected");
+    onValue(
+      connectedReference,
+      async (snapshot) => {
+        /*
+           Firebase disconnected
+        */
+        if (snapshot.val() !== true) {
+          return;
+        }
+        /*
+           Each browser tab gets its own connection entry.
+           Multiple tabs from the same user are still counted
+           as ONE visitor above.
+        */
+        const userPresenceReference =
+          ref(database, `presence/${uid}`);
+        const connectionReference =
+          push(userPresenceReference);
+        /*
+           Firebase automatically removes this connection
+           when the browser/tab disconnects.
+        */
+        await onDisconnect(
+          connectionReference
+        ).remove();
+        /*
+           Mark this connection ONLINE.
+        */
+        await set(
+          connectionReference,
+          true
+        );
+      }
+    );
+  }
+  catch (error) {
+    console.error(
+      "Visitor tracking error:",
+      error
+    );
+    if (liveVisitorsElement) {
+      liveVisitorsElement.textContent = "—";
+    }
+    if (totalVisitorsElement) {
+      totalVisitorsElement.textContent = "—";
+    }
+  }
+}
+/* =========================================================
+   START
+========================================================= */
+startVisitorTracking();
 </script>
 </body>
 </html>
