@@ -9,7 +9,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta content="#06111f" name="theme-color">
-<meta content="dark" name="color-scheme">
+<meta content="light" name="color-scheme">
 <meta content="website" property="og:type">
 <meta content="Sai Anirudh Godavarthi | Engineering Portfolio" property="og:title"/>
 <meta content="Embedded systems, VLSI, RF/THz, IoT, research, projects and software testing portfolio." property="og:description"/>
@@ -192,9 +192,6 @@ section { width: min(1320px, 100%); margin: 0 auto; padding: 112px clamp(18px, 4
   .announce-card { width:min(84vw,300px); flex-basis:min(84vw,300px); }
   .announcement-marquee { mask-image:none; -webkit-mask-image:none; }
 }
-.announcement-track
-.announce-card
-@media (max-width:760px)
 
 /* =========================================================
    GLOBAL VISITOR COUNTER
@@ -482,6 +479,129 @@ footer p { margin:7px 0; font-size:.82rem; }
   .bg-animation span { animation:none !important; }
   .project-card, .about-card, .btn, .nav-links, .menu-btn { transition-duration:.01ms !important; }
   /* Core portfolio interactions intentionally remain animated: typing, logo pulse and announcement marquee. */
+}
+
+
+/* === Minimal light theme for page content (header/footer stay dark) === */
+:root {
+  --bg: #f5f7fa;
+  --bg-2: #edf1f5;
+  --surface: rgba(255,255,255,.92);
+  --surface-strong: #ffffff;
+  --text: #172536;
+  --muted: #526579;
+  --line: rgba(68, 87, 108, .20);
+  --shadow: 0 14px 36px rgba(33, 50, 75, .09);
+}
+body {
+  background: linear-gradient(140deg, #ffffff 0%, #f0f2f5 44%, #e9edf2 100%);
+}
+.bg-animation::after {
+  background-image: linear-gradient(rgba(80,96,117,.035) 1px, transparent 1px), linear-gradient(90deg,rgba(80,96,117,.035) 1px,transparent 1px);
+}
+.bg-animation span { background:rgba(60,130,190,.035); border-color:rgba(60,130,190,.075); }
+.section-title span, .sub-title { color:#087e9f; }
+.hero-left::before { color:#386184; }
+.hero-left h2, .hero-left p, .about-card p, .project-content p,
+.announce-card p, .hero-back p, .build-list, .counter-circle a,
+#ratingMessage, #totalRatings, .visitor-counter-label { color:var(--muted); }
+.typing { color:#087e9f; }
+.counter-number, .visitor-counter-number, .about-card h3,
+.project-content h3, .contact-container h3 { color:var(--text); }
+.counter-circle { background:linear-gradient(145deg,#fafdff,#edf3f7); }
+.achievement, .skill-card { background:#f2f6fa; color:var(--text); }
+.hero-back { background:#ffffff; }
+.announce-card h3, .tags span { color:#087e9f; }
+.tags span { background:rgba(8,126,159,.07); border-color:rgba(8,126,159,.18); }
+th,td { color:var(--text); }
+th { color:#172536; background:rgba(8,126,159,.08) !important; }
+.btn-outline { color:#1b455d; background:rgba(8,126,159,.055); }
+.btn-outline:hover { background:rgba(8,126,159,.11); }
+textarea#reviewText { color:var(--text); background:#fff; }
+#userInfo, .review-content { color:var(--text); }
+.review-item { background:#f9fbfd; }
+.review-actions button, #pagination button { color:#1d3546; background:#f2f5f8; }
+.announcement-toggle { color:#183f56; background:#fff; }
+/* The header and footer retain their original dark palette. */
+header { border-bottom-color:rgba(148,163,184,.18); }
+header .nav-links a { color:#dbeafe; }
+header .nav-links a:hover, header .nav-links a.active { color:#fff; }
+footer { color:#a8b7ca; border-top-color:rgba(148,163,184,.18); }
+footer .btn-link { color:#e2e8f0; border-color:rgba(148,163,184,.18); }
+/* Scrollbar-driven project galleries: desktop, tablet and mobile. */
+.slider-wrapper {
+  overflow-x:auto; overflow-y:hidden;
+  padding:4px 0 16px;
+  scrollbar-width:thin;
+  scrollbar-color:#91a9bb #e3e8ed;
+  overscroll-behavior-x:contain;
+  -webkit-overflow-scrolling:touch;
+}
+.slider-wrapper::-webkit-scrollbar { height:10px; }
+.slider-wrapper::-webkit-scrollbar-track { background:#e3e8ed; border-radius:999px; }
+.slider-wrapper::-webkit-scrollbar-thumb { background:#91a9bb; border-radius:999px; }
+.slider-container { transform:none !important; transition:none; will-change:auto; }
+.slider-wrapper .project-card { flex-shrink:0; }
+.slider-wrapper .nav-btn { display:none !important; }
+@media (max-width:760px) {
+  .slider-wrapper { padding:4px 0 14px; }
+  .announcement-track { /* marquee speed is calculated in JavaScript */ }
+}
+@media (max-width:430px) { .slider-wrapper { padding-inline:0; } }
+
+
+/* === Soft sky-blue portfolio refresh: header/nav stays navy, footer stays black === */
+:root {
+  --bg: #e8f5ff;
+  --bg-2: #dceeff;
+  --surface: rgba(255, 255, 255, .90);
+  --surface-strong: #ffffff;
+  --text: #17324d;
+  --muted: #506a81;
+  --line: rgba(60, 120, 170, .20);
+  --shadow: 0 14px 38px rgba(32, 91, 149, .10);
+}
+body {
+  background: linear-gradient(120deg, #eef9ff 0%, #ddecff 32%, #e7f6ff 65%, #d7eafd 100%);
+  background-size: 220% 220%;
+  animation: skyGradientDrift 26s ease-in-out infinite alternate;
+}
+@keyframes skyGradientDrift {
+  from { background-position: 0% 45%; }
+  to { background-position: 100% 55%; }
+}
+/* Gentle floating blue orbs and a barely visible engineering grid. */
+.bg-animation { z-index:0; }
+.bg-animation::after {
+  background-image: linear-gradient(rgba(65, 126, 180, .040) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(65, 126, 180, .040) 1px, transparent 1px);
+  mask-image: linear-gradient(to bottom, black, transparent 90%);
+}
+.bg-animation span {
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.54), rgba(88,174,234,.11) 65%, rgba(51,135,215,.05));
+  border: 1px solid rgba(76, 155, 222, .17);
+  box-shadow: 0 0 26px rgba(91, 176, 238, .08);
+}
+.tab-page, .announcement-section, .visitor-section { position:relative; z-index:1; }
+.glass { box-shadow: var(--shadow); }
+.counter-circle { background: linear-gradient(145deg, rgba(255,255,255,.90), rgba(214,236,255,.74)); }
+.achievement, .skill-card { background: #edf7ff; }
+.hero-back { background: #f5fbff; }
+.review-item { background: #f3faff; }
+.slider-wrapper { scrollbar-color:#6aa9db #cce5f8; }
+.slider-wrapper::-webkit-scrollbar-track { background:#cce5f8; }
+.slider-wrapper::-webkit-scrollbar-thumb { background:#6aa9db; }
+/* Header and mobile navigation intentionally remain dark navy. */
+header { background:rgba(6, 23, 49, .96); border-bottom-color:rgba(125,181,229,.24); }
+@media (max-width:1100px) {
+  header .nav-links { background:rgba(7, 24, 49, .98); }
+}
+/* Solid black footer, keeping its existing light text and links. */
+footer { position:relative; z-index:1; background:#050505; color:#b8c7d9; border-top-color:#1b3046; }
+footer .btn-link { color:#e2e8f0; }
+@media (prefers-reduced-motion: reduce) {
+  body { animation:none; background-position:center; }
+  .bg-animation span { animation:none !important; }
 }
 
 </style>
@@ -837,7 +957,6 @@ THz Communication and Software Testing.
   <div class="project-category" style="margin-bottom: 4rem;">
     <h5 class="section-title">Embedded <span>Systems</span></h5>
     <div class="slider-wrapper">
-      <button class="nav-btn prev-btn" type="button">❮</button>
       <div class="slider-container">
         <!-- Project 1 -->
         <div class="project-card glass">
@@ -897,7 +1016,6 @@ THz Communication and Software Testing.
           </div>
         </div>
       </div>
-      <button class="nav-btn next-btn" type="button">❯</button>
     </div>
   </div>
 
@@ -905,7 +1023,6 @@ THz Communication and Software Testing.
   <div class="project-category" style="margin-bottom: 4rem;">
     <h5 class="section-title">VLSI & <span>ASIC Design</span></h5>
     <div class="slider-wrapper">
-      <button class="nav-btn prev-btn" type="button">❮</button>
       <div class="slider-container">
         <!-- Project 1 -->
         <div class="project-card glass">
@@ -947,7 +1064,6 @@ THz Communication and Software Testing.
           </div>
         </div>
       </div>
-      <button class="nav-btn next-btn" type="button">❯</button>
     </div>
   </div>
 
@@ -955,7 +1071,6 @@ THz Communication and Software Testing.
   <div class="project-category" style="margin-bottom: 4rem;">
     <h5 class="section-title">Power <span>Systems</span></h5>
     <div class="slider-wrapper">
-      <button class="nav-btn prev-btn" type="button">❮</button>
       <div class="slider-container">
         <!-- Project 1 -->
           <div class="project-card glass">
@@ -999,7 +1114,6 @@ THz Communication and Software Testing.
         </div>
           
       </div>
-      <button class="nav-btn next-btn" type="button">❯</button>
     </div>
   </div>
 
@@ -1007,7 +1121,6 @@ THz Communication and Software Testing.
   <div class="project-category" style="margin-bottom: 4rem;">
     <h5 class="section-title">Instrumentation & <span>Control Systems</span></h5>
     <div class="slider-wrapper">
-      <button class="nav-btn prev-btn" type="button">❮</button>
       <div class="slider-container">
         <!-- Project 1 -->
         <div class="project-card glass">
@@ -1024,7 +1137,6 @@ THz Communication and Software Testing.
           </div>
         </div>
       </div>
-      <button class="nav-btn next-btn" type="button">❯</button>
     </div>
   </div>
     
@@ -1032,7 +1144,6 @@ THz Communication and Software Testing.
   <div class="project-category" style="margin-bottom: 4rem;">
     <h5 class="section-title">Wireless <span>Communications</span></h5>
     <div class="slider-wrapper">
-      <button class="nav-btn prev-btn" type="button">❮</button>
       <div class="slider-container">
         <!-- Project 1 -->
         <div class="project-card glass">
@@ -1061,7 +1172,6 @@ THz Communication and Software Testing.
           </div>
         </div>
       </div>
-      <button class="nav-btn next-btn" type="button">❯</button>
     </div>
   </div>
 
@@ -1069,7 +1179,6 @@ THz Communication and Software Testing.
   <div class="project-category">
     <h5 class="section-title">Signal <span>Communications</span></h5>
     <div class="slider-wrapper">
-      <button class="nav-btn prev-btn" type="button">❮</button>
       <div class="slider-container">
         <!-- Project 1 -->
         <div class="project-card glass">
@@ -1100,7 +1209,6 @@ THz Communication and Software Testing.
           </div>
         </div>
       </div>
-      <button class="nav-btn next-btn" type="button">❯</button>
     </div>
   </div>
 
@@ -1108,7 +1216,6 @@ THz Communication and Software Testing.
   <div class="project-category">
     <h5 class="section-title">Internet Of <span>Things</span></h5>
     <div class="slider-wrapper">
-      <button class="nav-btn prev-btn" type="button">❮</button>
       <div class="slider-container">
         <!-- Project 1 -->
         <div class="project-card glass">
@@ -1154,7 +1261,6 @@ THz Communication and Software Testing.
         </div>
           
       </div>
-      <button class="nav-btn next-btn" type="button">❯</button>
     </div>
   </div>
     
@@ -1193,7 +1299,6 @@ THz Communication and Software Testing.
 <div class="project-category" style="margin-bottom: 4rem;">
 <h2 class="section-title">IEEE <span>Presentations</span></h2>
 <div class="slider-wrapper">
-<button class="nav-btn prev-btn" type="button">❮</button>
 <div class="slider-container">
 <div class="project-card glass">
 <div class="project-content">
@@ -1224,7 +1329,6 @@ THz Communication and Software Testing.
 </div>
 </div>
 </div>
-<button class="nav-btn next-btn" type="button">❯</button>
 </div>
 </div>
 
@@ -1232,7 +1336,6 @@ THz Communication and Software Testing.
 <div class="project-category" style="margin-bottom: 2rem;">
 <h2 class="section-title">Research <span>Presentations</span></h2>
 <div class="slider-wrapper">
-<button class="nav-btn prev-btn" type="button">❮</button>
 <div class="slider-container">
 <div class="project-card glass">
 <div class="project-content">
@@ -1316,7 +1419,6 @@ THz Communication and Software Testing.
 </div>
 </div>
 </div>
-<button class="nav-btn next-btn" type="button">❯</button>
 </div>
 </div>
 
@@ -1328,7 +1430,6 @@ THz Communication and Software Testing.
 <section class="tab-page" id="research">
 <h2 class="section-title">Research <span>Papers</span></h2>
 <div class="slider-wrapper">
-<button class="nav-btn prev-btn" type="button">❮</button>
 <div class="slider-container">
 <div class="project-card glass">
 <div class="project-content">
@@ -1387,7 +1488,6 @@ THz Communication and Software Testing.
 </div>
 </div>
 </div>
-<button class="nav-btn next-btn" type="button">❯</button>
 </div>
 </section>
 <!-- =========================================================
@@ -1399,7 +1499,6 @@ THz Communication and Software Testing.
 <div class="project-category" style="margin-bottom: 2rem;">
 <h2 class="section-title">My <span>Achievements</span></h2>
 <div class="slider-wrapper">
-<button class="nav-btn prev-btn" type="button">❮</button>
 <div class="slider-container">
 <div class="project-card glass">
 <img alt="IEEE UEMCON" aria-label="Open image: IEEE UEMCON" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Images/Conference_1.jpeg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
@@ -1438,7 +1537,6 @@ THz Communication and Software Testing.
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
 </div>
-<button class="nav-btn next-btn" type="button">❯</button>
 </div>
 </div>
 
@@ -1446,7 +1544,6 @@ THz Communication and Software Testing.
 <div class="project-category" style="margin-bottom: 2rem;">
 <h2 class="section-title">Graduation <span>Ceremony</span></h2>
 <div class="slider-wrapper">
-<button class="nav-btn prev-btn" type="button">❮</button>
 <div class="slider-container">
 <div class="project-card glass">
 <img alt="B.Tech Graduation" aria-label="Open image: B.Tech Graduation" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Images/4.jpeg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
@@ -1458,7 +1555,6 @@ THz Communication and Software Testing.
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
 </div>
-<button class="nav-btn next-btn" type="button">❯</button>
 </div>
 </div>
 
@@ -1470,7 +1566,6 @@ THz Communication and Software Testing.
 <section class="tab-page" id="certifications">
 <h2 class="section-title">My <span>Certifications</span></h2>
 <div class="slider-wrapper">
-<button class="nav-btn prev-btn" type="button">❮</button>
 <div class="slider-container">
 <div class="project-card glass">
 <img alt="Gaming Controlled Physics Engine on STM32 by Microsoft AI Learning Companion." aria-label="Open image: Gaming Controlled Physics Engine on STM32 by Microsoft AI Learning Companion." data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Game Physics Engine.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
@@ -1778,7 +1873,6 @@ THz Communication and Software Testing.
 </div>
  
 </div>
-<button class="nav-btn next-btn" type="button">❯</button>
 </div>
 </section>
 <!-- =========================================================
@@ -1790,7 +1884,6 @@ THz Communication and Software Testing.
 <div class="project-category" style="margin-bottom: 2rem;">
 <h2 class="section-title">My <span>Highlights</span></h2>
 <div class="slider-wrapper">
-<button class="nav-btn prev-btn" type="button">❮</button>
 <div class="slider-container">
 <div class="project-card glass">
 <img alt="Dharma Talk - The Mindscape" aria-label="Open image: Dharma Talk - The Mindscape" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Images/Robert.png" style="width:100%; height:260px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
@@ -1822,7 +1915,6 @@ THz Communication and Software Testing.
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
 </div>
-<button class="nav-btn next-btn" type="button">❯</button>
 </div>
 </div>
 
@@ -1830,7 +1922,6 @@ THz Communication and Software Testing.
 <div class="project-category" style="margin-bottom: 2rem;">
 <h2 class="section-title">My <span>Conferences</span></h2>
 <div class="slider-wrapper">
-<button class="nav-btn prev-btn" type="button">❮</button>
 <div class="slider-container">
 <div class="project-card glass">
 <img alt="UEMCON" aria-label="Open image: UEMCON" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Images/Conference.jpeg" style="width:100%; height:260px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
@@ -1851,7 +1942,6 @@ THz Communication and Software Testing.
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
 </div>
-<button class="nav-btn next-btn" type="button">❯</button>
 </div>
 </div>
 
@@ -1859,7 +1949,6 @@ THz Communication and Software Testing.
 <div class="project-category" style="margin-bottom: 2rem;">
 <h2 class="section-title">Meet <span>Ups</span></h2>
 <div class="slider-wrapper">
-<button class="nav-btn prev-btn" type="button">❮</button>
 <div class="slider-container">
 <div class="project-card glass">
 <img alt="BrowserStack Meetup II" aria-label="Open image: BrowserStack Meetup II" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Images/Browserstack.jpeg" style="width:100%; height:260px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
@@ -1880,7 +1969,6 @@ THz Communication and Software Testing.
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
 </div>
-<button class="nav-btn next-btn" type="button">❯</button>
 </div>
 </div>
 
@@ -1888,7 +1976,6 @@ THz Communication and Software Testing.
 <div class="project-category" style="margin-bottom: 2rem;">
 <h2 class="section-title">Team <span>Meets</span></h2>
 <div class="slider-wrapper">
-<button class="nav-btn prev-btn" type="button">❮</button>
 <div class="slider-container">
 <div class="project-card glass">
 <img alt="Team Outing" aria-label="Open image: Team Outing" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Images/6.jpeg" style="width:100%; height:260px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
@@ -1909,7 +1996,6 @@ THz Communication and Software Testing.
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
 </div>
-<button class="nav-btn next-btn" type="button">❯</button>
 </div>
 </div>
 
@@ -2188,29 +2274,11 @@ Open for research collaboration, embedded systems development, RF engineering pr
   }
 
   function setupSliders() {
+    // Native horizontal scrolling replaces the arrow-driven transform slider.
+    // Preserve scroll positions as visitors move between portfolio tabs.
     $$('.slider-wrapper').forEach(wrapper => {
-      const track = $('.slider-container', wrapper);
-      const cards = $$('.project-card', wrapper);
-      const prev = $('.prev-btn', wrapper);
-      const next = $('.next-btn', wrapper);
-      if (!track || !cards.length) return;
-      let index = 0;
-
-      const perView = () => window.innerWidth <= 760 ? 1 : window.innerWidth <= 1100 ? 2 : 3;
-      const update = () => {
-        const max = Math.max(0, cards.length - perView());
-        index = Math.min(index, max);
-        const cardWidth = cards[0].getBoundingClientRect().width;
-        const gap = parseFloat(getComputedStyle(track).gap) || 0;
-        track.style.transform = `translateX(-${index * (cardWidth + gap)}px)`;
-        if (prev) prev.disabled = index === 0;
-        if (next) next.disabled = index >= max;
-      };
-      prev?.addEventListener('click', () => { index = Math.max(0, index - 1); update(); });
-      next?.addEventListener('click', () => { index += 1; update(); });
-      if ('ResizeObserver' in window) new ResizeObserver(update).observe(wrapper);
-      else window.addEventListener('resize', update, { passive: true });
-      update();
+      wrapper.setAttribute('tabindex', '0');
+      wrapper.setAttribute('aria-label', 'Scroll project cards horizontally');
     });
   }
 
@@ -2685,7 +2753,7 @@ Open for research collaboration, embedded systems development, RF engineering pr
       const distance = firstClone.offsetLeft;
       if (distance > 0) track.style.setProperty('--marquee-distance', `${distance}px`);
       // Keep speed visually consistent as card width changes.
-      const pxPerSecond = window.innerWidth <= 760 ? 80 : 250;
+      const pxPerSecond = window.innerWidth <= 760 ? 160 : 250;
       track.style.setProperty('--marquee-duration', `${Math.max(10, distance / pxPerSecond)}s`);
     };
 
@@ -2807,7 +2875,7 @@ from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
 const firebaseConfig = {
     apiKey: "AIzaSyAlSNEwnnv_--ij0zMsYBFTphDMs0cpwjQ",
     authDomain: "my-visitors-count.firebaseapp.com",
-    databaseURL: "https://console.firebase.google.com/project/my-visitors-count/database/my-visitors-count-default-rtdb/data/~2F?fb_gclid=CjwKCAjw_eLVBhBEEiwAeaYZfKjxsAv-pihd-vQEUXHSQ6KrC2LyYvpwgvwopUOO7nAmsjdiu6_wtBoC_uEQAvD_BwE&fb_utm_campaign=Cloud-SS-DR-Firebase-FY26-global-gsem-1713590&fb_utm_content=text-ad&fb_utm_medium=cpc&fb_utm_source=google&fb_utm_term=KW_firebase",
+    databaseURL: "https://my-visitors-count-default-rtdb.firebaseio.com",
     projectId: "my-visitors-count",
     storageBucket: "my-visitors-count.firebasestorage.app",
     messagingSenderId: "745673976497",
