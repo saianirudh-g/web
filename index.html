@@ -193,9 +193,13 @@ section { width: min(1320px, 100%); margin: 0 auto; padding: 112px clamp(18px, 4
   .announcement-marquee { mask-image:none; -webkit-mask-image:none; }
 }
 
+/* Live Visitors belongs only to Home; hide on every other tab. */
+#visitors.visitor-section.tab-page:not(.active) { display: none; }
+#visitors.visitor-section.tab-page.active { display: block; }
+
 /* Visitors: the heading is always a full row ABOVE the counter cards. */
 #visitors.visitor-section {
-  display: block;
+  /* Visibility is controlled by .tab-page.active in the navigation. */
   width: min(1200px, 100%);
   margin-inline: auto;
   clear: both;
@@ -2264,9 +2268,13 @@ Open for research collaboration, embedded systems development, RF engineering pr
       });
 
       links.forEach(link => link.classList.toggle('active', link.dataset.tab === tab));
+      // Closing a tab must also reset the visible menu icon.
       navLinks?.classList.remove('active');
       menuBtn?.classList.remove('active');
       menuBtn?.setAttribute('aria-expanded', 'false');
+      menuBtn?.setAttribute('aria-label', 'Open navigation menu');
+      const menuIcon = menuBtn?.querySelector('i');
+      if (menuIcon) menuIcon.className = 'fa-solid fa-bars';
 
       if (updateHash) history.replaceState(null, '', `#${tab}`);
       window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
@@ -2302,13 +2310,16 @@ Open for research collaboration, embedded systems development, RF engineering pr
     menuBtn.setAttribute('aria-label', 'Open navigation menu');
     menuBtn.setAttribute('aria-expanded', 'false');
 
-    const toggle = () => {
-      const open = navLinks.classList.toggle('active');
+    const setMenuOpen = open => {
+      navLinks.classList.toggle('active', open);
       menuBtn.classList.toggle('active', open);
       menuBtn.setAttribute('aria-expanded', String(open));
-      const icon = $('i', menuBtn);
+      menuBtn.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+      const icon = menuBtn.querySelector('i');
       if (icon) icon.className = open ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
     };
+
+    const toggle = () => setMenuOpen(!navLinks.classList.contains('active'));
 
     menuBtn.addEventListener('click', toggle);
     menuBtn.addEventListener('keydown', e => {
@@ -2316,11 +2327,7 @@ Open for research collaboration, embedded systems development, RF engineering pr
     });
     document.addEventListener('click', e => {
       if (!navLinks.contains(e.target) && !menuBtn.contains(e.target)) {
-        navLinks.classList.remove('active');
-        menuBtn.classList.remove('active');
-        menuBtn.setAttribute('aria-expanded', 'false');
-        const icon = $('i', menuBtn);
-        if (icon) icon.className = 'fa-solid fa-bars';
+        setMenuOpen(false);
       }
     });
   }
