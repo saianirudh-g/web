@@ -647,6 +647,71 @@ footer.footer p, footer.footer .footer-follow { color: #e3e9ef; }
 #reviews .review-actions .edit-review { color: #075985; border-color: #0284c7; }
 #reviews .review-actions .delete-review { color: #9f1239; border-color: #e11d48; }
 #reviews .review-actions button:hover { background: #e2e8f0; }
+
+/* Always-visible mobile project gallery scrollbar (including iOS Safari). */
+.project-scroll-track { display:none; }
+@media (max-width: 760px) {
+  .project-category .slider-wrapper {
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    touch-action: pan-x pan-y;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: auto !important;
+    scrollbar-color: #087eae #b9d8ec !important;
+    padding-bottom: 10px !important;
+  }
+  .project-category .slider-wrapper::-webkit-scrollbar { height: 9px !important; display: block !important; }
+  .project-category .slider-wrapper::-webkit-scrollbar-track { background: #b9d8ec !important; border-radius: 999px; }
+  .project-category .slider-wrapper::-webkit-scrollbar-thumb { background: #087eae !important; border-radius: 999px; border: 1px solid #b9d8ec; }
+  /* Native scrollbars are auto-hidden on many mobile OSes, so use a visible custom one. */
+  .project-scroll-track {
+    display: block;
+    height: 13px;
+    width: 100%;
+    margin: 10px 0 22px;
+    position: relative;
+    border-radius: 999px;
+    background: #b9d8ec;
+    border: 1px solid #8fbdda;
+    touch-action: none;
+    cursor: pointer;
+  }
+  .project-scroll-thumb {
+    position: absolute;
+    top: 1px;
+    left: 0;
+    height: 9px;
+    min-width: 38px;
+    border-radius: 999px;
+    background: #087eae;
+    box-shadow: 0 1px 3px rgba(0, 55, 90, .18);
+    cursor: grab;
+    touch-action: none;
+  }
+  .project-scroll-thumb:active { cursor: grabbing; background: #075b85; }
+  .project-scroll-track.no-overflow { display: none; }
+}
+
+/* Footer: keep social and support links in two aligned columns. */
+.footer-link-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(16px, 3vw, 48px);
+  width: min(1080px, 100%);
+  margin: 0 auto 22px;
+  text-align: center;
+}
+.footer-link-columns .footer-follow { min-width: 0; margin: 0; }
+.footer-column-title { margin-bottom: 12px; color: #f1f5f9; font-size: .85rem; font-weight: 750; letter-spacing: .07em; }
+.footer-link-items { display: flex; align-items: center; justify-content: center; align-content: start; flex-wrap: wrap; gap: 6px; }
+.footer-link-items .btn-link { margin: 0; }
+@media (max-width: 520px) {
+  .footer-link-columns { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 12px; }
+  .footer-link-items .btn-link { min-width: 36px; min-height: 36px; padding: 7px 9px; }
+  .footer-column-title { font-size: .72rem; }
+}
+
 </style>
 </meta></meta></meta></head>
 <body>
@@ -2114,8 +2179,10 @@ Open for research collaboration, embedded systems development, RF engineering pr
 </div>
 <!-- FOOTER -->
 <footer class="footer">
+<div class="footer-link-columns">
 <div class="footer-follow">
-    FOLLOW ME ON
+    <div class="footer-column-title">FOLLOW ME ON</div>
+    <div class="footer-link-items">
     <a class="btn-link" href="mailto:saianirudh.kefp2@gmail.com" rel="noopener noreferrer" target="_blank">
 <i class="fa-solid fa-envelope"></i>
 </a>
@@ -2143,12 +2210,16 @@ Open for research collaboration, embedded systems development, RF engineering pr
 <a class="btn-link" href="https://scholar.google.com/citations?user=YtARkmgAAAAJ&hl=en" rel="noopener noreferrer" target="_blank">
 <i class="fa-brands fa-google-scholar"></i>
 </a>
+    </div>
 </div>
 <div class="footer-follow">
-      SUPPORT MY WORK WITH
+      <div class="footer-column-title">SUPPORT MY WORK WITH</div>
+      <div class="footer-link-items">
       <a class="btn-link" href="https://buymeacoffee.com/saianirudh" rel="noopener noreferrer" target="_blank">
         ☕ Buy Me a Coffee
       </a>
+      </div>
+</div>
 </div>
 <p>© 2026 Sai Anirudh Godavarthi | Built with HTML, CSS &amp; JavaScript</p>
 <p>Frontend Source Control on GitHub | Backend Deployed by Vercel | Database in MongoDB & Firebase</p>
@@ -2956,6 +3027,76 @@ async function startVisitorTracking() {
   }
 }
 startVisitorTracking();
+</script>
+
+<script>
+/* Persistent horizontal scroll indicators for project galleries on mobile. */
+(function () {
+  function initializeProjectScrollbars() {
+    document.querySelectorAll('.project-category .slider-wrapper').forEach((wrapper) => {
+      if (wrapper.nextElementSibling?.classList.contains('project-scroll-track')) return;
+      const track = document.createElement('div');
+      track.className = 'project-scroll-track';
+      track.setAttribute('role', 'scrollbar');
+      track.setAttribute('aria-label', 'Project cards horizontal scrollbar');
+      track.setAttribute('aria-orientation', 'horizontal');
+      track.setAttribute('tabindex', '0');
+      const thumb = document.createElement('div');
+      thumb.className = 'project-scroll-thumb';
+      track.appendChild(thumb);
+      wrapper.insertAdjacentElement('afterend', track);
+      function update() {
+        const max = Math.max(0, wrapper.scrollWidth - wrapper.clientWidth);
+        const trackWidth = track.clientWidth;
+        track.classList.toggle('no-overflow', max < 2);
+        if (!trackWidth || !wrapper.clientWidth) return;
+        const thumbWidth = Math.min(trackWidth, Math.max(38, trackWidth * wrapper.clientWidth / wrapper.scrollWidth));
+        const travel = Math.max(0, trackWidth - thumbWidth);
+        thumb.style.width = thumbWidth + 'px';
+        thumb.style.transform = 'translateX(' + (max ? wrapper.scrollLeft / max * travel : 0) + 'px)';
+        track.setAttribute('aria-valuemin', '0');
+        track.setAttribute('aria-valuemax', String(Math.round(max)));
+        track.setAttribute('aria-valuenow', String(Math.round(wrapper.scrollLeft)));
+      }
+      let dragging = false;
+      function moveTo(clientX) {
+        const rect = track.getBoundingClientRect();
+        const thumbWidth = thumb.getBoundingClientRect().width;
+        const travel = Math.max(1, rect.width - thumbWidth);
+        const fraction = Math.max(0, Math.min(1, (clientX - rect.left - thumbWidth / 2) / travel));
+        wrapper.scrollLeft = fraction * Math.max(0, wrapper.scrollWidth - wrapper.clientWidth);
+      }
+      track.addEventListener('pointerdown', (event) => {
+        if (window.innerWidth > 760) return;
+        dragging = true;
+        track.setPointerCapture(event.pointerId);
+        moveTo(event.clientX);
+        event.preventDefault();
+      });
+      track.addEventListener('pointermove', (event) => { if (dragging) moveTo(event.clientX); });
+      track.addEventListener('pointerup', () => { dragging = false; });
+      track.addEventListener('pointercancel', () => { dragging = false; });
+      track.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+          wrapper.scrollBy({ left: event.key === 'ArrowRight' ? 150 : -150, behavior: 'smooth' });
+          event.preventDefault();
+        }
+      });
+      wrapper.addEventListener('scroll', update, { passive: true });
+      if ('ResizeObserver' in window) {
+        const observer = new ResizeObserver(update);
+        observer.observe(wrapper);
+        const content = wrapper.querySelector('.slider-container');
+        if (content) observer.observe(content);
+      }
+      window.addEventListener('resize', update, { passive: true });
+      document.querySelectorAll('.nav-links a').forEach((link) => link.addEventListener('click', () => requestAnimationFrame(update)));
+      update();
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initializeProjectScrollbars);
+  else initializeProjectScrollbars();
+})();
 </script>
 </body>
 </html>
