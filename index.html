@@ -604,6 +604,22 @@ footer .btn-link { color:#e2e8f0; }
   .bg-animation span { animation:none !important; }
 }
 
+
+/* Requested visual refinements */
+footer.footer { background: #20252b; color: #e3e9ef; border-top-color: #35404b; }
+footer.footer p, footer.footer .footer-follow { color: #e3e9ef; }
+#contact .contact-container h3,
+#contact .contact-container p { color: #000000 !important; }
+#reviews .review-actions button {
+  font-weight: 800;
+  font-size: .95rem;
+  border-width: 2px;
+  padding: 9px 14px;
+}
+#reviews .review-actions button i { font-weight: 900; font-size: 1rem; }
+#reviews .review-actions .edit-review { color: #075985; border-color: #0284c7; }
+#reviews .review-actions .delete-review { color: #9f1239; border-color: #e11d48; }
+#reviews .review-actions button:hover { background: #e2e8f0; }
 </style>
 </meta></meta></meta></head>
 <body>
@@ -2006,7 +2022,7 @@ THz Communication and Software Testing.
 <h2 class="section-title">Contact <span>Me</span></h2>
 <div class="contact-container glass">
 <h3 style="font-size:32px;">Let's Build Something Amazing 🚀</h3>
-<p style="margin-top:20px;color:#cbd5e1;line-height:1.8;">
+<p style="margin-top:20px;line-height:1.8;">
 Open for research collaboration, embedded systems development, RF engineering projects and semiconductor opportunities.
 </p>
 <div class="contact-buttons">
@@ -2846,32 +2862,13 @@ Open for research collaboration, embedded systems development, RF engineering pr
 </script>
 
 <script type="module">
-/* =========================================================
-   FIREBASE GLOBAL VISITOR TRACKING
-========================================================= */
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-import {
-  getAuth,
-  signInAnonymously,
-  setPersistence,
-  browserLocalPersistence
-}
-from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
-import {
-  getDatabase,
-  ref,
-  push,
-  set,
-  get,
-  onValue,
-  onDisconnect
-}
-from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
-/* =========================================================
-   YOUR FIREBASE CONFIGURATION
-   Replace these values with YOUR Firebase configuration
-========================================================= */
+/* Firebase Realtime Database visitor tracking.
+   Unique total visitors = anonymous Firebase identities (per browser profile).
+   Live visitors = identities with at least one active tab connection. */
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js';
+import { getAuth, signInAnonymously, setPersistence, browserLocalPersistence } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js';
+import { getDatabase, ref, push, set, onValue, onDisconnect, runTransaction } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js';
+
 const firebaseConfig = {
     apiKey: "AIzaSyAlSNEwnnv_--ij0zMsYBFTphDMs0cpwjQ",
     authDomain: "my-visitors-count.firebaseapp.com",
@@ -2882,163 +2879,55 @@ const firebaseConfig = {
     appId: "1:745673976497:web:2d512d517d08cc55ec9090",
     measurementId: "G-299RE69KXP"
   };
-/* =========================================================
-   INITIALIZE FIREBASE
-========================================================= */
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const database = getDatabase(app);
-/* =========================================================
-   DOM
-========================================================= */
-const liveVisitorsElement =
-  document.getElementById("liveVisitors");
-const totalVisitorsElement =
-  document.getElementById("totalVisitors");
-/* =========================================================
-   COUNT OBJECT CHILDREN
-========================================================= */
-function countChildren(snapshot) {
-  const data = snapshot.val();
-  if (!data || typeof data !== "object") {
-    return 0;
-  }
-  return Object.keys(data).length;
-}
-/* =========================================================
-   START VISITOR SYSTEM
-========================================================= */
+const liveElement = document.getElementById('liveVisitors');
+const totalElement = document.getElementById('totalVisitors');
+const display = (element, value) => {
+  if (element) element.textContent = value === null ? '—' : Number(value).toLocaleString();
+};
+
 async function startVisitorTracking() {
   try {
-    /*
-       Keep anonymous visitor identity in the browser.
-
-       This means refreshing the page does NOT automatically
-       create another total visitor.
-    */
-    await setPersistence(
-      auth,
-      browserLocalPersistence
-    );
-    /* Anonymous Firebase Login */
-    const credential =
-      await signInAnonymously(auth);
-    const user = credential.user;
+    await setPersistence(auth, browserLocalPersistence);
+    const { user } = await signInAnonymously(auth);
     const uid = user.uid;
-    /* =====================================================
-       REGISTER UNIQUE VISITOR
-    ===================================================== */
-    const visitorReference =
-      ref(database, `visitors/${uid}`);
-    const visitorSnapshot =
-      await get(visitorReference);
-    if (!visitorSnapshot.exists()) {
-      await set(
-        visitorReference,
-        true
-      );
-    }
-    /* =====================================================
-       TOTAL VISITORS
-    ===================================================== */
-    const visitorsReference =
-      ref(database, "visitors");
-    onValue(
-      visitorsReference,
-      (snapshot) => {
-        const total =
-          countChildren(snapshot);
-        if (totalVisitorsElement) {
-          totalVisitorsElement.textContent =
-            total.toLocaleString();
-        }
+
+    // Atomic first-visit registration; concurrent tabs cannot double-add a visitor.
+    await runTransaction(ref(database, `visitors/${uid}`), current => current === null ? true : undefined);
+
+    onValue(ref(database, 'visitors'), snapshot => {
+      display(totalElement, snapshot.size);
+    }, error => { console.error('Total visitor listener:', error); display(totalElement, null); });
+
+    onValue(ref(database, 'presence'), snapshot => {
+      let online = 0;
+      snapshot.forEach(userSnapshot => {
+        if (userSnapshot.hasChildren()) online++;
+      });
+      display(liveElement, online);
+    }, error => { console.error('Live visitor listener:', error); display(liveElement, null); });
+
+    // Every tab owns a connection; onDisconnect is registered BEFORE set().
+    // Firebase removes stale entries when a tab/device disconnects.
+    onValue(ref(database, '.info/connected'), async snapshot => {
+      if (snapshot.val() !== true) return;
+      try {
+        const connection = push(ref(database, `presence/${uid}`));
+        await onDisconnect(connection).remove();
+        await set(connection, true);
+      } catch (error) {
+        console.error('Presence registration:', error);
+        display(liveElement, null);
       }
-    );
-    /* =====================================================
-       LIVE VISITOR PRESENCE
-    ===================================================== */
-    const presenceRoot =
-      ref(database, "presence");
-    /*
-       Number of unique users currently connected.
-    */
-    onValue(
-      presenceRoot,
-      (snapshot) => {
-        const users =
-          snapshot.val() || {};
-        const onlineUsers =
-          Object.values(users)
-            .filter(connections => {
-              return (
-                connections &&
-                typeof connections === "object" &&
-                Object.keys(connections).length > 0
-              );
-            })
-            .length;
-        if (liveVisitorsElement) {
-          liveVisitorsElement.textContent =
-            onlineUsers.toLocaleString();
-        }
-      }
-    );
-    /* =====================================================
-       FIREBASE CONNECTION STATUS
-    ===================================================== */
-    const connectedReference =
-      ref(database, ".info/connected");
-    onValue(
-      connectedReference,
-      async (snapshot) => {
-        /*
-           Firebase disconnected
-        */
-        if (snapshot.val() !== true) {
-          return;
-        }
-        /*
-           Each browser tab gets its own connection entry.
-           Multiple tabs from the same user are still counted
-           as ONE visitor above.
-        */
-        const userPresenceReference =
-          ref(database, `presence/${uid}`);
-        const connectionReference =
-          push(userPresenceReference);
-        /*
-           Firebase automatically removes this connection
-           when the browser/tab disconnects.
-        */
-        await onDisconnect(
-          connectionReference
-        ).remove();
-        /*
-           Mark this connection ONLINE.
-        */
-        await set(
-          connectionReference,
-          true
-        );
-      }
-    );
-  }
-  catch (error) {
-    console.error(
-      "Visitor tracking error:",
-      error
-    );
-    if (liveVisitorsElement) {
-      liveVisitorsElement.textContent = "—";
-    }
-    if (totalVisitorsElement) {
-      totalVisitorsElement.textContent = "—";
-    }
+    }, error => { console.error('Connection monitoring:', error); display(liveElement, null); });
+  } catch (error) {
+    console.error('Visitor tracking could not start:', error);
+    display(liveElement, null);
+    display(totalElement, null);
   }
 }
-/* =========================================================
-   START
-========================================================= */
 startVisitorTracking();
 </script>
 </body>
