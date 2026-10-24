@@ -193,15 +193,42 @@ section { width: min(1320px, 100%); margin: 0 auto; padding: 112px clamp(18px, 4
   .announcement-marquee { mask-image:none; -webkit-mask-image:none; }
 }
 
+/* Visitors: the heading is always a full row ABOVE the counter cards. */
+#visitors.visitor-section {
+  display: block;
+  width: min(1200px, 100%);
+  margin-inline: auto;
+  clear: both;
+}
+#visitors.visitor-section > .section-title {
+  display: block;
+  width: 100%;
+  margin: 0 0 28px;
+  text-align: center;
+  clear: both;
+}
+#visitors.visitor-section > .visitor-counter-container {
+  display: grid;
+  width: min(100%, 1080px);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0 auto;
+  clear: both;
+}
+@media (max-width: 760px) {
+  #visitors.visitor-section > .visitor-counter-container {
+    grid-template-columns: 1fr;
+  }
+}
 /* =========================================================
    GLOBAL VISITOR COUNTER
 ========================================================= */
 .visitor-counter-container {
-  width: min(900px, calc(100% - 32px));
-  margin: 22px auto 0;
+  width: min(100%, 1080px);
+  margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
+  gap: 24px;
+  align-items: stretch;
 }
 .visitor-counter-card {
   position: relative;
@@ -209,7 +236,7 @@ section { width: min(1320px, 100%); margin: 0 auto; padding: 112px clamp(18px, 4
   padding: 24px 28px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 22px;
   overflow: hidden;
   background:
@@ -293,7 +320,7 @@ section { width: min(1320px, 100%); margin: 0 auto; padding: 112px clamp(18px, 4
 ========================================================= */
 @media (max-width: 760px) {
   .visitor-counter-container {
-    width: calc(100% - 32px);
+    width: 100%;
     grid-template-columns: 1fr;
     gap: 12px;
     margin-top: 16px;
@@ -857,8 +884,8 @@ THz Communication and Software Testing.
      GLOBAL VISITOR COUNTER
 ========================================================= -->
 <section class="visitor-section tab-page" data-tab-group="home" id="visitors">
-<div class="visitor-counter-container">
 <h2 class="section-title">Live <span>Visitors</span></h2>
+<div class="visitor-counter-container">
 
     <div class="visitor-counter-card glass">
         <div class="visitor-counter-icon live-icon">
