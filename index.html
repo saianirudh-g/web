@@ -782,6 +782,53 @@ header .nav-links a { width: 100% !important; padding: 11px 13px !important; }
   .header-home, header .menu-btn { padding: 9px 11px; font-size: .81rem; min-height: 42px; }
   .rf-logo-wrapper img { max-width: 100px; height: 42px; object-fit: contain; }
 }
+
+/* Keep the primary header visible and prevent mobile pages from sliding beneath it. */
+@media (max-width: 760px) {
+  html { scroll-padding-top: calc(var(--header-h) + env(safe-area-inset-top, 0px) + 16px); }
+  body { overflow-x: clip; }
+  body > header {
+    position: fixed !important; inset: 0 0 auto 0 !important;
+    width: 100% !important; z-index: 10000 !important;
+    transform: none !important; opacity: 1 !important;
+    visibility: visible !important; margin: 0 !important;
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  body > header nav { min-height: var(--header-h); width: 100%; }
+  body > header .nav-links {
+    position: fixed !important;
+    top: calc(var(--header-h) + env(safe-area-inset-top, 0px) + 4px) !important;
+    max-height: calc(100dvh - var(--header-h) - env(safe-area-inset-top, 0px) - 20px);
+  }
+  .tab-page.active { scroll-margin-top: calc(var(--header-h) + env(safe-area-inset-top, 0px) + 14px); }
+}
+/* Research Papers: high-contrast scrollbar and persistent draggable indicator. */
+#research .slider-wrapper {
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: auto !important;
+  scrollbar-color: #036c9b #b4d9f1 !important;
+  padding-bottom: 12px !important;
+}
+#research .slider-wrapper::-webkit-scrollbar { height: 13px !important; display: block !important; }
+#research .slider-wrapper::-webkit-scrollbar-track { background: #b4d9f1 !important; border-radius: 999px; }
+#research .slider-wrapper::-webkit-scrollbar-thumb {
+  background: #036c9b !important; border-radius: 999px;
+  border: 2px solid #b4d9f1;
+}
+#research > .project-scroll-track {
+  display: block; height: 15px; width: 100%; margin: 10px 0 22px;
+  position: relative; border-radius: 999px; background: #b4d9f1;
+  border: 1px solid #84badc; touch-action: none; cursor: pointer;
+}
+#research > .project-scroll-track.no-overflow { display: none; }
+#research > .project-scroll-track .project-scroll-thumb {
+  display: block; top: 1px; height: 11px;
+  background: #036c9b; box-shadow: 0 2px 5px rgba(0,65,100,.25);
+}
+
 </style>
 </meta></meta></meta></head>
 <body>
@@ -816,7 +863,7 @@ header .nav-links a { width: 100% !important; padding: 11px 13px !important; }
 <a data-tab="about" href="#about">About</a>
 <a data-tab="resume" href="#resume">Resume</a>
 <a data-tab="projects" href="#projects">Projects</a>
-<a data-tab="publication" href="#publications">Publications</a>
+<a data-tab="publication" href="#publication">Publications</a>
 <a data-tab="presentations" href="#presentations">Presentations</a>
 <a data-tab="research" href="#research">Research</a>
 <a data-tab="achievements" href="#achievements">Achievements</a>
@@ -898,7 +945,7 @@ THz Communication and Software Testing.
 </div>
 <div class="counter-circle">
 <div class="counter-number" data-target="98">1</div>
-<a href="#projects">Publications</a>
+<a href="#publication">Publications</a>
 </div>
 <div class="counter-circle">
 <div class="counter-number" data-target="24">8</div>
@@ -1450,7 +1497,7 @@ THz Communication and Software Testing.
 <!-- =========================================================
      PUBLICATIONS (SLIDER)
 ========================================================= -->
-<section class="tab-page" id="publications">
+<section class="tab-page" id="publication">
 <h2 class="section-title">IEEE <span>Publications</span></h2>
 <div class="slider-wrapper">
 <div class="slider-container">
@@ -3156,12 +3203,12 @@ startVisitorTracking();
 /* Persistent horizontal scroll indicators for project galleries on mobile. */
 (function () {
   function initializeProjectScrollbars() {
-    document.querySelectorAll('.project-category .slider-wrapper').forEach((wrapper) => {
+    document.querySelectorAll('.project-category .slider-wrapper, #research > .slider-wrapper').forEach((wrapper) => {
       if (wrapper.nextElementSibling?.classList.contains('project-scroll-track')) return;
       const track = document.createElement('div');
       track.className = 'project-scroll-track';
       track.setAttribute('role', 'scrollbar');
-      track.setAttribute('aria-label', 'Project cards horizontal scrollbar');
+      track.setAttribute('aria-label', wrapper.closest('#research') ? 'Research papers horizontal scrollbar' : 'Project cards horizontal scrollbar');
       track.setAttribute('aria-orientation', 'horizontal');
       track.setAttribute('tabindex', '0');
       const thumb = document.createElement('div');
@@ -3190,7 +3237,7 @@ startVisitorTracking();
         wrapper.scrollLeft = fraction * Math.max(0, wrapper.scrollWidth - wrapper.clientWidth);
       }
       track.addEventListener('pointerdown', (event) => {
-        if (window.innerWidth > 760) return;
+        if (window.innerWidth > 760 && !wrapper.closest('#research')) return;
         dragging = true;
         track.setPointerCapture(event.pointerId);
         moveTo(event.clientX);
@@ -3213,7 +3260,7 @@ startVisitorTracking();
         if (content) observer.observe(content);
       }
       window.addEventListener('resize', update, { passive: true });
-      document.querySelectorAll('.nav-links a').forEach((link) => link.addEventListener('click', () => requestAnimationFrame(update)));
+      document.querySelectorAll('.nav-links a, .header-home').forEach((link) => link.addEventListener('click', () => { requestAnimationFrame(update); setTimeout(update, 350); }));
       update();
     });
   }
