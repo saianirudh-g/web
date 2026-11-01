@@ -177,6 +177,9 @@ section { width: min(1320px, 100%); margin: 0 auto; padding: 112px clamp(18px, 4
 .announcement-marquee { overflow:hidden; mask-image:linear-gradient(to right,transparent,black 7%,black 93%,transparent); -webkit-mask-image:linear-gradient(to right,transparent,black 7%,black 93%,transparent); }
 .announcement-track { display:flex; gap:18px; width:max-content; animation:marqueeLoop var(--marquee-duration,32s) linear infinite; padding:12px 0 26px; will-change:transform; }
 .announcement-track.is-paused { animation-play-state:paused !important; }
+@media (hover: hover) and (pointer: fine) {
+  .announcement-marquee:hover .announcement-track { animation-play-state: paused !important; }
+}
 @keyframes marqueeLoop { from { transform:translate3d(0,0,0); } to { transform:translate3d(calc(-1 * var(--marquee-distance, 50%)),0,0); } }
 .announce-card { width:300px; flex:0 0 300px; overflow:hidden; padding:14px; }
 .announce-card { position:relative; }
@@ -3122,8 +3125,8 @@ Open for research collaboration, embedded systems development, RF engineering pr
     const allCards = [...track.querySelectorAll('.announce-card')];
     let resizeTimer = null;
     let userPaused = false;
-    // Automatic scrolling stays active during hover, focus, and touch.
-    // Only the explicit Pause button (or hidden browser tab) stops it.
+    let hoverPaused = false;
+    // Pause when the mouse is over the announcement cards, resume when it leaves.
 
     const updateDistance = () => {
       const firstClone = track.querySelector('[data-announcement-clone="true"]');
@@ -3136,7 +3139,7 @@ Open for research collaboration, embedded systems development, RF engineering pr
     };
 
     const syncPauseState = () => {
-      const paused = userPaused || document.hidden;
+      const paused = userPaused || hoverPaused || document.hidden;
       track.classList.toggle('is-paused', paused);
       if (toggle) {
         toggle.textContent = userPaused ? '▶' : '❚❚';
@@ -3172,8 +3175,19 @@ Open for research collaboration, embedded systems development, RF engineering pr
       syncPauseState();
     });
 
-    // Do not pause when the pointer hovers over a card, it receives focus,
-    // or the user touches the carousel. The Pause button controls playback.
+    const marquee = section.querySelector('.announcement-marquee');
+    marquee?.addEventListener('pointerenter', event => {
+      if (event.pointerType === 'mouse' || event.pointerType === 'pen') {
+        hoverPaused = true;
+        syncPauseState();
+      }
+    });
+    marquee?.addEventListener('pointerleave', event => {
+      if (event.pointerType === 'mouse' || event.pointerType === 'pen') {
+        hoverPaused = false;
+        syncPauseState();
+      }
+    });
 
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
