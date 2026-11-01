@@ -177,7 +177,7 @@ section { width: min(1320px, 100%); margin: 0 auto; padding: 112px clamp(18px, 4
 .announcement-marquee { overflow:hidden; mask-image:linear-gradient(to right,transparent,black 7%,black 93%,transparent); -webkit-mask-image:linear-gradient(to right,transparent,black 7%,black 93%,transparent); }
 .announcement-track { display:flex; gap:18px; width:max-content; animation:marqueeLoop var(--marquee-duration,32s) linear infinite; padding:12px 0 26px; will-change:transform; }
 .announcement-track.is-paused { animation-play-state:paused !important; }
-@keyframes marqueeLoop { from { transform:translate3d(0,0,0); } to { transform:translate3d(calc(-1 * var(--marquee-distance, calc(50% + 9px))),0,0); } }
+@keyframes marqueeLoop { from { transform:translate3d(0,0,0); } to { transform:translate3d(calc(-1 * var(--marquee-distance, 50%)),0,0); } }
 .announce-card { width:300px; flex:0 0 300px; overflow:hidden; padding:14px; }
 .announce-card { position:relative; }
 .announce-card.media-error img, .announce-card.media-error video { opacity:.28; }
@@ -832,7 +832,8 @@ header .nav-links a { width: 100% !important; padding: 11px 13px !important; }
 /* Accessibility and layout corrections. */
 .star:focus-visible { outline: 3px solid #087e9f; outline-offset: 3px; border-radius: 4px; }
 @media (prefers-reduced-motion: reduce) {
-  .announcement-track, .rf-wave { animation: none !important; }
+  .rf-wave { animation: none !important; }
+  /* Keep announcements moving even when OS requests reduced motion; pause is available. */
   .hero-flip-card { transition: none !important; }
 }
 
@@ -2405,7 +2406,7 @@ Open for research collaboration, embedded systems development, RF engineering pr
 </div>
 <h3><span id="averageRating">0.0</span>/5</h3>
 <p><span id="totalRatings">0</span> Ratings</p>
-<p id="ratingMessage">Click a star to rate my website.</p>
+<p id="ratingMessage">Sign in with Google, select a star rating, and share your feedback. Your Google profile name and photo will be shown publicly with your review.</p>
 <textarea id="reviewText" placeholder="Write your feedback..." rows="4"></textarea>
 <button id="submitReview" type="button">Submit Review</button>
 <!-- Reviews list and pagination -->
@@ -2491,6 +2492,7 @@ Open for research collaboration, embedded systems development, RF engineering pr
   let userPhoto = null;
   let userEmail = null;
   let userGoogleId = null;
+  let googleIdToken = null;
 
   function safeExternalLinks() {
     $$('a[target="_blank"]').forEach(link => {
@@ -2887,6 +2889,8 @@ Open for research collaboration, embedded systems development, RF engineering pr
     try {
       if (!response?.credential || typeof window.jwt_decode !== 'function') throw new Error('Google credential decoder unavailable');
       const data = window.jwt_decode(response.credential);
+      // Backend must independently verify this Google-issued ID token.
+      googleIdToken = response.credential;
       userName = data.name || [data.given_name, data.family_name].filter(Boolean).join(' ') || null;
       userPhoto = data.picture || null;
       userEmail = data.email || null;
@@ -2941,13 +2945,12 @@ Open for research collaboration, embedded systems development, RF engineering pr
     const item = document.createElement('article');
     item.className = 'review-item';
     const head = document.createElement('div'); head.className = 'review-head';
-    const reviewerName = review.googleName || review.googleProfile?.name || review.user?.name || review.name || review.userName || 'Anonymous';
-    const reviewerPhoto = review.googlePhoto || review.googleProfile?.picture || review.user?.picture || review.picture || review.photo || review.userPhoto || review.profilePhoto || review.profileImage || review.avatarUrl || review.avatar || review.image || 'Images/logo.png';
+    const reviewerName = review.googleName || review.googleProfile?.name || review.googleProfile?.displayName || review.user?.name || review.reviewer?.name || review.name || review.userName || 'Anonymous';
+    const reviewerPhoto = review.googlePhoto || review.googleProfile?.picture || review.googleProfile?.photo || review.user?.picture || review.reviewer?.picture || review.picture || review.photo || review.userPhoto || review.profilePhoto || review.profileImage || review.avatarUrl || review.avatar || review.image || 'Images/logo.png';
     const img = document.createElement('img');
     img.src = reviewerPhoto;
     img.alt = `${reviewerName} Google profile photo`;
     img.referrerPolicy = 'no-referrer';
-    img.crossOrigin = 'anonymous';
     img.loading = 'lazy';
     img.decoding = 'async';
     img.addEventListener('error', () => { if (!img.src.endsWith('/Images/logo.png') && !img.src.endsWith('Images/logo.png')) img.src = 'Images/logo.png'; }, { once: true });
@@ -2960,7 +2963,8 @@ Open for research collaboration, embedded systems development, RF engineering pr
     meta.textContent = `${when && !Number.isNaN(when.valueOf()) ? when.toLocaleString() : 'Date unavailable'} • ${review.location?.city || 'Unknown location'}`;
     item.append(head, content, meta);
 
-    if (review._id) {
+    // Controls are displayed only for the signed-in owner. The API MUST enforce this too.
+    if (review._id && userGoogleId && (review.googleId || review.googleProfile?.id || review.reviewer?.googleId) === userGoogleId) {
       const actions = document.createElement('div'); actions.className = 'review-actions';
       const edit = document.createElement('button');
       edit.type = 'button'; edit.className = 'edit-review'; edit.dataset.id = review._id;
@@ -3013,14 +3017,14 @@ Open for research collaboration, embedded systems development, RF engineering pr
     if (!submit || !text || !message || !list) return;
 
     submit.addEventListener('click', async () => {
-      if (!userName) { message.textContent = 'Please sign in with Google before submitting a review.'; return; }
+      if (!googleIdToken || !userGoogleId) { message.textContent = 'Please sign in with Google before submitting a review.'; return; }
       if (!selectedRating) { message.textContent = 'Please choose a star rating first.'; return; }
       const reviewText = text.value.trim();
       submit.disabled = true; message.textContent = 'Submitting your review…';
 
       const post = async (city = 'Unknown', lat = null, lon = null) => {
         await apiJson(`${API}/reviews`, {
-          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${googleIdToken}` },
           body: JSON.stringify({
             name: userName,
             googleName: userName,
@@ -3029,9 +3033,9 @@ Open for research collaboration, embedded systems development, RF engineering pr
             googlePhoto: userPhoto,
             profilePhoto: userPhoto,
             profileImage: userPhoto,
-            email: userEmail,
+            // Email intentionally excluded from public review data.
             googleId: userGoogleId,
-            googleProfile: { id: userGoogleId, name: userName, picture: userPhoto, email: userEmail },
+            googleProfile: { id: userGoogleId, name: userName, picture: userPhoto },
             rating: selectedRating,
             text: reviewText,
             location: { city, lat, lon }
@@ -3059,12 +3063,12 @@ Open for research collaboration, embedded systems development, RF engineering pr
       try {
         if (button.classList.contains('delete-review')) {
           if (!confirm('Delete this review?')) return;
-          await apiJson(`${API}/reviews/${encodeURIComponent(id)}`, { method: 'DELETE' });
+          await apiJson(`${API}/reviews/${encodeURIComponent(id)}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${googleIdToken || ''}` } });
         } else if (button.classList.contains('edit-review')) {
           const oldText = button.closest('.review-item')?.querySelector('.review-content')?.textContent || '';
           const updated = prompt('Edit your review:', oldText);
           if (updated === null) return;
-          await apiJson(`${API}/reviews/${encodeURIComponent(id)}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text: updated.trim() }) });
+          await apiJson(`${API}/reviews/${encodeURIComponent(id)}`, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${googleIdToken || ''}` }, body: JSON.stringify({ text: updated.trim() }) });
         }
         await loadReviews(currentPage);
       } catch (error) {
@@ -3118,7 +3122,8 @@ Open for research collaboration, embedded systems development, RF engineering pr
     const allCards = [...track.querySelectorAll('.announce-card')];
     let resizeTimer = null;
     let userPaused = false;
-    let interactionPaused = false;
+    // Automatic scrolling stays active during hover, focus, and touch.
+    // Only the explicit Pause button (or hidden browser tab) stops it.
 
     const updateDistance = () => {
       const firstClone = track.querySelector('[data-announcement-clone="true"]');
@@ -3131,7 +3136,7 @@ Open for research collaboration, embedded systems development, RF engineering pr
     };
 
     const syncPauseState = () => {
-      const paused = userPaused || interactionPaused || document.hidden;
+      const paused = userPaused || document.hidden;
       track.classList.toggle('is-paused', paused);
       if (toggle) {
         toggle.textContent = userPaused ? '▶' : '❚❚';
@@ -3167,16 +3172,8 @@ Open for research collaboration, embedded systems development, RF engineering pr
       syncPauseState();
     });
 
-    track.addEventListener('mouseenter', () => { interactionPaused = true; syncPauseState(); });
-    track.addEventListener('mouseleave', () => { interactionPaused = false; syncPauseState(); });
-    track.addEventListener('focusin', () => { interactionPaused = true; syncPauseState(); });
-    track.addEventListener('focusout', event => {
-      if (!track.contains(event.relatedTarget)) { interactionPaused = false; syncPauseState(); }
-    });
-    track.addEventListener('touchstart', () => { interactionPaused = true; syncPauseState(); }, { passive: true });
-    track.addEventListener('touchend', () => {
-      window.setTimeout(() => { interactionPaused = false; syncPauseState(); }, 450);
-    }, { passive: true });
+    // Do not pause when the pointer hovers over a card, it receives focus,
+    // or the user touches the carousel. The Pause button controls playback.
 
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
