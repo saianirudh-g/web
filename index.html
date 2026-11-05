@@ -907,7 +907,17 @@ header .nav-links a { width: 100% !important; padding: 11px 13px !important; }
   #home .hero-flip-card.flipped .hero-back {
     display: block !important;
   }
+  /* The visible side owns the card height and touch scrolling. */
+  #home .hero-flip-card { width: 100%; overflow: visible !important; }
+  #home .hero-front, #home .hero-back {
+    backface-visibility: visible !important;
+    -webkit-backface-visibility: visible !important;
+    touch-action: pan-y;
+  }
+  #home .hero-back { overflow-wrap: anywhere; }
+  #home .hero-back .skill-card { min-width: 0; }
 }
+
 
 </style>
 </head>
@@ -1006,7 +1016,6 @@ THz Communication and Software Testing.
 </div>
 </div>
 </div>
-</div>
 
 <!-- COUNTER -->
 <h1 class="section-title">Live <span>Metrics</span></h1>
@@ -1044,6 +1053,7 @@ THz Communication and Software Testing.
 <a href="#certifications">Certifications</a>
 </div>
 </div>
+</div><!-- /.hero-front: includes Live Metrics -->
 
 <!-- BACK SIDE -->
 <div class="hero-back">
@@ -2820,7 +2830,57 @@ Open for research collaboration, embedded systems development, RF engineering pr
     video.addEventListener('ended', restore);
   }
 
-  window.flipHero = () => $('#heroCard')?.classList.toggle('flipped');
+  // On mobile the two sides stay in document flow so the Bio can be
+  // scrolled normally. Animate the turn in two halves, switching the visible
+  // panel at the midpoint; desktop keeps its original CSS 3D rotation.
+  let heroFlipBusy = false;
+  window.flipHero = async () => {
+    const card = $('#heroCard');
+    if (!card || heroFlipBusy) return;
+
+    const mobile = window.matchMedia('(max-width: 760px)').matches;
+    if (!mobile) {
+      card.classList.toggle('flipped');
+      return;
+    }
+
+    heroFlipBusy = true;
+    const home = $('#home');
+    const header = document.querySelector('body > header');
+    const headerHeight = header ? header.getBoundingClientRect().height : 72;
+    // Always show the beginning of the new face, rather than leaving the
+    // visitor halfway down the old face after the card changes height.
+    if (home) {
+      const top = Math.max(0, home.getBoundingClientRect().top + window.scrollY - headerHeight);
+      window.scrollTo({ top, behavior: 'instant' });
+    }
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const animateHalf = async (keyframes) => {
+      if (reduced || !card.animate) return;
+      const animation = card.animate(keyframes, { duration: 190, easing: 'ease-in-out' });
+      try { await animation.finished; } catch (_) { /* interrupted by tab change */ }
+    };
+
+    try {
+      await animateHalf([
+        { transform: 'perspective(1000px) rotateY(0deg)', opacity: 1 },
+        { transform: 'perspective(1000px) rotateY(88deg)', opacity: .65 }
+      ]);
+      card.classList.toggle('flipped');
+      await animateHalf([
+        { transform: 'perspective(1000px) rotateY(-88deg)', opacity: .65 },
+        { transform: 'perspective(1000px) rotateY(0deg)', opacity: 1 }
+      ]);
+      // Re-align after the height changes, including on narrow devices.
+      if (home) {
+        const top = Math.max(0, home.getBoundingClientRect().top + window.scrollY - headerHeight);
+        window.scrollTo({ top, behavior: 'instant' });
+      }
+    } finally {
+      heroFlipBusy = false;
+    }
+  };
 
   function setupTyping() {
     const el = $('#typing');
