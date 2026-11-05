@@ -3303,6 +3303,51 @@ Open for research collaboration, embedded systems development, RF engineering pr
     pendingReviewLocation = null;
   }
 
+  // The API may discard Google profile fields when creating a review.
+  // Keep a per-review local display cache as a fallback on this browser only.
+  // Only associate an identity with a new review if its response returns an ID,
+  // or the first subsequent review fetch unambiguously matches its text/rating.
+  const REVIEW_IDENTITY_CACHE_KEY = 'portfolio_review_identity_by_id_v1';
+  let pendingReviewIdentity = null;
+  function savedReviewIdentities() {
+    try {
+      const value = JSON.parse(localStorage.getItem(REVIEW_IDENTITY_CACHE_KEY) || '{}');
+      return value && typeof value === 'object' && !Array.isArray(value) ? value : {};
+    } catch { return {}; }
+  }
+  function saveReviewIdentity(id, identity) {
+    if (!id || !identity?.name || !identity?.googleId) return;
+    try {
+      const saved = savedReviewIdentities();
+      saved[String(id)] = { name: identity.name, photo: identity.photo || '', googleId: String(identity.googleId) };
+      localStorage.setItem(REVIEW_IDENTITY_CACHE_KEY, JSON.stringify(saved));
+    } catch (error) { console.warn('Unable to remember reviewer profile:', error); }
+  }
+  function attachPendingReviewIdentity(reviews) {
+    if (!pendingReviewIdentity) return;
+    const pending = pendingReviewIdentity;
+    // Prevent an ambiguous match from attributing another person's review to this user.
+    const candidates = reviews.filter(r => {
+      const owner = reviewOwnerId(r);
+      const text = String(r.text || r.review || r.comment || '').trim();
+      return text === pending.text && Number(r.rating) === pending.rating &&
+        (!owner || String(owner) === String(pending.googleId));
+    });
+    if (candidates.length !== 1) return;
+    const id = candidates[0]._id || candidates[0].id;
+    if (id) {
+      saveReviewIdentity(id, pending);
+      pendingReviewIdentity = null;
+    }
+  }
+  function reviewIdentity(review) {
+    const id = review._id || review.id;
+    const owner = reviewOwnerId(review);
+    const cached = id ? savedReviewIdentities()[String(id)] : null;
+    // Do not trust a cached identity if the server indicates a different owner.
+    return cached && (!owner || String(owner) === String(cached.googleId)) ? cached : {};
+  }
+
   function reviewCity(review) {
     const location = review.location;
     if (typeof location === 'string') return location;
@@ -3338,12 +3383,17 @@ Open for research collaboration, embedded systems development, RF engineering pr
     const item = document.createElement('article'); item.className = 'review-item';
     const head = document.createElement('div'); head.className = 'review-head';
     const profile = review.googleProfile || {};
-    const reviewerName = review.googleName || profile.name || profile.displayName ||
-      review.user?.name || review.reviewer?.name || review.name || review.userName || 'Anonymous';
-    const reviewerPhoto = review.googlePhoto || profile.picture || profile.photo ||
+    const locallySaved = reviewIdentity(review);
+    const serverName = review.googleName || profile.name || profile.displayName ||
+      review.user?.name || review.reviewer?.name || review.name || review.userName || '';
+    const serverPhoto = review.googlePhoto || profile.picture || profile.photo ||
       review.user?.picture || review.reviewer?.picture || review.picture ||
       review.photo || review.userPhoto || review.profilePhoto || review.profileImage ||
-      review.avatarUrl || review.avatar || 'Images/logo.png';
+      review.avatarUrl || review.avatar || '';
+    const isPlaceholderName = !String(serverName).trim() || /^(anonymous|guest|unknown|google user)$/i.test(String(serverName).trim());
+    const isPlaceholderPhoto = !String(serverPhoto).trim() || /(?:^|\/)logo\.png(?:$|\?)/i.test(String(serverPhoto));
+    const reviewerName = (isPlaceholderName ? locallySaved.name : serverName) || serverName || 'Anonymous';
+    const reviewerPhoto = (isPlaceholderPhoto ? locallySaved.photo : serverPhoto) || serverPhoto || 'Images/logo.png';
     const img = document.createElement('img');
     img.src = /^https:\/\//i.test(reviewerPhoto) || reviewerPhoto === 'Images/logo.png' ? reviewerPhoto : 'Images/logo.png';
     img.alt = `${reviewerName} profile picture`;
@@ -3396,6 +3446,7 @@ Open for research collaboration, embedded systems development, RF engineering pr
       list.replaceChildren();
       const reviews = Array.isArray(data?.reviews) ? data.reviews : Array.isArray(data) ? data : [];
       attachPendingReviewCity(reviews);
+      attachPendingReviewIdentity(reviews);
       if (!reviews.length) {
         const empty = document.createElement('p'); empty.textContent = 'No reviews yet.'; list.appendChild(empty);
       } else reviews.forEach(review => list.appendChild(createReviewNode(review)));
@@ -3446,6 +3497,15 @@ Open for research collaboration, embedded systems development, RF engineering pr
             location
           })
         });
+        // Link the submitted Google profile to THIS review, never every review.
+        const submittedId = createdReview?._id || createdReview?.id ||
+          createdReview?.review?._id || createdReview?.review?.id;
+        const submittingIdentity = {
+          text, rating: selectedRating, googleId: userGoogleId,
+          name: userName, photo: userPhoto
+        };
+        if (submittedId) saveReviewIdentity(submittedId, submittingIdentity);
+        else pendingReviewIdentity = submittingIdentity;
         if (location.city) {
           pendingReviewLocation = { text, city: location.city };
           const id = createdReview?._id || createdReview?.id ||
