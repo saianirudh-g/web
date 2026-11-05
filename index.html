@@ -919,6 +919,47 @@ header .nav-links a { width: 100% !important; padding: 11px 13px !important; }
 }
 
 
+
+/* MOBILE HEADER VISIBILITY FIX
+   Keep navigation in the normal scrolling root, while sticking it to the
+   viewport. This avoids mobile fixed-position/overflow clipping issues. */
+@media (max-width: 760px) {
+  html { overflow-x: clip; }
+  body { overflow-x: visible !important; }
+  body > header {
+    position: sticky !important;
+    top: 0 !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    inset: auto !important;
+    width: 100% !important;
+    z-index: 100000 !important;
+    display: block !important;
+    flex-shrink: 0;
+    isolation: isolate;
+    transform: none !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    padding-top: env(safe-area-inset-top, 0px);
+    margin: 0 !important;
+  }
+  body > header nav {
+    min-height: var(--header-h);
+    width: 100%;
+  }
+  body > header .nav-links {
+    position: absolute !important;
+    top: calc(100% + 4px) !important;
+    right: 12px !important;
+    max-height: calc(100dvh - var(--header-h) - env(safe-area-inset-top, 0px) - 20px);
+  }
+  /* A sticky header now occupies actual height; don't double-count it. */
+  section.tab-page { padding-top: 28px; }
+  #home.hero { padding-top: 36px; }
+  html { scroll-padding-top: calc(var(--header-h) + env(safe-area-inset-top, 0px) + 16px); }
+}
+
 </style>
 </head>
 <body>
