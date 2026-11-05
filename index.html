@@ -3329,23 +3329,27 @@ Open for research collaboration, embedded systems development, RF engineering pr
     meta.textContent = `${date && !Number.isNaN(date.valueOf()) ? date.toLocaleString() : 'Date unavailable'} • ${reviewCity(review) || 'Location not shared'}`;
     item.append(head, content, meta);
 
-    // Some backends hide the owner ID in GET /reviews. In that case show the
-    // controls to a signed-in user; the server MUST verify token ownership for
-    // PUT/DELETE. A UI button never grants permission.
+    // Keep Edit and Delete visible for every saved review, including when
+    // GET /reviews omits ownership fields. Authorization is checked on click
+    // and MUST also be enforced by the server for PUT and DELETE.
     const id = review._id || review.id;
-    const ownerId = reviewOwnerId(review);
-    const isOwner = review.isOwner === true || review.canEdit === true ||
-      (ownerId && String(ownerId) === String(userGoogleId));
-    const ownerUnknown = !ownerId && review.isOwner === undefined && review.canEdit === undefined;
-    if (id && googleIdToken && (isOwner || ownerUnknown)) {
-      const actions = document.createElement('div'); actions.className = 'review-actions';
+    if (id) {
+      const actions = document.createElement('div');
+      actions.className = 'review-actions';
       const edit = document.createElement('button');
-      edit.type = 'button'; edit.className = 'edit-review'; edit.dataset.id = id;
+      edit.type = 'button';
+      edit.className = 'edit-review';
+      edit.dataset.id = String(id);
+      edit.setAttribute('aria-label', 'Edit review');
       edit.innerHTML = '<i class="fa-solid fa-pen-to-square" aria-hidden="true"></i><span>Edit</span>';
       const del = document.createElement('button');
-      del.type = 'button'; del.className = 'delete-review'; del.dataset.id = id;
-      del.textContent = '🗑 Delete';
-      actions.append(edit, del); item.appendChild(actions);
+      del.type = 'button';
+      del.className = 'delete-review';
+      del.dataset.id = String(id);
+      del.setAttribute('aria-label', 'Delete review');
+      del.innerHTML = '<i class="fa-solid fa-trash" aria-hidden="true"></i><span>Delete</span>';
+      actions.append(edit, del);
+      item.appendChild(actions);
     }
     return item;
   }
