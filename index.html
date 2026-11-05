@@ -960,6 +960,17 @@ header .nav-links a { width: 100% !important; padding: 11px 13px !important; }
   html { scroll-padding-top: calc(var(--header-h) + env(safe-area-inset-top, 0px) + 16px); }
 }
 
+
+/* Review identity presentation; does not affect the Home or mobile header. */
+#reviews #userInfo { color: var(--text); flex-wrap: wrap; }
+#reviews #userInfo img, #reviews .review-head img {
+  width: 44px; height: 44px; flex: 0 0 44px; object-fit: cover;
+  border-radius: 50%; background: #dceeff;
+}
+#reviews .review-head { min-width: 0; flex-wrap: wrap; }
+#reviews .review-head strong { overflow-wrap: anywhere; }
+#reviews .review-stars { white-space: nowrap; }
+#reviews .review-meta { overflow-wrap: anywhere; }
 </style>
 </head>
 <body>
@@ -1070,7 +1081,7 @@ THz Communication and Software Testing.
 <a href="#resume">Academic Degrees</a>
 </div>
 <div class="counter-circle">
-<div class="counter-number" data-target="98">21</div>
+<div class="counter-number" data-target="98">20</div>
 <a href="#projects">Projects</a>
 </div>
 <div class="counter-circle">
@@ -1334,7 +1345,7 @@ THz Communication and Software Testing.
 <section class="tab-page" id="projects">
   <h1 class="section-title">Engineering <span>Projects</span></h1>
 
-  <!-- EMBEDDED FIRMWARE SYSTEMS PROJECTS -->
+  <!-- Category 1 -->
   <div class="project-category" style="margin-bottom: 4rem;">
     <h2 class="section-title">Embedded <span>Systems</span></h2>
     <div class="slider-wrapper">
@@ -1413,9 +1424,9 @@ THz Communication and Software Testing.
     </div>
   </div>
 
-  <!-- VLSI & ASIC DESIGN PROJECTS -->
+  <!-- Category 2 -->
   <div class="project-category" style="margin-bottom: 4rem;">
-    <h2 class="section-title">VLSI &<span>ASIC Design</span></h2>
+    <h2 class="section-title">VLSI &amp; <span>ASIC Design</span></h2>
     <div class="slider-wrapper">
       <div class="slider-container">
         <!-- Project 1 -->
@@ -1475,7 +1486,7 @@ THz Communication and Software Testing.
     </div>
   </div>
 
-  <!-- POWER SYSTEMS PROJECTS -->
+  <!-- Category 3 -->
   <div class="project-category" style="margin-bottom: 4rem;">
     <h2 class="section-title">Power <span>Systems</span></h2>
     <div class="slider-wrapper">
@@ -1572,15 +1583,15 @@ THz Communication and Software Testing.
     </div>
   </div>
 
-  <!-- PLC DESIGN PROJECTS -->
+  <!-- Category 4 -->
   <div class="project-category" style="margin-bottom: 4rem;">
-    <h2 class="section-title">PLC <span>Systems</span></h2>
+    <h2 class="section-title">Instrumentation &amp; <span>Control Systems</span></h2>
     <div class="slider-wrapper">
       <div class="slider-container">
         <!-- Project 1 -->
         <div class="project-card glass">
           <div class="project-content">
-            <h3>Industrial Sensor Measurement with PLC Ladder Logic Design</h3>
+            <h3>Industrial Sensor Measurement and PLC Ladder Logic Design</h3>
             <p>Studied signal conditioning and measurement methods for thermocouples, RTDs, load cells, and capacitive sensors, together with PLC ladder logic.</p>
             <p><strong>Year:</strong> 2026</p>
             <div class="tags">
@@ -1598,7 +1609,7 @@ THz Communication and Software Testing.
     </div>
   </div>
 
-  <!-- WIRELESS COMMUNICATIONS PROJECTS -->
+  <!-- Category 5 -->
   <div class="project-category" style="margin-bottom: 4rem;">
     <h2 class="section-title">Wireless <span>Communications</span></h2>
     <div class="slider-wrapper">
@@ -1642,29 +1653,12 @@ THz Communication and Software Testing.
     </div>
   </div>
 
-  <!-- SIGNAL COMMUNICATIONS PROJECTS -->
+  <!-- Category 6 -->
   <div class="project-category" style="margin-bottom: 4rem;">
-    <h2 class="section-title">Signal <span>Communications</span></h2>
+    <h2 class="section-title">Signal Processing &amp; <span>Image Compression</span></h2>
     <div class="slider-wrapper">
       <div class="slider-container">
-        <!-- Project 3 -->
-        <div class="project-card glass">
-          <div class="project-content">
-            <h3>Block-Based and Affine Motion Estimation for Video Compression Using MATLAB</h3>
-            <p>MATLAB implementation and comparison of integer-pixel, half-pixel, diamond-search, and four-parameter affine motion estimation</p>
-            <p><strong>Year:</strong> 2026</p>
-            <div class="tags">
-              <span>MATLAB</span>
-              <span>Motion Estimation</span>
-              <span>FFMPEG</span>
-              <span>Video Compression</span>
-            </div>
-            <div style="margin-top: 25px;">
-              <a class="btn btn-primary" href="https://github.com/saianirudh-g/Block-Based-and-Affine-Motion-Estimation-for-Video-Compression-Using-MATLAB" target="_blank" rel="noopener noreferrer">View Project</a>
-            </div>
-          </div>
-        </div>
-        <!-- Project 2 -->
+        <!-- Project 1 -->
         <div class="project-card glass">
           <div class="project-content">
             <h3>Context-Adaptive Arithmetic Coding for Image Compression Using MATLAB</h3>
@@ -1681,7 +1675,8 @@ THz Communication and Software Testing.
             </div>
           </div>
         </div>
-        <!-- Project 1 -->
+
+        <!-- Project 2 -->
         <div class="project-card glass">
           <div class="project-content">
             <h3>Predictive Image Compression Using Golomb-Rice Coding</h3>
@@ -1702,7 +1697,7 @@ THz Communication and Software Testing.
     </div>
   </div>
 
-  <!-- INTERNET OF THINGS PROJECTS -->
+  <!-- Category 7 -->
   <div class="project-category" style="margin-bottom: 4rem;">
     <h2 class="section-title">Internet of <span>Things</span></h2>
     <div class="slider-wrapper">
@@ -2646,7 +2641,7 @@ Open for research collaboration, embedded systems development, RF engineering pr
 
 </section>
 
-<!-- RATING SECTION -->
+<!-- RATING SECTION: Google identity is verified by the API; location is not collected -->
 <section class="tab-page" id="reviews">
 <h2 class="section-title">Visitor <span>Rating</span></h2>
 <div class="rating-section">
@@ -2658,7 +2653,8 @@ Open for research collaboration, embedded systems development, RF engineering pr
 <div class="g_id_signin" data-logo_alignment="left" data-shape="rectangular" data-size="large" data-text="signin_with" data-theme="outline" data-type="standard">
 </div>
 <!-- Display logged‑in user info -->
-<div id="userInfo"></div>
+<div id="userInfo" aria-live="polite"></div>
+
 <div class="star-rating">
 <span class="star" data-value="1">★</span>
 <span class="star" data-value="2">★</span>
@@ -2668,7 +2664,7 @@ Open for research collaboration, embedded systems development, RF engineering pr
 </div>
 <h3><span id="averageRating">0.0</span>/5</h3>
 <p><span id="totalRatings">0</span> Ratings</p>
-<p id="ratingMessage">Sign in with Google, select a star rating, and share your feedback. Your Google profile name and photo will be shown publicly with your review.</p>
+<p id="ratingMessage">Sign in with Google, select a star rating, and share your feedback. Your Google name and profile photo will be displayed publicly with your review. Your location will not be requested or displayed.</p>
 <textarea id="reviewText" placeholder="Write your feedback..." rows="4"></textarea>
 <button id="submitReview" type="button">Submit Review</button>
 <!-- Reviews list and pagination -->
@@ -3197,171 +3193,58 @@ Open for research collaboration, embedded systems development, RF engineering pr
     });
   }
 
-  // Google sign-in: the ID token is verified by the backend, not by this frontend.
+  // Read only display fields from the Google ID token. Authentication and ownership
+  // MUST still be verified independently by the reviews backend.
   window.handleGoogleLogin = response => {
+    const message = $('#ratingMessage');
     try {
-      if (!response?.credential || typeof window.jwt_decode !== 'function') {
-        throw new Error('Google credential decoder unavailable');
-      }
-      const profile = window.jwt_decode(response.credential);
-      if (!profile?.sub) throw new Error('Google profile ID missing');
+      if (!response?.credential || typeof window.jwt_decode !== 'function') throw new Error('Google credential decoder unavailable');
+      const data = window.jwt_decode(response.credential);
+      if (!data?.sub) throw new Error('Google account identifier missing');
       googleIdToken = response.credential;
-      userGoogleId = String(profile.sub);
-      userName = profile.name || [profile.given_name, profile.family_name].filter(Boolean).join(' ') || 'Google user';
-      userPhoto = profile.picture || null;
-      userEmail = profile.email || null;
+      userName = String(data.name || [data.given_name, data.family_name].filter(Boolean).join(' ') || 'Google user').trim();
+      userPhoto = typeof data.picture === 'string' && /^https:\/\//i.test(data.picture) ? data.picture : null;
+      userEmail = data.email || null; // not published
+      userGoogleId = String(data.sub);
       const info = $('#userInfo');
       if (info) {
         info.replaceChildren();
-        const avatar = document.createElement('img');
-        avatar.src = userPhoto || 'Images/logo.png';
-        avatar.alt = `${userName} profile picture`;
-        avatar.referrerPolicy = 'no-referrer';
-        avatar.addEventListener('error', () => { avatar.src = 'Images/logo.png'; }, { once: true });
-        const label = document.createElement('strong'); label.textContent = userName;
-        info.append(avatar, label); info.style.display = 'flex';
+        const img = createAvatar(userPhoto, `${userName} profile photo`);
+        const strong = document.createElement('strong'); strong.textContent = `Signed in as ${userName}`;
+        info.append(img, strong);
+        info.style.display = 'flex';
       }
-      const message = $('#ratingMessage');
-      if (message) message.textContent = `Signed in as ${userName}. Your Google name and photo will be displayed on new reviews if the review API saves them. Location requires separate permission.`;
+      if (message) message.textContent = 'Signed in. Choose stars and submit your review. Your public Google name and photo will be shown.';
       loadReviews(currentPage);
     } catch (error) {
       console.error('Google sign-in failed:', error);
-      const message = $('#ratingMessage');
-      if (message) message.textContent = 'Google sign-in failed. Refresh the page and try again.';
+      googleIdToken = null; userGoogleId = null;
+      if (message) message.textContent = 'Google sign-in could not be completed. Please try again.';
     }
   };
 
-  // Google does not provide location. Ask the browser for permission and convert
-  // coordinates to a city. Never put precise coordinates into the public UI.
-  async function reverseGeocode(lat, lon) {
-    try {
-      const url = new URL('https://nominatim.openstreetmap.org/reverse');
-      url.searchParams.set('format', 'json');
-      url.searchParams.set('zoom', '10');
-      url.searchParams.set('addressdetails', '1');
-      url.searchParams.set('lat', String(lat));
-      url.searchParams.set('lon', String(lon));
-      const response = await fetch(url.toString(), { headers: { Accept: 'application/json' } });
-      if (!response.ok) return '';
-      const address = (await response.json())?.address || {};
-      const city = address.city || address.town || address.village || address.municipality || address.county || '';
-      const region = address.state || address.region || '';
-      return [city, region].filter(Boolean).join(', ');
-    } catch (error) {
-      console.warn('City lookup failed:', error);
-      return '';
-    }
-  }
-
-  async function getReviewLocation() {
-    if (!window.isSecureContext || !navigator.geolocation) return { city: '', lat: null, lon: null };
-    const coords = await new Promise(resolve => {
-      navigator.geolocation.getCurrentPosition(
-        position => resolve(position.coords),
-        () => resolve(null),
-        { enableHighAccuracy: false, timeout: 9000, maximumAge: 600000 }
-      );
+  function createAvatar(photo, alt) {
+    const img = document.createElement('img');
+    img.alt = alt;
+    img.referrerPolicy = 'no-referrer';
+    img.loading = 'lazy';
+    img.decoding = 'async';
+    img.src = typeof photo === 'string' && /^https?:\/\//i.test(photo) ? photo : 'Images/logo.png';
+    img.addEventListener('error', () => {
+      if (!img.src.endsWith('Images/logo.png')) img.src = 'Images/logo.png';
     });
-    if (!coords) return { city: '', lat: null, lon: null };
-    const city = await reverseGeocode(coords.latitude, coords.longitude);
-    // The original backend may still require lat/lon. They are sent privately to
-    // the API for compatibility, but must never be returned in public responses.
-    return { city, lat: coords.latitude, lon: coords.longitude };
-  }
-
-  function reviewOwnerId(review) {
-    return review.googleId || review.googleProfile?.id || review.user?.googleId ||
-      review.reviewer?.googleId || review.userId || review.googleSub || review.ownerGoogleId || null;
-  }
-
-  // Remember a city for a review submitted on this device when an older
-  // backend fails to return its stored city. This does not publish the city
-  // for other visitors; the API must persist and return it for that.
-  const REVIEW_CITY_CACHE_KEY = 'portfolio_review_city_by_id_v1';
-  let pendingReviewLocation = null;
-  function savedReviewCities() {
-    try { return JSON.parse(localStorage.getItem(REVIEW_CITY_CACHE_KEY) || '{}') || {}; }
-    catch { return {}; }
-  }
-  function attachPendingReviewCity(reviews) {
-    if (!pendingReviewLocation?.city) return;
-    const match = reviews.find(r => {
-      const reviewText = r.text || r.review || r.comment || '';
-      const rid = reviewOwnerId(r);
-      return reviewText.trim() === pendingReviewLocation.text &&
-        (!rid || String(rid) === String(userGoogleId));
-    });
-    if (!match) return;
-    const id = match._id || match.id;
-    if (id) {
-      try {
-        const cities = savedReviewCities();
-        cities[String(id)] = pendingReviewLocation.city;
-        localStorage.setItem(REVIEW_CITY_CACHE_KEY, JSON.stringify(cities));
-      } catch (error) { console.warn('Could not cache review city:', error); }
-    }
-    pendingReviewLocation = null;
-  }
-
-  // The API may discard Google profile fields when creating a review.
-  // Keep a per-review local display cache as a fallback on this browser only.
-  // Only associate an identity with a new review if its response returns an ID,
-  // or the first subsequent review fetch unambiguously matches its text/rating.
-  const REVIEW_IDENTITY_CACHE_KEY = 'portfolio_review_identity_by_id_v1';
-  let pendingReviewIdentity = null;
-  function savedReviewIdentities() {
-    try {
-      const value = JSON.parse(localStorage.getItem(REVIEW_IDENTITY_CACHE_KEY) || '{}');
-      return value && typeof value === 'object' && !Array.isArray(value) ? value : {};
-    } catch { return {}; }
-  }
-  function saveReviewIdentity(id, identity) {
-    if (!id || !identity?.name || !identity?.googleId) return;
-    try {
-      const saved = savedReviewIdentities();
-      saved[String(id)] = { name: identity.name, photo: identity.photo || '', googleId: String(identity.googleId) };
-      localStorage.setItem(REVIEW_IDENTITY_CACHE_KEY, JSON.stringify(saved));
-    } catch (error) { console.warn('Unable to remember reviewer profile:', error); }
-  }
-  function attachPendingReviewIdentity(reviews) {
-    if (!pendingReviewIdentity) return;
-    const pending = pendingReviewIdentity;
-    // Prevent an ambiguous match from attributing another person's review to this user.
-    const candidates = reviews.filter(r => {
-      const owner = reviewOwnerId(r);
-      const text = String(r.text || r.review || r.comment || '').trim();
-      return text === pending.text && Number(r.rating) === pending.rating &&
-        (!owner || String(owner) === String(pending.googleId));
-    });
-    if (candidates.length !== 1) return;
-    const id = candidates[0]._id || candidates[0].id;
-    if (id) {
-      saveReviewIdentity(id, pending);
-      pendingReviewIdentity = null;
-    }
-  }
-  function reviewIdentity(review) {
-    const id = review._id || review.id;
-    const owner = reviewOwnerId(review);
-    const cached = id ? savedReviewIdentities()[String(id)] : null;
-    // Do not trust a cached identity if the server indicates a different owner.
-    return cached && (!owner || String(owner) === String(cached.googleId)) ? cached : {};
-  }
-
-  function reviewCity(review) {
-    const location = review.location;
-    if (typeof location === 'string') return location;
-    const fromAPI = location?.city || location?.display_name || review.city ||
-      review.locationCity || review.userLocation?.city || review.locationName || '';
-    const id = review._id || review.id;
-    return fromAPI || (id ? savedReviewCities()[String(id)] : '') || '';
+    return img;
   }
 
   async function apiJson(url, options = {}) {
     const response = await fetch(url, options);
-    if (!response.ok) throw new Error(`API request failed (${response.status})`);
     const type = response.headers.get('content-type') || '';
-    return type.includes('application/json') ? response.json() : null;
+    const data = type.includes('application/json') ? await response.json().catch(() => null) : null;
+    if (!response.ok) {
+      const detail = typeof data?.error === 'string' ? data.error : `HTTP ${response.status}`;
+      throw new Error(detail);
+    }
+    return data;
   }
 
   function renderPagination(total) {
@@ -3371,8 +3254,7 @@ Open for research collaboration, embedded systems development, RF engineering pr
     const totalPages = Math.max(1, Math.ceil(Number(total || 0) / REVIEWS_PER_PAGE));
     for (let page = 1; page <= totalPages; page++) {
       const button = document.createElement('button');
-      button.type = 'button'; button.textContent = String(page);
-      button.classList.toggle('active', page === currentPage);
+      button.type = 'button'; button.textContent = String(page); button.classList.toggle('active', page === currentPage);
       if (page === currentPage) button.setAttribute('aria-current', 'page');
       button.addEventListener('click', () => { currentPage = page; loadReviews(page); });
       pagination.appendChild(button);
@@ -3380,58 +3262,31 @@ Open for research collaboration, embedded systems development, RF engineering pr
   }
 
   function createReviewNode(review) {
-    const item = document.createElement('article'); item.className = 'review-item';
+    const item = document.createElement('article');
+    item.className = 'review-item';
     const head = document.createElement('div'); head.className = 'review-head';
-    const profile = review.googleProfile || {};
-    const locallySaved = reviewIdentity(review);
-    const serverName = review.googleName || profile.name || profile.displayName ||
-      review.user?.name || review.reviewer?.name || review.name || review.userName || '';
-    const serverPhoto = review.googlePhoto || profile.picture || profile.photo ||
-      review.user?.picture || review.reviewer?.picture || review.picture ||
-      review.photo || review.userPhoto || review.profilePhoto || review.profileImage ||
-      review.avatarUrl || review.avatar || '';
-    const isPlaceholderName = !String(serverName).trim() || /^(anonymous|guest|unknown|google user)$/i.test(String(serverName).trim());
-    const isPlaceholderPhoto = !String(serverPhoto).trim() || /(?:^|\/)logo\.png(?:$|\?)/i.test(String(serverPhoto));
-    const reviewerName = (isPlaceholderName ? locallySaved.name : serverName) || serverName || 'Anonymous';
-    const reviewerPhoto = (isPlaceholderPhoto ? locallySaved.photo : serverPhoto) || serverPhoto || 'Images/logo.png';
-    const img = document.createElement('img');
-    img.src = /^https:\/\//i.test(reviewerPhoto) || reviewerPhoto === 'Images/logo.png' ? reviewerPhoto : 'Images/logo.png';
-    img.alt = `${reviewerName} profile picture`;
-    img.referrerPolicy = 'no-referrer'; img.loading = 'lazy';
-    img.addEventListener('error', () => { img.src = 'Images/logo.png'; }, { once: true });
+    const reviewerName = review.googleName || review.googleProfile?.name || review.googleProfile?.displayName || review.user?.name || review.reviewer?.name || review.name || review.userName || 'Anonymous';
+    const reviewerPhoto = review.googlePhoto || review.googleProfile?.picture || review.googleProfile?.photo || review.user?.picture || review.reviewer?.picture || review.picture || review.photo || review.userPhoto || review.profilePhoto || review.profileImage || review.avatarUrl || review.avatar || review.image || null;
+    const img = createAvatar(reviewerPhoto, `${reviewerName} profile photo`);
     const name = document.createElement('strong'); name.textContent = reviewerName;
-    const stars = document.createElement('span'); stars.className = 'review-stars';
-    stars.textContent = '★'.repeat(Math.max(0, Math.min(5, Number(review.rating) || 0)));
+    const stars = document.createElement('span'); stars.className = 'review-stars'; stars.textContent = '★'.repeat(Math.max(0, Math.min(5, Number(review.rating) || 0)));
     head.append(img, name, stars);
-    const content = document.createElement('p'); content.className = 'review-content';
-    content.textContent = review.text || review.review || review.comment || 'No written review.';
+    const content = document.createElement('p'); content.className = 'review-content'; content.textContent = review.text || 'No written review.';
     const meta = document.createElement('div'); meta.className = 'review-meta';
-    const time = review.createdAt || review.timestamp || review.date || review.updatedAt;
-    const date = time ? new Date(time) : null;
-    meta.textContent = `${date && !Number.isNaN(date.valueOf()) ? date.toLocaleString() : 'Date unavailable'} • ${reviewCity(review) || 'Location not shared'}`;
+    const rawDate = review.timestamp || review.createdAt || review.date;
+    const when = rawDate ? new Date(rawDate) : null;
+    meta.textContent = when && !Number.isNaN(when.valueOf()) ? when.toLocaleString() : 'Date unavailable';
     item.append(head, content, meta);
 
-    // Keep Edit and Delete visible for every saved review, including when
-    // GET /reviews omits ownership fields. Authorization is checked on click
-    // and MUST also be enforced by the server for PUT and DELETE.
-    const id = review._id || review.id;
-    if (id) {
-      const actions = document.createElement('div');
-      actions.className = 'review-actions';
+    // Controls are displayed only for the signed-in owner. The API MUST enforce this too.
+    if (review._id && userGoogleId && (review.googleId || review.googleProfile?.id || review.reviewer?.googleId) === userGoogleId) {
+      const actions = document.createElement('div'); actions.className = 'review-actions';
       const edit = document.createElement('button');
-      edit.type = 'button';
-      edit.className = 'edit-review';
-      edit.dataset.id = String(id);
+      edit.type = 'button'; edit.className = 'edit-review'; edit.dataset.id = review._id;
       edit.setAttribute('aria-label', 'Edit review');
       edit.innerHTML = '<i class="fa-solid fa-pen-to-square" aria-hidden="true"></i><span>Edit</span>';
-      const del = document.createElement('button');
-      del.type = 'button';
-      del.className = 'delete-review';
-      del.dataset.id = String(id);
-      del.setAttribute('aria-label', 'Delete review');
-      del.innerHTML = '<i class="fa-solid fa-trash" aria-hidden="true"></i><span>Delete</span>';
-      actions.append(edit, del);
-      item.appendChild(actions);
+      const del = document.createElement('button'); del.type = 'button'; del.className = 'delete-review'; del.dataset.id = review._id; del.textContent = '🗑 Delete';
+      actions.append(edit, del); item.appendChild(actions);
     }
     return item;
   }
@@ -3444,9 +3299,7 @@ Open for research collaboration, embedded systems development, RF engineering pr
     try {
       const data = await apiJson(`${API}/reviews?page=${encodeURIComponent(page)}&limit=${REVIEWS_PER_PAGE}`);
       list.replaceChildren();
-      const reviews = Array.isArray(data?.reviews) ? data.reviews : Array.isArray(data) ? data : [];
-      attachPendingReviewCity(reviews);
-      attachPendingReviewIdentity(reviews);
+      const reviews = Array.isArray(data?.reviews) ? data.reviews : [];
       if (!reviews.length) {
         const empty = document.createElement('p'); empty.textContent = 'No reviews yet.'; list.appendChild(empty);
       } else reviews.forEach(review => list.appendChild(createReviewNode(review)));
@@ -3460,7 +3313,8 @@ Open for research collaboration, embedded systems development, RF engineering pr
   }
 
   function updateStatsFromPayload(data, reviews) {
-    const avgEl = $('#averageRating'); const totalEl = $('#totalRatings');
+    const avgEl = $('#averageRating');
+    const totalEl = $('#totalRatings');
     if (!avgEl || !totalEl) return;
     const rawAvg = data?.averageRating ?? data?.average;
     const explicitAvg = rawAvg === null || rawAvg === undefined || rawAvg === '' ? NaN : Number(rawAvg);
@@ -3471,90 +3325,56 @@ Open for research collaboration, embedded systems development, RF engineering pr
   }
 
   function setupReviews() {
-    const submit = $('#submitReview'); const reviewInput = $('#reviewText');
-    const message = $('#ratingMessage'); const list = $('#reviewsList');
-    if (!submit || !reviewInput || !message || !list) return;
+    const submit = $('#submitReview');
+    const text = $('#reviewText');
+    const message = $('#ratingMessage');
+    const list = $('#reviewsList');
+    if (!submit || !text || !message || !list) return;
+
     submit.addEventListener('click', async () => {
-      if (!googleIdToken || !userGoogleId) { message.textContent = 'Please sign in with Google before submitting.'; return; }
+      if (!googleIdToken || !userGoogleId) { message.textContent = 'Please sign in with Google before submitting a review.'; return; }
       if (!selectedRating) { message.textContent = 'Please choose a star rating first.'; return; }
-      const text = reviewInput.value.trim();
-      submit.disabled = true;
-      try {
-        message.textContent = 'Checking location permission (optional)…';
-        const location = await getReviewLocation();
-        message.textContent = 'Submitting your review…';
-        const createdReview = await apiJson(`${API}/reviews`, {
+      const reviewText = text.value.trim();
+      submit.disabled = true; message.textContent = 'Submitting your review…';
+
+      const post = async () => {
+        // Profile data comes from the Google credential; do not ask the visitor
+        // to type their identity. The API MUST authenticate the bearer token.
+        return apiJson(`${API}/reviews`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${googleIdToken}` },
-          body: JSON.stringify({
-            name: userName, googleName: userName,
-            photo: userPhoto, picture: userPhoto, googlePhoto: userPhoto,
-            profilePhoto: userPhoto, profileImage: userPhoto,
-            googleId: userGoogleId,
-            googleProfile: { id: userGoogleId, name: userName, picture: userPhoto },
-            rating: selectedRating, text,
-            city: location.city,
-            location
-          })
+          body: JSON.stringify({ rating: selectedRating, text: reviewText })
         });
-        // Link the submitted Google profile to THIS review, never every review.
-        const submittedId = createdReview?._id || createdReview?.id ||
-          createdReview?.review?._id || createdReview?.review?.id;
-        const submittingIdentity = {
-          text, rating: selectedRating, googleId: userGoogleId,
-          name: userName, photo: userPhoto
-        };
-        if (submittedId) saveReviewIdentity(submittedId, submittingIdentity);
-        else pendingReviewIdentity = submittingIdentity;
-        if (location.city) {
-          pendingReviewLocation = { text, city: location.city };
-          const id = createdReview?._id || createdReview?.id ||
-            createdReview?.review?._id || createdReview?.review?.id;
-          if (id) {
-            try {
-              const cities = savedReviewCities();
-              cities[String(id)] = location.city;
-              localStorage.setItem(REVIEW_CITY_CACHE_KEY, JSON.stringify(cities));
-            } catch (error) { console.warn('Could not cache review city:', error); }
-          }
-        }
-        reviewInput.value = ''; selectedRating = 0;
-        $$('.star').forEach(s => s.classList.remove('active'));
+      };
+
+      try {
+        await post();
+        text.value = ''; selectedRating = 0; $$('.star').forEach(s => s.classList.remove('active'));
         currentPage = 1; await loadReviews(1);
-        message.textContent = 'Review submitted successfully.';
+        message.textContent = 'Thank you! Your review is now publicly visible.';
       } catch (error) {
-        console.error('Review submission failed:', error);
-        message.textContent = 'Review submission failed. Please try again.';
+        console.error('Review submission failed:', error); message.textContent = `Review submission failed: ${error.message}`;
       } finally { submit.disabled = false; }
     });
 
     list.addEventListener('click', async event => {
       const button = event.target instanceof Element ? event.target.closest('button[data-id]') : null;
       if (!button) return;
+      if (!googleIdToken) { message.textContent = 'Sign in to edit or delete your review.'; return; }
       const id = button.dataset.id;
-      if (!googleIdToken) { message.textContent = 'Sign in with Google to edit or delete your review.'; return; }
       try {
         if (button.classList.contains('delete-review')) {
           if (!confirm('Delete this review?')) return;
-          await apiJson(`${API}/reviews/${encodeURIComponent(id)}`, {
-            method: 'DELETE', headers: { Authorization: `Bearer ${googleIdToken}` }
-          });
+          await apiJson(`${API}/reviews/${encodeURIComponent(id)}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${googleIdToken || ''}` } });
         } else if (button.classList.contains('edit-review')) {
           const oldText = button.closest('.review-item')?.querySelector('.review-content')?.textContent || '';
           const updated = prompt('Edit your review:', oldText);
           if (updated === null) return;
-          await apiJson(`${API}/reviews/${encodeURIComponent(id)}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${googleIdToken}` },
-            body: JSON.stringify({ text: updated.trim() })
-          });
+          await apiJson(`${API}/reviews/${encodeURIComponent(id)}`, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${googleIdToken || ''}` }, body: JSON.stringify({ text: updated.trim() }) });
         }
         await loadReviews(currentPage);
       } catch (error) {
-        console.error('Review update failed:', error);
-        message.textContent = /403|401/.test(String(error)) ?
-          'This action was not authorized. You can only edit/delete your own reviews.' :
-          'Review action failed. Check that your backend supports editing and deleting.';
+        console.error('Review update failed:', error); message.textContent = `Review action failed: ${error.message}`;
       }
     });
 
