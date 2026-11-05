@@ -2668,7 +2668,7 @@ Open for research collaboration, embedded systems development, RF engineering pr
 </div>
 <h3><span id="averageRating">0.0</span>/5</h3>
 <p><span id="totalRatings">0</span> Ratings</p>
-<p id="ratingMessage">Sign in with Google, select a star rating, and share your feedback. Your Google name, profile photo, and city (if you allow browser location access) will be shown publicly with your review.</p>
+<p id="ratingMessage">Sign in with Google, select a star rating, and share your feedback. Your Google profile name and photo will be shown publicly with your review.</p>
 <textarea id="reviewText" placeholder="Write your feedback..." rows="4"></textarea>
 <button id="submitReview" type="button">Submit Review</button>
 <!-- Reviews list and pagination -->
@@ -2755,8 +2755,6 @@ Open for research collaboration, embedded systems development, RF engineering pr
   let userEmail = null;
   let userGoogleId = null;
   let googleIdToken = null;
-  const FALLBACK_AVATAR = 'Images/logo.png';
-  let currentReviewCity = '';
 
   function safeExternalLinks() {
     $$('a[target="_blank"]').forEach(link => {
@@ -3199,61 +3197,42 @@ Open for research collaboration, embedded systems development, RF engineering pr
     });
   }
 
-  function firstNonempty(...values) {
-    return values.find(value => typeof value === 'string' && value.trim())?.trim() || '';
-  }
-
-  function safePhotoURL(value) {
-    if (typeof value !== 'string' || !value.trim()) return FALLBACK_AVATAR;
-    try {
-      const url = new URL(value, window.location.href);
-      return ['https:', 'http:'].includes(url.protocol) ? url.href : FALLBACK_AVATAR;
-    } catch { return FALLBACK_AVATAR; }
-  }
-
-  function attachAvatarError(img) {
-    img.addEventListener('error', () => {
-      if (img.getAttribute('src') !== FALLBACK_AVATAR) img.src = FALLBACK_AVATAR;
-    });
-  }
-
+  // Google sign-in: the ID token is verified by the backend, not by this frontend.
   window.handleGoogleLogin = response => {
     try {
       if (!response?.credential || typeof window.jwt_decode !== 'function') {
         throw new Error('Google credential decoder unavailable');
       }
-      const data = window.jwt_decode(response.credential);
-      if (!data?.sub) throw new Error('Google account identifier missing');
-      // This JWT is read only for presentation; the backend must verify its signature/audience.
+      const profile = window.jwt_decode(response.credential);
+      if (!profile?.sub) throw new Error('Google profile ID missing');
       googleIdToken = response.credential;
-      userGoogleId = data.sub;
-      userName = firstNonempty(data.name, [data.given_name, data.family_name].filter(Boolean).join(' '), 'Google user');
-      userPhoto = safePhotoURL(data.picture);
-      userEmail = data.email || null;
+      userGoogleId = String(profile.sub);
+      userName = profile.name || [profile.given_name, profile.family_name].filter(Boolean).join(' ') || 'Google user';
+      userPhoto = profile.picture || null;
+      userEmail = profile.email || null;
       const info = $('#userInfo');
       if (info) {
         info.replaceChildren();
-        const img = document.createElement('img');
-        img.src = userPhoto;
-        img.alt = `${userName} profile photo`;
-        img.referrerPolicy = 'no-referrer';
-        img.decoding = 'async';
-        attachAvatarError(img);
-        const strong = document.createElement('strong');
-        strong.textContent = userName;
-        info.append(img, strong);
-        info.style.display = 'flex';
+        const avatar = document.createElement('img');
+        avatar.src = userPhoto || 'Images/logo.png';
+        avatar.alt = `${userName} profile picture`;
+        avatar.referrerPolicy = 'no-referrer';
+        avatar.addEventListener('error', () => { avatar.src = 'Images/logo.png'; }, { once: true });
+        const label = document.createElement('strong'); label.textContent = userName;
+        info.append(avatar, label); info.style.display = 'flex';
       }
       const message = $('#ratingMessage');
-      if (message) message.textContent = `Signed in as ${userName}. Select stars and submit a review. You can allow location to show your city publicly.`;
+      if (message) message.textContent = `Signed in as ${userName}. Your Google name and photo will be displayed on new reviews if the review API saves them. Location requires separate permission.`;
       loadReviews(currentPage);
     } catch (error) {
       console.error('Google sign-in failed:', error);
       const message = $('#ratingMessage');
-      if (message) message.textContent = 'Google sign-in could not be completed. Please try again.';
+      if (message) message.textContent = 'Google sign-in failed. Refresh the page and try again.';
     }
   };
 
+  // Google does not provide location. Ask the browser for permission and convert
+  // coordinates to a city. Never put precise coordinates into the public UI.
   async function reverseGeocode(lat, lon) {
     try {
       const url = new URL('https://nominatim.openstreetmap.org/reverse');
@@ -3262,23 +3241,20 @@ Open for research collaboration, embedded systems development, RF engineering pr
       url.searchParams.set('addressdetails', '1');
       url.searchParams.set('lat', String(lat));
       url.searchParams.set('lon', String(lon));
-      const response = await fetch(url.href, { headers: { Accept: 'application/json' } });
+      const response = await fetch(url.toString(), { headers: { Accept: 'application/json' } });
       if (!response.ok) return '';
-      const data = await response.json();
-      const address = data?.address || {};
-      const city = firstNonempty(address.city, address.town, address.village,
-        address.municipality, address.hamlet, address.county);
-      const region = firstNonempty(address.state, address.region);
-      const country = firstNonempty(address.country);
-      return [city, region || country].filter((v, i, array) => v && (i === 0 || v !== array[0])).join(', ');
+      const address = (await response.json())?.address || {};
+      const city = address.city || address.town || address.village || address.municipality || address.county || '';
+      const region = address.state || address.region || '';
+      return [city, region].filter(Boolean).join(', ');
     } catch (error) {
-      console.warn('City lookup unavailable:', error);
+      console.warn('City lookup failed:', error);
       return '';
     }
   }
 
-  async function getReviewCity() {
-    if (!navigator.geolocation || !window.isSecureContext) return '';
+  async function getReviewLocation() {
+    if (!window.isSecureContext || !navigator.geolocation) return { city: '', lat: null, lon: null };
     const coords = await new Promise(resolve => {
       navigator.geolocation.getCurrentPosition(
         position => resolve(position.coords),
@@ -3286,17 +3262,22 @@ Open for research collaboration, embedded systems development, RF engineering pr
         { enableHighAccuracy: false, timeout: 9000, maximumAge: 600000 }
       );
     });
-    if (!coords) return '';
-    return await reverseGeocode(coords.latitude, coords.longitude);
+    if (!coords) return { city: '', lat: null, lon: null };
+    const city = await reverseGeocode(coords.latitude, coords.longitude);
+    // The original backend may still require lat/lon. They are sent privately to
+    // the API for compatibility, but must never be returned in public responses.
+    return { city, lat: coords.latitude, lon: coords.longitude };
   }
 
-  function reviewDisplayCity(review) {
-    const loc = review.location;
-    if (typeof loc === 'string') return firstNonempty(loc);
-    const city = firstNonempty(loc?.city, loc?.town, loc?.municipality, loc?.village,
-      review.city, review.locationCity, review.userLocation?.city, review.reviewer?.city);
-    const region = firstNonempty(loc?.state, loc?.region, review.state);
-    return city && region && !city.includes(region) ? `${city}, ${region}` : city;
+  function reviewOwnerId(review) {
+    return review.googleId || review.googleProfile?.id || review.user?.googleId ||
+      review.reviewer?.googleId || review.userId || review.googleSub || review.ownerGoogleId || null;
+  }
+
+  function reviewCity(review) {
+    const location = review.location;
+    if (typeof location === 'string') return location;
+    return location?.city || review.city || review.locationCity || review.userLocation?.city || '';
   }
 
   async function apiJson(url, options = {}) {
@@ -3313,7 +3294,8 @@ Open for research collaboration, embedded systems development, RF engineering pr
     const totalPages = Math.max(1, Math.ceil(Number(total || 0) / REVIEWS_PER_PAGE));
     for (let page = 1; page <= totalPages; page++) {
       const button = document.createElement('button');
-      button.type = 'button'; button.textContent = String(page); button.classList.toggle('active', page === currentPage);
+      button.type = 'button'; button.textContent = String(page);
+      button.classList.toggle('active', page === currentPage);
       if (page === currentPage) button.setAttribute('aria-current', 'page');
       button.addEventListener('click', () => { currentPage = page; loadReviews(page); });
       pagination.appendChild(button);
@@ -3321,42 +3303,48 @@ Open for research collaboration, embedded systems development, RF engineering pr
   }
 
   function createReviewNode(review) {
-    const item = document.createElement('article');
-    item.className = 'review-item';
+    const item = document.createElement('article'); item.className = 'review-item';
     const head = document.createElement('div'); head.className = 'review-head';
     const profile = review.googleProfile || {};
-    const reviewerName = firstNonempty(review.googleName, profile.name, profile.displayName,
-      review.user?.name, review.reviewer?.name, review.name, review.userName, 'Anonymous');
-    const reviewerPhoto = safePhotoURL(firstNonempty(review.googlePhoto, profile.picture,
-      profile.photo, review.user?.picture, review.user?.photo, review.reviewer?.picture,
-      review.picture, review.photo, review.userPhoto, review.profilePhoto,
-      review.profileImage, review.avatarUrl, review.avatar, review.image));
+    const reviewerName = review.googleName || profile.name || profile.displayName ||
+      review.user?.name || review.reviewer?.name || review.name || review.userName || 'Anonymous';
+    const reviewerPhoto = review.googlePhoto || profile.picture || profile.photo ||
+      review.user?.picture || review.reviewer?.picture || review.picture ||
+      review.photo || review.userPhoto || review.profilePhoto || review.profileImage ||
+      review.avatarUrl || review.avatar || 'Images/logo.png';
     const img = document.createElement('img');
-    img.src = reviewerPhoto;
-    img.alt = `${reviewerName} profile photo`;
-    img.referrerPolicy = 'no-referrer';
-    img.loading = 'lazy';
-    img.decoding = 'async';
-    attachAvatarError(img);
+    img.src = /^https:\/\//i.test(reviewerPhoto) || reviewerPhoto === 'Images/logo.png' ? reviewerPhoto : 'Images/logo.png';
+    img.alt = `${reviewerName} profile picture`;
+    img.referrerPolicy = 'no-referrer'; img.loading = 'lazy';
+    img.addEventListener('error', () => { img.src = 'Images/logo.png'; }, { once: true });
     const name = document.createElement('strong'); name.textContent = reviewerName;
-    const stars = document.createElement('span'); stars.className = 'review-stars'; stars.textContent = '★'.repeat(Math.max(0, Math.min(5, Number(review.rating) || 0)));
+    const stars = document.createElement('span'); stars.className = 'review-stars';
+    stars.textContent = '★'.repeat(Math.max(0, Math.min(5, Number(review.rating) || 0)));
     head.append(img, name, stars);
-    const content = document.createElement('p'); content.className = 'review-content'; content.textContent = review.text || 'No written review.';
+    const content = document.createElement('p'); content.className = 'review-content';
+    content.textContent = review.text || review.review || review.comment || 'No written review.';
     const meta = document.createElement('div'); meta.className = 'review-meta';
-    const dateValue = review.createdAt || review.timestamp || review.date || review.updatedAt;
-    const when = dateValue ? new Date(dateValue) : null;
-    const city = reviewDisplayCity(review);
-    meta.textContent = `${when && !Number.isNaN(when.valueOf()) ? when.toLocaleString() : 'Date unavailable'} • ${city || 'Location not shared'}`;
+    const time = review.createdAt || review.timestamp || review.date || review.updatedAt;
+    const date = time ? new Date(time) : null;
+    meta.textContent = `${date && !Number.isNaN(date.valueOf()) ? date.toLocaleString() : 'Date unavailable'} • ${reviewCity(review) || 'Location not shared'}`;
     item.append(head, content, meta);
 
-    // Controls are displayed only for the signed-in owner. The API MUST enforce this too.
-    if (review._id && userGoogleId && (review.googleId || review.googleProfile?.id || review.reviewer?.googleId) === userGoogleId) {
+    // Some backends hide the owner ID in GET /reviews. In that case show the
+    // controls to a signed-in user; the server MUST verify token ownership for
+    // PUT/DELETE. A UI button never grants permission.
+    const id = review._id || review.id;
+    const ownerId = reviewOwnerId(review);
+    const isOwner = review.isOwner === true || review.canEdit === true ||
+      (ownerId && String(ownerId) === String(userGoogleId));
+    const ownerUnknown = !ownerId && review.isOwner === undefined && review.canEdit === undefined;
+    if (id && googleIdToken && (isOwner || ownerUnknown)) {
       const actions = document.createElement('div'); actions.className = 'review-actions';
       const edit = document.createElement('button');
-      edit.type = 'button'; edit.className = 'edit-review'; edit.dataset.id = review._id;
-      edit.setAttribute('aria-label', 'Edit review');
+      edit.type = 'button'; edit.className = 'edit-review'; edit.dataset.id = id;
       edit.innerHTML = '<i class="fa-solid fa-pen-to-square" aria-hidden="true"></i><span>Edit</span>';
-      const del = document.createElement('button'); del.type = 'button'; del.className = 'delete-review'; del.dataset.id = review._id; del.textContent = '🗑 Delete';
+      const del = document.createElement('button');
+      del.type = 'button'; del.className = 'delete-review'; del.dataset.id = id;
+      del.textContent = '🗑 Delete';
       actions.append(edit, del); item.appendChild(actions);
     }
     return item;
@@ -3370,7 +3358,7 @@ Open for research collaboration, embedded systems development, RF engineering pr
     try {
       const data = await apiJson(`${API}/reviews?page=${encodeURIComponent(page)}&limit=${REVIEWS_PER_PAGE}`);
       list.replaceChildren();
-      const reviews = Array.isArray(data?.reviews) ? data.reviews : [];
+      const reviews = Array.isArray(data?.reviews) ? data.reviews : Array.isArray(data) ? data : [];
       if (!reviews.length) {
         const empty = document.createElement('p'); empty.textContent = 'No reviews yet.'; list.appendChild(empty);
       } else reviews.forEach(review => list.appendChild(createReviewNode(review)));
@@ -3384,8 +3372,7 @@ Open for research collaboration, embedded systems development, RF engineering pr
   }
 
   function updateStatsFromPayload(data, reviews) {
-    const avgEl = $('#averageRating');
-    const totalEl = $('#totalRatings');
+    const avgEl = $('#averageRating'); const totalEl = $('#totalRatings');
     if (!avgEl || !totalEl) return;
     const rawAvg = data?.averageRating ?? data?.average;
     const explicitAvg = rawAvg === null || rawAvg === undefined || rawAvg === '' ? NaN : Number(rawAvg);
@@ -3396,51 +3383,40 @@ Open for research collaboration, embedded systems development, RF engineering pr
   }
 
   function setupReviews() {
-    const submit = $('#submitReview');
-    const text = $('#reviewText');
-    const message = $('#ratingMessage');
-    const list = $('#reviewsList');
-    if (!submit || !text || !message || !list) return;
-
+    const submit = $('#submitReview'); const reviewInput = $('#reviewText');
+    const message = $('#ratingMessage'); const list = $('#reviewsList');
+    if (!submit || !reviewInput || !message || !list) return;
     submit.addEventListener('click', async () => {
-      if (!googleIdToken || !userGoogleId) { message.textContent = 'Please sign in with Google before submitting a review.'; return; }
+      if (!googleIdToken || !userGoogleId) { message.textContent = 'Please sign in with Google before submitting.'; return; }
       if (!selectedRating) { message.textContent = 'Please choose a star rating first.'; return; }
-      const reviewText = text.value.trim();
-      submit.disabled = true; message.textContent = 'Submitting your review…';
-
-      const post = async city => {
-        // Name and photo come from Google. City comes from browser geolocation + city lookup.
-        // Do not publish GPS coordinates; send nulls for compatibility with older APIs.
-        return await apiJson(`${API}/reviews`, {
+      const text = reviewInput.value.trim();
+      submit.disabled = true;
+      try {
+        message.textContent = 'Checking location permission (optional)…';
+        const location = await getReviewLocation();
+        message.textContent = 'Submitting your review…';
+        await apiJson(`${API}/reviews`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${googleIdToken}` },
           body: JSON.stringify({
-            name: userName,
-            googleName: userName,
-            photo: userPhoto,
-            picture: userPhoto,
-            googlePhoto: userPhoto,
-            profilePhoto: userPhoto,
-            profileImage: userPhoto,
+            name: userName, googleName: userName,
+            photo: userPhoto, picture: userPhoto, googlePhoto: userPhoto,
+            profilePhoto: userPhoto, profileImage: userPhoto,
             googleId: userGoogleId,
             googleProfile: { id: userGoogleId, name: userName, picture: userPhoto },
-            rating: selectedRating,
-            text: reviewText,
-            city: city || '',
-            location: { city: city || '', lat: null, lon: null }
+            rating: selectedRating, text,
+            city: location.city,
+            location
           })
         });
-      };
-
-      try {
-        message.textContent = 'Checking city location (permission optional)…';
-        currentReviewCity = await getReviewCity();
-        message.textContent = 'Submitting your review…';
-        await post(currentReviewCity);
-        text.value = ''; selectedRating = 0; $$('.star').forEach(s => s.classList.remove('active'));
-        message.textContent = currentReviewCity ? `Thank you! Your review was submitted with ${currentReviewCity}.` : 'Thank you! Your review was submitted without a city (location unavailable or permission denied).'; currentPage = 1; await loadReviews(1);
+        reviewInput.value = ''; selectedRating = 0;
+        $$('.star').forEach(s => s.classList.remove('active'));
+        currentPage = 1; await loadReviews(1);
+        message.textContent = location.city ? `Review submitted. City: ${location.city}.` :
+          'Review submitted. City unavailable (permission or city lookup may have failed).';
       } catch (error) {
-        console.error('Review submission failed:', error); message.textContent = 'Your review could not be submitted. Please try again.';
+        console.error('Review submission failed:', error);
+        message.textContent = 'Review submission failed. Please try again.';
       } finally { submit.disabled = false; }
     });
 
@@ -3448,19 +3424,29 @@ Open for research collaboration, embedded systems development, RF engineering pr
       const button = event.target instanceof Element ? event.target.closest('button[data-id]') : null;
       if (!button) return;
       const id = button.dataset.id;
+      if (!googleIdToken) { message.textContent = 'Sign in with Google to edit or delete your review.'; return; }
       try {
         if (button.classList.contains('delete-review')) {
           if (!confirm('Delete this review?')) return;
-          await apiJson(`${API}/reviews/${encodeURIComponent(id)}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${googleIdToken || ''}` } });
+          await apiJson(`${API}/reviews/${encodeURIComponent(id)}`, {
+            method: 'DELETE', headers: { Authorization: `Bearer ${googleIdToken}` }
+          });
         } else if (button.classList.contains('edit-review')) {
           const oldText = button.closest('.review-item')?.querySelector('.review-content')?.textContent || '';
           const updated = prompt('Edit your review:', oldText);
           if (updated === null) return;
-          await apiJson(`${API}/reviews/${encodeURIComponent(id)}`, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${googleIdToken || ''}` }, body: JSON.stringify({ text: updated.trim() }) });
+          await apiJson(`${API}/reviews/${encodeURIComponent(id)}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${googleIdToken}` },
+            body: JSON.stringify({ text: updated.trim() })
+          });
         }
         await loadReviews(currentPage);
       } catch (error) {
-        console.error('Review update failed:', error); message.textContent = 'That review action could not be completed.';
+        console.error('Review update failed:', error);
+        message.textContent = /403|401/.test(String(error)) ?
+          'This action was not authorized. You can only edit/delete your own reviews.' :
+          'Review action failed. Check that your backend supports editing and deleting.';
       }
     });
 
