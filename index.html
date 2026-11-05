@@ -3274,10 +3274,42 @@ Open for research collaboration, embedded systems development, RF engineering pr
       review.reviewer?.googleId || review.userId || review.googleSub || review.ownerGoogleId || null;
   }
 
+  // Remember a city for a review submitted on this device when an older
+  // backend fails to return its stored city. This does not publish the city
+  // for other visitors; the API must persist and return it for that.
+  const REVIEW_CITY_CACHE_KEY = 'portfolio_review_city_by_id_v1';
+  let pendingReviewLocation = null;
+  function savedReviewCities() {
+    try { return JSON.parse(localStorage.getItem(REVIEW_CITY_CACHE_KEY) || '{}') || {}; }
+    catch { return {}; }
+  }
+  function attachPendingReviewCity(reviews) {
+    if (!pendingReviewLocation?.city) return;
+    const match = reviews.find(r => {
+      const reviewText = r.text || r.review || r.comment || '';
+      const rid = reviewOwnerId(r);
+      return reviewText.trim() === pendingReviewLocation.text &&
+        (!rid || String(rid) === String(userGoogleId));
+    });
+    if (!match) return;
+    const id = match._id || match.id;
+    if (id) {
+      try {
+        const cities = savedReviewCities();
+        cities[String(id)] = pendingReviewLocation.city;
+        localStorage.setItem(REVIEW_CITY_CACHE_KEY, JSON.stringify(cities));
+      } catch (error) { console.warn('Could not cache review city:', error); }
+    }
+    pendingReviewLocation = null;
+  }
+
   function reviewCity(review) {
     const location = review.location;
     if (typeof location === 'string') return location;
-    return location?.city || review.city || review.locationCity || review.userLocation?.city || '';
+    const fromAPI = location?.city || location?.display_name || review.city ||
+      review.locationCity || review.userLocation?.city || review.locationName || '';
+    const id = review._id || review.id;
+    return fromAPI || (id ? savedReviewCities()[String(id)] : '') || '';
   }
 
   async function apiJson(url, options = {}) {
@@ -3363,6 +3395,7 @@ Open for research collaboration, embedded systems development, RF engineering pr
       const data = await apiJson(`${API}/reviews?page=${encodeURIComponent(page)}&limit=${REVIEWS_PER_PAGE}`);
       list.replaceChildren();
       const reviews = Array.isArray(data?.reviews) ? data.reviews : Array.isArray(data) ? data : [];
+      attachPendingReviewCity(reviews);
       if (!reviews.length) {
         const empty = document.createElement('p'); empty.textContent = 'No reviews yet.'; list.appendChild(empty);
       } else reviews.forEach(review => list.appendChild(createReviewNode(review)));
@@ -3399,7 +3432,7 @@ Open for research collaboration, embedded systems development, RF engineering pr
         message.textContent = 'Checking location permission (optional)…';
         const location = await getReviewLocation();
         message.textContent = 'Submitting your review…';
-        await apiJson(`${API}/reviews`, {
+        const createdReview = await apiJson(`${API}/reviews`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${googleIdToken}` },
           body: JSON.stringify({
@@ -3413,11 +3446,22 @@ Open for research collaboration, embedded systems development, RF engineering pr
             location
           })
         });
+        if (location.city) {
+          pendingReviewLocation = { text, city: location.city };
+          const id = createdReview?._id || createdReview?.id ||
+            createdReview?.review?._id || createdReview?.review?.id;
+          if (id) {
+            try {
+              const cities = savedReviewCities();
+              cities[String(id)] = location.city;
+              localStorage.setItem(REVIEW_CITY_CACHE_KEY, JSON.stringify(cities));
+            } catch (error) { console.warn('Could not cache review city:', error); }
+          }
+        }
         reviewInput.value = ''; selectedRating = 0;
         $$('.star').forEach(s => s.classList.remove('active'));
         currentPage = 1; await loadReviews(1);
-        message.textContent = location.city ? `Review submitted. City: ${location.city}.` :
-          'Review submitted. City unavailable (permission or city lookup may have failed).';
+        message.textContent = 'Review submitted successfully.';
       } catch (error) {
         console.error('Review submission failed:', error);
         message.textContent = 'Review submission failed. Please try again.';
