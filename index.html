@@ -152,6 +152,9 @@ section { width: min(1320px, 100%); margin: 0 auto; padding: 112px clamp(18px, 4
 #socialButtons { display:none; flex-wrap:wrap; gap:10px; margin:0 !important; }
 .btn { display:inline-flex; align-items:center; justify-content:center; gap:9px; min-height:44px; padding:10px 17px; border-radius:12px; border:1px solid transparent; text-decoration:none; font-weight:600; font-size:.92rem; cursor:pointer; transition:.2s ease; }
 .btn:hover { transform:translateY(-2px); }
+/* Match Follow and Contact typography exactly. */
+.home-action-btn { font-family: inherit; font-size: 20px; font-weight: 600; line-height: 1.4; }
+.home-action-btn i { font-size: .9em; }
 .btn-primary { color:#001018; background:linear-gradient(135deg,#67e8f9,#22d3ee); box-shadow:0 10px 28px rgba(34,211,238,.18); }
 .btn-outline { color:#e5f6ff; background:rgba(255,255,255,.045); border-color:var(--line); }
 .btn-outline:hover { background:rgba(255,255,255,.09); }
@@ -1155,6 +1158,68 @@ header .nav-links a { width: 100% !important; padding: 11px 13px !important; }
     transition: none;
   }
 }
+
+/* Horizontal 3D galleries: three distinct opaque cards, no arrows/scrollbars. */
+#projects .stack-gallery, #publication .stack-gallery, #presentations .stack-gallery,
+#research .stack-gallery, #achievements .stack-gallery, #certifications .stack-gallery,
+#highlights .stack-gallery {
+  position:relative; width:100%; padding:14px 0 0 !important;
+  overflow:hidden !important; scrollbar-width:none !important;
+  overscroll-behavior-x:contain; touch-action:pan-y;
+}
+.stack-gallery::-webkit-scrollbar { display:none !important; }
+.stack-gallery .stack-stage {
+  position:relative; display:block !important; width:100%; min-height:300px;
+  margin:0 !important; padding:0 !important; overflow:visible;
+  transform:none !important; transition:height .28s ease !important;
+  perspective:1600px; isolation:isolate; cursor:grab;
+}
+.stack-gallery .stack-stage:active {cursor:grabbing;}
+.stack-gallery .stack-stage::before,.stack-gallery .stack-stage::after {display:none !important;}
+.stack-gallery .stack-stage > .project-card {
+  position:absolute !important; left:50%; top:10px;
+  width:calc((100% - 48px)/3) !important; min-width:0 !important; max-width:390px !important;
+  height:auto !important; min-height:0 !important; margin:0 !important;
+  flex:none !important; border-radius:20px !important;
+  background:#fff !important; border:1px solid #bfd8ec !important;
+  opacity:0 !important; visibility:hidden; pointer-events:none !important;
+  transform:translateX(-50%) scale(.88) !important;
+  transition:transform .42s cubic-bezier(.2,.7,.2,1),opacity .28s ease,visibility .28s ease !important;
+  box-shadow:0 16px 38px rgba(35,84,129,.14) !important;
+  overflow:hidden !important; z-index:1;
+}
+.stack-gallery .stack-stage > .project-card.stack-active {
+  opacity:1 !important; visibility:visible; pointer-events:auto !important;
+  transform:translateX(-50%) rotateY(0deg) scale(1) !important;
+  box-shadow:0 23px 48px rgba(35,84,129,.20) !important;z-index:5;
+}
+.stack-gallery .stack-stage > .project-card.stack-left,
+.stack-gallery .stack-stage > .project-card.stack-right {
+  opacity:1 !important; visibility:visible; pointer-events:auto !important; z-index:3;
+}
+.stack-gallery .stack-stage > .project-card.stack-left {
+  transform:translateX(-50%) translateX(calc(-1 * var(--side-shift, 370px))) rotateY(9deg) scale(.95) !important;
+}
+.stack-gallery .stack-stage > .project-card.stack-right {
+  transform:translateX(-50%) translateX(var(--side-shift, 370px)) rotateY(-9deg) scale(.95) !important;
+}
+.stack-gallery .stack-stage > .project-card.stack-left .project-content,
+.stack-gallery .stack-stage > .project-card.stack-right .project-content {pointer-events:none;}
+.stack-gallery .stack-stage > .project-card .project-content {position:relative; background:#fff !important;}
+.stack-gallery .stack-stage > .project-card > img {width:100%; object-fit:cover;}
+.stack-gallery .stack-count-only {text-align:center; font-size:.9rem; font-weight:700; color:#215571; margin:5px auto 26px;}
+#projects .project-scroll-track,#publication .project-scroll-track,#presentations .project-scroll-track,
+#research .project-scroll-track,#achievements .project-scroll-track,#certifications .project-scroll-track,
+#highlights .project-scroll-track,.stack-gallery .nav-btn,.stack-controls,.stack-dots {display:none !important;}
+@media(max-width:760px) {
+  .stack-gallery .stack-stage > .project-card {width:82% !important; max-width:420px !important;}
+  .stack-gallery .stack-stage > .project-card .project-content {padding:18px;}
+  .stack-gallery .stack-stage > .project-card > img {height:190px !important;}
+  .stack-gallery .stack-stage > .project-card.stack-left {opacity:.7 !important;}
+  .stack-gallery .stack-stage > .project-card.stack-right {opacity:.7 !important;}
+}
+@media(prefers-reduced-motion:reduce) { .stack-gallery .stack-stage > .project-card {transition:none !important;} }
+
 </style>
 </head>
 <body>
@@ -1217,7 +1282,8 @@ I'm passionate about Embedded Systems, RF Engineering, ASIC Physical Design,
 THz Communication and Software Testing.
 </p>
 <div class="hero-buttons">
-<button class="btn btn-primary" id="followBtn" style="font-size: 20px;" type="button">Follow</button>
+<button class="btn btn-primary home-action-btn" id="followBtn" type="button" aria-expanded="false"><i class="fa-solid fa-plus" aria-hidden="true"></i><span class="follow-label">Follow</span></button>
+<a class="btn btn-outline home-action-btn" id="homeContactBtn" data-tab="contact" href="#contact"><i class="fa-solid fa-address-book" aria-hidden="true"></i> Contact</a>
 <div id="socialButtons" style="display: none; margin-top: 15px;">
 <a class="btn btn-primary" href="mailto:saianirudh.kefp2@gmail.com" rel="noopener noreferrer" target="_blank">
 <i class="fa-solid fa-envelope"></i> Email
@@ -2845,24 +2911,25 @@ THz Communication and Software Testing.
         <i class="fa-solid fa-arrow-up-right-from-square"></i>
       </a>
       <a class="contact-option"
-         href="mailto:saianirudh.kefp2@gmail.com?subject=Engineering%20Opportunity%20-%20Portfolio%20Inquiry">
+         href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=saianirudh.kefp2%40gmail.com&amp;su=Engineering%20Opportunity%20-%20Portfolio%20Inquiry"
+         target="_blank" rel="noopener noreferrer">
         <div class="contact-icon">
           <i class="fa-solid fa-envelope"></i>
         </div>
         <div class="contact-option-text">
           <strong>Email Me</strong>
-          <span>saianirudh.kefp2@gmail.com</span>
+          <span>Click to send an email</span>
         </div>
         <i class="fa-solid fa-arrow-right"></i>
       </a>
       <a class="contact-option"
-         href="tel:+18167153854">
+         href="tel:+18167153854" id="contactCallButton">
         <div class="contact-icon">
           <i class="fa-solid fa-phone-volume"></i>
         </div>
         <div class="contact-option-text">
           <strong>Call Me</strong>
-          <span>+1 (816) 715-3854</span>
+          <span>Tap to call or copy number on desktop</span>
         </div>
         <i class="fa-solid fa-arrow-right"></i>
       </a>
@@ -3043,7 +3110,7 @@ THz Communication and Software Testing.
   }
 
   function setupTabs() {
-    const links = $$('.nav-links a[data-tab], .header-home[data-tab]');
+    const links = $$('.nav-links a[data-tab], .header-home[data-tab], #homeContactBtn[data-tab]');
     const pages = $$('.tab-page');
     const navLinks = $('#navLinks');
     const menuBtn = $('#menuBtn');
@@ -3134,7 +3201,10 @@ THz Communication and Software Testing.
     button.addEventListener('click', () => {
       const open = getComputedStyle(social).display !== 'none';
       social.style.display = open ? 'none' : 'flex';
-      button.textContent = open ? 'Follow' : 'Unfollow';
+      const label = button.querySelector('.follow-label');
+      const icon = button.querySelector('i');
+      if (label) label.textContent = open ? 'Follow' : 'Unfollow';
+      if (icon) icon.className = open ? 'fa-solid fa-plus' : 'fa-solid fa-minus';
       button.setAttribute('aria-expanded', String(!open));
     });
   }
@@ -3239,12 +3309,7 @@ THz Communication and Software Testing.
   }
 
   function setupSliders() {
-    // Native horizontal scrolling replaces the arrow-driven transform slider.
-    // Preserve scroll positions as visitors move between portfolio tabs.
-    $$('.slider-wrapper').forEach(wrapper => {
-      wrapper.setAttribute('tabindex', '0');
-      wrapper.setAttribute('aria-label', 'Scroll project cards horizontally');
-    });
+    // Galleries are initialized by the 3D stack controller below.
   }
 
   function setupModal() {
@@ -3906,72 +3971,109 @@ startVisitorTracking();
 </script>
 
 <script>
-/* Persistent horizontal scroll indicators for project galleries on mobile. */
+/* Horizontal 3D gallery: finite (non-looping) navigation, touch swipe and mouse drag. */
 (function () {
-  function initializeProjectScrollbars() {
-    document.querySelectorAll('.project-category .slider-wrapper, #research > .slider-wrapper').forEach((wrapper) => {
-      if (wrapper.nextElementSibling?.classList.contains('project-scroll-track')) return;
-      const track = document.createElement('div');
-      track.className = 'project-scroll-track';
-      track.setAttribute('role', 'scrollbar');
-      track.setAttribute('aria-label', wrapper.closest('#research') ? 'Research papers horizontal scrollbar' : 'Project cards horizontal scrollbar');
-      track.setAttribute('aria-orientation', 'horizontal');
-      track.setAttribute('tabindex', '0');
-      const thumb = document.createElement('div');
-      thumb.className = 'project-scroll-thumb';
-      track.appendChild(thumb);
-      wrapper.insertAdjacentElement('afterend', track);
-      function update() {
-        const max = Math.max(0, wrapper.scrollWidth - wrapper.clientWidth);
-        const trackWidth = track.clientWidth;
-        track.classList.toggle('no-overflow', max < 2);
-        if (!trackWidth || !wrapper.clientWidth) return;
-        const thumbWidth = Math.min(trackWidth, Math.max(38, trackWidth * wrapper.clientWidth / wrapper.scrollWidth));
-        const travel = Math.max(0, trackWidth - thumbWidth);
-        thumb.style.width = thumbWidth + 'px';
-        thumb.style.transform = 'translateX(' + (max ? wrapper.scrollLeft / max * travel : 0) + 'px)';
-        track.setAttribute('aria-valuemin', '0');
-        track.setAttribute('aria-valuemax', String(Math.round(max)));
-        track.setAttribute('aria-valuenow', String(Math.round(wrapper.scrollLeft)));
-      }
-      let dragging = false;
-      function moveTo(clientX) {
-        const rect = track.getBoundingClientRect();
-        const thumbWidth = thumb.getBoundingClientRect().width;
-        const travel = Math.max(1, rect.width - thumbWidth);
-        const fraction = Math.max(0, Math.min(1, (clientX - rect.left - thumbWidth / 2) / travel));
-        wrapper.scrollLeft = fraction * Math.max(0, wrapper.scrollWidth - wrapper.clientWidth);
-      }
-      track.addEventListener('pointerdown', (event) => {
-        if (window.innerWidth > 760 && !wrapper.closest('#research')) return;
-        dragging = true;
-        track.setPointerCapture(event.pointerId);
-        moveTo(event.clientX);
-        event.preventDefault();
+  const sections=['projects','publication','presentations','research','achievements','certifications','highlights'];
+  const refreshers=[];
+  function setup(wrapper) {
+    if(wrapper.dataset.stackReady==='true')return;
+    const stage=wrapper.querySelector(':scope > .slider-container');
+    if(!stage)return;
+    const cards=Array.from(stage.children).filter(c=>c.classList.contains('project-card'));
+    if(!cards.length)return;
+    wrapper.dataset.stackReady='true';wrapper.classList.add('stack-gallery');
+    stage.classList.add('stack-stage');
+    wrapper.querySelectorAll('.nav-btn').forEach(el=>el.remove());
+    const old=wrapper.nextElementSibling;
+    if(old && old.classList.contains('stack-controls'))old.remove();
+    let current=0,start=null,suppressClick=false;
+    const count=document.createElement('div');count.className='stack-count-only';
+    count.setAttribute('aria-live','polite');
+    if(cards.length>1)wrapper.appendChild(count);
+    function fit(){
+      const width=cards[current].getBoundingClientRect().width;
+      if(width>0)stage.style.setProperty('--side-shift',Math.ceil(width+18)+'px');
+      const height=cards[current].offsetHeight;
+      if(height>0){const desired=height+24;
+        if(Math.abs((parseFloat(stage.style.height)||0)-desired)>2)stage.style.height=desired+'px';}
+    }
+    function render(){
+      cards.forEach((card,i)=>{
+        const active=i===current;
+        // Do NOT wrap: the first card has no previous card; the last has no next card.
+        const left=i===current-1, right=i===current+1;
+        card.classList.toggle('stack-active',active);
+        card.classList.toggle('stack-left',left);
+        card.classList.toggle('stack-right',right);
+        card.setAttribute('aria-hidden',String(!active));
+        card.querySelectorAll('a,button,input,textarea,select,[tabindex]').forEach(el=>{
+          if(!active){if(!el.hasAttribute('data-stack-tab'))el.setAttribute('data-stack-tab',el.getAttribute('tabindex')??'');el.setAttribute('tabindex','-1');}
+          else if(el.hasAttribute('data-stack-tab')){const prev=el.getAttribute('data-stack-tab');if(prev==='')el.removeAttribute('tabindex');else el.setAttribute('tabindex',prev);el.removeAttribute('data-stack-tab');}
+        });
       });
-      track.addEventListener('pointermove', (event) => { if (dragging) moveTo(event.clientX); });
-      track.addEventListener('pointerup', () => { dragging = false; });
-      track.addEventListener('pointercancel', () => { dragging = false; });
-      track.addEventListener('keydown', (event) => {
-        if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
-          wrapper.scrollBy({ left: event.key === 'ArrowRight' ? 150 : -150, behavior: 'smooth' });
-          event.preventDefault();
-        }
-      });
-      wrapper.addEventListener('scroll', update, { passive: true });
-      if ('ResizeObserver' in window) {
-        const observer = new ResizeObserver(update);
-        observer.observe(wrapper);
-        const content = wrapper.querySelector('.slider-container');
-        if (content) observer.observe(content);
-      }
-      window.addEventListener('resize', update, { passive: true });
-      document.querySelectorAll('.nav-links a, .header-home').forEach((link) => link.addEventListener('click', () => { requestAnimationFrame(update); setTimeout(update, 350); }));
-      update();
+      count.textContent=`${current+1} / ${cards.length}`;
+      fit();requestAnimationFrame(fit);
+    }
+    function setCurrent(i){
+      const next=Math.max(0,Math.min(cards.length-1,i));
+      if(next===current)return;
+      current=next;render();
+    }
+    cards.forEach((card,i)=>card.addEventListener('click',e=>{
+      if(suppressClick){e.preventDefault();e.stopPropagation();return;}
+      if(i!==current){e.preventDefault();e.stopPropagation();setCurrent(i);}
+    }));
+    stage.addEventListener('pointerdown',e=>{
+      if(cards.length<2 || (e.pointerType==='mouse'&&e.button!==0))return;
+      start={x:e.clientX,y:e.clientY};
     });
+    stage.addEventListener('pointerup',e=>{
+      if(!start)return;
+      const dx=e.clientX-start.x,dy=e.clientY-start.y;start=null;
+      if(Math.abs(dx)>42 && Math.abs(dx)>Math.abs(dy)*1.2){
+        suppressClick=true;setCurrent(current+(dx<0?1:-1));
+        setTimeout(()=>{suppressClick=false;},350);
+      }
+    });
+    stage.addEventListener('pointercancel',()=>{start=null;});
+    stage.addEventListener('click',e=>{if(suppressClick){e.preventDefault();e.stopPropagation();}},true);
+    wrapper.addEventListener('keydown',e=>{
+      if(e.key==='ArrowRight'||e.key==='ArrowLeft'){
+        e.preventDefault();setCurrent(current+(e.key==='ArrowRight'?1:-1));
+      }
+    });
+    cards.forEach(c=>c.querySelectorAll('img').forEach(img=>img.addEventListener('load',fit)));
+    if('ResizeObserver' in window){const obs=new ResizeObserver(fit);cards.forEach(c=>obs.observe(c));}
+    refreshers.push(fit);render();
   }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initializeProjectScrollbars);
-  else initializeProjectScrollbars();
+  function init(){
+    sections.forEach(id=>document.querySelectorAll(`#${id} .slider-wrapper`).forEach(setup));
+    window.addEventListener('resize',()=>refreshers.forEach(f=>f()),{passive:true});
+    document.querySelectorAll('.nav-links a,.header-home').forEach(link=>link.addEventListener('click',()=>setTimeout(()=>refreshers.forEach(f=>f()),80)));
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+</script>
+
+<script>
+/* Contact links: Gmail works in the browser; calling opens the dialer on phones. */
+(function () {
+  const callLink = document.getElementById('contactCallButton');
+  if (!callLink) return;
+  callLink.addEventListener('click', async function (event) {
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    if (isMobile) return; // allow the native tel: handler
+    event.preventDefault();
+    const phone = '+1 (816) 715-3854';
+    try {
+      if (!navigator.clipboard || !window.isSecureContext) throw new Error('Clipboard not available');
+      await navigator.clipboard.writeText(phone);
+      alert('Phone number copied: ' + phone + '\nPaste it into your calling app to dial.');
+    } catch (err) {
+      // Clipboard restrictions vary when the HTML file is opened locally.
+      window.prompt('Copy the phone number to call:', phone);
+    }
+  });
 })();
 </script>
 </body>
