@@ -971,6 +971,190 @@ header .nav-links a { width: 100% !important; padding: 11px 13px !important; }
 #reviews .review-head strong { overflow-wrap: anywhere; }
 #reviews .review-stars { white-space: nowrap; }
 #reviews .review-meta { overflow-wrap: anywhere; }
+/* ===== PROFESSIONAL CONTACT SECTION ===== */
+#contact .contact-modern {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: clamp(25px, 5vw, 55px);
+  border-radius: 28px;
+  background: linear-gradient(145deg, #ffffff, #eaf6ff);
+  border: 1px solid #c9e4f5;
+  box-shadow: 0 20px 65px rgba(28, 90, 150, .12);
+}
+#contact .contact-intro {
+  text-align: center;
+}
+#contact .contact-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 16px;
+  background: #e7f8ee;
+  color: #16713d;
+  border: 1px solid #b8e8c9;
+  border-radius: 30px;
+  font-size: .8rem;
+  font-weight: 700;
+}
+#contact .status-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 4px rgba(34,197,94,.15);
+}
+#contact .contact-intro h3 {
+  font-size: clamp(1.7rem, 4vw, 2.7rem);
+  line-height: 1.2;
+  color: #142d49;
+  margin: 24px 0 18px;
+}
+#contact .contact-intro h3 span {
+  color: #0783b5;
+}
+#contact .contact-intro p {
+  max-width: 760px;
+  margin: auto;
+  font-size: 1rem;
+  line-height: 1.85;
+  color: #536e85;
+}
+#contact .contact-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 9px;
+  margin: 26px 0 36px;
+}
+#contact .contact-tags span {
+  padding: 8px 13px;
+  border-radius: 30px;
+  background: #e5f3ff;
+  border: 1px solid #cce6f8;
+  color: #17638d;
+  font-size: .78rem;
+  font-weight: 600;
+}
+#contact .contact-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+#contact .contact-option {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  min-width: 0;
+  padding: 22px;
+  background: #fff;
+  border: 1px solid #d4e6f3;
+  border-radius: 18px;
+  text-decoration: none;
+  color: #183651;
+  transition: transform .2s ease,
+              box-shadow .2s ease,
+              border-color .2s ease;
+}
+#contact .contact-option:hover {
+  transform: translateY(-4px);
+  border-color: #60b9e6;
+  box-shadow: 0 12px 30px rgba(0,110,180,.12);
+}
+#contact .primary-contact {
+  grid-column: 1 / -1;
+  background: linear-gradient(110deg, #076a9c, #1094c1);
+  border-color: transparent;
+  color: #fff;
+}
+#contact .contact-icon {
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  display: grid;
+  place-items: center;
+  border-radius: 15px;
+  background: #e5f4ff;
+  color: #0475a8;
+  font-size: 1.35rem;
+}
+#contact .primary-contact .contact-icon {
+  background: rgba(255,255,255,.18);
+  color: white;
+}
+#contact .contact-option-text {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+  min-width: 0;
+}
+#contact .contact-option-text strong {
+  font-size: 1.05rem;
+}
+#contact .contact-option-text span {
+  font-size: .83rem;
+  opacity: .8;
+  overflow-wrap: anywhere;
+}
+#contact .contact-option > .fa-arrow-right,
+#contact .contact-option > .fa-arrow-up-right-from-square {
+  font-size: .9rem;
+  opacity: .7;
+}
+#contact .contact-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  margin-top: 30px;
+  padding-top: 24px;
+  border-top: 1px solid #d6e9f5;
+  color: #607d95;
+  font-size: .85rem;
+  line-height: 1.6;
+}
+#contact .contact-bottom i {
+  color: #0783b5;
+}
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width: 760px) {
+  #contact .contact-modern {
+    padding: 24px 18px;
+    border-radius: 20px;
+  }
+  #contact .contact-options {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  #contact .primary-contact {
+    grid-column: auto;
+  }
+  #contact .contact-option {
+    padding: 17px 14px;
+    gap: 12px;
+  }
+  #contact .contact-icon {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    font-size: 1.15rem;
+  }
+  #contact .contact-tags {
+    margin-bottom: 26px;
+  }
+  #contact .contact-intro h3 {
+    font-size: 1.85rem;
+  }
+  #contact .contact-bottom {
+    flex-direction: column;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #contact .contact-option {
+    transition: none;
+  }
+}
 </style>
 </head>
 <body>
@@ -2069,10 +2253,11 @@ THz Communication and Software Testing.
      ACHIEVEMENTS (SLIDER)
 ========================================================= -->
 <section class="tab-page" id="achievements">
+<h1 class="section-title">My <span>Achievements</span></h1>
 
-<!-- Achievements -->
+<!-- Awards -->
 <div class="project-category" style="margin-bottom: 2rem;">
-<h2 class="section-title">My <span>Achievements</span></h2>
+<h2 class="section-title">My <span>Awards</span></h2>
 <div class="slider-wrapper">
 <div class="slider-container">
 <div class="project-card glass">
@@ -2621,27 +2806,75 @@ THz Communication and Software Testing.
 
 </section>
 
+
 <!-- CONTACT -->
 <section class="tab-page" id="contact">
-<h2 class="section-title">Contact <span>Me</span></h2>
-<div class="contact-container glass">
-<h3 style="font-size:32px;">Let's Build Something Amazing 🚀</h3>
-<p style="margin-top:20px;line-height:1.8;">
-Open for research collaboration, embedded systems development, RF engineering projects and semiconductor opportunities.
-</p>
-<div class="contact-buttons">
-<a class="btn btn-primary" href="mailto:saianirudh.kefp2@gmail.com">
-<i class="fa-solid fa-envelope"></i> Send Email
-</a>
-<a class="btn btn-outline" href="tel:+18167153854">
-<i class="fa-solid fa-phone"></i> Call Me
-</a>
-<a class="btn btn-primary" href="https://calendar.app.google/Zd2W1eWn4ykCccVg6">
-<i class="fa-solid fa-calendar"></i> Schedule Meeting
-</a>
-</div>
-</div>
-
+  <h2 class="section-title">Let's <span>Connect</span></h2>
+  <div class="contact-modern glass">
+    <div class="contact-intro">
+      <span class="contact-status">
+        <span class="status-dot"></span>
+        Open to Opportunities & Collaborations
+      </span>
+      <h3>Let's Build Something <span>Extraordinary.</span></h3>
+      <p>
+        Interested in my work? I'm happy to connect with recruiters,
+        hiring managers, researchers, and engineering teams about
+        embedded systems, firmware, VLSI, RF engineering,
+        semiconductor technology, and research opportunities.
+      </p>
+      <div class="contact-tags">
+        <span>Embedded Systems</span>
+        <span>Firmware</span>
+        <span>VLSI & Semiconductors</span>
+        <span>RF & Wireless</span>
+        <span>Research</span>
+      </div>
+    </div>
+    <div class="contact-options">
+      <a class="contact-option primary-contact"
+         href="https://calendar.app.google/Zd2W1eWn4ykCccVg6"
+         target="_blank" rel="noopener noreferrer">
+        <div class="contact-icon">
+          <i class="fa-solid fa-calendar-check"></i>
+        </div>
+        <div class="contact-option-text">
+          <strong>Schedule a Meeting</strong>
+          <span>Choose a convenient time to connect</span>
+        </div>
+        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+      </a>
+      <a class="contact-option"
+         href="mailto:saianirudh.kefp2@gmail.com?subject=Engineering%20Opportunity%20-%20Portfolio%20Inquiry">
+        <div class="contact-icon">
+          <i class="fa-solid fa-envelope"></i>
+        </div>
+        <div class="contact-option-text">
+          <strong>Email Me</strong>
+          <span>saianirudh.kefp2@gmail.com</span>
+        </div>
+        <i class="fa-solid fa-arrow-right"></i>
+      </a>
+      <a class="contact-option"
+         href="tel:+18167153854">
+        <div class="contact-icon">
+          <i class="fa-solid fa-phone-volume"></i>
+        </div>
+        <div class="contact-option-text">
+          <strong>Call Me</strong>
+          <span>+1 (816) 715-3854</span>
+        </div>
+        <i class="fa-solid fa-arrow-right"></i>
+      </a>
+    </div>
+    <div class="contact-bottom">
+      <i class="fa-solid fa-handshake"></i>
+      <span>
+        Opportunities start with a conversation.
+        Let's discuss how I can contribute to your team.
+      </span>
+    </div>
+  </div>
 </section>
 
 <!-- RATING SECTION: Google identity verified by API; optional city-level location only -->
