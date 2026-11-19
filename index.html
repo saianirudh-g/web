@@ -1220,6 +1220,131 @@ header .nav-links a { width: 100% !important; padding: 11px 13px !important; }
 }
 @media(prefers-reduced-motion:reduce) { .stack-gallery .stack-stage > .project-card {transition:none !important;} }
 
+
+/* === 2026 portfolio enhancements === */
+.resume-download-hub{max-width:1180px;margin:0 auto 30px;padding:24px 28px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;background:linear-gradient(115deg,#fff,#dff2ff)}
+.resume-download-icon{display:grid;place-items:center;flex:0 0 68px;height:68px;border-radius:18px;background:#d9effc;color:#036c9b;font-size:1.9rem}
+.resume-download-copy{flex:1 1 300px}.resume-download-copy h3{margin:3px 0 6px;font-size:1.3rem}.resume-download-copy p{margin:0;color:#506a81;font-size:.88rem}.resume-download-copy .resume-eyebrow{color:#036c9b;font-size:.71rem;font-weight:750;letter-spacing:.13em}
+.resume-dropdown{position:relative;flex:0 1 auto}.resume-menu-button{white-space:nowrap}.resume-menu{position:absolute;right:0;top:calc(100% + 9px);z-index:50;width:min(300px,85vw);padding:7px;background:#fff;border:1px solid #bbd8eb;box-shadow:0 22px 55px #102b4530;border-radius:15px}
+.resume-menu[hidden]{display:none}.resume-menu a{display:flex;align-items:center;padding:12px 14px;border-radius:9px;text-decoration:none;color:#17324d;font-weight:600;font-size:.89rem}.resume-menu a:hover,.resume-menu a:focus-visible{background:#e4f4ff;color:#046690}
+#projects .showcase-section{margin-bottom:48px !important}#projects .showcase-section>.section-title{margin-bottom:17px}
+#projects .showcase-scroller{overflow-x:auto !important;overflow-y:hidden !important;padding:12px 4px 22px !important;scroll-snap-type:x mandatory;scrollbar-width:thin !important;touch-action:pan-x pan-y !important}
+#projects .showcase-scroller::-webkit-scrollbar{height:9px;display:block}#projects .showcase-scroller::-webkit-scrollbar-thumb{background:#4698c5;border-radius:99px}
+#projects .showcase-scroller>.slider-container{display:flex !important;gap:25px !important;transform:none !important;transition:none !important;align-items:stretch}
+#projects .project-showcase{position:relative !important;flex:0 0 min(940px,90%) !important;min-width:0 !important;width:auto !important;max-width:none !important;min-height:395px !important;display:grid !important;grid-template-columns:46% 54%;overflow:hidden;border:1px solid #b9d9ef;border-radius:26px;background:#fff;scroll-snap-align:start;box-shadow:0 16px 45px #225b8520;transition:box-shadow .25s,transform .25s}
+#projects .project-showcase:hover{transform:translateY(-4px);box-shadow:0 25px 55px #225b8533}
+#projects .showcase-visual{position:relative;min-width:0;overflow:hidden;background:var(--showcase-accent);min-height:320px}
+#projects .showcase-visual img{display:block;width:100% !important;height:100% !important;object-fit:cover !important;cursor:default !important;transition:transform .6s}
+#projects .project-showcase:hover .showcase-visual img{transform:scale(1.06)}
+#projects .showcase-index{position:absolute;top:18px;left:18px;padding:9px 13px;border-radius:99px;background:#061b35ce;color:#fff;font-size:.71rem;font-weight:800;letter-spacing:.12em}
+#projects .project-showcase>.project-content{padding:clamp(23px,3vw,40px);display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+#projects .showcase-category{margin:0;color:var(--showcase-accent);font-size:.75rem;font-weight:800;letter-spacing:.13em}
+#projects .showcase-title{font-size:clamp(1.15rem,1.65vw,1.55rem);line-height:1.35;color:#16314b;margin:0}
+#projects .project-content>p:not(.showcase-category){margin:0;color:#526579;line-height:1.67;font-size:.89rem}
+#projects .project-content .tags{margin:0 0 8px}#projects .showcase-action{margin-top:auto}#projects .showcase-action .btn{background:#123a63;color:#fff;box-shadow:none}
+#presentations .slide-preview-frame{width:100%;aspect-ratio:16/10.2;position:relative;background:#dceefc;overflow:hidden;border-bottom:1px solid #bfdaed}
+#presentations .slide-preview-frame iframe{display:block;width:100%;height:calc(100% - 28px);border:0;background:#f1f5f9}
+#presentations .slide-preview-caption{height:28px;display:flex;align-items:center;justify-content:center;background:#e7f4fd;color:#2b607e;font-size:.67rem;text-align:center;padding:2px 7px}
+#certifications .certificate-filter-panel{max-width:1180px;margin:0 auto 32px;padding:23px;background:#f8fcff}
+#certifications .cert-search-label{display:block;font-size:1rem;font-weight:750;margin-bottom:11px;color:#183b57}
+#certifications .certificate-filter-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+#certifications .certificate-search-box{flex:2 1 260px;min-width:0;display:flex;align-items:center;gap:10px;border:1px solid #b5d5e9;border-radius:13px;background:white;padding:0 14px;color:#087e9f}
+#certifications .certificate-search-box input{width:100%;min-width:0;height:47px;border:0;background:transparent;color:#17324d;outline:0}
+#certifications .certificate-filter-row select{flex:1 1 155px;min-width:0;max-width:260px;padding:11px 12px;min-height:47px;border:1px solid #b5d5e9;border-radius:13px;background:white;color:#17324d;font:inherit;font-size:.86rem}
+#certifications .certificate-results{margin:13px 0 0;font-size:.82rem;color:#46677f}#certifications .certificate-no-results{text-align:center;padding:22px;color:#526579}
+#certifications .certificate-no-results[hidden],#certifications .project-category[hidden],#certifications .project-card[hidden]{display:none !important}
+#certifications .project-category .slider-wrapper{overflow-x:auto !important;overflow-y:hidden !important;touch-action:pan-x pan-y !important}
+#certifications .slider-container{display:flex !important;transform:none !important;position:static !important;height:auto !important;gap:18px !important}
+#certifications .project-card{position:relative !important;opacity:1 !important;visibility:visible !important;pointer-events:auto !important;transform:none !important;flex:0 0 min(300px,85%) !important;width:min(300px,85%) !important;min-width:0 !important;max-width:300px !important;height:auto !important;left:auto !important;top:auto !important;margin:0 !important;display:flex !important}
+@media(max-width:740px){.resume-download-hub{padding:20px}.resume-dropdown,.resume-menu-button{width:100%}.resume-menu{left:0;right:0;width:100%}#projects .project-showcase{flex-basis:94% !important;grid-template-columns:1fr;min-height:0 !important}#projects .showcase-visual{min-height:0;aspect-ratio:16/9}#projects .project-showcase>.project-content{padding:20px}#certifications .certificate-filter-row>*{max-width:none !important;flex:1 1 100% !important}}
+
+
+/* === Refinements: compact resume dropdown opens above its trigger === */
+#resume .resume-action-only{min-height:0;display:flex;align-items:center;justify-content:center;padding:24px 14px 34px;overflow:visible}
+#resume .resume-dropdown{position:relative;z-index:10;flex:none}
+#resume .resume-menu-button{min-width:225px;justify-content:center;gap:14px}
+#resume .resume-menu{top:auto !important;bottom:calc(100% + 12px) !important;left:50%;right:auto;transform:translateX(-50%);width:min(310px,calc(100vw - 34px));max-height:55vh;overflow-y:auto;box-shadow:0 -12px 42px rgba(15,47,74,.22);z-index:100}
+#resume .resume-menu-button .fa-chevron-down{transform:rotate(180deg)}
+#resume .resume-menu-button[aria-expanded="true"] .fa-chevron-down{transform:rotate(0deg)}
+@media(max-width:740px){#resume .resume-action-only{padding:22px 8px 28px}#resume .resume-dropdown{width:auto}#resume .resume-menu-button{width:auto;min-width:215px}#resume .resume-menu{left:50%;right:auto;width:min(310px,calc(100vw - 34px))}}
+
+/* Presentations: the same landscape split showcase design as engineering projects,
+   using real Google Slides first-slide embeds rather than generated artwork. */
+#presentations .project-category{margin-bottom:50px !important}
+#presentations .showcase-scroller{overflow-x:auto !important;overflow-y:hidden !important;padding:12px 4px 22px !important;scroll-snap-type:x mandatory;scrollbar-width:thin;touch-action:pan-x pan-y}
+#presentations .showcase-scroller>.slider-container{display:flex !important;align-items:stretch;gap:25px !important;transform:none !important;transition:none !important;will-change:auto}
+#presentations .project-showcase{position:relative !important;flex:0 0 min(940px,90%) !important;min-width:0 !important;max-width:none !important;width:auto !important;min-height:395px !important;display:grid !important;grid-template-columns:46% 54%;overflow:hidden;border:1px solid #b9d9ef;border-radius:26px;background:#fff;scroll-snap-align:start;box-shadow:0 16px 45px #225b8520;transition:box-shadow .25s,transform .25s}
+#presentations .project-showcase:hover{transform:translateY(-4px);box-shadow:0 25px 55px #225b8533}
+#presentations .slide-preview-frame.showcase-visual{position:relative;min-width:0;min-height:395px;aspect-ratio:auto;background:#dceefc;overflow:hidden;border:0}
+#presentations .slide-preview-frame iframe{position:absolute;inset:0;display:block;width:100%;height:calc(100% - 33px);border:0;background:#eaf4fc}
+#presentations .slide-preview-caption{position:absolute;bottom:0;left:0;width:100%;height:33px;background:#e7f4fd;color:#215571;font-size:.69rem;display:flex;align-items:center;justify-content:center;padding:4px 12px}
+#presentations .showcase-index{position:absolute;top:16px;left:16px;z-index:2;padding:8px 12px;border-radius:99px;background:#061b35d9;color:#fff;font-size:.69rem;font-weight:800;letter-spacing:.09em;pointer-events:none}
+#presentations .project-showcase>.project-content{padding:clamp(23px,3vw,40px);display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+#presentations .showcase-category{margin:0;color:var(--showcase-accent);font-size:.75rem;font-weight:800;letter-spacing:.13em}
+#presentations .showcase-title{font-size:clamp(1.15rem,1.65vw,1.55rem);line-height:1.35;color:#16314b;margin:0}
+#presentations .project-content>p:not(.showcase-category){margin:0;color:#526579;line-height:1.67;font-size:.89rem}
+#presentations .project-content .tags{margin:0 0 8px}
+#presentations .showcase-action{margin-top:auto}
+#presentations .showcase-action .btn{background:#123a63;color:#fff;box-shadow:none}
+@media(max-width:740px){#presentations .project-showcase{flex-basis:94% !important;grid-template-columns:1fr;min-height:0 !important}#presentations .slide-preview-frame.showcase-visual{min-height:0;aspect-ratio:16/10}#presentations .project-showcase>.project-content{padding:20px}}
+
+/* Publications, Research, Achievements and Highlights: start at the FIRST tile,
+   avoid absolute-position / center-stack styles and preserve horizontal scrolling. */
+#publication .slider-wrapper,#research .slider-wrapper,#achievements .slider-wrapper,#highlights .slider-wrapper{overflow-x:auto !important;overflow-y:hidden !important;scroll-snap-type:x proximity;scroll-padding-left:2px;padding:10px 2px 22px !important;scrollbar-width:thin;touch-action:pan-x pan-y;overscroll-behavior-x:contain}
+#publication .slider-container,#research .slider-container,#achievements .slider-container,#highlights .slider-container{display:flex !important;align-items:stretch !important;justify-content:flex-start !important;gap:20px !important;margin:0 !important;padding:0 !important;transform:none !important;transition:none !important;position:static !important;height:auto !important;min-height:0 !important}
+#publication .slider-container>.project-card,#research .slider-container>.project-card,#achievements .slider-container>.project-card,#highlights .slider-container>.project-card{position:relative !important;left:auto !important;top:auto !important;flex:0 0 calc((100% - 40px)/3) !important;min-width:0 !important;max-width:none !important;width:auto !important;opacity:1 !important;visibility:visible !important;pointer-events:auto !important;transform:none !important;scroll-snap-align:start}
+#publication .slider-container>.project-card{flex-basis:calc((100% - 20px)/2) !important}
+#publication .project-scroll-track,#research .project-scroll-track,#achievements .project-scroll-track,#highlights .project-scroll-track{display:none !important}
+@media(max-width:1050px){#research .slider-container>.project-card,#achievements .slider-container>.project-card,#highlights .slider-container>.project-card{flex-basis:calc((100% - 20px)/2) !important}}
+@media(max-width:740px){#publication .slider-container>.project-card,#research .slider-container>.project-card,#achievements .slider-container>.project-card,#highlights .slider-container>.project-card{flex-basis:88% !important}}
+
+
+/* Ensure the first tile remains anchored at the leading edge on all display sizes. */
+:is(#publication,#research,#achievements,#highlights) .slider-wrapper:not(.stack-gallery) { scroll-snap-type: x proximity !important; }
+:is(#publication,#research,#achievements,#highlights) .slider-wrapper:not(.stack-gallery) > .slider-container { justify-content: flex-start !important; transform: none !important; }
+:is(#publication,#research,#achievements,#highlights) .slider-wrapper:not(.stack-gallery) > .slider-container > :first-child { margin-inline-start: 0 !important; }
+
+/* Final navigation & alignment adjustments. */
+#publication .slider-wrapper, #research .slider-wrapper,
+#achievements .slider-wrapper, #highlights .slider-wrapper {
+  direction:ltr !important; text-align:left !important;
+  scroll-snap-align:start; scroll-padding-inline-start:0 !important;
+}
+#publication .slider-container, #research .slider-container,
+#achievements .slider-container, #highlights .slider-container {
+  justify-content:flex-start !important; align-content:flex-start !important;
+  width:100%; min-width:100%; margin-inline:0 !important;
+}
+#publication .project-card, #research .project-card,
+#achievements .project-card, #highlights .project-card { margin-left:0 !important; }
+#presentations .showcase-scroller{scroll-padding-left:4px}
+#presentations .project-showcase{scroll-snap-align:start}
+#resume .resume-menu { transform:translateX(-50%); top:auto !important; bottom:calc(100% + 10px) !important; }
+#resume .resume-menu a{gap:8px}
+#projects .showcase-action .btn i{font-size:.85em}
+
+/* Resume dropdown: drop DOWN over the foreground, not behind the tables. */
+#resume { overflow:visible !important; isolation:isolate; }
+#resume .resume-action-only { position:relative !important; z-index:500 !important; overflow:visible !important; }
+#resume .resume-dropdown { position:relative !important; z-index:501 !important; isolation:isolate; }
+#resume .resume-menu {
+  position:absolute !important;
+  top:calc(100% + 10px) !important;
+  bottom:auto !important;
+  left:50% !important;
+  right:auto !important;
+  transform:translateX(-50%) !important;
+  z-index:9999 !important;
+  width:min(310px, calc(100vw - 32px));
+  max-height:min(360px, 60vh);
+  overflow-y:auto;
+  background:#fff !important;
+  box-shadow:0 22px 60px rgba(7,34,65,.30) !important;
+}
+#resume .resume-menu[hidden] { display:none !important; }
+#resume .resume-menu-button .fa-chevron-down { transform:none !important; }
+#resume .resume-menu-button[aria-expanded="true"] .fa-chevron-down { transform:rotate(180deg) !important; }
+#resume .about-grid { position:relative; z-index:1; }
 </style>
 </head>
 <body>
@@ -1538,6 +1663,10 @@ THz Communication and Software Testing.
 <!-- RESUME -->
 <section class="tab-page" id="resume">
 <h2 class="section-title">My <span>Resume</span></h2>
+<div class="resume-action-only" aria-label="Resume download options">
+<div class="resume-dropdown"><button aria-controls="resumeMenu" aria-expanded="false" class="btn btn-primary resume-menu-button" id="resumeMenuButton" type="button"><i class="fa-solid fa-download"></i> Download Resume <i class="fa-solid fa-chevron-down"></i></button><div class="resume-menu" hidden="" id="resumeMenu"><a data-resume-file="Embedded_Systems_Resume.pdf" download="Embedded_Systems_Resume.pdf" href="resumes/Embedded_Systems_Resume.pdf">Embedded Systems</a><a data-resume-file="VLSI_Design_Resume.pdf" download="VLSI_Design_Resume.pdf" href="resumes/VLSI_Design_Resume.pdf">VLSI Design</a><a data-resume-file="Wireless_Communications_Resume.pdf" download="Wireless_Communications_Resume.pdf" href="resumes/Wireless_Communications_Resume.pdf">Wireless Communications</a><a data-resume-file="Power_Systems_Resume.pdf" download="Power_Systems_Resume.pdf" href="resumes/Power_Systems_Resume.pdf">Power Systems</a><a data-resume-file="QA_Testing_Resume.pdf" download="QA_Testing_Resume.pdf" href="resumes/QA_Testing_Resume.pdf">QA Testing</a></div></div>
+</div>
+
 <div class="about-grid">
 <div class="glass about-card">
 <h3>🎓 Education</h3>
@@ -1589,447 +1718,441 @@ THz Communication and Software Testing.
 </div>
 </div>
 </div>
+
 </section>
 
 <!-- =================== PROJECTS SECTION =================== -->
 <section class="tab-page" id="projects">
-  <h1 class="section-title">Engineering <span>Projects</span></h1>
-
-  <!-- EMBEDDED SYSTEMS PROJECTS -->
-  <div class="project-category" style="margin-bottom: 4rem;">
-    <h2 class="section-title">Embedded <span>Systems</span></h2>
-    <div class="slider-wrapper">
-      <div class="slider-container">
-        <!-- Project 1 -->
-        <div class="project-card glass">
-          <div class="project-content">
-            <h3>Arduino Nicla Vision: Hardware Setup, Sensor Validation, and PDM Microphone Testing</h3>
-            <p>Configured the Arduino Nicla Vision board and validated onboard sensors, including the image sensor, IMU, and PDM microphone, for embedded sensing applications.</p>
-            <p><strong>Year:</strong> 2026</p>
-            <div class="tags">
-              <span>Arduino Nicla Vision</span>
-              <span>PDM Microphone</span>
-              <span>IMU</span>
-              <span>Sensor Testing</span>
-            </div>
-            <div style="margin-top: 25px;">
-              <a class="btn btn-primary" href="https://github.com/saianirudh-g/Arduino-Nicla-Vision" target="_blank" rel="noopener noreferrer">View Project</a>
-            </div>
-          </div>
-        </div>
-        <!-- Project 2 -->
-        <div class="project-card glass">
-          <div class="project-content">
-            <h3>IMU-Controlled Gaming Physics Engine Using STM32</h3>
-            <p>Developed a real-time, physics-based gaming system on an STM32F407VG microcontroller using IMU tilt input and PWM-based output control.</p>
-            <p><strong>Year:</strong> 2026</p>
-            <div class="tags">
-              <span>STM32F407VG</span>
-              <span>Embedded C</span>
-              <span>IMU</span>
-              <span>PWM</span>
-            </div>
-            <div style="margin-top: 25px;">
-              <a class="btn btn-primary" href="https://github.com/saianirudh-g/IMU-Controlled-Gaming-Physics-Engine-on-STM32" target="_blank" rel="noopener noreferrer">View Project</a>
-            </div>
-          </div>
-        </div>
-        <!-- Project 3 -->
-        <div class="project-card glass">
-          <div class="project-content">
-            <h3>STM32 Embedded Systems Development Using FastBit</h3>
-            <p>Implemented STM32 microcontroller exercises for LED and peripheral control using Embedded C, STM32CubeIDE, and STM32CubeMX.</p>
-            <p><strong>Year:</strong> 2026</p>
-            <div class="tags">
-              <span>STM32</span>
-              <span>Embedded C</span>
-              <span>STM32CubeIDE</span>
-              <span>STM32CubeMX</span>
-            </div>
-            <div style="margin-top: 25px;">
-              <a class="btn btn-primary" href="https://github.com/saianirudh-g/FastBit-Embedded-Systems-using-STM32" target="_blank" rel="noopener noreferrer">View Project</a>
-            </div>
-          </div>
-        </div>
-        <!-- Project 4 -->
-        <div class="project-card glass">
-          <div class="project-content">
-            <h3>ESP32 Bluetooth Communication Using Embedded C</h3>
-            <p>Implemented Bluetooth communication on an ESP32 microcontroller using Embedded C for wireless device connectivity.</p>
-            <p><strong>Year:</strong> 2023</p>
-            <div class="tags">
-              <span>ESP32</span>
-              <span>Bluetooth</span>
-              <span>Embedded C</span>
-            </div>
-            <div style="margin-top: 25px;">
-              <a class="btn btn-primary" href="https://github.com/saianirudh-g/ESP32-Microcontroller-using-bluetooth-with-Embedded-C-tools" target="_blank" rel="noopener noreferrer">View Project</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- VLSI ASIC DESIGN PROJECTS -->
-  <div class="project-category" style="margin-bottom: 4rem;">
-    <h2 class="section-title">VLSI &amp; <span>ASIC Design</span></h2>
-    <div class="slider-wrapper">
-      <div class="slider-container">
-        <!-- Project 1 -->
-        <div class="project-card glass">
-          <div class="project-content">
-            <h3>RISC-V Five-Stage Pipelined CPU Design</h3>
-            <p>Designed a RISC-V processor with a five-stage pipeline, including pipeline registers, hazard detection, data forwarding, branch handling, and performance evaluation.</p>
-            <p><strong>Year:</strong> 2026</p>
-            <div class="tags">
-              <span>RISC-V</span>
-              <span>Verilog</span>
-              <span>Pipelining</span>
-              <span>Hazard Detection</span>
-            </div>
-            <div style="margin-top: 25px;">
-              <a class="btn btn-primary" href="https://github.com/saianirudh-g/RISC-V-CPU-Design-Implementation-Course-" target="_blank" rel="noopener noreferrer">View Project</a>
-            </div>
-          </div>
-        </div>
-        <!-- Project 2 -->
-        <div class="project-card glass">
-          <div class="project-content">
-            <h3>6T SRAM Design and Simulation Using Cadence Virtuoso</h3>
-            <p>Designed a 6T SRAM cell schematic, analyzed static noise margin using butterfly curves, and developed the cell layout in Cadence Virtuoso.</p>
-            <p><strong>Year:</strong> 2025</p>
-            <div class="tags">
-              <span>6T SRAM</span>
-              <span>Cadence Virtuoso</span>
-              <span>Butterfly Curve</span>
-              <span>VLSI</span>
-            </div>
-            <div style="margin-top: 25px;">
-              <a class="btn btn-primary" href="https://github.com/saianirudh-g/SRAM-Project" target="_blank" rel="noopener noreferrer">View Project</a>
-            </div>
-          </div>
-        </div>
-        <!-- Project 3 -->
-        <div class="project-card glass">
-          <div class="project-content">
-            <h3>RTL-to-GDSII ASIC Physical Design Flow</h3>
-            <p>Explored the ASIC physical design flow from RTL synthesis through floorplanning, placement, and routing.</p>
-            <p><strong>Year:</strong> 2025</p>
-            <div class="tags">
-              <span>RTL-to-GDSII</span>
-              <span>ASIC</span>
-              <span>Synthesis</span>
-              <span>Physical Design</span>
-            </div>
-            <div style="margin-top: 25px;">
-              <a class="btn btn-primary" href="https://github.com/saianirudh-g/RTL-to-GDSII-Flow" target="_blank" rel="noopener noreferrer">View Project</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-    
-  <!-- POWER SYSTEMS PROJECTS -->
-  <div class="project-category" style="margin-bottom: 4rem;">
-    <h2 class="section-title">Power <span>Systems</span></h2>
-    <div class="slider-wrapper">
-      <div class="slider-container">
-        <!-- Project 1 -->
-        <div class="project-card glass">
-          <div class="project-content">
-            <h3>ETAP Short-Circuit Analysis and Circuit Breaker Rating Study</h3>
-            <p>Performed short-circuit studies in ETAP to calculate system fault currents and assess circuit breaker ratings.</p>
-            <p><strong>Year:</strong> 2026</p>
-            <div class="tags">
-              <span>ETAP</span>
-              <span>Short-Circuit Analysis</span>
-              <span>Fault Current</span>
-              <span>Circuit Breakers</span>
-            </div>
-            <div style="margin-top: 25px;">
-              <a class="btn btn-primary" href="https://drive.google.com/file/d/1fMLb9LEYNjeuMiqAh0fGiBU1i1pJkIW9/view?usp=sharing" target="_blank" rel="noopener noreferrer">View Project</a>
-            </div>
-          </div>
-        </div>
-        <!-- Project 2 -->
-        <div class="project-card glass">
-          <div class="project-content">
-            <h3>ETAP One-Line Design, Load Flow Analysis, and Cable Selection</h3>
-            <p>Created a power system one-line diagram in ETAP, evaluated bus voltages and branch currents through load flow analysis, and selected cable sizes.</p>
-            <p><strong>Year:</strong> 2026</p>
-            <div class="tags">
-              <span>ETAP</span>
-              <span>One-Line Diagram</span>
-              <span>Load Flow</span>
-              <span>Cable Sizing</span>
-            </div>
-            <div style="margin-top: 25px;">
-              <a class="btn btn-primary" href="https://docs.google.com/document/d/10SpaOxjCrwG27I1NjJTx9ub6eA8weV4O/edit?usp=sharing&amp;ouid=103170382960486364905&amp;rtpof=true&amp;sd=true" target="_blank" rel="noopener noreferrer">View Project</a>
-            </div>
-          </div>
-        </div>
-        <!-- Project 3 -->
-        <div class="project-card glass">
-          <div class="project-content">
-            <h3>Distribution System Modeling and Short-Circuit Fault Analysis Using ASPEN OneLiner</h3>
-            <p>Modeled an electrical distribution system in ASPEN OneLiner and evaluated short-circuit fault currents for system fault analysis.</p>
-            <p><strong>Year:</strong> 2026</p>
-            <div class="tags">
-              <span>ASPEN OneLiner</span>
-              <span>Distribution Systems</span>
-              <span>Short-Circuit Analysis</span>
-            </div>
-            <div style="margin-top: 25px;">
-              <a class="btn btn-primary" href="https://github.com/saianirudh-g/Distribution-System-Modeling-and-Short-Circuit-Fault-Analysis-Using-ASPEN-OneLiner.git" target="_blank" rel="noopener noreferrer">View Project</a>
-            </div>
-          </div>
-        </div>
-        <!-- Project 4 -->
-        <div class="project-card glass">
-          <div class="project-content">
-            <h3>Protection and Control (P&amp;C) Data Verification</h3>
-            <p>Verified power system equipment data and reviewed protective device coordination using ETAP for protection and control studies.</p>
-            <p><strong>Year:</strong> 2026</p>
-            <div class="tags">
-              <span>ETAP</span>
-              <span>Protection &amp; Control</span>
-              <span>Data Verification</span>
-              <span>Relay Coordination</span>
-            </div>
-            <div style="margin-top: 25px;">
-              <a class="btn btn-primary" href="https://github.com/saianirudh-g/Protection-and-Control-P-C-Data-Verification" target="_blank" rel="noopener noreferrer">View Project</a>
-            </div>
-          </div>
-        </div>
-        <!-- Project 5 -->
-        <div class="project-card glass">
-          <div class="project-content">
-            <h3>Radial System Time-Overcurrent Relay Coordination</h3>
-            <p>Analyzed a radial power system and coordinated time-overcurrent relays to support selective fault isolation and reliable protection.</p>
-            <p><strong>Year:</strong> 2026</p>
-            <div class="tags">
-              <span>ASPEN</span>
-              <span>Overcurrent Relays</span>
-              <span>Relay Coordination</span>
-              <span>Protection</span>
-            </div>
-            <div style="margin-top: 25px;">
-              <a class="btn btn-primary" href="https://github.com/saianirudh-g/Radial-System-Timing-Over-Current-Relay-Coordination" target="_blank" rel="noopener noreferrer">View Project</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PLC DESIGN PROJECTS -->
-  <div class="project-category" style="margin-bottom: 4rem;">
-    <h2 class="section-title">PLC <span>Design</span></h2>
-    <div class="slider-wrapper">
-      <div class="slider-container">
-        <!-- Project 1 -->
-        <div class="project-card glass">
-          <div class="project-content">
-            <h3>Industrial Sensor Measurement and PLC Ladder Logic Design</h3>
-            <p>Studied signal conditioning and measurement methods for thermocouples, RTDs, load cells, and capacitive sensors, together with PLC ladder logic.</p>
-            <p><strong>Year:</strong> 2026</p>
-            <div class="tags">
-              <span>Thermocouples</span>
-              <span>RTD</span>
-              <span>Signal Conditioning</span>
-              <span>PLC Ladder Logic</span>
-            </div>
-            <div style="margin-top: 25px;">
-              <a class="btn btn-primary" href="https://github.com/saianirudh-g/Industrial-Sensor-Signal-Conditioning-and-Measurement-System-Design" target="_blank" rel="noopener noreferrer">View Project</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Wireless Communications -->
-  <div class="project-category" style="margin-bottom: 4rem;">
-    <h2 class="section-title">Wireless <span>Communications</span></h2>
-    <div class="slider-wrapper">
-      <div class="slider-container">
-        <!-- Project 1 -->
-        <div class="project-card glass">
-          <div class="project-content">
-            <h3>Bluetooth Low Energy Receiver Front-End Design</h3>
-            <p>Developed receiver front-end schematics in QUCS and a PCB layout in KiCad for a Bluetooth Low Energy communication system.</p>
-            <p><strong>Year:</strong> 2026</p>
-            <div class="tags">
-              <span>BLE</span>
-              <span>RF Front End</span>
-              <span>QUCS</span>
-              <span>KiCad</span>
-            </div>
-            <div style="margin-top: 25px;">
-              <a class="btn btn-primary" href="https://github.com/saianirudh-g/Bluetooth-Low-Energy-Receiver-Front-End-Design-Schematic-PCB-Design-" target="_blank" rel="noopener noreferrer">View Project</a>
-            </div>
-          </div>
-        </div>
-        <!-- Project 2 -->
-        <div class="project-card glass">
-          <div class="project-content">
-            <h3>Microwave Transmission Line Characterization Using a Handheld VNA</h3>
-            <p>Characterized a 50-ohm coaxial transmission line from 1 to 5 GHz using a handheld vector network analyzer to study its RF transmission behavior.</p>
-            <p><strong>Year:</strong> 2025</p>
-            <div class="tags">
-              <span>Vector Network Analyzer</span>
-              <span>S-Parameters</span>
-              <span>Coaxial Cable</span>
-              <span>RF Measurements</span>
-            </div>
-            <div style="margin-top: 25px;">
-              <a class="btn btn-primary" href="https://github.com/saianirudh-g/Microwave-Transmission-Line-Characterization-Using-a-Handheld-VNA" target="_blank" rel="noopener noreferrer">View Project</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Signal Processing -->
-  <div class="project-category" style="margin-bottom: 4rem;">
-    <h2 class="section-title">Signal <span>Processing</span></h2>
-    <div class="slider-wrapper">
-      <div class="slider-container">
-        <!-- Project 4 -->
-        <div class="project-card glass">
-          <div class="project-content">
-            <h3>HEVC Video Compression and Quality Assessment Using PSNR and SSIM</h3>
-            <p>Implements INTRA and INTER coding, PSNR/SSIM evaluation, frame-level quality analysis, and SSIM map visualization using UVG Beauty and Bosphorus video sequences.</p>
-            <p><strong>Year:</strong> 2026</p>
-            <div class="tags">
-              <span>Python and FFMPEG</span>
-              <span>Video Coding</span>
-              <span>Motion Estimation</span>
-              <span>Video & Image Compression</span>
-            </div>
-            <div style="margin-top: 25px;">
-              <a class="btn btn-primary" href="https://github.com/saianirudh-g/HEVC-Video-Compression-and-Quality-Assessment-Using-PSNR-and-SSIM" target="_blank" rel="noopener noreferrer">View Project</a>
-            </div>
-          </div>
-        </div>
-        <!-- Project 3 -->
-        <div class="project-card glass">
-          <div class="project-content">
-            <h3>Block-Based and Affine Motion Estimation for Video Compression Using MATLAB</h3>
-            <p>MATLAB implementation and comparison of integer-pixel, half-pixel, diamond-search, and four-parameter affine motion estimation</p>
-            <p><strong>Year:</strong> 2026</p>
-            <div class="tags">
-              <span>MATLAB</span>
-              <span>Video Coding</span>
-              <span>Motion Estimation</span>
-              <span>Image Compression</span>
-            </div>
-            <div style="margin-top: 25px;">
-              <a class="btn btn-primary" href="https://github.com/saianirudh-g/Block-Based-and-Affine-Motion-Estimation-for-Video-Compression-Using-MATLAB" target="_blank" rel="noopener noreferrer">View Project</a>
-            </div>
-          </div>
-        </div>
-        <!-- Project 2 -->
-        <div class="project-card glass">
-          <div class="project-content">
-            <h3>Context-Adaptive Arithmetic Coding for Image Compression Using MATLAB</h3>
-            <p>Explored predictive image compression using Exp-Golomb coding and context-adaptive binary arithmetic coding in MATLAB.</p>
-            <p><strong>Year:</strong> 2026</p>
-            <div class="tags">
-              <span>MATLAB</span>
-              <span>Exp-Golomb Coding</span>
-              <span>Arithmetic Coding</span>
-              <span>Image Compression</span>
-            </div>
-            <div style="margin-top: 25px;">
-              <a class="btn btn-primary" href="https://github.com/saianirudh-g/Context-Adaptive-Arithmetic-Coding-for-Predictive-and-Binary-Image-Compression-Using-MATLAB" target="_blank" rel="noopener noreferrer">View Project</a>
-            </div>
-          </div>
-        </div>
-        <!-- Project 1 -->
-        <div class="project-card glass">
-          <div class="project-content">
-            <h3>Predictive Image Compression Using Golomb-Rice Coding</h3>
-            <p>Applied predictive coding to grayscale images and analyzed residual errors for efficient entropy coding with Golomb-Rice codes.</p>
-            <p><strong>Year:</strong> 2026</p>
-            <div class="tags">
-              <span>MATLAB</span>
-              <span>Golomb-Rice Coding</span>
-              <span>Predictive Coding</span>
-              <span>Residual Analysis</span>
-            </div>
-            <div style="margin-top: 25px;">
-              <a class="btn btn-primary" href="https://github.com/saianirudh-g/Predictive-Image-Coding-Using-Golomb-Codes" target="_blank" rel="noopener noreferrer">View Project</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- INTERNET OF THINGS PROJECTS -->
-  <div class="project-category" style="margin-bottom: 4rem;">
-    <h2 class="section-title">Internet of <span>Things</span></h2>
-    <div class="slider-wrapper">
-      <div class="slider-container">
-        <!-- Project 1 -->
-        <div class="project-card glass">
-          <div class="project-content">
-            <h3>IoT-Based Autonomous Fire Extinguisher, Temperature, and AQI Monitoring</h3>
-            <p>Developed an IoT-based system for temperature and air quality monitoring in commercial buildings, with an automatic fire suppression mechanism.</p>
-            <p><strong>Year:</strong> 2023</p>
-            <div class="tags">
-              <span>IoT</span>
-              <span>ESP32</span>
-              <span>Temperature Monitoring</span>
-              <span>AQI</span>
-              <span>Fire Safety</span>
-            </div>
-            <div style="margin-top: 25px;">
-              <a class="btn btn-primary" href="https://github.com/saianirudh-g/IOT-Based-Autonomous-Fire-Extinguisher-Temperature-And-AQI-Montoring-System-For-Commercial-Buildings" target="_blank" rel="noopener noreferrer">View Project</a>
-            </div>
-          </div>
-        </div>
-        <!-- Project 2 -->
-        <div class="project-card glass">
-          <div class="project-content">
-            <h3>Automatic Irrigation System Using a GSM Module</h3>
-            <p>Developed a sensor-based irrigation system with GSM communication for remote monitoring and SMS notifications.</p>
-            <p><strong>Year:</strong> 2022</p>
-            <div class="tags">
-              <span>IoT</span>
-              <span>Soil Moisture Sensors</span>
-              <span>GSM</span>
-              <span>SMS Alerts</span>
-            </div>
-            <div style="margin-top: 25px;">
-              <a class="btn btn-primary" href="https://github.com/saianirudh-g/Automatic-Irrigation-System-Using-GSM-Module" target="_blank" rel="noopener noreferrer">View Project</a>
-            </div>
-          </div>
-        </div>
-        <!-- Project 3 -->
-        <div class="project-card glass">
-          <div class="project-content">
-            <h3>IoT-Based Health Monitoring System</h3>
-            <p>Designed an IoT-enabled monitoring system to track patient vital signs using sensors and wireless data transmission.</p>
-            <p><strong>Year:</strong> 2022</p>
-            <div class="tags">
-              <span>IoT</span>
-              <span>Arduino</span>
-              <span>Health Sensors</span>
-              <span>Wi-Fi</span>
-            </div>
-            <div style="margin-top: 25px;">
-              <a class="btn btn-primary" href="https://github.com/saianirudh-g/IOT-Based-Health-Monitoring-System" target="_blank" rel="noopener noreferrer">View Project</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<h1 class="section-title">Engineering <span>Projects</span></h1>
+<!-- EMBEDDED SYSTEMS PROJECTS -->
+<div class="project-category showcase-section" style="margin-bottom: 4rem;">
+<h2 class="section-title">Embedded <span>Systems</span></h2>
+<div class="slider-wrapper showcase-scroller">
+<div class="slider-container">
+<!-- Project 1 -->
+<div class="project-card project-showcase" style="--showcase-accent:#075985;"><div class="showcase-visual"><img alt="Embedded Systems technical illustration for Arduino Nicla Vision: Hardware Setup, Sensor Validation, and PDM Microphone Testing" class="no-popup" decoding="async" loading="lazy" src="project-images/project-01-arduino-nicla-vision-hardware-setup-sensor-va.svg"/><span class="showcase-index">PROJECT 01</span></div>
+<div class="project-content"><p class="showcase-category">EMBEDDED SYSTEMS</p>
+<h3 class="showcase-title">Arduino Nicla Vision: Hardware Setup, Sensor Validation, and PDM Microphone Testing</h3>
+<p>Configured the Arduino Nicla Vision board and validated onboard sensors, including the image sensor, IMU, and PDM microphone, for embedded sensing applications.</p>
+<p><strong>Year:</strong> 2026</p>
+<div class="tags">
+<span>Arduino Nicla Vision</span>
+<span>PDM Microphone</span>
+<span>IMU</span>
+<span>Sensor Testing</span>
+</div>
+<div class="showcase-action">
+<a class="btn btn-primary" href="https://github.com/saianirudh-g/Arduino-Nicla-Vision" rel="noopener noreferrer" target="_blank">View Project <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+</div>
+</div>
+</div>
+<!-- Project 2 -->
+<div class="project-card project-showcase" style="--showcase-accent:#075985;"><div class="showcase-visual"><img alt="Embedded Systems technical illustration for IMU-Controlled Gaming Physics Engine Using STM32" class="no-popup" decoding="async" loading="lazy" src="project-images/project-02-imu-controlled-gaming-physics-engine-using-st.svg"/><span class="showcase-index">PROJECT 02</span></div>
+<div class="project-content"><p class="showcase-category">EMBEDDED SYSTEMS</p>
+<h3 class="showcase-title">IMU-Controlled Gaming Physics Engine Using STM32</h3>
+<p>Developed a real-time, physics-based gaming system on an STM32F407VG microcontroller using IMU tilt input and PWM-based output control.</p>
+<p><strong>Year:</strong> 2026</p>
+<div class="tags">
+<span>STM32F407VG</span>
+<span>Embedded C</span>
+<span>IMU</span>
+<span>PWM</span>
+</div>
+<div class="showcase-action">
+<a class="btn btn-primary" href="https://github.com/saianirudh-g/IMU-Controlled-Gaming-Physics-Engine-on-STM32" rel="noopener noreferrer" target="_blank">View Project <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+</div>
+</div>
+</div>
+<!-- Project 3 -->
+<div class="project-card project-showcase" style="--showcase-accent:#075985;"><div class="showcase-visual"><img alt="Embedded Systems technical illustration for STM32 Embedded Systems Development Using FastBit" class="no-popup" decoding="async" loading="lazy" src="project-images/project-03-stm32-embedded-systems-development-using-fast.svg"/><span class="showcase-index">PROJECT 03</span></div>
+<div class="project-content"><p class="showcase-category">EMBEDDED SYSTEMS</p>
+<h3 class="showcase-title">STM32 Embedded Systems Development Using FastBit</h3>
+<p>Implemented STM32 microcontroller exercises for LED and peripheral control using Embedded C, STM32CubeIDE, and STM32CubeMX.</p>
+<p><strong>Year:</strong> 2026</p>
+<div class="tags">
+<span>STM32</span>
+<span>Embedded C</span>
+<span>STM32CubeIDE</span>
+<span>STM32CubeMX</span>
+</div>
+<div class="showcase-action">
+<a class="btn btn-primary" href="https://github.com/saianirudh-g/FastBit-Embedded-Systems-using-STM32" rel="noopener noreferrer" target="_blank">View Project <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+</div>
+</div>
+</div>
+<!-- Project 4 -->
+<div class="project-card project-showcase" style="--showcase-accent:#075985;"><div class="showcase-visual"><img alt="Embedded Systems technical illustration for ESP32 Bluetooth Communication Using Embedded C" class="no-popup" decoding="async" loading="lazy" src="project-images/project-04-esp32-bluetooth-communication-using-embedded-.svg"/><span class="showcase-index">PROJECT 04</span></div>
+<div class="project-content"><p class="showcase-category">EMBEDDED SYSTEMS</p>
+<h3 class="showcase-title">ESP32 Bluetooth Communication Using Embedded C</h3>
+<p>Implemented Bluetooth communication on an ESP32 microcontroller using Embedded C for wireless device connectivity.</p>
+<p><strong>Year:</strong> 2023</p>
+<div class="tags">
+<span>ESP32</span>
+<span>Bluetooth</span>
+<span>Embedded C</span>
+</div>
+<div class="showcase-action">
+<a class="btn btn-primary" href="https://github.com/saianirudh-g/ESP32-Microcontroller-using-bluetooth-with-Embedded-C-tools" rel="noopener noreferrer" target="_blank">View Project <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- VLSI ASIC DESIGN PROJECTS -->
+<div class="project-category showcase-section" style="margin-bottom: 4rem;">
+<h2 class="section-title">VLSI &amp; <span>ASIC Design</span></h2>
+<div class="slider-wrapper showcase-scroller">
+<div class="slider-container">
+<!-- Project 1 -->
+<div class="project-card project-showcase" style="--showcase-accent:#4338ca;"><div class="showcase-visual"><img alt="VLSI &amp; ASIC Design technical illustration for RISC-V Five-Stage Pipelined CPU Design" class="no-popup" decoding="async" loading="lazy" src="project-images/project-05-risc-v-five-stage-pipelined-cpu-design.svg"/><span class="showcase-index">PROJECT 05</span></div>
+<div class="project-content"><p class="showcase-category">VLSI &amp; ASIC DESIGN</p>
+<h3 class="showcase-title">RISC-V Five-Stage Pipelined CPU Design</h3>
+<p>Designed a RISC-V processor with a five-stage pipeline, including pipeline registers, hazard detection, data forwarding, branch handling, and performance evaluation.</p>
+<p><strong>Year:</strong> 2026</p>
+<div class="tags">
+<span>RISC-V</span>
+<span>Verilog</span>
+<span>Pipelining</span>
+<span>Hazard Detection</span>
+</div>
+<div class="showcase-action">
+<a class="btn btn-primary" href="https://github.com/saianirudh-g/RISC-V-CPU-Design-Implementation-Course-" rel="noopener noreferrer" target="_blank">View Project <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+</div>
+</div>
+</div>
+<!-- Project 2 -->
+<div class="project-card project-showcase" style="--showcase-accent:#4338ca;"><div class="showcase-visual"><img alt="VLSI &amp; ASIC Design technical illustration for 6T SRAM Design and Simulation Using Cadence Virtuoso" class="no-popup" decoding="async" loading="lazy" src="project-images/project-06-6t-sram-design-and-simulation-using-cadence-v.svg"/><span class="showcase-index">PROJECT 06</span></div>
+<div class="project-content"><p class="showcase-category">VLSI &amp; ASIC DESIGN</p>
+<h3 class="showcase-title">6T SRAM Design and Simulation Using Cadence Virtuoso</h3>
+<p>Designed a 6T SRAM cell schematic, analyzed static noise margin using butterfly curves, and developed the cell layout in Cadence Virtuoso.</p>
+<p><strong>Year:</strong> 2025</p>
+<div class="tags">
+<span>6T SRAM</span>
+<span>Cadence Virtuoso</span>
+<span>Butterfly Curve</span>
+<span>VLSI</span>
+</div>
+<div class="showcase-action">
+<a class="btn btn-primary" href="https://github.com/saianirudh-g/SRAM-Project" rel="noopener noreferrer" target="_blank">View Project <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+</div>
+</div>
+</div>
+<!-- Project 3 -->
+<div class="project-card project-showcase" style="--showcase-accent:#4338ca;"><div class="showcase-visual"><img alt="VLSI &amp; ASIC Design technical illustration for RTL-to-GDSII ASIC Physical Design Flow" class="no-popup" decoding="async" loading="lazy" src="project-images/project-07-rtl-to-gdsii-asic-physical-design-flow.svg"/><span class="showcase-index">PROJECT 07</span></div>
+<div class="project-content"><p class="showcase-category">VLSI &amp; ASIC DESIGN</p>
+<h3 class="showcase-title">RTL-to-GDSII ASIC Physical Design Flow</h3>
+<p>Explored the ASIC physical design flow from RTL synthesis through floorplanning, placement, and routing.</p>
+<p><strong>Year:</strong> 2025</p>
+<div class="tags">
+<span>RTL-to-GDSII</span>
+<span>ASIC</span>
+<span>Synthesis</span>
+<span>Physical Design</span>
+</div>
+<div class="showcase-action">
+<a class="btn btn-primary" href="https://github.com/saianirudh-g/RTL-to-GDSII-Flow" rel="noopener noreferrer" target="_blank">View Project <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- POWER SYSTEMS PROJECTS -->
+<div class="project-category showcase-section" style="margin-bottom: 4rem;">
+<h2 class="section-title">Power <span>Systems</span></h2>
+<div class="slider-wrapper showcase-scroller">
+<div class="slider-container">
+<!-- Project 1 -->
+<div class="project-card project-showcase" style="--showcase-accent:#9a3412;"><div class="showcase-visual"><img alt="Power Systems technical illustration for ETAP Short-Circuit Analysis and Circuit Breaker Rating Study" class="no-popup" decoding="async" loading="lazy" src="project-images/project-08-etap-short-circuit-analysis-and-circuit-break.svg"/><span class="showcase-index">PROJECT 08</span></div>
+<div class="project-content"><p class="showcase-category">POWER SYSTEMS</p>
+<h3 class="showcase-title">ETAP Short-Circuit Analysis and Circuit Breaker Rating Study</h3>
+<p>Performed short-circuit studies in ETAP to calculate system fault currents and assess circuit breaker ratings.</p>
+<p><strong>Year:</strong> 2026</p>
+<div class="tags">
+<span>ETAP</span>
+<span>Short-Circuit Analysis</span>
+<span>Fault Current</span>
+<span>Circuit Breakers</span>
+</div>
+<div class="showcase-action">
+<a class="btn btn-primary" href="https://drive.google.com/file/d/1fMLb9LEYNjeuMiqAh0fGiBU1i1pJkIW9/view?usp=sharing" rel="noopener noreferrer" target="_blank">View Project <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+</div>
+</div>
+</div>
+<!-- Project 2 -->
+<div class="project-card project-showcase" style="--showcase-accent:#9a3412;"><div class="showcase-visual"><img alt="Power Systems technical illustration for ETAP One-Line Design, Load Flow Analysis, and Cable Selection" class="no-popup" decoding="async" loading="lazy" src="project-images/project-09-etap-one-line-design-load-flow-analysis-and-c.svg"/><span class="showcase-index">PROJECT 09</span></div>
+<div class="project-content"><p class="showcase-category">POWER SYSTEMS</p>
+<h3 class="showcase-title">ETAP One-Line Design, Load Flow Analysis, and Cable Selection</h3>
+<p>Created a power system one-line diagram in ETAP, evaluated bus voltages and branch currents through load flow analysis, and selected cable sizes.</p>
+<p><strong>Year:</strong> 2026</p>
+<div class="tags">
+<span>ETAP</span>
+<span>One-Line Diagram</span>
+<span>Load Flow</span>
+<span>Cable Sizing</span>
+</div>
+<div class="showcase-action">
+<a class="btn btn-primary" href="https://docs.google.com/document/d/10SpaOxjCrwG27I1NjJTx9ub6eA8weV4O/edit?usp=sharing&amp;ouid=103170382960486364905&amp;rtpof=true&amp;sd=true" rel="noopener noreferrer" target="_blank">View Project <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+</div>
+</div>
+</div>
+<!-- Project 3 -->
+<div class="project-card project-showcase" style="--showcase-accent:#9a3412;"><div class="showcase-visual"><img alt="Power Systems technical illustration for Distribution System Modeling and Short-Circuit Fault Analysis Using ASPEN OneLiner" class="no-popup" decoding="async" loading="lazy" src="project-images/project-10-distribution-system-modeling-and-short-circui.svg"/><span class="showcase-index">PROJECT 10</span></div>
+<div class="project-content"><p class="showcase-category">POWER SYSTEMS</p>
+<h3 class="showcase-title">Distribution System Modeling and Short-Circuit Fault Analysis Using ASPEN OneLiner</h3>
+<p>Modeled an electrical distribution system in ASPEN OneLiner and evaluated short-circuit fault currents for system fault analysis.</p>
+<p><strong>Year:</strong> 2026</p>
+<div class="tags">
+<span>ASPEN OneLiner</span>
+<span>Distribution Systems</span>
+<span>Short-Circuit Analysis</span>
+</div>
+<div class="showcase-action">
+<a class="btn btn-primary" href="https://github.com/saianirudh-g/Distribution-System-Modeling-and-Short-Circuit-Fault-Analysis-Using-ASPEN-OneLiner.git" rel="noopener noreferrer" target="_blank">View Project <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+</div>
+</div>
+</div>
+<!-- Project 4 -->
+<div class="project-card project-showcase" style="--showcase-accent:#9a3412;"><div class="showcase-visual"><img alt="Power Systems technical illustration for Protection and Control (P&amp;C) Data Verification" class="no-popup" decoding="async" loading="lazy" src="project-images/project-11-protection-and-control-p-c-data-verification.svg"/><span class="showcase-index">PROJECT 11</span></div>
+<div class="project-content"><p class="showcase-category">POWER SYSTEMS</p>
+<h3 class="showcase-title">Protection and Control (P&amp;C) Data Verification</h3>
+<p>Verified power system equipment data and reviewed protective device coordination using ETAP for protection and control studies.</p>
+<p><strong>Year:</strong> 2026</p>
+<div class="tags">
+<span>ETAP</span>
+<span>Protection &amp; Control</span>
+<span>Data Verification</span>
+<span>Relay Coordination</span>
+</div>
+<div class="showcase-action">
+<a class="btn btn-primary" href="https://github.com/saianirudh-g/Protection-and-Control-P-C-Data-Verification" rel="noopener noreferrer" target="_blank">View Project <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+</div>
+</div>
+</div>
+<!-- Project 5 -->
+<div class="project-card project-showcase" style="--showcase-accent:#9a3412;"><div class="showcase-visual"><img alt="Power Systems technical illustration for Radial System Time-Overcurrent Relay Coordination" class="no-popup" decoding="async" loading="lazy" src="project-images/project-12-radial-system-time-overcurrent-relay-coordina.svg"/><span class="showcase-index">PROJECT 12</span></div>
+<div class="project-content"><p class="showcase-category">POWER SYSTEMS</p>
+<h3 class="showcase-title">Radial System Time-Overcurrent Relay Coordination</h3>
+<p>Analyzed a radial power system and coordinated time-overcurrent relays to support selective fault isolation and reliable protection.</p>
+<p><strong>Year:</strong> 2026</p>
+<div class="tags">
+<span>ASPEN</span>
+<span>Overcurrent Relays</span>
+<span>Relay Coordination</span>
+<span>Protection</span>
+</div>
+<div class="showcase-action">
+<a class="btn btn-primary" href="https://github.com/saianirudh-g/Radial-System-Timing-Over-Current-Relay-Coordination" rel="noopener noreferrer" target="_blank">View Project <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- PLC DESIGN PROJECTS -->
+<div class="project-category showcase-section" style="margin-bottom: 4rem;">
+<h2 class="section-title">PLC <span>Design</span></h2>
+<div class="slider-wrapper showcase-scroller">
+<div class="slider-container">
+<!-- Project 1 -->
+<div class="project-card project-showcase" style="--showcase-accent:#334155;"><div class="showcase-visual"><img alt="PLC Design technical illustration for Industrial Sensor Measurement and PLC Ladder Logic Design" class="no-popup" decoding="async" loading="lazy" src="project-images/project-13-industrial-sensor-measurement-and-plc-ladder-.svg"/><span class="showcase-index">PROJECT 13</span></div>
+<div class="project-content"><p class="showcase-category">PLC DESIGN</p>
+<h3 class="showcase-title">Industrial Sensor Measurement and PLC Ladder Logic Design</h3>
+<p>Studied signal conditioning and measurement methods for thermocouples, RTDs, load cells, and capacitive sensors, together with PLC ladder logic.</p>
+<p><strong>Year:</strong> 2026</p>
+<div class="tags">
+<span>Thermocouples</span>
+<span>RTD</span>
+<span>Signal Conditioning</span>
+<span>PLC Ladder Logic</span>
+</div>
+<div class="showcase-action">
+<a class="btn btn-primary" href="https://github.com/saianirudh-g/Industrial-Sensor-Signal-Conditioning-and-Measurement-System-Design" rel="noopener noreferrer" target="_blank">View Project <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Wireless Communications -->
+<div class="project-category showcase-section" style="margin-bottom: 4rem;">
+<h2 class="section-title">Wireless <span>Communications</span></h2>
+<div class="slider-wrapper showcase-scroller">
+<div class="slider-container">
+<!-- Project 1 -->
+<div class="project-card project-showcase" style="--showcase-accent:#0369a1;"><div class="showcase-visual"><img alt="Wireless Communications technical illustration for Bluetooth Low Energy Receiver Front-End Design" class="no-popup" decoding="async" loading="lazy" src="project-images/project-14-bluetooth-low-energy-receiver-front-end-desig.svg"/><span class="showcase-index">PROJECT 14</span></div>
+<div class="project-content"><p class="showcase-category">WIRELESS COMMUNICATIONS</p>
+<h3 class="showcase-title">Bluetooth Low Energy Receiver Front-End Design</h3>
+<p>Developed receiver front-end schematics in QUCS and a PCB layout in KiCad for a Bluetooth Low Energy communication system.</p>
+<p><strong>Year:</strong> 2026</p>
+<div class="tags">
+<span>BLE</span>
+<span>RF Front End</span>
+<span>QUCS</span>
+<span>KiCad</span>
+</div>
+<div class="showcase-action">
+<a class="btn btn-primary" href="https://github.com/saianirudh-g/Bluetooth-Low-Energy-Receiver-Front-End-Design-Schematic-PCB-Design-" rel="noopener noreferrer" target="_blank">View Project <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+</div>
+</div>
+</div>
+<!-- Project 2 -->
+<div class="project-card project-showcase" style="--showcase-accent:#0369a1;"><div class="showcase-visual"><img alt="Wireless Communications technical illustration for Microwave Transmission Line Characterization Using a Handheld VNA" class="no-popup" decoding="async" loading="lazy" src="project-images/project-15-microwave-transmission-line-characterization-.svg"/><span class="showcase-index">PROJECT 15</span></div>
+<div class="project-content"><p class="showcase-category">WIRELESS COMMUNICATIONS</p>
+<h3 class="showcase-title">Microwave Transmission Line Characterization Using a Handheld VNA</h3>
+<p>Characterized a 50-ohm coaxial transmission line from 1 to 5 GHz using a handheld vector network analyzer to study its RF transmission behavior.</p>
+<p><strong>Year:</strong> 2025</p>
+<div class="tags">
+<span>Vector Network Analyzer</span>
+<span>S-Parameters</span>
+<span>Coaxial Cable</span>
+<span>RF Measurements</span>
+</div>
+<div class="showcase-action">
+<a class="btn btn-primary" href="https://github.com/saianirudh-g/Microwave-Transmission-Line-Characterization-Using-a-Handheld-VNA" rel="noopener noreferrer" target="_blank">View Project <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Signal Processing -->
+<div class="project-category showcase-section" style="margin-bottom: 4rem;">
+<h2 class="section-title">Signal <span>Processing</span></h2>
+<div class="slider-wrapper showcase-scroller">
+<div class="slider-container">
+<!-- Project 4 -->
+<div class="project-card project-showcase" style="--showcase-accent:#7c3aed;"><div class="showcase-visual"><img alt="Signal Processing technical illustration for HEVC Video Compression and Quality Assessment Using PSNR and SSIM" class="no-popup" decoding="async" loading="lazy" src="project-images/project-16-hevc-video-compression-and-quality-assessment.svg"/><span class="showcase-index">PROJECT 16</span></div>
+<div class="project-content"><p class="showcase-category">SIGNAL PROCESSING</p>
+<h3 class="showcase-title">HEVC Video Compression and Quality Assessment Using PSNR and SSIM</h3>
+<p>Implements INTRA and INTER coding, PSNR/SSIM evaluation, frame-level quality analysis, and SSIM map visualization using UVG Beauty and Bosphorus video sequences.</p>
+<p><strong>Year:</strong> 2026</p>
+<div class="tags">
+<span>Python and FFMPEG</span>
+<span>Video Coding</span>
+<span>Motion Estimation</span>
+<span>Video &amp; Image Compression</span>
+</div>
+<div class="showcase-action">
+<a class="btn btn-primary" href="https://github.com/saianirudh-g/HEVC-Video-Compression-and-Quality-Assessment-Using-PSNR-and-SSIM" rel="noopener noreferrer" target="_blank">View Project <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+</div>
+</div>
+</div>
+<!-- Project 3 -->
+<div class="project-card project-showcase" style="--showcase-accent:#7c3aed;"><div class="showcase-visual"><img alt="Signal Processing technical illustration for Block-Based and Affine Motion Estimation for Video Compression Using MATLAB" class="no-popup" decoding="async" loading="lazy" src="project-images/project-17-block-based-and-affine-motion-estimation-for-.svg"/><span class="showcase-index">PROJECT 17</span></div>
+<div class="project-content"><p class="showcase-category">SIGNAL PROCESSING</p>
+<h3 class="showcase-title">Block-Based and Affine Motion Estimation for Video Compression Using MATLAB</h3>
+<p>MATLAB implementation and comparison of integer-pixel, half-pixel, diamond-search, and four-parameter affine motion estimation</p>
+<p><strong>Year:</strong> 2026</p>
+<div class="tags">
+<span>MATLAB</span>
+<span>Video Coding</span>
+<span>Motion Estimation</span>
+<span>Image Compression</span>
+</div>
+<div class="showcase-action">
+<a class="btn btn-primary" href="https://github.com/saianirudh-g/Block-Based-and-Affine-Motion-Estimation-for-Video-Compression-Using-MATLAB" rel="noopener noreferrer" target="_blank">View Project <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+</div>
+</div>
+</div>
+<!-- Project 2 -->
+<div class="project-card project-showcase" style="--showcase-accent:#7c3aed;"><div class="showcase-visual"><img alt="Signal Processing technical illustration for Context-Adaptive Arithmetic Coding for Image Compression Using MATLAB" class="no-popup" decoding="async" loading="lazy" src="project-images/project-18-context-adaptive-arithmetic-coding-for-image-.svg"/><span class="showcase-index">PROJECT 18</span></div>
+<div class="project-content"><p class="showcase-category">SIGNAL PROCESSING</p>
+<h3 class="showcase-title">Context-Adaptive Arithmetic Coding for Image Compression Using MATLAB</h3>
+<p>Explored predictive image compression using Exp-Golomb coding and context-adaptive binary arithmetic coding in MATLAB.</p>
+<p><strong>Year:</strong> 2026</p>
+<div class="tags">
+<span>MATLAB</span>
+<span>Exp-Golomb Coding</span>
+<span>Arithmetic Coding</span>
+<span>Image Compression</span>
+</div>
+<div class="showcase-action">
+<a class="btn btn-primary" href="https://github.com/saianirudh-g/Context-Adaptive-Arithmetic-Coding-for-Predictive-and-Binary-Image-Compression-Using-MATLAB" rel="noopener noreferrer" target="_blank">View Project <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+</div>
+</div>
+</div>
+<!-- Project 1 -->
+<div class="project-card project-showcase" style="--showcase-accent:#7c3aed;"><div class="showcase-visual"><img alt="Signal Processing technical illustration for Predictive Image Compression Using Golomb-Rice Coding" class="no-popup" decoding="async" loading="lazy" src="project-images/project-19-predictive-image-compression-using-golomb-ric.svg"/><span class="showcase-index">PROJECT 19</span></div>
+<div class="project-content"><p class="showcase-category">SIGNAL PROCESSING</p>
+<h3 class="showcase-title">Predictive Image Compression Using Golomb-Rice Coding</h3>
+<p>Applied predictive coding to grayscale images and analyzed residual errors for efficient entropy coding with Golomb-Rice codes.</p>
+<p><strong>Year:</strong> 2026</p>
+<div class="tags">
+<span>MATLAB</span>
+<span>Golomb-Rice Coding</span>
+<span>Predictive Coding</span>
+<span>Residual Analysis</span>
+</div>
+<div class="showcase-action">
+<a class="btn btn-primary" href="https://github.com/saianirudh-g/Predictive-Image-Coding-Using-Golomb-Codes" rel="noopener noreferrer" target="_blank">View Project <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- INTERNET OF THINGS PROJECTS -->
+<div class="project-category showcase-section" style="margin-bottom: 4rem;">
+<h2 class="section-title">Internet of <span>Things</span></h2>
+<div class="slider-wrapper showcase-scroller">
+<div class="slider-container">
+<!-- Project 1 -->
+<div class="project-card project-showcase" style="--showcase-accent:#0f766e;"><div class="showcase-visual"><img alt="Internet of Things technical illustration for IoT-Based Autonomous Fire Extinguisher, Temperature, and AQI Monitoring" class="no-popup" decoding="async" loading="lazy" src="project-images/project-20-iot-based-autonomous-fire-extinguisher-temper.svg"/><span class="showcase-index">PROJECT 20</span></div>
+<div class="project-content"><p class="showcase-category">INTERNET OF THINGS</p>
+<h3 class="showcase-title">IoT-Based Autonomous Fire Extinguisher, Temperature, and AQI Monitoring</h3>
+<p>Developed an IoT-based system for temperature and air quality monitoring in commercial buildings, with an automatic fire suppression mechanism.</p>
+<p><strong>Year:</strong> 2023</p>
+<div class="tags">
+<span>IoT</span>
+<span>ESP32</span>
+<span>Temperature Monitoring</span>
+<span>AQI</span>
+<span>Fire Safety</span>
+</div>
+<div class="showcase-action">
+<a class="btn btn-primary" href="https://github.com/saianirudh-g/IOT-Based-Autonomous-Fire-Extinguisher-Temperature-And-AQI-Montoring-System-For-Commercial-Buildings" rel="noopener noreferrer" target="_blank">View Project <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+</div>
+</div>
+</div>
+<!-- Project 2 -->
+<div class="project-card project-showcase" style="--showcase-accent:#0f766e;"><div class="showcase-visual"><img alt="Internet of Things technical illustration for Automatic Irrigation System Using a GSM Module" class="no-popup" decoding="async" loading="lazy" src="project-images/project-21-automatic-irrigation-system-using-a-gsm-modul.svg"/><span class="showcase-index">PROJECT 21</span></div>
+<div class="project-content"><p class="showcase-category">INTERNET OF THINGS</p>
+<h3 class="showcase-title">Automatic Irrigation System Using a GSM Module</h3>
+<p>Developed a sensor-based irrigation system with GSM communication for remote monitoring and SMS notifications.</p>
+<p><strong>Year:</strong> 2022</p>
+<div class="tags">
+<span>IoT</span>
+<span>Soil Moisture Sensors</span>
+<span>GSM</span>
+<span>SMS Alerts</span>
+</div>
+<div class="showcase-action">
+<a class="btn btn-primary" href="https://github.com/saianirudh-g/Automatic-Irrigation-System-Using-GSM-Module" rel="noopener noreferrer" target="_blank">View Project <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+</div>
+</div>
+</div>
+<!-- Project 3 -->
+<div class="project-card project-showcase" style="--showcase-accent:#0f766e;"><div class="showcase-visual"><img alt="Internet of Things technical illustration for IoT-Based Health Monitoring System" class="no-popup" decoding="async" loading="lazy" src="project-images/project-22-iot-based-health-monitoring-system.svg"/><span class="showcase-index">PROJECT 22</span></div>
+<div class="project-content"><p class="showcase-category">INTERNET OF THINGS</p>
+<h3 class="showcase-title">IoT-Based Health Monitoring System</h3>
+<p>Designed an IoT-enabled monitoring system to track patient vital signs using sensors and wireless data transmission.</p>
+<p><strong>Year:</strong> 2022</p>
+<div class="tags">
+<span>IoT</span>
+<span>Arduino</span>
+<span>Health Sensors</span>
+<span>Wi-Fi</span>
+</div>
+<div class="showcase-action">
+<a class="btn btn-primary" href="https://github.com/saianirudh-g/IOT-Based-Health-Monitoring-System" rel="noopener noreferrer" target="_blank">View Project <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section>
 
 <!-- =========================================================
@@ -2094,159 +2217,158 @@ THz Communication and Software Testing.
      PRESENTATIONS (SLIDER)
 ========================================================= -->
 <section class="tab-page" id="presentations">
-  <!-- IEEE Presentations -->
-  <div class="project-category" style="margin-bottom: 4rem;">
-    <h2 class="section-title">IEEE <span>Presentations</span></h2>
-    <div class="slider-wrapper">
-      <div class="slider-container">
-        <!-- Presentation 1 -->
-        <div class="project-card glass">
-          <div class="project-content">
-            <h3>Cross-Domain Cyber Awareness Using Signal Intelligence Techniques</h3>
-            <p>Presented at IEEE UEMCON 2026, this research introduces a training-free Cyber Awareness via Residual Signals (CARS) framework that analyzes network traffic deviations to generate interpretable cyber-awareness scores and episodes.</p>
-            <p><strong>Year:</strong> 2026</p>
-            <div class="tags">
-              <span>Cybersecurity</span>
-              <span>Signal Intelligence (SIGINT)</span>
-              <span>Network Traffic Analysis</span>
-              <span>CARS Framework</span>
-            </div>
-            <div style="margin-top: 25px;">
-              <a class="btn btn-primary" href="https://docs.google.com/presentation/d/1ag5_M22ntwzOAEjiEqL7RLhy0EbjH996/edit?usp=sharing&amp;ouid=103170382960486364905&amp;rtpof=true&amp;sd=true" target="_blank" rel="noopener noreferrer">View Presentation</a>
-            </div>
-          </div>
-        </div>
-        <!-- Presentation 2 -->
-        <div class="project-card glass">
-          <div class="project-content">
-            <h3>Design and Analysis of Dyslexia Detection Using Ensemble Feature Selection (d-GAP)</h3>
-            <p>Explores machine learning for dyslexia screening using Principal Component Analysis (PCA) and an enhanced Genetic Algorithm to reduce dimensionality, select relevant features, and evaluate classification performance.</p>
-            <p><strong>Year:</strong> 2026</p>
-            <div class="tags">
-              <span>Machine Learning</span>
-              <span>PCA</span>
-              <span>Genetic Algorithm</span>
-              <span>Dyslexia Detection</span>
-            </div>
-            <div style="margin-top: 25px;">
-              <a class="btn btn-primary" href="https://docs.google.com/presentation/d/1wovj6XSGBVGkCbSU0yZSob1IdWA22frx/edit?usp=sharing&amp;ouid=103170382960486364905&amp;rtpof=true&amp;sd=true" target="_blank" rel="noopener noreferrer">View Presentation</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Research Presentations -->
-  <div class="project-category" style="margin-bottom: 2rem;">
-    <h2 class="section-title">Research <span>Presentations</span></h2>
-    <div class="slider-wrapper">
-      <div class="slider-container">
-        <!-- Presentation 1 -->
-        <div class="project-card glass">
-          <div class="project-content">
-            <h3>Multi-Kilometer, Multi-Gigabit-per-Second Sub-THz Communications for Wireless Backhaul</h3>
-            <p>Reviews long-distance, high-data-rate sub-terahertz wireless backhaul for 6G, including transceiver architectures, high-gain antennas, atmospheric propagation challenges, and a 2.03 km experimental link.</p>
-            <p><strong>Year:</strong> 2026</p>
-            <div class="tags">
-              <span>Sub-THz Communications</span>
-              <span>6G</span>
-              <span>Wireless Backhaul</span>
-              <span>Transceiver Design</span>
-            </div>
-            <div style="margin-top: 25px;">
-              <a class="btn btn-primary" href="https://docs.google.com/presentation/d/1E22iVT8_w9BMjF7B2N19dWf6-sa7460O/edit?usp=sharing&amp;ouid=103170382960486364905&amp;rtpof=true&amp;sd=true" target="_blank" rel="noopener noreferrer">View Presentation</a>
-            </div>
-          </div>
-        </div>
-        <!-- Presentation 2 -->
-        <div class="project-card glass">
-          <div class="project-content">
-            <h3>Detection and Identification of Illicit Drugs Using Terahertz Imaging</h3>
-            <p>Examines non-destructive detection methods using terahertz imaging and absorption-spectrum signatures to distinguish substances, with potential applications in security screening and forensic analysis.</p>
-            <p><strong>Year:</strong> 2026</p>
-            <div class="tags">
-              <span>Terahertz Imaging</span>
-              <span>Spectral Analysis</span>
-              <span>Security Screening</span>
-              <span>MATLAB</span>
-            </div>
-            <div style="margin-top: 25px;">
-              <a class="btn btn-primary" href="https://docs.google.com/presentation/d/1k37Vq24qrvtG0WY4qsAnXn2Wg01OOVVV/edit?usp=sharing&amp;ouid=103170382960486364905&amp;rtpof=true&amp;sd=true" target="_blank" rel="noopener noreferrer">View Presentation</a>
-            </div>
-          </div>
-        </div>
-        <!-- Presentation 3 -->
-        <div class="project-card glass">
-          <div class="project-content">
-            <h3>IoT-Based Autonomous Fire Extinguisher, Temperature, and AQI Monitoring System</h3>
-            <p>Presents an ESP32-based fire-safety system that monitors temperature, smoke or gas conditions, and air quality, activates fire suppression when thresholds are exceeded, and supports remote monitoring.</p>
-            <p><strong>Year:</strong> 2023</p>
-            <div class="tags">
-              <span>IoT</span>
-              <span>ESP32</span>
-              <span>Fire Safety</span>
-              <span>Air Quality Monitoring</span>
-            </div>
-            <div style="margin-top: 25px;">
-              <a class="btn btn-primary" href="https://docs.google.com/presentation/d/1YN5M10YBedDZ_uN7DpgG-okSSg9Z00n3/edit?usp=sharing&amp;ouid=103170382960486364905&amp;rtpof=true&amp;sd=true" target="_blank" rel="noopener noreferrer">View Presentation</a>
-            </div>
-          </div>
-        </div>
-        <!-- Presentation 4 -->
-        <div class="project-card glass">
-          <div class="project-content">
-            <h3>IoT-Based Health Monitoring System</h3>
-            <p>Introduces a connected health-monitoring concept using sensors and wireless communication to collect and share patient vital-sign information for remote observation.</p>
-            <p><strong>Year:</strong> 2022</p>
-            <div class="tags">
-              <span>IoT</span>
-              <span>Health Monitoring</span>
-              <span>Sensors</span>
-              <span>Wireless Communication</span>
-            </div>
-            <div style="margin-top: 25px;">
-              <a class="btn btn-primary" href="https://docs.google.com/presentation/d/1D-QSD0qu35LOEy7FIcqq9xt3lmU6x-RL/edit?usp=sharing&amp;ouid=103170382960486364905&amp;rtpof=true&amp;sd=true" target="_blank" rel="noopener noreferrer">View Presentation</a>
-            </div>
-          </div>
-        </div>
-        <!-- Presentation 5 -->
-        <div class="project-card glass">
-          <div class="project-content">
-            <h3>Automatic Irrigation System Using a GSM Module</h3>
-            <p>Presents an automated irrigation approach that uses soil-condition sensing, relay-based control, and GSM communication to support remote monitoring and watering decisions.</p>
-            <p><strong>Year:</strong> 2022</p>
-            <div class="tags">
-              <span>GSM</span>
-              <span>Automatic Irrigation</span>
-              <span>Soil Sensors</span>
-              <span>Relay Control</span>
-            </div>
-            <div style="margin-top: 25px;">
-              <a class="btn btn-primary" href="https://docs.google.com/presentation/d/1tsCIrdAdcBKfQYhC292uMjDxHCrHhAD7/edit?usp=sharing&amp;ouid=103170382960486364905&amp;rtpof=true&amp;sd=true" target="_blank" rel="noopener noreferrer">View Presentation</a>
-            </div>
-          </div>
-        </div>
-        <!-- Presentation 6 -->
-        <div class="project-card glass">
-          <div class="project-content">
-            <h3>Soil Testing Using an IoT Device</h3>
-            <p>Describes an ESP8266-based soil-monitoring system using pH, moisture, and humidity sensors to assess growing conditions and support informed irrigation and soil-management decisions.</p>
-            <p><strong>Year:</strong> 2022</p>
-            <div class="tags">
-              <span>IoT</span>
-              <span>ESP8266</span>
-              <span>Soil pH</span>
-              <span>Moisture &amp; Humidity Sensors</span>
-            </div>
-            <div style="margin-top: 25px;">
-              <a class="btn btn-primary" href="https://docs.google.com/presentation/d/1MPwBHbBBhUJ-RxCAU4l87-tR72nZ8Xqp/edit?usp=sharing&amp;ouid=103170382960486364905&amp;rtpof=true&amp;sd=true" target="_blank" rel="noopener noreferrer">View Presentation</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<!-- IEEE Presentations -->
+<div class="project-category" style="margin-bottom: 4rem;">
+<h2 class="section-title">IEEE <span>Presentations</span></h2>
+<div class="slider-wrapper showcase-scroller">
+<div class="slider-container">
+<!-- Presentation 1 -->
+<div class="project-card project-showcase" style="--showcase-accent:#075985;"><div class="slide-preview-frame showcase-visual"><span class="showcase-index">PRESENTATION 01</span><iframe allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://docs.google.com/presentation/d/1ag5_M22ntwzOAEjiEqL7RLhy0EbjH996/embed?start=false&amp;loop=false&amp;delayms=3000" tabindex="0" title="First slide preview: Cross-Domain Cyber Awareness Using Signal Intelligence Techniques"></iframe><div class="slide-preview-caption">Slide 1 preview · Use View Presentation for the complete deck</div></div>
+<div class="project-content"><p class="showcase-category">IEEE CONFERENCE</p>
+<h3 class="showcase-title">Cross-Domain Cyber Awareness Using Signal Intelligence Techniques</h3>
+<p>Presented at IEEE UEMCON 2026, this research introduces a training-free Cyber Awareness via Residual Signals (CARS) framework that analyzes network traffic deviations to generate interpretable cyber-awareness scores and episodes.</p>
+<p><strong>Year:</strong> 2026</p>
+<div class="tags">
+<span>Cybersecurity</span>
+<span>Signal Intelligence (SIGINT)</span>
+<span>Network Traffic Analysis</span>
+<span>CARS Framework</span>
+</div>
+<div class="showcase-action">
+<a class="btn btn-primary" href="https://docs.google.com/presentation/d/1ag5_M22ntwzOAEjiEqL7RLhy0EbjH996/edit?usp=sharing&amp;ouid=103170382960486364905&amp;rtpof=true&amp;sd=true" rel="noopener noreferrer" target="_blank">View Presentation</a>
+</div>
+</div>
+</div>
+<!-- Presentation 2 -->
+<div class="project-card project-showcase" style="--showcase-accent:#075985;"><div class="slide-preview-frame showcase-visual"><span class="showcase-index">PRESENTATION 02</span><iframe allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://docs.google.com/presentation/d/1wovj6XSGBVGkCbSU0yZSob1IdWA22frx/embed?start=false&amp;loop=false&amp;delayms=3000" tabindex="0" title="First slide preview: Design and Analysis of Dyslexia Detection Using Ensemble Feature Selection (d-GAP)"></iframe><div class="slide-preview-caption">Slide 1 preview · Use View Presentation for the complete deck</div></div>
+<div class="project-content"><p class="showcase-category">IEEE CONFERENCE</p>
+<h3 class="showcase-title">Design and Analysis of Dyslexia Detection Using Ensemble Feature Selection (d-GAP)</h3>
+<p>Explores machine learning for dyslexia screening using Principal Component Analysis (PCA) and an enhanced Genetic Algorithm to reduce dimensionality, select relevant features, and evaluate classification performance.</p>
+<p><strong>Year:</strong> 2026</p>
+<div class="tags">
+<span>Machine Learning</span>
+<span>PCA</span>
+<span>Genetic Algorithm</span>
+<span>Dyslexia Detection</span>
+</div>
+<div class="showcase-action">
+<a class="btn btn-primary" href="https://docs.google.com/presentation/d/1wovj6XSGBVGkCbSU0yZSob1IdWA22frx/edit?usp=sharing&amp;ouid=103170382960486364905&amp;rtpof=true&amp;sd=true" rel="noopener noreferrer" target="_blank">View Presentation</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Research Presentations -->
+<div class="project-category" style="margin-bottom: 2rem;">
+<h2 class="section-title">Research <span>Presentations</span></h2>
+<div class="slider-wrapper showcase-scroller">
+<div class="slider-container">
+<!-- Presentation 1 -->
+<div class="project-card project-showcase" style="--showcase-accent:#4338ca;"><div class="slide-preview-frame showcase-visual"><span class="showcase-index">PRESENTATION 01</span><iframe allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://docs.google.com/presentation/d/1E22iVT8_w9BMjF7B2N19dWf6-sa7460O/embed?start=false&amp;loop=false&amp;delayms=3000" tabindex="0" title="First slide preview: Multi-Kilometer, Multi-Gigabit-per-Second Sub-THz Communications for Wireless Backhaul"></iframe><div class="slide-preview-caption">Slide 1 preview · Use View Presentation for the complete deck</div></div>
+<div class="project-content"><p class="showcase-category">RESEARCH PRESENTATION</p>
+<h3 class="showcase-title">Multi-Kilometer, Multi-Gigabit-per-Second Sub-THz Communications for Wireless Backhaul</h3>
+<p>Reviews long-distance, high-data-rate sub-terahertz wireless backhaul for 6G, including transceiver architectures, high-gain antennas, atmospheric propagation challenges, and a 2.03 km experimental link.</p>
+<p><strong>Year:</strong> 2026</p>
+<div class="tags">
+<span>Sub-THz Communications</span>
+<span>6G</span>
+<span>Wireless Backhaul</span>
+<span>Transceiver Design</span>
+</div>
+<div class="showcase-action">
+<a class="btn btn-primary" href="https://docs.google.com/presentation/d/1E22iVT8_w9BMjF7B2N19dWf6-sa7460O/edit?usp=sharing&amp;ouid=103170382960486364905&amp;rtpof=true&amp;sd=true" rel="noopener noreferrer" target="_blank">View Presentation</a>
+</div>
+</div>
+</div>
+<!-- Presentation 2 -->
+<div class="project-card project-showcase" style="--showcase-accent:#4338ca;"><div class="slide-preview-frame showcase-visual"><span class="showcase-index">PRESENTATION 02</span><iframe allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://docs.google.com/presentation/d/1k37Vq24qrvtG0WY4qsAnXn2Wg01OOVVV/embed?start=false&amp;loop=false&amp;delayms=3000" tabindex="0" title="First slide preview: Detection and Identification of Illicit Drugs Using Terahertz Imaging"></iframe><div class="slide-preview-caption">Slide 1 preview · Use View Presentation for the complete deck</div></div>
+<div class="project-content"><p class="showcase-category">RESEARCH PRESENTATION</p>
+<h3 class="showcase-title">Detection and Identification of Illicit Drugs Using Terahertz Imaging</h3>
+<p>Examines non-destructive detection methods using terahertz imaging and absorption-spectrum signatures to distinguish substances, with potential applications in security screening and forensic analysis.</p>
+<p><strong>Year:</strong> 2026</p>
+<div class="tags">
+<span>Terahertz Imaging</span>
+<span>Spectral Analysis</span>
+<span>Security Screening</span>
+<span>MATLAB</span>
+</div>
+<div class="showcase-action">
+<a class="btn btn-primary" href="https://docs.google.com/presentation/d/1k37Vq24qrvtG0WY4qsAnXn2Wg01OOVVV/edit?usp=sharing&amp;ouid=103170382960486364905&amp;rtpof=true&amp;sd=true" rel="noopener noreferrer" target="_blank">View Presentation</a>
+</div>
+</div>
+</div>
+<!-- Presentation 3 -->
+<div class="project-card project-showcase" style="--showcase-accent:#4338ca;"><div class="slide-preview-frame showcase-visual"><span class="showcase-index">PRESENTATION 03</span><iframe allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://docs.google.com/presentation/d/1YN5M10YBedDZ_uN7DpgG-okSSg9Z00n3/embed?start=false&amp;loop=false&amp;delayms=3000" tabindex="0" title="First slide preview: IoT-Based Autonomous Fire Extinguisher, Temperature, and AQI Monitoring System"></iframe><div class="slide-preview-caption">Slide 1 preview · Use View Presentation for the complete deck</div></div>
+<div class="project-content"><p class="showcase-category">RESEARCH PRESENTATION</p>
+<h3 class="showcase-title">IoT-Based Autonomous Fire Extinguisher, Temperature, and AQI Monitoring System</h3>
+<p>Presents an ESP32-based fire-safety system that monitors temperature, smoke or gas conditions, and air quality, activates fire suppression when thresholds are exceeded, and supports remote monitoring.</p>
+<p><strong>Year:</strong> 2023</p>
+<div class="tags">
+<span>IoT</span>
+<span>ESP32</span>
+<span>Fire Safety</span>
+<span>Air Quality Monitoring</span>
+</div>
+<div class="showcase-action">
+<a class="btn btn-primary" href="https://docs.google.com/presentation/d/1YN5M10YBedDZ_uN7DpgG-okSSg9Z00n3/edit?usp=sharing&amp;ouid=103170382960486364905&amp;rtpof=true&amp;sd=true" rel="noopener noreferrer" target="_blank">View Presentation</a>
+</div>
+</div>
+</div>
+<!-- Presentation 4 -->
+<div class="project-card project-showcase" style="--showcase-accent:#4338ca;"><div class="slide-preview-frame showcase-visual"><span class="showcase-index">PRESENTATION 04</span><iframe allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://docs.google.com/presentation/d/1D-QSD0qu35LOEy7FIcqq9xt3lmU6x-RL/embed?start=false&amp;loop=false&amp;delayms=3000" tabindex="0" title="First slide preview: IoT-Based Health Monitoring System"></iframe><div class="slide-preview-caption">Slide 1 preview · Use View Presentation for the complete deck</div></div>
+<div class="project-content"><p class="showcase-category">RESEARCH PRESENTATION</p>
+<h3 class="showcase-title">IoT-Based Health Monitoring System</h3>
+<p>Introduces a connected health-monitoring concept using sensors and wireless communication to collect and share patient vital-sign information for remote observation.</p>
+<p><strong>Year:</strong> 2022</p>
+<div class="tags">
+<span>IoT</span>
+<span>Health Monitoring</span>
+<span>Sensors</span>
+<span>Wireless Communication</span>
+</div>
+<div class="showcase-action">
+<a class="btn btn-primary" href="https://docs.google.com/presentation/d/1D-QSD0qu35LOEy7FIcqq9xt3lmU6x-RL/edit?usp=sharing&amp;ouid=103170382960486364905&amp;rtpof=true&amp;sd=true" rel="noopener noreferrer" target="_blank">View Presentation</a>
+</div>
+</div>
+</div>
+<!-- Presentation 5 -->
+<div class="project-card project-showcase" style="--showcase-accent:#4338ca;"><div class="slide-preview-frame showcase-visual"><span class="showcase-index">PRESENTATION 05</span><iframe allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://docs.google.com/presentation/d/1tsCIrdAdcBKfQYhC292uMjDxHCrHhAD7/embed?start=false&amp;loop=false&amp;delayms=3000" tabindex="0" title="First slide preview: Automatic Irrigation System Using a GSM Module"></iframe><div class="slide-preview-caption">Slide 1 preview · Use View Presentation for the complete deck</div></div>
+<div class="project-content"><p class="showcase-category">RESEARCH PRESENTATION</p>
+<h3 class="showcase-title">Automatic Irrigation System Using a GSM Module</h3>
+<p>Presents an automated irrigation approach that uses soil-condition sensing, relay-based control, and GSM communication to support remote monitoring and watering decisions.</p>
+<p><strong>Year:</strong> 2022</p>
+<div class="tags">
+<span>GSM</span>
+<span>Automatic Irrigation</span>
+<span>Soil Sensors</span>
+<span>Relay Control</span>
+</div>
+<div class="showcase-action">
+<a class="btn btn-primary" href="https://docs.google.com/presentation/d/1tsCIrdAdcBKfQYhC292uMjDxHCrHhAD7/edit?usp=sharing&amp;ouid=103170382960486364905&amp;rtpof=true&amp;sd=true" rel="noopener noreferrer" target="_blank">View Presentation</a>
+</div>
+</div>
+</div>
+<!-- Presentation 6 -->
+<div class="project-card project-showcase" style="--showcase-accent:#4338ca;"><div class="slide-preview-frame showcase-visual"><span class="showcase-index">PRESENTATION 06</span><iframe allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://docs.google.com/presentation/d/1MPwBHbBBhUJ-RxCAU4l87-tR72nZ8Xqp/embed?start=false&amp;loop=false&amp;delayms=3000" tabindex="0" title="First slide preview: Soil Testing Using an IoT Device"></iframe><div class="slide-preview-caption">Slide 1 preview · Use View Presentation for the complete deck</div></div>
+<div class="project-content"><p class="showcase-category">RESEARCH PRESENTATION</p>
+<h3 class="showcase-title">Soil Testing Using an IoT Device</h3>
+<p>Describes an ESP8266-based soil-monitoring system using pH, moisture, and humidity sensors to assess growing conditions and support informed irrigation and soil-management decisions.</p>
+<p><strong>Year:</strong> 2022</p>
+<div class="tags">
+<span>IoT</span>
+<span>ESP8266</span>
+<span>Soil pH</span>
+<span>Moisture &amp; Humidity Sensors</span>
+</div>
+<div class="showcase-action">
+<a class="btn btn-primary" href="https://docs.google.com/presentation/d/1MPwBHbBBhUJ-RxCAU4l87-tR72nZ8Xqp/edit?usp=sharing&amp;ouid=103170382960486364905&amp;rtpof=true&amp;sd=true" rel="noopener noreferrer" target="_blank">View Presentation</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section>
 
 <!-- =========================================================
@@ -2407,14 +2529,13 @@ THz Communication and Software Testing.
      CERTIFICATIONS (SLIDER)
 ========================================================= -->
 <section class="tab-page" id="certifications">
-<h1 class="section-title">My <span>Certifications</span></h1>
-
+<h1 class="section-title">My <span>Certifications</span></h1><div class="certificate-filter-panel glass"><label class="cert-search-label" for="certificateSearch">Find a certification</label><div class="certificate-filter-row"><div class="certificate-search-box"><i aria-hidden="true" class="fa-solid fa-magnifying-glass"></i><input autocomplete="off" id="certificateSearch" placeholder="Search certificate, course, provider..." type="search"/></div><select aria-label="Filter certification category" id="certificateCategory"><option value="all">All categories</option></select><select aria-label="Filter certification year" id="certificateYear"><option value="all">All years</option></select><button class="btn btn-outline" id="certificateClear" type="button">Clear filters</button></div><p aria-live="polite" class="certificate-results" id="certificateResults" role="status"></p></div><p class="certificate-no-results" hidden="" id="certificateEmpty">No matching certifications. Try another keyword or clear your filters.</p>
 <!-- Embedded Systems Courses -->
-<div class="project-category" style="margin-bottom: 2rem;">
+<div class="project-category" data-cert-category="Embedded Systems Courses" style="margin-bottom: 2rem;">
 <h2 class="section-title">Embedded Systems <span>Courses</span></h2>
 <div class="slider-wrapper">
 <div class="slider-container">
-<div class="project-card glass">
+<div class="project-card glass" data-cert-category="Embedded Systems Courses" data-cert-search="gaming controlled physics engine on stm32 by microsoft ai learning companion. year: 2026 share" data-cert-year="2026">
 <img alt="Gaming Controlled Physics Engine on STM32 by Microsoft AI Learning Companion." aria-label="Open image: Gaming Controlled Physics Engine on STM32 by Microsoft AI Learning Companion." data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Game Physics Engine.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Gaming Controlled Physics Engine on STM32 by Microsoft AI Learning Companion.</h3>
@@ -2422,7 +2543,7 @@ THz Communication and Software Testing.
 </div>
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
-<div class="project-card glass">
+<div class="project-card glass" data-cert-category="Embedded Systems Courses" data-cert-search="embedded systems bootcamp by fastbit embedded brain academy year: 2026 share" data-cert-year="2026">
 <img alt="Embedded Systems Bootcamp by Fastbit Embedded Brain Academy" aria-label="Open image: Embedded Systems Bootcamp by Fastbit Embedded Brain Academy" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/fastbit.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Embedded Systems Bootcamp by Fastbit Embedded Brain Academy</h3>
@@ -2430,7 +2551,7 @@ THz Communication and Software Testing.
 </div>
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
-<div class="project-card glass">
+<div class="project-card glass" data-cert-category="Embedded Systems Courses" data-cert-search="microcontroller embedded c by udemy year: 2025 share" data-cert-year="2025">
 <img alt="Microcontroller Embedded C by Udemy" aria-label="Open image: Microcontroller Embedded C by Udemy" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Microcontroller Embedded C.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Microcontroller Embedded C by Udemy</h3>
@@ -2441,13 +2562,12 @@ THz Communication and Software Testing.
 </div>
 </div>
 </div>
-
 <!-- VLSI Courses -->
-<div class="project-category" style="margin-bottom: 2rem;">
+<div class="project-category" data-cert-category="VLSI Courses" style="margin-bottom: 2rem;">
 <h2 class="section-title">VLSI <span>Courses</span></h2>
 <div class="slider-wrapper">
 <div class="slider-container">
-<div class="project-card glass">
+<div class="project-card glass" data-cert-category="VLSI Courses" data-cert-search="risc-v cpu design by microsoft copilot ai learning companion year: 2026 share" data-cert-year="2026">
 <img alt="RISC-V CPU Design by MicroSoft Copilot AI Learning Companion" aria-label="Open image: RISC-V CPU Design by MicroSoft Copilot AI Learning Companion" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/RISC-V CPU.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>RISC-V CPU Design by MicroSoft Copilot AI Learning Companion</h3>
@@ -2458,13 +2578,12 @@ THz Communication and Software Testing.
 </div>
 </div>
 </div>
-
 <!-- Python Courses -->
-<div class="project-category" style="margin-bottom: 2rem;">
+<div class="project-category" data-cert-category="Python Courses" style="margin-bottom: 2rem;">
 <h2 class="section-title">Python <span>Courses</span></h2>
 <div class="slider-wrapper">
 <div class="slider-container">
-<div class="project-card glass">
+<div class="project-card glass" data-cert-category="Python Courses" data-cert-search="python zero to hero year: 2024 share" data-cert-year="2024">
 <img alt="Python Zero to Hero" aria-label="Open image: Python Zero to Hero" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Guvi - Python Zero to Hero.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Python Zero to Hero</h3>
@@ -2472,7 +2591,7 @@ THz Communication and Software Testing.
 </div>
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
-<div class="project-card glass">
+<div class="project-card glass" data-cert-category="Python Courses" data-cert-search="hackerrank - python course year: 2020 share" data-cert-year="2020">
 <img alt="Python" aria-label="Open image: Python" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Hackerrank Python.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Hackerrank - Python Course</h3>
@@ -2480,7 +2599,7 @@ THz Communication and Software Testing.
 </div>
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
-<div class="project-card glass">
+<div class="project-card glass" data-cert-category="Python Courses" data-cert-search="data science with python course year: 2020 share" data-cert-year="2020">
 <img alt="DS" aria-label="Open image: DS" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Sololearn Data Science with Python.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Data Science with Python Course</h3>
@@ -2491,13 +2610,12 @@ THz Communication and Software Testing.
 </div>
 </div>
 </div>
-
 <!-- Artificial Intelligence Courses -->
-<div class="project-category" style="margin-bottom: 2rem;">
+<div class="project-category" data-cert-category="Aritificial Intelligence" style="margin-bottom: 2rem;">
 <h2 class="section-title">Aritificial <span>Intelligence</span></h2>
 <div class="slider-wrapper">
 <div class="slider-container">
-<div class="project-card glass">
+<div class="project-card glass" data-cert-category="Aritificial Intelligence" data-cert-search="generative ai year: 2024 share" data-cert-year="2024">
 <img alt="Generative AI" aria-label="Open image: Generative AI" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Guvi - Gen-AI.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Generative AI</h3>
@@ -2508,13 +2626,12 @@ THz Communication and Software Testing.
 </div>
 </div>
 </div>
-
 <!-- Power Systems Courses -->
-<div class="project-category" style="margin-bottom: 2rem;">
+<div class="project-category" data-cert-category="Power Systems" style="margin-bottom: 2rem;">
 <h2 class="section-title">Power <span>Systems</span></h2>
 <div class="slider-wrapper">
 <div class="slider-container">
-<div class="project-card glass">
+<div class="project-card glass" data-cert-category="Power Systems" data-cert-search="sel relay 101 year: 2026 share" data-cert-year="2026">
 <img alt="SEL Relay 101" aria-label="Open image: SEL Relay 101" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/SEL 101.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>SEL Relay 101</h3>
@@ -2522,7 +2639,7 @@ THz Communication and Software Testing.
 </div>
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
-<div class="project-card glass">
+<div class="project-card glass" data-cert-category="Power Systems" data-cert-search="sel relay 102 year: 2026 share" data-cert-year="2026">
 <img alt="SEL Relay 102" aria-label="Open image: SEL Relay 102" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/SEL 102.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>SEL Relay 102</h3>
@@ -2530,7 +2647,7 @@ THz Communication and Software Testing.
 </div>
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
-<div class="project-card glass">
+<div class="project-card glass" data-cert-category="Power Systems" data-cert-search="understanding sel relay logic year: 2026 share" data-cert-year="2026">
 <img alt="Understanding SEL Relay Logic" aria-label="Open image: Understanding SEL Relay Logic" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/CBT 104.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Understanding SEL Relay Logic</h3>
@@ -2538,7 +2655,7 @@ THz Communication and Software Testing.
 </div>
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
-<div class="project-card glass">
+<div class="project-card glass" data-cert-category="Power Systems" data-cert-search="math fundamentals year: 2026 share" data-cert-year="2026">
 <img alt="Math Fundamentals" aria-label="Open image: Math Fundamentals" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/CBT 105.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Math Fundamentals</h3>
@@ -2549,13 +2666,12 @@ THz Communication and Software Testing.
 </div>
 </div>
 </div>
-
 <!-- Internship Courses -->
-<div class="project-category" style="margin-bottom: 2rem;">
+<div class="project-category" data-cert-category="Intership Courses" style="margin-bottom: 2rem;">
 <h2 class="section-title">Intership <span>Courses</span></h2>
 <div class="slider-wrapper">
 <div class="slider-container">
-<div class="project-card glass">
+<div class="project-card glass" data-cert-category="Intership Courses" data-cert-search="aws academy year: 2023 share" data-cert-year="2023">
 <img alt="AWS Academy" aria-label="Open image: AWS Academy" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/AWS.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>AWS Academy</h3>
@@ -2566,13 +2682,12 @@ THz Communication and Software Testing.
 </div>
 </div>
 </div>
-
 <!-- Coursera Courses -->
-<div class="project-category" style="margin-bottom: 2rem;">
+<div class="project-category" data-cert-category="Coursera Courses" style="margin-bottom: 2rem;">
 <h2 class="section-title">Coursera <span>Courses</span></h2>
 <div class="slider-wrapper">
 <div class="slider-container">
-<div class="project-card glass">
+<div class="project-card glass" data-cert-category="Coursera Courses" data-cert-search="introduction to cloud identity by google cloud year: 2020 share" data-cert-year="2020">
 <img alt="CI" aria-label="Open image: CI" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Coursera Introduction to Cloud Identity.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Introduction to Cloud Identity</h3>
@@ -2581,7 +2696,7 @@ THz Communication and Software Testing.
 </div>
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
-<div class="project-card glass">
+<div class="project-card glass" data-cert-category="Coursera Courses" data-cert-search="machine learning for all by university of london year: 2020 share" data-cert-year="2020">
 <img alt="MLA" aria-label="Open image: MLA" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Coursera ML for All.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Machine Learning for All</h3>
@@ -2590,8 +2705,8 @@ THz Communication and Software Testing.
 </div>
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
-<div class="project-card glass">
-<img alt="DCPP" aria-label="Open image: DCPP" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Coursera Data Collection & Processing with Python.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
+<div class="project-card glass" data-cert-category="Coursera Courses" data-cert-search="data collection and processing with python by university of michigan year: 2020 share" data-cert-year="2020">
+<img alt="DCPP" aria-label="Open image: DCPP" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Coursera Data Collection &amp; Processing with Python.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Data Collection and Processing with Python</h3>
 <p>By University of Michigan</p>
@@ -2599,7 +2714,7 @@ THz Communication and Software Testing.
 </div>
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
-<div class="project-card glass">
+<div class="project-card glass" data-cert-category="Coursera Courses" data-cert-search="programming for everybody with python (getting started with python) by university of michigan year: 2020 share" data-cert-year="2020">
 <img alt="PEP" aria-label="Open image: PEP" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Coursera Programming for Everybody with Python.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Programming for Everybody with Python (Getting Started with Python)</h3>
@@ -2608,7 +2723,7 @@ THz Communication and Software Testing.
 </div>
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
-<div class="project-card glass">
+<div class="project-card glass" data-cert-category="Coursera Courses" data-cert-search="python data structures by university of michigan year: 2020 share" data-cert-year="2020">
 <img alt="PDS" aria-label="Open image: PDS" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Coursera Python Data Structures.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Python Data Structures</h3>
@@ -2617,7 +2732,7 @@ THz Communication and Software Testing.
 </div>
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
-<div class="project-card glass">
+<div class="project-card glass" data-cert-category="Coursera Courses" data-cert-search="capstone: retrieving, processing and visualizing data with python by university of michigan year: 2020 share" data-cert-year="2020">
 <img alt="RPV" aria-label="Open image: RPV" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Coursera RPV Data with Python.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Capstone: Retrieving, Processing and Visualizing Data with Python</h3>
@@ -2626,7 +2741,7 @@ THz Communication and Software Testing.
 </div>
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
-<div class="project-card glass">
+<div class="project-card glass" data-cert-category="Coursera Courses" data-cert-search="wireless communications for everybody by yonsei university year: 2020 share" data-cert-year="2020">
 <img alt="WC" aria-label="Open image: WC" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Coursera Wireless Communications.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Wireless Communications for Everybody</h3>
@@ -2635,8 +2750,8 @@ THz Communication and Software Testing.
 </div>
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
-<div class="project-card glass">
-<img alt="BE" aria-label="Open image: BE" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Coursera Business English M&L.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
+<div class="project-card glass" data-cert-category="Coursera Courses" data-cert-search="business english: management and leadership by arizona state university year: 2020 share" data-cert-year="2020">
+<img alt="BE" aria-label="Open image: BE" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Coursera Business English M&amp;L.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Business English: Management and Leadership</h3>
 <p>By Arizona State University</p>
@@ -2647,13 +2762,12 @@ THz Communication and Software Testing.
 </div>
 </div>
 </div>
-
 <!-- Guvi Courses -->
-<div class="project-category" style="margin-bottom: 2rem;">
+<div class="project-category" data-cert-category="Guvi Courses" style="margin-bottom: 2rem;">
 <h2 class="section-title">Guvi <span>Courses</span></h2>
 <div class="slider-wrapper">
 <div class="slider-container">
-<div class="project-card glass">
+<div class="project-card glass" data-cert-category="Guvi Courses" data-cert-search="sawit.ai challenge year: 2024 share" data-cert-year="2024">
 <img alt="SAWiT.Ai Challenge" aria-label="Open image: SAWiT.Ai Challenge" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Guvi - SAWiT.Ai Challenge.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>SAWiT.Ai Challenge</h3>
@@ -2661,7 +2775,7 @@ THz Communication and Software Testing.
 </div>
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
-<div class="project-card glass">
+<div class="project-card glass" data-cert-category="Guvi Courses" data-cert-search="step into robotic process automation year: 2020 share" data-cert-year="2020">
 <img alt="RPA" aria-label="Open image: RPA" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Guvi RPA.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Step into Robotic Process Automation</h3>
@@ -2669,7 +2783,7 @@ THz Communication and Software Testing.
 </div>
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
-<div class="project-card glass">
+<div class="project-card glass" data-cert-category="Guvi Courses" data-cert-search="game development with pygame year: 2020 share" data-cert-year="2020">
 <img alt="PyGame" aria-label="Open image: PyGame" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Guvi PyGame.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Game Development with PyGame</h3>
@@ -2680,13 +2794,12 @@ THz Communication and Software Testing.
 </div>
 </div>
 </div>
-
 <!-- Sololearn Courses -->
-<div class="project-category" style="margin-bottom: 2rem;">
+<div class="project-category" data-cert-category="Sololearn Courses" style="margin-bottom: 2rem;">
 <h2 class="section-title">Sololearn <span>Courses</span></h2>
 <div class="slider-wrapper">
 <div class="slider-container">
-<div class="project-card glass">
+<div class="project-card glass" data-cert-category="Sololearn Courses" data-cert-search="swift 4 fundamentals course year: 2020 share" data-cert-year="2020">
 <img alt="Swift" aria-label="Open image: Swift" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Sololearn Swift 4.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Swift 4 Fundamentals Course</h3>
@@ -2694,7 +2807,7 @@ THz Communication and Software Testing.
 </div>
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
-<div class="project-card glass">
+<div class="project-card glass" data-cert-category="Sololearn Courses" data-cert-search="sql fundamentals course year: 2020 share" data-cert-year="2020">
 <img alt="SQL" aria-label="Open image: SQL" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Sololearn SQL.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>SQL Fundamentals Course</h3>
@@ -2702,7 +2815,7 @@ THz Communication and Software Testing.
 </div>
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
-<div class="project-card glass">
+<div class="project-card glass" data-cert-category="Sololearn Courses" data-cert-search="react + redux course year: 2020 share" data-cert-year="2020">
 <img alt="React + Redux" aria-label="Open image: React + Redux" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Sololearn React + Redux.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>React + Redux Course</h3>
@@ -2710,7 +2823,7 @@ THz Communication and Software Testing.
 </div>
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
-<div class="project-card glass">
+<div class="project-card glass" data-cert-category="Sololearn Courses" data-cert-search="machine learning course year: 2020 share" data-cert-year="2020">
 <img alt="ML" aria-label="Open image: ML" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Sololearn ML.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Machine Learning Course</h3>
@@ -2718,7 +2831,7 @@ THz Communication and Software Testing.
 </div>
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
-<div class="project-card glass">
+<div class="project-card glass" data-cert-category="Sololearn Courses" data-cert-search="html fundamentals course year: 2020 share" data-cert-year="2020">
 <img alt="HTML" aria-label="Open image: HTML" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Sololearn HTML.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>HTML Fundamentals Course</h3>
@@ -2726,7 +2839,7 @@ THz Communication and Software Testing.
 </div>
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
-<div class="project-card glass">
+<div class="project-card glass" data-cert-category="Sololearn Courses" data-cert-search="css fundamentals year: 2020 share" data-cert-year="2020">
 <img alt="CSS" aria-label="Open image: CSS" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Sololearn CSS.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>CSS Fundamentals</h3>
@@ -2734,7 +2847,7 @@ THz Communication and Software Testing.
 </div>
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
-<div class="project-card glass">
+<div class="project-card glass" data-cert-category="Sololearn Courses" data-cert-search="angular + nestjs course year: 2020 share" data-cert-year="2020">
 <img alt="Angular + NestJS" aria-label="Open image: Angular + NestJS" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Sololearn Angular + NestJS.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Angular + NestJS Course</h3>
@@ -2745,14 +2858,12 @@ THz Communication and Software Testing.
 </div>
 </div>
 </div>
-
 <!-- Software Testing Courses -->
-<div class="project-category" style="margin-bottom: 2rem;">
+<div class="project-category" data-cert-category="QA Testing" style="margin-bottom: 2rem;">
 <h2 class="section-title">QA <span>Testing</span></h2>
 <div class="slider-wrapper">
 <div class="slider-container">
-
-<div class="project-card glass">
+<div class="project-card glass" data-cert-category="QA Testing" data-cert-search="tosca product consultant certification exam by tricentis academy year: 2025 share" data-cert-year="2025">
 <img alt="Tosca Product Consultant Certification Exam by Tricentis Academy" aria-label="Open image: Tosca Product Consultant Certification Exam by Tricentis Academy" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Tosca.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Tosca Product Consultant Certification Exam by Tricentis Academy</h3>
@@ -2760,7 +2871,7 @@ THz Communication and Software Testing.
 </div>
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
-<div class="project-card glass">
+<div class="project-card glass" data-cert-category="QA Testing" data-cert-search="neoload product consultant certification exam by tricentis academy year: 2025 share" data-cert-year="2025">
 <img alt="Neoload Product Consultant Certification Exam by Tricentis Academy" aria-label="Open image: Neoload Product Consultant Certification Exam by Tricentis Academy" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Neoload.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Neoload Product Consultant Certification Exam by Tricentis Academy</h3>
@@ -2768,7 +2879,7 @@ THz Communication and Software Testing.
 </div>
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
-<div class="project-card glass">
+<div class="project-card glass" data-cert-category="QA Testing" data-cert-search="manual testing with browserstack live year: 2025 share" data-cert-year="2025">
 <img alt="Manual testing with Browserstack Live" aria-label="Open image: Manual testing with Browserstack Live" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Manual.jpeg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Manual testing with Browserstack Live</h3>
@@ -2776,7 +2887,7 @@ THz Communication and Software Testing.
 </div>
 <button class="share-btn" onclick="shareActualImage(this)" type="button">Share</button>
 </div>
-<div class="project-card glass">
+<div class="project-card glass" data-cert-category="QA Testing" data-cert-search="test automation with testng framework by browserstack company year: 2025 share" data-cert-year="2025">
 <img alt="Test Automation with TestNG Framework by Browserstack Company" aria-label="Open image: Test Automation with TestNG Framework by Browserstack Company" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Automation.jpeg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Test Automation with TestNG Framework by Browserstack Company</h3>
@@ -2787,13 +2898,12 @@ THz Communication and Software Testing.
 </div>
 </div>
 </div>
-
 <!-- Food Safety Courses -->
-<div class="project-category" style="margin-bottom: 2rem;">
+<div class="project-category" data-cert-category="Food Safety Courses" style="margin-bottom: 2rem;">
 <h2 class="section-title">Food Safety <span>Courses</span></h2>
 <div class="slider-wrapper">
 <div class="slider-container">
-<div class="project-card glass">
+<div class="project-card glass" data-cert-category="Food Safety Courses" data-cert-search="food handler safety certificate year: 2025 share" data-cert-year="2025">
 <img alt="Food Handler Safety Certificate" aria-label="Open image: Food Handler Safety Certificate" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/food handler.png" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Food Handler Safety Certificate</h3>
@@ -2804,13 +2914,12 @@ THz Communication and Software Testing.
 </div>
 </div>
 </div>
-
 <!-- Quiz Competitions -->
-<div class="project-category" style="margin-bottom: 2rem;">
+<div class="project-category" data-cert-category="Quiz Competitions" style="margin-bottom: 2rem;">
 <h2 class="section-title">Quiz <span>Competitions</span></h2>
 <div class="slider-wrapper">
 <div class="slider-container">
-<div class="project-card glass">
+<div class="project-card glass" data-cert-category="Quiz Competitions" data-cert-search="sardar unity trinity quiz by swabhimani bharat year: 2024 share" data-cert-year="2024">
 <img alt="Sardar Unity Trinity Quiz by Swabhimani Bharat" aria-label="Open image: Sardar Unity Trinity Quiz by Swabhimani Bharat" data-gallery-media="true" decoding="async" loading="lazy" role="button" src="Certifications/Sardar.jpg" style="width:100%; height:220px; object-fit:cover; border-radius:20px 20px 0 0;" tabindex="0"/>
 <div class="project-content">
 <h3>Sardar Unity Trinity Quiz by Swabhimani Bharat</h3>
@@ -2821,7 +2930,6 @@ THz Communication and Software Testing.
 </div>
 </div>
 </div>
-
 </section>
 
 <!-- =========================================================
@@ -3248,6 +3356,13 @@ THz Communication and Software Testing.
         page.classList.toggle('active', active);
       });
 
+      // Always open these collections at their first item, not their previous scroll position.
+      if (['publication', 'research', 'achievements', 'highlights'].includes(tab)) {
+        target.querySelectorAll('.slider-wrapper').forEach(gallery => {
+          gallery.scrollTo({left: 0, behavior: 'instant'});
+          gallery.scrollLeft = 0;
+        });
+      }
       links.forEach(link => link.classList.toggle('active', link.dataset.tab === tab));
       // Closing a tab must also reset the visible menu icon.
       navLinks?.classList.remove('active');
@@ -4096,7 +4211,7 @@ startVisitorTracking();
 <script>
 /* Horizontal 3D gallery: finite (non-looping) navigation, touch swipe and mouse drag. */
 (function () {
-  const sections=['projects','publication','presentations','research','achievements','certifications','highlights'];
+  const sections=[]; // Left-aligned native galleries replace centered 3D stack
   const refreshers=[];
   function setup(wrapper) {
     if(wrapper.dataset.stackReady==='true')return;
@@ -4197,6 +4312,65 @@ startVisitorTracking();
       window.prompt('Copy the phone number to call:', phone);
     }
   });
+})();
+</script>
+
+<script>
+/* Editable GitHub Pages resume paths: upload five PDFs into /resumes/ with the listed filenames. */
+(function(){
+  const button=document.getElementById('resumeMenuButton');
+  const menu=document.getElementById('resumeMenu');
+  if(button&&menu){
+    const close=()=>{menu.hidden=true;button.setAttribute('aria-expanded','false');};
+    button.addEventListener('click',()=>{const open=menu.hidden;menu.hidden=!open;button.setAttribute('aria-expanded',String(open));});
+    document.addEventListener('click',event=>{if(!button.contains(event.target)&&!menu.contains(event.target))close();});
+    document.addEventListener('keydown',event=>{if(event.key==='Escape')close();});
+    menu.addEventListener('click',event=>{if(event.target.closest('a'))close();});
+  }
+})();
+(function(){
+ const root=document.querySelector('#certifications');if(!root)return;
+ const input=root.querySelector('#certificateSearch'),category=root.querySelector('#certificateCategory'),year=root.querySelector('#certificateYear');
+ const clear=root.querySelector('#certificateClear'),count=root.querySelector('#certificateResults'),empty=root.querySelector('#certificateEmpty');
+ const groups=[...root.querySelectorAll('.project-category')];const cards=[...root.querySelectorAll('.project-card')];
+ const categories=[...new Set(groups.map(g=>g.dataset.certCategory))];
+ const years=[...new Set(cards.map(c=>c.dataset.certYear))].sort((a,b)=>b.localeCompare(a));
+ categories.forEach(name=>{const option=document.createElement('option');option.value=name;option.textContent=name;category.append(option);});
+ years.forEach(name=>{const option=document.createElement('option');option.value=name;option.textContent=name;year.append(option);});
+ function render(){
+  const query=input.value.trim().toLocaleLowerCase();let shown=0,shownGroups=0;
+  groups.forEach(group=>{
+   let matches=0;
+   group.querySelectorAll('.project-card').forEach(card=>{
+    const match=(!query||card.dataset.certSearch.includes(query))&&(category.value==='all'||card.dataset.certCategory===category.value)&&(year.value==='all'||card.dataset.certYear===year.value);
+    card.hidden=!match;if(match){matches++;shown++;}
+   });
+   group.hidden=matches===0;if(matches)shownGroups++;
+  });
+  count.textContent=`Showing ${shown} of ${cards.length} certifications across ${shownGroups} categories`;
+  empty.hidden=shown!==0;
+ }
+ input.addEventListener('input',render);category.addEventListener('change',render);year.addEventListener('change',render);
+ clear.addEventListener('click',()=>{input.value='';category.value='all';year.value='all';render();input.focus();});
+ render();
+})();
+</script>
+
+<script>
+/* Always begin each requested gallery at the first card when its tab opens. */
+(function(){
+ const ids=['publication','research','achievements','highlights'];
+ function reset(sectionId){
+  if(!ids.includes(sectionId))return;
+  const section=document.getElementById(sectionId);
+  if(!section)return;
+  section.querySelectorAll('.slider-wrapper').forEach(wrapper=>{wrapper.scrollLeft=0; requestAnimationFrame(()=>{wrapper.scrollLeft=0;});});
+ }
+ document.addEventListener('DOMContentLoaded',()=>{
+  reset(location.hash.slice(1));
+  document.querySelectorAll('[data-tab]').forEach(link=>link.addEventListener('click',()=>reset(link.dataset.tab)));
+  window.addEventListener('hashchange',()=>reset(location.hash.slice(1)));
+ });
 })();
 </script>
 </body>
