@@ -1474,6 +1474,33 @@ header .nav-links a { width: 100% !important; padding: 11px 13px !important; }
   #presentations .showcase-scroller .project-showcase {flex:0 0 88% !important;width:88% !important;}
 }
 
+
+/* Clickable visitor statistics and detail dialog. */
+.visitor-counter-card.visitor-open { cursor:pointer; text-align:left; width:100%; color:inherit; font:inherit; }
+.visitor-counter-card.visitor-open:focus-visible { outline:3px solid #0891b2; outline-offset:4px; }
+.visitor-counter-card .visitor-hint { display:block; font-size:.74rem; color:#087e9f; margin-top:5px; }
+.visitor-detail-modal[hidden] { display:none !important; }
+.visitor-detail-modal { position:fixed; inset:0; z-index:20000; display:flex; align-items:center; justify-content:center; padding:18px; background:rgba(2,12,27,.73); backdrop-filter:blur(7px); }
+.visitor-dialog { position:relative; width:min(780px,100%); max-height:min(84dvh,850px); display:flex; flex-direction:column; overflow:hidden; background:#f8fcff; color:#17324d; border-radius:22px; border:1px solid #b8dbf4; box-shadow:0 26px 90px rgba(0,0,0,.35); }
+.visitor-dialog-header { padding:24px 56px 12px 24px; border-bottom:1px solid #d5e6f4; }
+.visitor-dialog-header h3 { margin:0 0 6px; font-size:1.35rem; }
+.visitor-dialog-header p { margin:0 0 12px; color:#506a81; font-size:.86rem; line-height:1.5; }
+.visitor-close { position:absolute; top:17px; right:18px; width:38px; height:38px; border:1px solid #c4d9e8; background:white; border-radius:10px; color:#17324d; cursor:pointer; font-size:1.35rem; }
+.visitor-detail-list { overflow-y:auto; padding:14px 20px 22px; display:grid; gap:10px; }
+.visitor-record { display:flex; align-items:flex-start; gap:13px; padding:14px; border-radius:14px; background:#fff; border:1px solid #dcebf5; }
+.visitor-record-icon { display:grid; place-items:center; flex:0 0 42px; height:42px; border-radius:12px; background:#e7f5ff; color:#087e9f; font-size:1.2rem; }
+.visitor-record-info { min-width:0; flex:1; }
+.visitor-record-name { font-weight:700; font-size:.95rem; overflow-wrap:anywhere; }
+.visitor-record-meta { color:#506a81; font-size:.81rem; margin-top:4px; line-height:1.55; overflow-wrap:anywhere; }
+.visitor-record-state { flex:0 0 auto; font-size:.74rem; color:#166534; background:#dcfce7; border-radius:50px; padding:4px 8px; }
+.visitor-record-state.offline { color:#526579; background:#e6eef6; }
+.visitor-record-empty { padding:20px; color:#526579; text-align:center; }
+.visitor-location {color:#075985;font-weight:600;}
+.visitor-privacy-note {margin:12px 0;font-size:.8rem;color:#506a81;line-height:1.5;}
+.visitor-consent {display:flex;align-items:flex-start;gap:9px;margin:12px 0;color:#34566d;font-size:.85rem;}
+.visitor-consent input {margin-top:4px;accent-color:#087e9f;}
+body.visitor-popup-open {overflow:hidden;}
+@media(max-width:520px) { .visitor-dialog-header { padding-left:17px; } .visitor-detail-list { padding:12px; } .visitor-record { gap:9px; padding:11px; } .visitor-record-state { font-size:.67rem; } }
 </style>
 </head>
 <body>
@@ -1714,7 +1741,7 @@ header .nav-links a { width: 100% !important; padding: 11px 13px !important; }
 <h2 class="section-title">Live <span>Visitors</span></h2>
 <div class="visitor-counter-container">
 
-    <div class="visitor-counter-card glass">
+    <button type="button" class="visitor-counter-card glass visitor-open" data-visitor-view="live" aria-haspopup="dialog" aria-label="Show visitors watching now">
         <div class="visitor-counter-icon live-icon">
             <span class="live-dot"></span>
             <i class="fa-solid fa-eye"></i>
@@ -1722,22 +1749,35 @@ header .nav-links a { width: 100% !important; padding: 11px 13px !important; }
 
         <div class="visitor-counter-info">
             <span class="visitor-counter-number" id="liveVisitors">0</span>
-            <span class="visitor-counter-label">Watching Now</span>
+            <span class="visitor-counter-label">Watching Now</span><span class="visitor-hint">View visitor details</span>
         </div>
-    </div>
+    </button>
 
-    <div class="visitor-counter-card glass">
+    <button type="button" class="visitor-counter-card glass visitor-open" data-visitor-view="total" aria-haspopup="dialog" aria-label="Show all recorded visitors">
         <div class="visitor-counter-icon">
             <i class="fa-solid fa-earth-americas"></i>
         </div>
 
         <div class="visitor-counter-info">
             <span class="visitor-counter-number" id="totalVisitors">0</span>
-            <span class="visitor-counter-label">Total Visitors Worldwide</span>
+            <span class="visitor-counter-label">Total Visitors Worldwide</span><span class="visitor-hint">View visitor details</span>
         </div>
-    </div>
+    </button>
 </div>
 </section>
+
+<!-- Visitor details show coarse, approximate data and explicitly shared names only. -->
+<div class="visitor-detail-modal" id="visitorDetailModal" hidden>
+  <div class="visitor-dialog" role="dialog" aria-modal="true" aria-labelledby="visitorDialogTitle" aria-describedby="visitorDialogDescription" tabindex="-1">
+    <button class="visitor-close" type="button" id="visitorDialogClose" aria-label="Close visitor details">&times;</button>
+    <div class="visitor-dialog-header">
+      <h3 id="visitorDialogTitle">Visitor devices</h3>
+      <p id="visitorDialogDescription">City, region and country are estimated from the internet connection, not GPS. Names appear only when visitors choose to share them. Older visits may have no details.</p>
+    </div>
+    <div class="visitor-detail-list" id="visitorDetailList" aria-live="polite"><p class="visitor-record-empty">Loading visitor data…</p></div>
+  </div>
+</div>
+
 
 <!-- ABOUT -->
 <section class="tab-page" id="about" aria-labelledby="about-heading">
@@ -3302,6 +3342,7 @@ header .nav-links a { width: 100% !important; padding: 11px 13px !important; }
 </div>
 <!-- Display logged‑in user info -->
 <div id="userInfo" aria-live="polite"></div>
+<div class="visitor-consent"><input type="checkbox" id="shareVisitorName"><label for="shareVisitorName">Optional: show my Google display name in the website's public visitor list while I am signed in. Uncheck to hide it.</label></div>
 
 <div class="star-rating">
 <span class="star" data-value="1">★</span>
@@ -3916,6 +3957,8 @@ header .nav-links a { width: 100% !important; padding: 11px 13px !important; }
         info.style.display = 'flex';
       }
       if (message) message.textContent = 'Signed in. Choose stars and submit your review. Your public Google name and photo will be shown.';
+      window.visitorGoogleDisplayName = userName;
+      window.dispatchEvent(new Event('visitor-name-choice'));
       refreshOwnedReviews();
     } catch (error) {
       console.error('Google sign-in failed:', error);
@@ -4252,74 +4295,163 @@ header .nav-links a { width: 100% !important; padding: 11px 13px !important; }
 })();
 </script>
 
+<script>
+/* Popup UI is deliberately independent of Firebase. It opens even if database scripts
+   fail, permissions are denied, or the browser is offline. */
+(() => {
+  const modal = document.getElementById('visitorDetailModal');
+  const title = document.getElementById('visitorDialogTitle');
+  const list = document.getElementById('visitorDetailList');
+  const close = document.getElementById('visitorDialogClose');
+  if (!modal || !title || !list) return;
+  let visitors = {}, presence = {}, view = null, loading = true, error = '', previousFocus = null;
+  const node = (tag, klass, txt) => { const el=document.createElement(tag); el.className=klass; el.textContent=txt; return el; };
+  const online = id => presence[id] && typeof presence[id]==='object' && Object.keys(presence[id]).length>0;
+  const dateText = d => Number.isFinite(Number(d)) && Number(d)>0 ? new Date(Number(d)).toLocaleString() : 'Not recorded';
+  function render() {
+    if (!view) return;
+    const ids=(view==='live'?Object.keys(presence).filter(online):Object.keys(visitors))
+      .sort((a,b)=>(Number(visitors[b]?.firstSeen)||0)-(Number(visitors[a]?.firstSeen)||0));
+    title.textContent = `${view==='live'?'Watching Now':'Total Visitors Worldwide'} (${ids.length})`;
+    list.replaceChildren();
+    if(error) list.append(node('p','visitor-record-empty',`Visitor details unavailable: ${error}. Your Firebase rules and browser console may explain why.`));
+    if(!ids.length) {
+      list.append(node('p','visitor-record-empty',loading?'Loading visitor details…':view==='live'?'Nobody is currently connected, or presence access is unavailable.':'No recorded visitors, or visitor records are not readable.'));
+      return;
+    }
+    const frag=document.createDocumentFragment();
+    ids.forEach((id,index)=>{
+      const data=visitors[id] && typeof visitors[id]==='object'?visitors[id]:{};
+      const active=presence[id] && typeof presence[id]==='object'?Object.values(presence[id]).find(v=>v && typeof v==='object')||{}:{};
+      const d={...data,...active};
+      const device=String(d.device||'Unknown device');
+      const card=node('article','visitor-record','');
+      const ico=node('div','visitor-record-icon','');
+      const symbol=document.createElement('i');symbol.className=`fa-solid ${device==='Mobile'?'fa-mobile-screen':device==='Tablet'?'fa-tablet-screen-button':'fa-desktop'}`;
+      ico.append(symbol);
+      const info=node('div','visitor-record-info','');
+      // Display names are volunteered by the visitor, not inferred from IP/device.
+      info.append(node('div','visitor-record-name',d.sharedName?`${d.sharedName} (shared name)`:`Anonymous visitor ${index+1}`));
+      info.append(node('div','visitor-record-meta',[device,d.os,d.browser].filter(Boolean).join(' · ')));
+      const place=[d.city,d.region,d.country].filter(Boolean).join(', ');
+      info.append(node('div','visitor-record-meta visitor-location',`Location: ${place||'Unavailable'}${place?' (approximate)':''}`));
+      if(view==='total') info.append(node('div','visitor-record-meta',`First recorded: ${dateText(data.firstSeen)}`));
+      const status=node('span',`visitor-record-state${online(id)?'':' offline'}`,online(id)?'Online':'Offline');
+      card.append(ico,info,status);frag.append(card);
+    });
+    list.append(frag);
+  }
+  function open(v) { if(v!=='live'&&v!=='total')return;view=v;previousFocus=document.activeElement;modal.hidden=false;document.body.classList.add('visitor-popup-open');render();close?.focus(); }
+  function hide() { view=null;modal.hidden=true;document.body.classList.remove('visitor-popup-open');previousFocus?.focus?.(); }
+  document.querySelectorAll('[data-visitor-view]').forEach(b=>b.addEventListener('click',()=>open(b.dataset.visitorView)));
+  close?.addEventListener('click',hide);
+  modal.addEventListener('click',e=>{if(e.target===modal)hide();});
+  document.addEventListener('keydown',e=>{if(!modal.hidden&&e.key==='Escape')hide();});
+  window.visitorDashboard={
+    visitors(v){visitors=v||{};loading=false;render();},
+    presence(v){presence=v||{};loading=false;render();},
+    error(message){error=String(message||'Unknown error');loading=false;render();}
+  };
+})();
+</script>
 <script type="module">
-/* Firebase Realtime Database visitor tracking.
-   Unique total visitors = anonymous Firebase identities (per browser profile).
-   Live visitors = identities with at least one active tab connection. */
+/* Visitor tracking: historic boolean records are still counted. Firebase database
+   must allow metadata writes and visitor-list reads for this optional detail view. */
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js';
 import { getAuth, signInAnonymously, setPersistence, browserLocalPersistence } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js';
-import { getDatabase, ref, push, set, onValue, onDisconnect, runTransaction } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js';
-
-const firebaseConfig = {
-    apiKey: "AIzaSyAlSNEwnnv_--ij0zMsYBFTphDMs0cpwjQ",
-    authDomain: "my-visitors-count.firebaseapp.com",
-    databaseURL: "https://my-visitors-count-default-rtdb.firebaseio.com",
-    projectId: "my-visitors-count",
-    storageBucket: "my-visitors-count.firebasestorage.app",
-    messagingSenderId: "745673976497",
-    appId: "1:745673976497:web:2d512d517d08cc55ec9090",
-    measurementId: "G-299RE69KXP"
-  };
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const database = getDatabase(app);
-const liveElement = document.getElementById('liveVisitors');
-const totalElement = document.getElementById('totalVisitors');
-const display = (element, value) => {
-  if (element) element.textContent = value === null ? '—' : Number(value).toLocaleString();
+import { getDatabase, ref, push, set, update, onValue, onDisconnect, runTransaction, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js';
+const config={
+  apiKey:'AIzaSyAlSNEwnnv_--ij0zMsYBFTphDMs0cpwjQ',
+  authDomain:'my-visitors-count.firebaseapp.com',
+  databaseURL:'https://my-visitors-count-default-rtdb.firebaseio.com',
+  projectId:'my-visitors-count',
+  storageBucket:'my-visitors-count.firebasestorage.app',
+  messagingSenderId:'745673976497',
+  appId:'1:745673976497:web:2d512d517d08cc55ec9090',
+  measurementId:'G-299RE69KXP'
 };
-
-async function startVisitorTracking() {
+const dashboard=window.visitorDashboard;
+const auth=getAuth(initializeApp(config));
+const db=getDatabase();
+const count=(id,n)=>{const el=document.getElementById(id);if(el)el.textContent=n==null?'—':Number(n).toLocaleString();};
+function deviceInfo(){
+  const ua=navigator.userAgent||'';
+  return {
+    device:/iPad|Tablet|Android(?!.*Mobile)/i.test(ua)?'Tablet':/Mobi|iPhone|iPod|Android/i.test(ua)?'Mobile':'Desktop',
+    os:/iPhone|iPad|iPod/i.test(ua)?'iOS / iPadOS':/Android/i.test(ua)?'Android':/Windows/i.test(ua)?'Windows':/Mac OS X|Macintosh/i.test(ua)?'macOS':/Linux/i.test(ua)?'Linux':'Unknown OS',
+    browser:/Edg\//i.test(ua)?'Microsoft Edge':/OPR\//i.test(ua)?'Opera':/Firefox\/|FxiOS\//i.test(ua)?'Firefox':/CriOS\/|Chrome\//i.test(ua)?'Chrome':/Safari\//i.test(ua)?'Safari':'Unknown browser'
+  };
+}
+async function approximateLocation(){
+  // IP-based city is coarse, may be incorrect due to VPN/mobile networks.
+  // No precise GPS, street address or IP address is stored in Firebase.
   try {
-    await setPersistence(auth, browserLocalPersistence);
-    const { user } = await signInAnonymously(auth);
-    const uid = user.uid;
-
-    // Atomic first-visit registration; concurrent tabs cannot double-add a visitor.
-    await runTransaction(ref(database, `visitors/${uid}`), current => current === null ? true : undefined);
-
-    onValue(ref(database, 'visitors'), snapshot => {
-      display(totalElement, snapshot.size);
-    }, error => { console.error('Total visitor listener:', error); display(totalElement, null); });
-
-    onValue(ref(database, 'presence'), snapshot => {
-      let online = 0;
-      snapshot.forEach(userSnapshot => {
-        if (userSnapshot.hasChildren()) online++;
-      });
-      display(liveElement, online);
-    }, error => { console.error('Live visitor listener:', error); display(liveElement, null); });
-
-    // Every tab owns a connection; onDisconnect is registered BEFORE set().
-    // Firebase removes stale entries when a tab/device disconnects.
-    onValue(ref(database, '.info/connected'), async snapshot => {
-      if (snapshot.val() !== true) return;
+    const controller=new AbortController();
+    const timeout=setTimeout(()=>controller.abort(),4500);
+    try {
+      const response=await fetch('https://ipwho.is/',{signal:controller.signal,cache:'no-store'});
+      if(!response.ok)throw Error('Location provider unavailable');
+      const data=await response.json();
+      if(data.success!==true) return {};
+      const clean=s=>typeof s==='string'?s.replace(/[<>\r\n]/g,'').slice(0,80):'';
+      return {city:clean(data.city),region:clean(data.region),country:clean(data.country)};
+    } finally {clearTimeout(timeout);}
+  } catch(error){ console.info('Approximate IP location unavailable',error);return {}; }
+}
+async function run(){
+  try {
+    await setPersistence(auth,browserLocalPersistence);
+    const credential=await signInAnonymously(auth);
+    const uid=credential.user.uid;
+    const base=deviceInfo();
+    const visitorRef=ref(db,`visitors/${uid}`);
+    try {
+      await runTransaction(visitorRef,current=>current===null?{...base,firstSeen:Date.now()}:current===true?{...base}:undefined);
+    } catch(error) {
+      // Keep existing boolean-only Firebase rules operational where possible.
+      console.warn('Metadata registration failed; trying original visitor format',error);
+      await runTransaction(visitorRef,current=>current===null?true:undefined);
+    }
+    onValue(ref(db,'visitors'),s=>{count('totalVisitors',s.size);dashboard?.visitors(s.val()||{});},e=>{count('totalVisitors',null);dashboard?.error(`Cannot read visitor list (${e.code||e.message})`);});
+    onValue(ref(db,'presence'),s=>{
+      const value=s.val()||{};
+      count('liveVisitors',Object.values(value).filter(x=>x&&typeof x==='object'&&Object.keys(x).length).length);
+      dashboard?.presence(value);
+    },e=>{count('liveVisitors',null);dashboard?.error(`Cannot read online presence (${e.code||e.message})`);});
+    // Store only approximate location (no GPS) alongside device data.
+    const location=await approximateLocation();
+    if(Object.keys(location).length) {
+      try { await update(visitorRef,location); }
+      catch(e){console.warn('Location metadata rejected by Firebase rules',e);}
+    }
+    async function updateSharedName(){
+      const checked=document.getElementById('shareVisitorName')?.checked===true;
+      const name=checked?String(window.visitorGoogleDisplayName||'').trim().slice(0,80):'';
+      try {await update(visitorRef,{sharedName:name||null});}
+      catch(e){console.warn('Could not save voluntary display name',e);}
+    }
+    document.getElementById('shareVisitorName')?.addEventListener('change',updateSharedName);
+    window.addEventListener('visitor-name-choice',updateSharedName);
+    // Each tab uses onDisconnect cleanup. Fallback keeps older boolean presence rules.
+    onValue(ref(db,'.info/connected'),async s=>{
+      if(s.val()!==true)return;
+      const connection=push(ref(db,`presence/${uid}`));
       try {
-        const connection = push(ref(database, `presence/${uid}`));
         await onDisconnect(connection).remove();
-        await set(connection, true);
-      } catch (error) {
-        console.error('Presence registration:', error);
-        display(liveElement, null);
+        await set(connection,{...base,...location,connectedAt:serverTimestamp()});
+      } catch(error) {
+        console.warn('Detailed presence refused; retrying original format',error);
+        try {await set(connection,true);}
+        catch(e){count('liveVisitors',null);dashboard?.error(`Presence write blocked (${e.code||e.message})`);}
       }
-    }, error => { console.error('Connection monitoring:', error); display(liveElement, null); });
-  } catch (error) {
-    console.error('Visitor tracking could not start:', error);
-    display(liveElement, null);
-    display(totalElement, null);
+    });
+  }catch(error){
+    console.error('Visitor tracking failed',error);
+    dashboard?.error(error.code||error.message||'Firebase failed to initialize');
+    count('liveVisitors',null);count('totalVisitors',null);
   }
 }
-startVisitorTracking();
+run();
 </script>
 
 <script>
