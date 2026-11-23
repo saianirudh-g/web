@@ -1501,6 +1501,25 @@ header .nav-links a { width: 100% !important; padding: 11px 13px !important; }
 .visitor-consent input {margin-top:4px;accent-color:#087e9f;}
 body.visitor-popup-open {overflow:hidden;}
 @media(max-width:520px) { .visitor-dialog-header { padding-left:17px; } .visitor-detail-list { padding:12px; } .visitor-record { gap:9px; padding:11px; } .visitor-record-state { font-size:.67rem; } }
+
+/* Resume preview controls and full-screen PDF viewer. */
+#resume .resume-action-only {display:flex;flex-wrap:wrap;gap:14px;justify-content:center;align-items:center;}
+#resume .resume-dropdown {flex:0 0 auto;}
+#resume #resumeViewMenuButton {background:#fff;color:#075985;border:1px solid #78b5d6;}
+#resume #resumeViewMenuButton:hover {background:#e2f4ff;}
+#resume .resume-menu-button {min-width:215px;}
+.resume-view-modal[hidden] {display:none !important;}
+.resume-view-modal {position:fixed;inset:0;z-index:25000;display:flex;justify-content:center;align-items:center;padding:14px;background:rgba(2,12,27,.82);backdrop-filter:blur(8px);}
+.resume-view-dialog {display:flex;flex-direction:column;width:min(1100px,100%);height:min(92dvh,980px);min-height:360px;overflow:hidden;border-radius:19px;background:#f4faff;box-shadow:0 28px 90px #0008;color:#17324d;}
+.resume-view-head {display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 19px;background:#e4f3ff;border-bottom:1px solid #b8d9ef;}
+.resume-view-head h3 {font-size:1.15rem;margin:0 0 3px;}
+.resume-view-head p {font-size:.8rem;color:#506a81;margin:0;}
+.resume-view-close {background:white;color:#17324d;border:1px solid #b8d9ef;border-radius:10px;width:40px;height:40px;cursor:pointer;flex-shrink:0;}
+.resume-view-body {flex:1;min-height:0;background:#dce7f0;}
+.resume-view-body iframe {width:100%;height:100%;border:0;display:block;background:#fff;}
+.resume-view-foot {display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px;padding:12px 16px;border-top:1px solid #b8d9ef;background:#f4faff;}
+body.resume-view-open {overflow:hidden;}
+@media(max-width:600px) {#resume .resume-action-only {gap:10px;}#resume .resume-menu-button{min-width:0;width:100%;font-size:.82rem;padding:10px 12px;}#resume .resume-dropdown{flex:1 1 145px;min-width:0;}#resume .resume-menu{width:min(290px,calc(100vw - 32px));} .resume-view-modal {padding:5px;} .resume-view-dialog {height:96dvh;border-radius:12px;} .resume-view-head{padding:11px;} .resume-view-head p{font-size:.72rem;} .resume-view-foot{gap:6px;padding:8px;} .resume-view-foot .btn{font-size:.76rem;padding:9px 10px;}}
 </style>
 </head>
 <body>
@@ -1828,7 +1847,8 @@ body.visitor-popup-open {overflow:hidden;}
 <!-- RESUME -->
 <section class="tab-page" id="resume">
 <h2 class="section-title">My <span>Resume</span></h2>
-<div class="resume-action-only" aria-label="Resume download options">
+<div class="resume-action-only" aria-label="Resume viewing and download options">
+<div class="resume-dropdown"><button aria-controls="resumeViewMenu" aria-expanded="false" class="btn btn-outline resume-menu-button" id="resumeViewMenuButton" type="button"><i class="fa-solid fa-eye"></i> View Resume <i class="fa-solid fa-chevron-down"></i></button><div class="resume-menu" hidden id="resumeViewMenu" aria-label="Choose resume to view"></div></div>
 <div class="resume-dropdown"><button aria-controls="resumeMenu" aria-expanded="false" class="btn btn-primary resume-menu-button" id="resumeMenuButton" type="button"><i class="fa-solid fa-download"></i> Download Resume <i class="fa-solid fa-chevron-down"></i></button><div class="resume-menu" hidden="" id="resumeMenu"><a data-resume-file="Embedded_Systems_Resume.pdf" download="Embedded_System_Resume.pdf" href="Resume/Firmware_Resume.pdf">Embedded Systems</a><a data-resume-file="VLSI_Resume.pdf" download="VLSI_Resume.pdf" href="Resume/VLSI_Resume.pdf">VLSI Design</a><a data-resume-file="Wireless_Communications_Resume.pdf" download="Wireless_Communications_Resume.pdf" href="Resume/Wireless_Communications_Resume.pdf">Wireless Communications</a><a data-resume-file="Power_Systems_Resume.pdf" download="Power_Systems_Resume.pdf" href="Resume/Power_Systems_Resume.pdf">Power Systems</a><a data-resume-file="QA_Testing_Resume.pdf" download="QA_Testing_Resume.pdf" href="resumes/QA_Testing_Resume.pdf">QA Testing</a></div></div>
 </div>
 
@@ -4637,6 +4657,78 @@ run();
         if(ids.includes(id))requestAnimationFrame(()=>reset(id));
       });
     });
+  });
+})();
+</script>
+
+<!-- Resume preview viewer: remains separate from existing visitor and image modals. -->
+<div class="resume-view-modal" id="resumeViewModal" hidden>
+  <div class="resume-view-dialog" role="dialog" aria-modal="true" aria-labelledby="resumeViewTitle" tabindex="-1">
+    <div class="resume-view-head">
+      <div><h3 id="resumeViewTitle">Resume preview</h3><p>View the selected PDF here, or open it in a separate tab.</p></div>
+      <button type="button" class="resume-view-close" id="resumeViewClose" aria-label="Close resume preview"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="resume-view-body"><iframe id="resumeViewFrame" title="Selected resume PDF preview" loading="lazy"></iframe></div>
+    <div class="resume-view-foot"><a id="resumeViewOpenTab" class="btn btn-outline" href="#" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square"></i> Open PDF in new tab</a><a id="resumeViewDownload" class="btn btn-primary" href="#" download><i class="fa-solid fa-download"></i> Download PDF</a></div>
+  </div>
+</div>
+
+<script>
+/* Build View Resume choices directly from the Download Resume choices, ensuring both match. */
+(function(){
+  const downloadMenu=document.getElementById('resumeMenu');
+  const viewButton=document.getElementById('resumeViewMenuButton');
+  const viewMenu=document.getElementById('resumeViewMenu');
+  const modal=document.getElementById('resumeViewModal');
+  const closeButton=document.getElementById('resumeViewClose');
+  const frame=document.getElementById('resumeViewFrame');
+  const title=document.getElementById('resumeViewTitle');
+  const openTab=document.getElementById('resumeViewOpenTab');
+  const download=document.getElementById('resumeViewDownload');
+  if(!downloadMenu || !viewButton || !viewMenu || !modal || !frame)return;
+  let previousFocus=null;
+  function closeMenu(){viewMenu.hidden=true;viewButton.setAttribute('aria-expanded','false');}
+  function hidePreview(){
+    if(modal.hidden)return;
+    modal.hidden=true;frame.removeAttribute('src');
+    document.body.classList.remove('resume-view-open');
+    (previousFocus||viewButton).focus();
+  }
+  function showPreview(link){
+    const href=link.getAttribute('href');
+    const name=link.textContent.trim();
+    if(!href)return;
+    previousFocus=document.activeElement;
+    title.textContent=name+' Resume';
+    frame.src=href;
+    openTab.href=href;
+    download.href=href;
+    download.setAttribute('download',link.getAttribute('download')||href.split('/').pop());
+    modal.hidden=false;
+    document.body.classList.add('resume-view-open');
+    closeMenu();
+    closeButton.focus();
+  }
+  downloadMenu.querySelectorAll('a[href]').forEach(link=>{
+    const choice=document.createElement('a');
+    choice.href=link.getAttribute('href');
+    choice.textContent=link.textContent.trim();
+    choice.addEventListener('click',e=>{e.preventDefault();showPreview(link);});
+    viewMenu.appendChild(choice);
+  });
+  viewButton.addEventListener('click',()=>{
+    const opening=viewMenu.hidden;
+    viewMenu.hidden=!opening;
+    viewButton.setAttribute('aria-expanded',String(opening));
+    if(opening){const downloadButton=document.getElementById('resumeMenuButton');downloadMenu.hidden=true;downloadButton?.setAttribute('aria-expanded','false');}
+  });
+  document.getElementById('resumeMenuButton')?.addEventListener('click',closeMenu);
+  document.addEventListener('click',e=>{if(!viewButton.contains(e.target)&&!viewMenu.contains(e.target))closeMenu();});
+  closeButton.addEventListener('click',hidePreview);
+  modal.addEventListener('click',e=>{if(e.target===modal)hidePreview();});
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'){if(!modal.hidden)hidePreview();else closeMenu();}
+    if(e.key==='Tab'&&!modal.hidden){const controls=[closeButton,openTab,download];const first=controls[0],last=controls[controls.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}
   });
 })();
 </script>
