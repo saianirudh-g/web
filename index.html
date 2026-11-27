@@ -1627,7 +1627,7 @@ body.resume-view-open {overflow:hidden;}
 <a href="#resume">Academic Degrees</a>
 </div>
 <div class="counter-circle">
-<div class="counter-number" data-target="98">23</div>
+<div class="counter-number" data-target="98">21</div>
 <a href="#projects">Projects</a>
 </div>
 <div class="counter-circle">
@@ -3361,7 +3361,8 @@ body.resume-view-open {overflow:hidden;}
 </div>
 <!-- Display logged‑in user info -->
 <div id="userInfo" aria-live="polite"></div>
-<div class="visitor-consent"><input type="checkbox" id="shareVisitorName"><label for="shareVisitorName">Optional: show my Google display name in the website's public visitor list while I am signed in. Uncheck to hide it.</label></div>
+<div class="visitor-consent"><input type="checkbox" id="shareVisitorName"><label for="shareVisitorName">Optional: show my Google display name in the public visitor lists while this signed-in tab is connected. Uncheck to hide it.</label></div>
+<div class="visitor-consent"><input type="checkbox" id="shareVisitorLocation"><label for="shareVisitorLocation">Optional: share my approximate IP-based city, region and country in public visitor lists (stored for future visits). Uncheck to remove the saved location.</label></div>
 
 <div class="star-rating">
 <span class="star" data-value="1">★</span>
@@ -3982,6 +3983,8 @@ body.resume-view-open {overflow:hidden;}
     } catch (error) {
       console.error('Google sign-in failed:', error);
       googleIdToken = null; userGoogleId = null; ownedReviewIds.clear();
+      window.visitorGoogleDisplayName = "";
+      window.dispatchEvent(new Event("visitor-name-choice"));
       if (message) message.textContent = 'Google sign-in could not be completed. Please try again.';
     }
   };
@@ -4343,6 +4346,7 @@ body.resume-view-open {overflow:hidden;}
       const data=visitors[id] && typeof visitors[id]==='object'?visitors[id]:{};
       const active=presence[id] && typeof presence[id]==='object'?Object.values(presence[id]).find(v=>v && typeof v==='object')||{}:{};
       const d={...data,...active};
+      const sharedName=online(id)?Object.values(presence[id]).find(v=>v && typeof v==='object' && typeof v.sharedName==='string' && v.sharedName.trim())?.sharedName:null;
       const device=String(d.device||'Unknown device');
       const card=node('article','visitor-record','');
       const ico=node('div','visitor-record-icon','');
@@ -4350,11 +4354,14 @@ body.resume-view-open {overflow:hidden;}
       ico.append(symbol);
       const info=node('div','visitor-record-info','');
       // Display names are volunteered by the visitor, not inferred from IP/device.
-      info.append(node('div','visitor-record-name',d.sharedName?`${d.sharedName} (shared name)`:`Anonymous visitor ${index+1}`));
+      info.append(node('div','visitor-record-name',sharedName?`${sharedName} (shared name)`:`Anonymous visitor ${index+1}`));
       info.append(node('div','visitor-record-meta',[device,d.os,d.browser].filter(Boolean).join(' · ')));
       const place=[d.city,d.region,d.country].filter(Boolean).join(', ');
       info.append(node('div','visitor-record-meta visitor-location',`Location: ${place||'Unavailable'}${place?' (approximate)':''}`));
-      if(view==='total') info.append(node('div','visitor-record-meta',`First recorded: ${dateText(data.firstSeen)}`));
+      if(view==='total') {
+        info.append(node('div','visitor-record-meta',`First recorded: ${dateText(data.firstSeen)}`));
+        info.append(node('div','visitor-record-meta',`Last visited: ${dateText(data.lastSeen)}`));
+      }
       const status=node('span',`visitor-record-state${online(id)?'':' offline'}`,online(id)?'Online':'Offline');
       card.append(ico,info,status);frag.append(card);
     });
@@ -4377,7 +4384,7 @@ body.resume-view-open {overflow:hidden;}
 /* Visitor tracking: historic boolean records are still counted. Firebase database
    must allow metadata writes and visitor-list reads for this optional detail view. */
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js';
-import { getAuth, signInAnonymously, setPersistence, browserLocalPersistence } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js';
+import { getAuth, signInAnonymously, setPersistence, browserLocalPersistence, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js';
 import { getDatabase, ref, push, set, update, onValue, onDisconnect, runTransaction, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js';
 const config={
   apiKey:'AIzaSyAlSNEwnnv_--ij0zMsYBFTphDMs0cpwjQ',
@@ -4420,54 +4427,68 @@ async function approximateLocation(){
 async function run(){
   try {
     await setPersistence(auth,browserLocalPersistence);
-    const credential=await signInAnonymously(auth);
-    const uid=credential.user.uid;
+    // Wait for the persisted identity before creating another anonymous account.
+    await new Promise((resolve,reject)=>{
+      const unsubscribe=onAuthStateChanged(auth,()=>{unsubscribe();resolve();},reject);
+    });
+    const user=auth.currentUser || (await signInAnonymously(auth)).user;
+    const uid=user.uid;
     const base=deviceInfo();
     const visitorRef=ref(db,`visitors/${uid}`);
-    try {
-      await runTransaction(visitorRef,current=>current===null?{...base,firstSeen:Date.now()}:current===true?{...base}:undefined);
-    } catch(error) {
-      // Keep existing boolean-only Firebase rules operational where possible.
-      console.warn('Metadata registration failed; trying original visitor format',error);
-      await runTransaction(visitorRef,current=>current===null?true:undefined);
-    }
     onValue(ref(db,'visitors'),s=>{count('totalVisitors',s.size);dashboard?.visitors(s.val()||{});},e=>{count('totalVisitors',null);dashboard?.error(`Cannot read visitor list (${e.code||e.message})`);});
     onValue(ref(db,'presence'),s=>{
       const value=s.val()||{};
       count('liveVisitors',Object.values(value).filter(x=>x&&typeof x==='object'&&Object.keys(x).length).length);
       dashboard?.presence(value);
     },e=>{count('liveVisitors',null);dashboard?.error(`Cannot read online presence (${e.code||e.message})`);});
-    // Store only approximate location (no GPS) alongside device data.
-    const location=await approximateLocation();
-    if(Object.keys(location).length) {
-      try { await update(visitorRef,location); }
-      catch(e){console.warn('Location metadata rejected by Firebase rules',e);}
-    }
-    async function updateSharedName(){
-      const checked=document.getElementById('shareVisitorName')?.checked===true;
-      const name=checked?String(window.visitorGoogleDisplayName||'').trim().slice(0,80):'';
-      try {await update(visitorRef,{sharedName:name||null});}
-      catch(e){console.warn('Could not save voluntary display name',e);}
-    }
-    document.getElementById('shareVisitorName')?.addEventListener('change',updateSharedName);
-    window.addEventListener('visitor-name-choice',updateSharedName);
-    // Each tab uses onDisconnect cleanup. Fallback keeps older boolean presence rules.
-    onValue(ref(db,'.info/connected'),async s=>{
-      if(s.val()!==true)return;
-      const connection=push(ref(db,`presence/${uid}`));
-      try {
-        await onDisconnect(connection).remove();
-        await set(connection,{...base,...location,connectedAt:serverTimestamp()});
-      } catch(error) {
-        console.warn('Detailed presence refused; retrying original format',error);
-        try {await set(connection,true);}
-        catch(e){count('liveVisitors',null);dashboard?.error(`Presence write blocked (${e.code||e.message})`);}
-      }
+    // Preserve historic counts and firstSeen; never invent an old visit date.
+    await runTransaction(visitorRef,current=>{
+      const old=current && typeof current==='object'?current:{};
+      const record={...base,lastSeen:serverTimestamp()};
+      if(current===null)record.firstSeen=serverTimestamp();
+      else if(typeof old.firstSeen==='number' && old.firstSeen>0)record.firstSeen=old.firstSeen;
+      return record;
     });
+    let connection=null, location={};
+    const consent=document.getElementById('shareVisitorName');
+    function sharedName(){
+      return consent?.checked ? String(window.visitorGoogleDisplayName||'').trim().slice(0,80)||null : null;
+    }
+    async function syncName(){
+      if(!connection)return;
+      try{await update(connection,{sharedName:sharedName()});}
+      catch(e){console.error('Visitor name update failed',e);dashboard?.error(e.code||e.message);}
+    }
+    consent?.addEventListener('change',syncName);
+    window.addEventListener('visitor-name-choice',syncName);
+    onValue(ref(db,'.info/connected'),async s=>{
+      if(s.val()!==true){connection=null;return;}
+      const tab=push(ref(db,`presence/${uid}`));
+      try{
+        await onDisconnect(tab).remove();
+        await set(tab,{...base,...location,connectedAt:serverTimestamp(),sharedName:sharedName()});
+        connection=tab;
+        await syncName();
+      }catch(e){console.error('Presence write failed',e);dashboard?.error(`Presence write blocked (${e.code||e.message})`);}
+    });
+    // Location is optional. Only request it after explicit consent.
+    const locationConsent=document.getElementById('shareVisitorLocation');
+    let locationGeneration=0;
+    async function syncLocation(){
+      const generation=++locationGeneration;
+      const result=locationConsent?.checked?await approximateLocation():{};
+      if(generation!==locationGeneration)return;
+      location=result;
+      const fields={city:result.city||null,region:result.region||null,country:result.country||null};
+      try{
+        await update(visitorRef,fields);
+        if(connection)await update(connection,fields);
+      }catch(e){console.error('Location update failed',e);}
+    }
+    locationConsent?.addEventListener('change',syncLocation);
   }catch(error){
     console.error('Visitor tracking failed',error);
     dashboard?.error(error.code||error.message||'Firebase failed to initialize');
-    count('liveVisitors',null);count('totalVisitors',null);
   }
 }
 run();
